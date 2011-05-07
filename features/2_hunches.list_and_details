@@ -1,0 +1,24 @@
+Feature: Hunches List and Details
+  In order to learn about hunches,
+  People need to be able to see them in a list
+  and see details about them
+
+  Background: Make sure we have a hunch in the list
+    Given I go to the hunches page
+    And I follow "New Huch"
+    When I fill in "Title" with "Drought in Sudan"
+    And I fill in "Description" with "Hungry season is lasting longer than usual."
+    And I press "Create"
+
+  Scenario: Viewing a hunch detail page
+    When I go to the hunches page
+    And I follow "Drought in Sudan"
+    Then I should see "Hungry season is lasting longer than usual."
+    And I should not see "New Hunch"
+
+  Scenario: Deleting a hunch
+    When I go to the hunches page
+    When I follow "Delete"
+    Then I should not see "Drought in Sudan"
+    And I should see "New Topic"
+
