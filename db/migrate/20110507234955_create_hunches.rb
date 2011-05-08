@@ -3,8 +3,8 @@ class CreateHunches < ActiveRecord::Migration
     create_table :hunches do |t|
       t.string :title
       t.text :description
-      t.text :Geographicarea
-      t.text :Sector
+      t.string :Geographicarea
+      t.string :Sector
 
       t.timestamps
     end

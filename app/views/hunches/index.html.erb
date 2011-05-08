@@ -13,13 +13,13 @@
 
 <% @hunches.each do |hunch| %>
   <tr>
-    <td><%= hunch.title %></td>
+    <td><%= link_to hunch.title, hunch %></td>
     <td><%= hunch.description %></td>
     <td><%= hunch.Geographicarea %></td>
     <td><%= hunch.Sector %></td>
     <td><%= link_to 'Show', hunch %></td>
     <td><%= link_to 'Edit', edit_hunch_path(hunch) %></td>
-    <td><%= link_to 'Destroy', hunch, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', hunch, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
