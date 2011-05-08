@@ -33,6 +33,6 @@ group :test, :development do
 gem 'rspec-rails', '>= 2.3.0'
 gem 'capybara', '0.3.9'
 gem 'database_cleaner'
-gem 'cucumber-rails'
+gem 'cucumber-rails', :git => 'git://github.com/aslakhellesoy/cucumber-rails.git'
 gem 'launchy'
 end

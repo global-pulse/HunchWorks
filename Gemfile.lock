@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/aslakhellesoy/cucumber-rails.git
+  revision: c851e51e5b3e354708219fc1b38d8f07456b36a2
+  specs:
+    cucumber-rails (0.4.1)
+      cucumber (>= 0.10.2)
+      nokogiri (>= 1.4.4)
+      rack-test (>= 0.5.7)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -46,10 +55,6 @@ GEM
       gherkin (>= 2.3.5)
       json (>= 1.4.6)
       term-ansicolor (>= 1.0.5)
-    cucumber-rails (0.4.1)
-      cucumber (>= 0.10.1)
-      nokogiri (>= 1.4.4)
-      rack-test (>= 0.5.7)
     culerity (0.2.15)
     database_cleaner (0.6.7)
     diff-lcs (1.1.2)
@@ -123,7 +128,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara (= 0.3.9)
-  cucumber-rails
+  cucumber-rails!
   database_cleaner
   launchy
   rails (= 3.0.7)

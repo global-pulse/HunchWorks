@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @hunch.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @hunch.description %>
+</p>
+
+<p>
+  <b>Geographicarea:</b>
+  <%= @hunch.Geographicarea %>
+</p>
+
+<p>
+  <b>Sector:</b>
+  <%= @hunch.Sector %>
+</p>
+
+
+<%= link_to 'Edit', edit_hunch_path(@hunch) %> |
+<%= link_to 'Back', hunches_path %>
