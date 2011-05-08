@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Hunch:</b>
+  <%= @evidence.hunch_id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @evidence.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @evidence.description %>
+</p>
+
+<p>
+  <b>Rating:</b>
+  <%= @evidence.rating %>
+</p>
+
+
+<%= link_to 'Edit', edit_evidence_path(@evidence) %> |
+<%= link_to 'Back', evidences_path %>

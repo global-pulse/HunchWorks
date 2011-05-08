@@ -21,7 +21,7 @@ Feature: Evidences
   Scenario: Adding new evidence to a hunch
     Given I go to the hunches page
     And I follow "Add evidence"
-    When I fill in "Evidence" with "There's a drought in Northern Uganda too"
+    When I fill in "Title" with "There's a drought in Northern Uganda too"
     And I fill in "Description" with "Farmers here are starting to tweet about water problems."
     And I fill in "Rating" with "+3"
     And I press "Add evidence"

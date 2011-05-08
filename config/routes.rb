@@ -1,4 +1,6 @@
 Hunchworx::Application.routes.draw do
+  resources :evidences
+
   resources :hunches
 
   # The priority is based upon order of creation:

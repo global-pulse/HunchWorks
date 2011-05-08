@@ -4,9 +4,10 @@
   <tr>
     <th>Title</th>
     <th>Description</th>
-    <th>Geographicarea</th>
+    <th>Area</th>
     <th>Sector</th>
-    <th></th>
+    <th>Evidence</th>
+    <th>Weight</th>
     <th></th>
     <th></th>
   </tr>
@@ -17,8 +18,9 @@
     <td><%= hunch.description %></td>
     <td><%= hunch.Geographicarea %></td>
     <td><%= hunch.Sector %></td>
-    <td><%= link_to 'Show', hunch %></td>
-    <td><%= link_to 'Edit', edit_hunch_path(hunch) %></td>
+    <td><%= pluralize(hunch.evidences.length, "reports") %></td>
+    <td><%= pluralize(hunch.evidences.length, "") %></td>
+    <td><%= link_to 'New evidence', evidences_path(:hunch_id => hunch.id), :method => :post %></td>
     <td><%= link_to 'Delete', hunch, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
