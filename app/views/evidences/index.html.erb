@@ -17,13 +17,13 @@
     <td><%= evidence.title %></td>
     <td><%= evidence.description %></td>
     <td><%= evidence.rating %></td>
-    <td><%= link_to 'Show', evidence %></td>
-    <td><%= link_to 'Edit', edit_evidence_path(evidence) %></td>
-    <td><%= link_to 'Destroy', evidence, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', hunch_evidence %></td>
+    <td><%= link_to 'Edit', edit_hunch_evidence_path(evidence) %></td>
+    <td><%= link_to 'Destroy', hunch_evidence, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Evidence', new_evidence_path %>
+<%= link_to 'New Evidence', new_hunch_evidence_path %>

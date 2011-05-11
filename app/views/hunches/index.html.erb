@@ -20,7 +20,7 @@
     <td><%= hunch.Sector %></td>
     <td><%= pluralize(hunch.evidences.length, "reports") %></td>
     <td><%= pluralize(hunch.evidences.length, "") %></td>
-    <td><%= link_to 'New evidence', evidences_path(:hunch_id => hunch.id), :method => :post %></td>
+    <td><%= link_to 'New evidence', new_hunch_evidence_path(:hunch_id => hunch.id, :hunch_title => hunch.title) %></td>
     <td><%= link_to 'Delete', hunch, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

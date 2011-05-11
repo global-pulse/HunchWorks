@@ -24,6 +24,7 @@ class EvidencesController < ApplicationController
   # GET /evidences/new
   # GET /evidences/new.xml
   def new
+    @hunch = Hunch.find(params[:hunch_id])
     @evidence = Evidence.new
 
     respond_to do |format|
@@ -40,12 +41,13 @@ class EvidencesController < ApplicationController
   # POST /evidences
   # POST /evidences.xml
   def create
+    @hunch = Hunch.find(params[:hunch_id])
     @evidence = Evidence.new(params[:evidence])
 
     respond_to do |format|
       if @evidence.save
-        format.html { redirect_to(@evidence, :notice => 'Evidence was successfully created.') }
-        format.xml  { render :xml => @evidence, :status => :created, :location => @evidence }
+        format.html { redirect_to(@hunch, :notice => 'Evidence was successfully created.') }
+        format.xml  { render :xml => @hunch, :status => :created, :location => @hunch }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @evidence.errors, :status => :unprocessable_entity }

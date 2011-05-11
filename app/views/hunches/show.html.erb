@@ -20,6 +20,27 @@
   <%= @hunch.Sector %>
 </p>
 
+<p>
+  <b>Evidence:</b>
+  
+  <table border="1">
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Rating</th>
+  </tr>
+  <% for evidence in @hunch.evidences %>
+  <tr>
+    <td><%= evidence.title %></td>
+    <td><%= evidence.description %></td>
+    <td><%= evidence.rating %></td>
+  </tr>
+  <% end %>
+  </table>
+</p>
+<p>
+<%= link_to 'Add evidence', new_hunch_evidence_path(:hunch_id => @hunch.id, :hunch_title => @hunch.title) %>
+</p>
 
-<%= link_to 'Edit', edit_hunch_path(@hunch) %> |
-<%= link_to 'Back', hunches_path %>
+<%= link_to 'Edit hunch', edit_hunch_path(@hunch) %> |
+<%= link_to 'Back to list of hunches', hunches_path %>

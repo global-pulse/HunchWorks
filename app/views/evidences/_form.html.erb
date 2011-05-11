@@ -1,4 +1,4 @@
-<%= form_for(@evidence) do |f| %>
+<%= form_for [@hunch, @evidence] do |f| %>
   <% if @evidence.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@evidence.errors.count, "error") %> prohibited this evidence from being saved:</h2>
@@ -10,22 +10,19 @@
       </ul>
     </div>
   <% end %>
-
+  
   <div class="field">
-    <%= f.label :hunch_id %><br />
-    <%= f.text_field :hunch_id %>
+    <%= f.hidden_field :hunch_id, :value=>params[:hunch_id] %>
+    <%= f.label :rating, 'How much this evidence supports the hunch (-3 to +3)' %><br />
+    <%= f.text_field :rating %>
   </div>
   <div class="field">
-    <%= f.label :title %><br />
+    <%= f.label :title, 'Short description' %><br />
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <%= f.label :description, 'Explanation' %><br />
     <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :rating %><br />
-    <%= f.text_field :rating %>
   </div>
   <div class="actions">
     <%= f.submit %>
