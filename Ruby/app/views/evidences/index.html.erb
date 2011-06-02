@@ -1,0 +1,29 @@
+<h1>Listing evidences</h1>
+
+<table>
+  <tr>
+    <th>Hunch</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Rating</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @evidences.each do |evidence| %>
+  <tr>
+    <td><%= evidence.hunch_id %></td>
+    <td><%= evidence.title %></td>
+    <td><%= evidence.description %></td>
+    <td><%= evidence.rating %></td>
+    <td><%= link_to 'Show', hunch_evidence %></td>
+    <td><%= link_to 'Edit', edit_hunch_evidence_path(evidence) %></td>
+    <td><%= link_to 'Destroy', hunch_evidence, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Evidence', new_hunch_evidence_path %>
