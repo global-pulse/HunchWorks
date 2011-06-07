@@ -5,7 +5,7 @@ from django.conf.urls.defaults import *
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^web/$', include('web.urls')),
+    (r'^web/', include('web.urls')),
     
 
 

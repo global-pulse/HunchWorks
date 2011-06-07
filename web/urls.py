@@ -5,7 +5,10 @@ from django.conf.urls.defaults import *
 # admin.autodiscover()
 
 urlpatterns = patterns('web.views',
-    (r'^$', 'index'),
+	(r'^homepageStrict', 'homepage'),
+	(r'^profileStrict', 'profile'),
+    (r'^', 'index'),
+    
     
 
 
