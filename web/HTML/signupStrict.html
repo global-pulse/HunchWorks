@@ -24,7 +24,11 @@
 		<div id='inputForm'>
 			<div>
 				<button class='importButton' type='button'>Linked In</button>
+				<!-- needs to call a function in python that calls the Linked In API and pull the profile information
+				and store the useful data into the value of the text fields below -->
 				<button class='importButton' type='button'>Teamworks</button>
+				<!-- needs to call a function in python that calls the Teamworks API and pull the profile information
+				and store the useful data into the value of the text fields below -->
 			</div>
 			<div class='divInput'>
 				First Name:<input class='inputText' id='firstName' type='text' name='firstName'>
@@ -105,6 +109,13 @@
 			</div>
 			<div>
 				<input type='submit' value='join'>
+				<!-- 1. Check that required fields are filled out, if they are proceed, if not throw error.
+					2. Clean data, check for script tags, etc to prevent SQL injection. OR use prepared statements.
+						consider checking data for HTML tags before passing to service layer.
+					3. Check which fields are filled out and then insert those fields into the database in 1 insert statement.
+					4. Store session variable that user is logged in. Consider passing an encrypted token with USERNAME + PASSWORD + DATE_LAST_LOGGED_IN
+					5. Set logout time limit for user, ie 5 minutes.  
+					-->
 			</div>
 		</div> <!-- end inputForm -->
 	</form>

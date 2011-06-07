@@ -86,10 +86,17 @@
 				<h3>Invite People to HunchWorks</h3>
 				<textarea rows='10' cols='30'>type each email here seperated by a comma and a space</textarea>
 				<button type='submit'>Invite your friends!</button>
+				<!-- 1. Check data to make sure it is inputed correctly. If not throw error. Should be
+						name@blah.com, name@yahoo.com, etc...
+					2. String parse the string on the value ', ' to get each value.
+					3. Send invites to each email.
+					4. Append original string into variable hasInvited of user's DB, required a select and insert.
+				-->
 			</div> <!-- end invite div -->
 		</div> <!-- end leftSide div -->
 		<div id='rightSide'>
 			<button id='createHunchButton' type='button'> Create a Hunch! </button>
+			<!-- Link to the createHunch page -->
 			<div id='complementaryDiv'>
 				<h3>People with complementary skills</h3>
 				<ul id='complementaryList'>
