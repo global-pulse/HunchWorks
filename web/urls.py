@@ -5,6 +5,9 @@ from django.conf.urls.defaults import *
 # admin.autodiscover()
 
 urlpatterns = patterns('web.views',
+	(r'^importTeamWorks', 'importTeamWorks'),
+	(r'^importLinkedIn', 'importLinkedIn'),
+	(r'^importFacebook', 'importFacebook'),
 	(r'^homepageStrict', 'homepage'),
 	(r'^profileStrict', 'profile'),
     (r'^', 'index'),

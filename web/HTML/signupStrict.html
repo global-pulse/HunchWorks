@@ -16,7 +16,7 @@
     		font-size: 15px;
     	}
   	</style>
-  	<script TYPE="text/javascript">
+  	<script type="text/javascript">
 		function popup(mylink, windowname)
 		{
 			if (! window.focus)
@@ -46,21 +46,8 @@
 		<div id='inputForm'>
 			<div>
 				<button class='importButton' type='button' onclick='return popup("importLinkedIn.html", "linkedIn")'>Linked In</button>
-				<!-- needs to call a function in python that creates a popup for the user to enter their linked in
-				username and password. This will need a button "Import Data from linked in" which
-				calls the Linked In API and pull the profile information
-				and store the useful data into the value of the text fields below -->
 				<button class='importButton' type='button' onclick='return popup("importTeamWorks.html", "teamWorks")'>Teamworks</button>
-				<!-- needs to call a function in python that creates a popup for the user to enter their teamworks
-				username and password. This will need a button "Import Data from Teamworks" which
-				calls the Teamworks API and pull the profile information
-				and store the useful data into the value of the text fields below -->
 				<button class='importButton' type='button' onclick='return popup("importFacebook.html", "facebook")'>Facebook</button>
-				<!-- needs to call a function in python that creates a popup for the user to enter their facebook
-				username and password. This will need a button "Import Data from facebook" which
-				calls the facebook API and pull the profile information
-				and store the useful data into the value of the text fields below -->
-				
 			</div>
 			<div class='divInput'>
 				First Name:<input class='inputText' id='firstName' type='text' name='firstName'>

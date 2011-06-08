@@ -8,3 +8,12 @@ def homepage(request):
 	
 def profile(request):
 	return render_to_response('profileStrict.html')
+	
+def importFacebook(request):
+	return render_to_response('importFacebook.html')
+
+def importLinkedIn(request):
+	return render_to_response('importLinkedIn.html')
+
+def importTeamWorks(request):
+	return render_to_response('importTeamWorks.html')
