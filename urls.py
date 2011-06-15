@@ -6,8 +6,6 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     (r'^web/', include('web.urls')),
-    
-
 
     # Examples:
     # url(r'^$', 'hunchWorks.views.home', name='home'),

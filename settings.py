@@ -1,5 +1,12 @@
 # Django settings for hunchWorks project.
 
+import os
+import platform
+
+# Grab the path for settings.py. This is done so that the cloned git repo
+# doesn't have to site under a standard TLD.
+BASE_DIR = os.getcwd()
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -9,17 +16,29 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'hunchWorks',                      # Or path to database file if using sqlite3.
-        'USER': 'root',                      # Not used with sqlite3.
-        'PASSWORD': 'root',                  # Not used with sqlite3.
-        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '8889',                      # Set to empty string for default. Not used with sqlite3.
-        'HOST': '/Applications/MAMP/tmp/mysql/mysql.sock', # For MAMP to know where to the socket is
-    }
-}
+# Check if the server is running on Mac or Linux.
+if platform.system() == 'Darwin':
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.mysql',
+          'NAME': 'hunchWorks',
+          'USER': 'root',
+          'PASSWORD': 'root',
+          'HOST': '/Applications/MAMP/tmp/mysql/mysql.sock',
+          'PORT': '8889',
+      }
+  }
+else:
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.mysql',
+          'NAME': 'hunchWorks',
+          'USER': 'root',
+          'PASSWORD': 'root',
+          'HOST': 'localhost',
+          'PORT': '3306'
+      }
+  }
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -102,10 +121,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfResponseMiddleware',
 )
 
-ROOT_URLCONF = 'HunchWorks.urls'
+ROOT_URLCONF = '%s.urls' % BASE_DIR.split('/')[-1]
 
 TEMPLATE_DIRS = (
-    '/src/HunchWorks/web/HTML'
+    '%s/web/HTML' % BASE_DIR,
 )
 
 INSTALLED_APPS = (

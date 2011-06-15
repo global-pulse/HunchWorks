@@ -4,16 +4,15 @@ from django.conf.urls.defaults import *
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('web.views',
-	(r'^importTeamWorks', 'importTeamWorks'),
-	(r'^importLinkedIn', 'importLinkedIn'),
-	(r'^importFacebook', 'importFacebook'),
-	(r'^homepageStrict', 'homepage'),
-	(r'^profileStrict', 'profile'),
-    (r'^', 'index'),
-    
-    
-
+urlpatterns = patterns(
+  'web.views',
+  (r'^importTeamWorks', 'importTeamWorks'),
+  (r'^importLinkedIn', 'importLinkedIn'),
+  (r'^importFacebook', 'importFacebook'),
+  (r'^homepageStrict', 'homepage'),
+  (r'^profileStrict', 'profile'),
+  (r'^authorize_linked_in', 'AuthorizeLinkedIn'),
+  (r'^', 'index'),
 
     # Examples:
     # url(r'^$', 'hunchWorks.views.home', name='home'),
