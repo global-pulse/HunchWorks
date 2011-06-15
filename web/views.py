@@ -3,6 +3,7 @@
 # Base views files for the HunchWorks application.
 
 import linkedin_api
+import db_conn
 
 from django import http
 from django.shortcuts import render_to_response
@@ -14,12 +15,16 @@ def index(request):
 
 def homepage(request):
   return render_to_response(
-      'homepageStrict.html', { 'firstName': firstName, 'location': location })
+      'homepageStrict.html', { 'firstName': db_conn.firstName,
+      'location': db_conn.location })
 
 
 def profile(request):
-  return render_to_response('profileStrict.html')
-
+  return render_to_response(
+	  'profileStrict.html', { 'firstName': db_conn.firstName,
+	  'lastName': db_conn.lastName, 'email': db_conn.email,
+	  'location': db_conn.location })
+	  							
 
 def importFacebook(request):
   return render_to_response('importFacebook.html')
@@ -44,6 +49,12 @@ def AuthorizeLinkedIn(request):
   """
   # TODO(leah): Figure out a good way to store this kind of data so it's
   # accessible, but secure.
+  # (Texas): Leah in PHP you can put this information in a file in the root
+  # directory that users cannot ever get access to, but you can call
+  # the file with imports. Then set the permissions to 400 I think, so only
+  # the owner can read from it. If you don't know anything about PHP servers
+  # they have a folder usually called web, where all folders are stored, but
+  # the folder itself is inaccessable from a web browser.
   key = ''
   secret = ''
   return_url = 'http://localhost:8080/web'

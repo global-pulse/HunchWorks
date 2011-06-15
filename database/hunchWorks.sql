@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2011 at 04:27 PM
+-- Generation Time: Jun 15, 2011 at 05:19 PM
 -- Server version: 5.5.9
 -- PHP Version: 5.3.5
 
@@ -19,7 +19,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `Album`
 --
 
-CREATE TABLE `Album` (
+DROP TABLE IF EXISTS `Album`;
+CREATE TABLE IF NOT EXISTS `Album` (
   `albumId` int(11) NOT NULL AUTO_INCREMENT,
   `hunchId` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
@@ -38,11 +39,12 @@ CREATE TABLE `Album` (
 -- Table structure for table `Attachments`
 --
 
-CREATE TABLE `Attachments` (
+DROP TABLE IF EXISTS `Attachments`;
+CREATE TABLE IF NOT EXISTS `Attachments` (
   `hunchId` int(11) NOT NULL,
   `evidenceId` int(11) NOT NULL,
   `fileLocation` varchar(100) NOT NULL,
-  `attachmentType` enum('photo','link','video') NOT NULL,
+  `attachmentType` enum('Photo','Link','Video') NOT NULL,
   `albumId` int(11) DEFAULT NULL,
   `attachmentId` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`attachmentId`),
@@ -62,7 +64,8 @@ CREATE TABLE `Attachments` (
 -- Table structure for table `Evidence`
 --
 
-CREATE TABLE `Evidence` (
+DROP TABLE IF EXISTS `Evidence`;
+CREATE TABLE IF NOT EXISTS `Evidence` (
   `hunchId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `text` varchar(1000) DEFAULT NULL,
@@ -87,7 +90,8 @@ CREATE TABLE `Evidence` (
 -- Table structure for table `GroupMembership`
 --
 
-CREATE TABLE `GroupMembership` (
+DROP TABLE IF EXISTS `GroupMembership`;
+CREATE TABLE IF NOT EXISTS `GroupMembership` (
   `userId` int(11) NOT NULL,
   `groupId` int(11) NOT NULL,
   `accessLevel` enum('Admin','Member') NOT NULL DEFAULT 'Member',
@@ -112,10 +116,11 @@ CREATE TABLE `GroupMembership` (
 -- Table structure for table `Groups`
 --
 
-CREATE TABLE `Groups` (
+DROP TABLE IF EXISTS `Groups`;
+CREATE TABLE IF NOT EXISTS `Groups` (
   `name` varchar(30) NOT NULL,
   `groupType` enum('Ad-Hoc','Alumni','Complement','Corporate','Interest','Non-Profit') NOT NULL,
-  `privacy` enum('Open','Closed','Secret') NOT NULL DEFAULT 'Secret',
+  `privacy` enum('Open','Closed','Hidden') NOT NULL DEFAULT 'Hidden',
   `location` varchar(100) DEFAULT NULL,
   `pictureLocation` varchar(100) DEFAULT NULL,
   `groupId` int(11) NOT NULL AUTO_INCREMENT,
@@ -133,16 +138,17 @@ CREATE TABLE `Groups` (
 -- Table structure for table `Hunch`
 --
 
-CREATE TABLE `Hunch` (
+DROP TABLE IF EXISTS `Hunch`;
+CREATE TABLE IF NOT EXISTS `Hunch` (
   `timeCreated` datetime NOT NULL,
-  `hunchConfirmed` enum('confirmed','denied') DEFAULT NULL,
+  `hunchConfirmed` enum('Confirmed','Denied','Undetermined') NOT NULL DEFAULT 'Undetermined',
   `creatorId` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `privacy` enum('Open','Closed','Hidden') NOT NULL DEFAULT 'Hidden',
   `invitedUsers` varchar(1000) DEFAULT NULL,
   `invitedGroups` varchar(1000) DEFAULT NULL,
   `additionalInvites` varchar(1000) DEFAULT NULL,
-  `language` varchar(30) NOT NULL DEFAULT 'English',
+  `language` enum('English','Spanish','French','German','Mandarin') NOT NULL DEFAULT 'English',
   `location` varchar(100) DEFAULT NULL,
   `tags` varchar(100) DEFAULT NULL,
   `description` varchar(1000) NOT NULL,
@@ -165,7 +171,8 @@ CREATE TABLE `Hunch` (
 -- Table structure for table `Messages`
 --
 
-CREATE TABLE `Messages` (
+DROP TABLE IF EXISTS `Messages`;
+CREATE TABLE IF NOT EXISTS `Messages` (
   `fromUserId` int(11) NOT NULL,
   `toUserId` int(11) NOT NULL,
   `text` varchar(1000) NOT NULL,
@@ -186,7 +193,8 @@ CREATE TABLE `Messages` (
 -- Table structure for table `UserConnections`
 --
 
-CREATE TABLE `UserConnections` (
+DROP TABLE IF EXISTS `UserConnections`;
+CREATE TABLE IF NOT EXISTS `UserConnections` (
   `userOneId` int(11) NOT NULL,
   `userTwoId` int(11) NOT NULL,
   `userOneFollowingUserTwo` tinyint(1) NOT NULL DEFAULT '0',
@@ -209,7 +217,8 @@ CREATE TABLE `UserConnections` (
 -- Table structure for table `Users`
 --
 
-CREATE TABLE `Users` (
+DROP TABLE IF EXISTS `Users`;
+CREATE TABLE IF NOT EXISTS `Users` (
   `location` varchar(100) NOT NULL,
   `email` varchar(50) NOT NULL,
   `firstName` varchar(20) NOT NULL,
@@ -224,7 +233,7 @@ CREATE TABLE `Users` (
   `languagesKnown` varchar(200) DEFAULT NULL,
   `hometown` varchar(100) DEFAULT NULL,
   `privacy` enum('Open','Closed','Hidden') NOT NULL DEFAULT 'Hidden',
-  `preferredLanguage` varchar(30) DEFAULT NULL,
+  `preferredLanguage` enum('English','Spanish','French','German','Mandarin') NOT NULL,
   `workphone` varchar(30) DEFAULT NULL,
   `locationInterests` varchar(200) DEFAULT NULL,
   `organization` varchar(50) DEFAULT NULL,
@@ -237,12 +246,13 @@ CREATE TABLE `Users` (
   `blockedUsers` varchar(1000) DEFAULT NULL,
   `userId` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `Users`
 --
 
+INSERT INTO `Users` VALUES('New York City', 'cdb1428@rit.edu', 'Chris', 'Blumberg', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 'Hidden', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 
 --
 -- Constraints for dumped tables
@@ -266,15 +276,15 @@ ALTER TABLE `Attachments`
 -- Constraints for table `Evidence`
 --
 ALTER TABLE `Evidence`
-  ADD CONSTRAINT `Evidence_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `Users` (`userId`),
-  ADD CONSTRAINT `Evidence_ibfk_1` FOREIGN KEY (`hunchId`) REFERENCES `Hunch` (`hunchId`);
+  ADD CONSTRAINT `Evidence_ibfk_1` FOREIGN KEY (`hunchId`) REFERENCES `Hunch` (`hunchId`),
+  ADD CONSTRAINT `Evidence_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `Users` (`userId`);
 
 --
 -- Constraints for table `GroupMembership`
 --
 ALTER TABLE `GroupMembership`
-  ADD CONSTRAINT `GroupMembership_ibfk_2` FOREIGN KEY (`groupId`) REFERENCES `Groups` (`groupId`),
-  ADD CONSTRAINT `GroupMembership_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`userId`);
+  ADD CONSTRAINT `GroupMembership_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`userId`),
+  ADD CONSTRAINT `GroupMembership_ibfk_2` FOREIGN KEY (`groupId`) REFERENCES `Groups` (`groupId`);
 
 --
 -- Constraints for table `Hunch`
@@ -286,12 +296,12 @@ ALTER TABLE `Hunch`
 -- Constraints for table `Messages`
 --
 ALTER TABLE `Messages`
-  ADD CONSTRAINT `Messages_ibfk_2` FOREIGN KEY (`toUserId`) REFERENCES `Users` (`userId`),
-  ADD CONSTRAINT `Messages_ibfk_1` FOREIGN KEY (`fromUserId`) REFERENCES `Users` (`userId`);
+  ADD CONSTRAINT `Messages_ibfk_1` FOREIGN KEY (`fromUserId`) REFERENCES `Users` (`userId`),
+  ADD CONSTRAINT `Messages_ibfk_2` FOREIGN KEY (`toUserId`) REFERENCES `Users` (`userId`);
 
 --
 -- Constraints for table `UserConnections`
 --
 ALTER TABLE `UserConnections`
-  ADD CONSTRAINT `UserConnections_ibfk_2` FOREIGN KEY (`userTwoId`) REFERENCES `Users` (`userId`),
-  ADD CONSTRAINT `UserConnections_ibfk_1` FOREIGN KEY (`userOneId`) REFERENCES `Users` (`userId`);
+  ADD CONSTRAINT `UserConnections_ibfk_1` FOREIGN KEY (`userOneId`) REFERENCES `Users` (`userId`),
+  ADD CONSTRAINT `UserConnections_ibfk_2` FOREIGN KEY (`userTwoId`) REFERENCES `Users` (`userId`);
