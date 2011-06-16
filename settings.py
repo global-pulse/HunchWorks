@@ -16,6 +16,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# TODO(leah): Update the user / password to pull from a config.
 # Check if the server is running on Mac or Linux.
 if platform.system() == 'Darwin':
   DATABASES = {

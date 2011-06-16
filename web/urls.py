@@ -11,7 +11,6 @@ urlpatterns = patterns(
   (r'^importFacebook', 'importFacebook'),
   (r'^homepageStrict', 'homepage'),
   (r'^profileStrict', 'profile'),
-  (r'^authorize_linked_in', 'AuthorizeLinkedIn'),
   (r'^', 'index'),
 
     # Examples:
