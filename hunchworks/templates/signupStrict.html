@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Sign Up page</title>
+		<style type='text/css'>
+			.inputText {
+				float: right;
+				clear: both;
+				}
+			.divInput {
+				width:300px;
+				clear: both;
+			}
+			.importButton {
+				font-size: 15px;
+			}
+		</style>
+		<script type="text/javascript">
+			function popup(mylink, windowname)
+			{
+				if (! window.focus)
+				{
+					return true;
+				}
+				var href;
+				if (typeof(mylink) == 'string')
+				{
+					href=mylink;
+					window.open(href, windowname, 'width=400,height=200,scrollbars=yes');
+					return false;
+				}
+				else
+				{
+					href=mylink.href;
+					window.open(href, windowname, 'width=400,height=200,scrollbars=yes');
+					return false;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id='page'>
+			<form method='post' action='profileStrict.html'>{% csrf_token %}
+				<h1>Tell us about yourself:</h1>
+				<h3>Personal Information</h3>
+				<div id='inputForm'>
+					<div>
+						<button class='importButton' type='button' onclick='return popup("importLinkedIn.html", "linkedIn")'>Linked In</button>
+						<button class='importButton' type='button' onclick='return popup("importTeamWorks.html", "teamWorks")'>Teamworks</button>
+						<button class='importButton' type='button' onclick='return popup("importFacebook.html", "facebook")'>Facebook</button>
+					</div>
+					<div class='divInput'>
+						First Name: 
+						<div class='inputText'>
+							{{ form.first_name }}
+						</div>
+						<!--<input class='inputText' id='firstName' type='text' name='firstName'/>-->
+					</div>
+					<div class='divInput'>
+						Last Name:
+						<div class='inputText'>
+							{{ form.last_name }}
+						</div>
+						<!--<input class='inputText' id='lastName' type='text' name='lastName'/>-->
+					</div>
+					<div class='divInput'>
+						Location:
+						<div class='inputText'>
+							{{ form.location }}
+						</div>
+						<!--<input class='inputText' id='location' type='text' name='location'/>-->
+					</div>
+					<div class='divInput'>
+						Email:
+						<div class='inputText'>
+							{{ form.email }}
+						</div>
+						<!--<input class='inputText' id='email' type='text' name='email'/>-->
+					</div>
+					<!--<div class='divInput'>
+						Occupation: <input class='inputText' id='occupation' type='text' name='occupation'/>
+					</div>
+					<div class='divInput'>
+						Hometown:<input class='inputText' id='hometown' type='text' name='hometown'/>
+					</div>
+					<div class='divInput'>
+						Education:<input class='inputText' id='education' type='text' name='education'/>
+					</div>
+					<div class='divInput'>
+						Phone Number:<input class='inputText' id='phoneNumber' type='text' name='phone number'/>
+					</div>
+					<div class='divInput'>
+						Organization:<input class='inputText' id='organization' type='text' name='organization'/>
+					</div>
+					<div class='divInput'>
+						About Yourself:<input class='inputText' id='aboutYourself' type='text' name='aboutYourself'/>
+					</div>
+					<div class='divInput'>
+						Work History:<input class='inputText' id='workHistory' type='text' name='workhistory'/>
+					</div>
+					<div class='divInput'>
+						Skype:<input class='inputText' id='skype' type='text' name='Skype'/>
+					</div>
+					<div class='divInput'>
+						Instant Messanger:<input class='inputText' id='instantMessanger' type='text' name='instantMessanger'/>
+					</div>
+					<div class='divInput'>
+						Website:<input class='inputText' id='website' type='text' name='website'/>
+					</div>
+					<div class='divInput'>
+						Expertise:	<input class='inputText' id='expertise1' type='text' name='expertise1'/>
+									<!-<input class='inputText' id='expertise2' type='text' name='expertise2'>
+									<input class='inputText' id='expertise3' type='text' name='expertise3'>->
+					</div>
+					<div class='divInput'>
+						Skills:		<input class='inputText' id='skills1' type='text' name='skills1'/>
+									<!-<input class='inputText' id='skills2' type='text' name='skills2'>
+									<input class='inputText' id='skills3' type='text' name='skills3'>->
+					</div>
+					<div class='divInput'>
+						Languages:	<input class='inputText' id='languages1' type='text' name='languages1'/>
+									<!-<input class='inputText' id='languages2' type='text' name='languages2'>
+									<input class='inputText' id='languages3' type='text' name='languages3'>->
+					</div>
+					<div class='divInput'>
+						Location interests:	<input class='inputText' id='location1' type='text' name='location1'/>
+											<!-<input class='inputText' id='location2' type='text' name='location2'>
+											<input class='inputText' id='location3' type='text' name='location3'>->
+					</div>-->
+					<div class='divInput'>
+						Privacy setting:
+						<div class='inputText'>
+							{{ form.privacy }}
+						</div>
+						<!--
+							<select class='inputText'>
+								<option value='secret'>Secret</option>
+								<option value='closed'>Closed</option>
+								<option value='open'>Open</option>
+							</select>
+						-->
+					</div>
+					<div class='divInput'>
+						Preferred Language:
+						<div class ='inputText'>
+							{{ form.preferred_language }}
+						</div>
+						<!--
+							<select class='inputText'>
+								<option value='english'>English</option>
+								<option value='spanish'>Spanish</option>
+								<option value='french'>French</option>
+								<option value='german'>German</option>
+								<option value='chinese'>Chinese</option>
+							</select>
+						-->
+					</div>
+					<div>
+						<input type='submit' value='join'/>
+						<!-- 1. Check that required fields are filled out, if they are proceed, if not throw error.
+							2. Clean data, check for script tags, etc to prevent SQL injection. OR use prepared statements.
+								consider checking data for HTML tags before passing to service layer.
+							3. Check which fields are filled out and then insert those fields into the database in 1 insert statement.
+							4. Store session variable that user is logged in. Consider passing an encrypted token with USERNAME + PASSWORD + DATE_LAST_LOGGED_IN
+							5. Set logout time limit for user, ie 5 minutes.  
+							-->
+					</div>
+				</div> <!-- end inputForm -->
+			</form>
+		</div><!-- end page -->
+	</body>
+</html>

@@ -136,7 +136,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = '%s.urls' % BASE_DIR.split('/')[-1]
 
 TEMPLATE_DIRS = (
-    '%s/web/HTML' % BASE_DIR,
+    '%s/hunchworks/templates' % BASE_DIR,
 )
 
 INSTALLED_APPS = (
@@ -146,7 +146,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'web'
+    'hunchworks'
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

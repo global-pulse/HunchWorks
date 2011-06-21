@@ -1,5 +1,5 @@
 #!/usr/bin/python2.7
-# Base urls for the hunchworks project
+# Base urls for the HunchWorks application.
 # Author: Auto created by DJANGO
 # Date: 2011-6-1
 # License:  This  program  is  free  software; you can redistribute it and/or
@@ -16,9 +16,6 @@ from django.conf.urls.defaults import *
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
-    (r'^hunchworks/', include('hunchworks.urls')),
-
     # Examples:
     # url(r'^$', 'hunchWorks.views.home', name='home'),
     # url(r'^hunchWorks/', include('hunchWorks.foo.urls')),
@@ -28,4 +25,15 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
+
+urlpatterns = patterns(
+  'hunchworks.views',
+  (r'^importTeamWorks', 'importTeamWorks'),
+  (r'^importLinkedIn', 'importLinkedIn'),
+  (r'^importFacebook', 'importFacebook'),
+  (r'^homepageStrict', 'homepage'),
+  (r'^profileStrict', 'profile'),
+  (r'^', 'index'),
+
+
 )
