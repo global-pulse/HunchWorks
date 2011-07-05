@@ -62,13 +62,13 @@ else:
 TIME_ZONE = 'America/Chicago'
 
 # Override LANGUAGES to set
-LANGUAGES = (
-    ('en', gettext_noop('English')),
-    ('es', gettext_noop('Spanish'))
-    ('fr', gettext_noop('French')),
-    ('de', gettext_noop('German')),
-    ('zh-cn', gettext_noop('Simplified Chinese')),
-    )
+#LANGUAGES = (
+#    ('en', gettext_noop('English')),
+#    ('es', gettext_noop('Spanish'))
+#    ('fr', gettext_noop('French')),
+#    ('de', gettext_noop('German')),
+#    ('zh-cn', gettext_noop('Simplified Chinese')),
+#    )
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
