@@ -33,7 +33,7 @@ def index(request):
 
 def homepage(request):
   	#This picks up the user located at index 1 of the users table
-  	user = models.Users.objects.get(pk=1) 
+  	user = models.User.objects.get(pk=1) 
   	context = {'first_name': user.first_name, 'location': user.location}
   	return render_to_response('homepageStrict.html', context)
 

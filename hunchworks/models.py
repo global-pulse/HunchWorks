@@ -23,7 +23,7 @@ class Album(models.Model):
   album_id = models.IntegerField(primary_key=True)
   name = models.CharField(max_length=45)
   class Meta:
-    db_table = u'Album'
+    db_table = u'hw_album'
 
 class Attachment(models.Model):
   """Class representing an attachment for a hunch"""
@@ -31,15 +31,15 @@ class Attachment(models.Model):
   attachment_type = models.IntegerField()
   file_location = models.CharField(max_length=45)
   class Meta:
-    db_table = u'Attachment'
+    db_table = u'hw_attachment'
 
-class AlbumAttachment(models.Model):
+class AlbumAttachments(models.Model):
   """Many to Many model joining Album and attachments"""
   album_attachments_id = models.IntegerField(primary_key=True)
-  album = models.ForeignKey(Album)
+  album_id = models.ForeignKey(Album)
   attachment = models.ForeignKey(Attachment)
   class Meta:
-    db_table = u'AlbumAttachment'
+    db_table = u'hw_album_attachments'
 
 class Class(models.Model):
   """Class representing a educational class taken that may or may not have
@@ -49,7 +49,7 @@ class Class(models.Model):
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
   class Meta:
-    db_table = u'Class'
+    db_table = u'hw_class'
 
 class Education(models.Model):
   """Class representing a degree or qualification obtained by a user."""
@@ -59,8 +59,8 @@ class Education(models.Model):
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
   class Meta:
-    db_table = u'Education'
-    
+    db_table = u'hw_education'
+  
 class Language(models.Model):
   """Class representing a language supported by the application.
 
@@ -80,26 +80,26 @@ class Language(models.Model):
   5. zh-cn: zh-cn (use simplified Chinese)
   """
   language_id = models.IntegerField(primary_key=True)
-  name = models.CharField(unique=True, max_length=135)
+  name = models.CharField(unique=True, max_length=45)
   class Meta:
-    db_table = u'Language'
-    
+    db_table = u'hw_language'
+  
 class Location(models.Model):
   """Class representing a location used by the application.
 
   These locations are derived from either:
-    1. Open Street Map Nominatim API (
-       http://wiki.openstreetmap.org/wiki/Nominatim)
-    2. Google Maps Geocoding API (
-       http://code.google.com/apis/maps/documentation/geocoding/#JSON)
+  1. Open Street Map Nominatim API (
+     http://wiki.openstreetmap.org/wiki/Nominatim)
+  2. Google Maps Geocoding API (
+     http://code.google.com/apis/maps/documentation/geocoding/#JSON)
 
   That decision is still TBD, so for now this class is a stub.
   """
   location_id = models.IntegerField(primary_key=True)
   name = models.CharField(unique=True, max_length=45)
   class Meta:
-    db_table = u'Location'
-    
+    db_table = u'hw_location'
+  
 class UserInstantMessenger(models.Model):
   """Class representing the users Instant Messenger and the service under which
   the messenger is provided"""
@@ -107,7 +107,7 @@ class UserInstantMessenger(models.Model):
   screen_name = models.CharField(max_length=45)
   messenger_service = models.IntegerField()
   class Meta:
-    db_table = u'UserInstantMessenger'
+    db_table = u'hw_user_messenger'
 
 class User(models.Model):
   """Class representing a Hunchworks user."""
@@ -115,23 +115,30 @@ class User(models.Model):
   email = models.CharField(unique=True, max_length=45)
   first_name = models.CharField(max_length=25)
   last_name = models.CharField(max_length=50)
-  title = models.IntegerField(
-  #choices=hunchwork_enums.UserTitle.GetChoices()
-  )
+  title = models.IntegerField()
   bio_text = models.TextField(blank=True)
   work_phone = models.CharField(max_length=30, blank=True)
   skype_name = models.CharField(max_length=30, blank=True)
-  instant_messenger = models.ForeignKey(UserInstantMessenger, null=True, blank=True)
+  instant_messenger_id = models.ForeignKey(UserInstantMessenger, null=True, blank=True)
   website = models.CharField(max_length=100, blank=True)
   profile_picture = models.CharField(max_length=100, blank=True)
   show_profile_reminder = models.IntegerField()
   privacy = models.IntegerField()
-  default_language = models.ForeignKey(Language)
+  default_language_id = models.ForeignKey(Language)
+  skills = models.ManyToManyField('Skill', through='UserSkills')
+  education = models.ManyToManyField('Education', through='UserEducation')
+  classes = models.ManyToManyField('Class', through='UserClasses')
+  location_interests = models.ManyToManyField(
+  'Location', through='LocationInterests')
+  roles = models.ManyToManyField('Role', through='UserRoles')
+  hunches = models.ManyToManyField('Hunch', through='HunchConnections')
+  invited_users = models.ManyToManyField('InvitedUser', through='UserInvites')
+  groups = models.ManyToManyField('Group', through='GroupConnections')
   #@property
   #def title_text(self):
   #  return hunchworks_enums.UserTitle.GetValue(self.title)
   class Meta:
-    db_table = u'User'
+    db_table = u'hw_user'
 
 class Hunch(models.Model):
   """Class representing a Hunch."""
@@ -143,34 +150,42 @@ class Hunch(models.Model):
   language = models.ForeignKey(Language, null=True, blank=True)
   location = models.ForeignKey(Location, null=True, blank=True)
   description = models.TextField(blank=True)
+  creator_id = models.ForeignKey(User, related_name='%(class)s_creator_id')
+  skills = models.ManyToManyField('Skill', through='HunchSkills')
+  groups = models.ManyToManyField('Group', through='HunchGroups')
+  users = models.ManyToManyField('User', through='HunchConnections')
+  evidence = models.ManyToManyField('Evidence')
+  invited_users = models.ManyToManyField('InvitedUser', through='HunchInvites')
   class Meta:
-    db_table = u'Hunch'
+    db_table = u'hw_hunch'
 
 class Evidence(models.Model):
   """Class representing a response to the hunch"""
   evidence_id = models.IntegerField(primary_key=True)
-  hunch = models.ForeignKey(Hunch)
-  creator = models.ForeignKey(User)
+  hunch_id = models.ForeignKey(Hunch, related_name='%(class)s_hunch_id')
+  creator_id = models.ForeignKey(User)
   time_created = models.DateTimeField()
   description = models.TextField(blank=True)
+  albums = models.ManyToManyField('Album', through='EvidenceAlbums')
+  attachments = models.ManyToManyField('Attachment', through='EvidenceAttachments')
   class Meta:
-    db_table = u'Evidence'
+    db_table = u'hw_evidence'
 
-class EvidenceAlbum(models.Model):
+class EvidenceAlbums(models.Model):
   """Many to Many model joining Evidence and Album together"""
   evidence_albums_id = models.IntegerField(primary_key=True)
-  album = models.ForeignKey(Album)
-  evidence = models.ForeignKey(Evidence)
+  album_id = models.ForeignKey(Album)
+  evidence_id = models.ForeignKey(Evidence)
   class Meta:
-    db_table = u'EvidenceAlbum'
+    db_table = u'hw_evidence_albums'
 
-class EvidenceAttachment(models.Model):
+class EvidenceAttachments(models.Model):
   """Many to Many model joining evidence and attachments."""
   evidence_attachment_id = models.IntegerField(primary_key=True)
-  attachment = models.ForeignKey(Attachment)
-  evidence = models.ForeignKey(Evidence)
+  attachment_id = models.ForeignKey(Attachment)
+  evidence_id = models.ForeignKey(Evidence)
   class Meta:
-    db_table = u'EvidenceAttachment'
+    db_table = u'hw_evidence_attachments'
 
 class Group(models.Model):
   """Class representing a logical grouping of Hunchworks users."""
@@ -180,58 +195,60 @@ class Group(models.Model):
   privacy = models.IntegerField()
   location = models.ForeignKey(Location, null=True, blank=True)
   logo = models.CharField(max_length=100, blank=True)
+  hunches = models.ManyToManyField('Hunch', through='HunchGroups')
+  users = models.ManyToManyField('User', through='GroupConnections')
   class Meta:
-    db_table = u'Group'
+    db_table = u'hw_group'
 
-class GroupConnection(models.Model):
+class GroupConnections(models.Model):
   """Many to Many model joining groups with their member users."""
   group_user_id = models.IntegerField(primary_key=True)
-  user = models.ForeignKey(User)
-  group = models.ForeignKey(Group)
+  user_id = models.ForeignKey(User)
+  group_id = models.ForeignKey(Group)
   access_level = models.IntegerField()
   trust_from_user = models.IntegerField()
   trust_from_group = models.IntegerField()
   receive_updates = models.IntegerField()
   status = models.IntegerField()
   class Meta:
-    db_table = u'GroupConnection'
+    db_table = u'hw_group_connections'
 
-class HunchConnection(models.Model):
+class HunchConnections(models.Model):
   """Many to Many model joining Hunch and User together"""
   hunch_connections_id = models.IntegerField(primary_key=True)
-  hunch = models.ForeignKey(Hunch)
-  user = models.ForeignKey(User)
+  hunch_id = models.ForeignKey(Hunch)
+  user_id = models.ForeignKey(User)
   status = models.IntegerField()
   class Meta:
-    db_table = u'HunchConnection'
+    db_table = u'hw_hunch_connections'
 
-class HunchGroup(models.Model):
+class HunchGroups(models.Model):
   """Many to Many model joining Hunch and Group together"""
   hunch_groups_id = models.IntegerField(primary_key=True)
-  group = models.ForeignKey(Group)
-  hunch = models.ForeignKey(Hunch)
+  group_id = models.ForeignKey(Group)
+  hunch_id = models.ForeignKey(Hunch)
   status = models.IntegerField()
   class Meta:
-    db_table = u'HunchGroup'
-    
+    db_table = u'hw_hunch_groups'
+  
 class InvitedUser(models.Model):
   """Class representing a master list of all users ever invited to the system
   and their respective user id's if they created an account."""
   invited_users_id = models.IntegerField(primary_key=True)
-  user = models.ForeignKey(User, null=True, blank=True)
+  user_id = models.ForeignKey(User, null=True, blank=True)
   email = models.CharField(unique=True, max_length=45)
   class Meta:
-    db_table = u'InvitedUser'
+    db_table = u'hw_invited_user'
 
-class HunchInvite(models.Model):
+class HunchInvites(models.Model):
   """Many to Many model joining Hunch and Invited Users together"""
   hunch_invites_id = models.IntegerField(primary_key=True)
-  invited_user = models.ForeignKey(InvitedUser)
-  hunch = models.ForeignKey(Hunch)
+  invited_user_id = models.ForeignKey(InvitedUser)
+  hunch_id = models.ForeignKey(Hunch)
   status = models.IntegerField()
   class Meta:
-    db_table = u'HunchInvite'
-    
+    db_table = u'hw_hunch_invites'
+  
 class Skill(models.Model):
   """Class representing a skill possessed by a user, e.g. HTML."""
   skill_id = models.IntegerField(primary_key=True)
@@ -239,108 +256,108 @@ class Skill(models.Model):
   is_language = models.IntegerField()
   is_technical = models.IntegerField()
   class Meta:
-    db_table = u'Skill'
+    db_table = u'skill'
 
-class HunchSkill(models.Model):
+class HunchSkills(models.Model):
   """Many to Many model joining hunches and skills.
 
   This model represents the skill-set required to progress a hunch and the skill
   level needed for each skill.
   """
   hunch_skill_id = models.IntegerField(primary_key=True)
-  hunch = models.ForeignKey(Hunch)
-  skill = models.ForeignKey(Skill)
+  hunch_id = models.ForeignKey(Hunch)
+  skill_id = models.ForeignKey(Skill)
   level = models.IntegerField()
   class Meta:
-    db_table = u'HunchSkill'
+    db_table = u'hw_hunch_skills'
 
-class LocationInterest(models.Model):
+class LocationInterests(models.Model):
   """Many to Many model joining User and Location together for their list
   of locations they are interested in"""
   location_interests_id = models.IntegerField(primary_key=True)
-  user = models.ForeignKey(User)
-  location = models.ForeignKey(Location)
+  user_id = models.ForeignKey(User)
+  location_id = models.ForeignKey(Location)
   class Meta:
-    db_table = u'LocationInterest'
+    db_table = u'hw_location_interests'
 
 class Organization(models.Model):
   """Class representing an external organization (UNDP etc.)."""
   organization_id = models.IntegerField(primary_key=True)
   name = models.CharField(max_length=125)
   abbreviation = models.CharField(max_length=15)
-  group = models.ForeignKey(Group)
-  location = models.ForeignKey(Location, null=True, blank=True)
+  group_id = models.ForeignKey(Group)
+  location_id = models.ForeignKey(Location, null=True, blank=True)
   class Meta:
-    db_table = u'Organization'
+    db_table = u'hw_organization'
 
 class Role(models.Model):
   """Class representing a role held by a given user."""
   role_id = models.IntegerField(primary_key=True)
   organization = models.ForeignKey(Organization)
   title = models.CharField(max_length=255)
-  started = models.DateField()
-  ended = models.DateField(null=True, blank=True)
+  start_date = models.DateField()
+  end_date = models.DateField(null=True, blank=True)
   description = models.TextField(blank=True)
   class Meta:
-    db_table = u'Role'
+    db_table = u'hw_role'
 
-class UserClass(models.Model):
+class UserClasses(models.Model):
   """Many to Many model joining User and Class together"""
   user_class_id = models.IntegerField(primary_key=True)
-  user = models.ForeignKey(User)
-  class_field = models.ForeignKey(Class) # Field renamed because it was a Python reserved word.
+  user_id = models.ForeignKey(User)
+  class_id = models.ForeignKey(Class)
   class Meta:
-    db_table = u'UserClass'
+    db_table = u'hw_user_classes'
 
-class UserConnection(models.Model):
+class UserConnections(models.Model):
   """Class representing a personal connection between two users."""
   user_connection_id = models.IntegerField(primary_key=True)
-  user_a = models.ForeignKey(User, related_name='%(class)s_user_a_id')
-  user_b = models.ForeignKey(User, related_name='%(class)s_user_b_id')
+  user_a_id = models.ForeignKey(User, related_name='%(class)s_user_a_id')
+  user_b_id = models.ForeignKey(User, related_name='%(class)s_user_b_id')
   status = models.IntegerField()
   class Meta:
-    db_table = u'UserConnection'
+    db_table = u'hw_user_connections'
 
 class UserEducation(models.Model):
   """Many to Many model representing a user's degrees / education."""
   user_education_id = models.IntegerField(primary_key=True)
-  user = models.ForeignKey(User)
-  education = models.ForeignKey(Education)
+  user_id = models.ForeignKey(User)
+  education_id = models.ForeignKey(Education)
   class Meta:
-    db_table = u'UserEducation'
+    db_table = u'hw_user_education'
 
-class UserInvite(models.Model):
+class UserInvites(models.Model):
   """Many to Many model joining User and Invited User together for the users 
   invited people list"""
   user_invites_id = models.IntegerField(primary_key=True)
-  user = models.ForeignKey(User)
+  user_id = models.ForeignKey(User)
   invited_users = models.ForeignKey(InvitedUser)
   status = models.IntegerField()
   class Meta:
-    db_table = u'UserInvite'
+    db_table = u'hw_user_invites'
 
-class UserRole(models.Model):
+class UserRoles(models.Model):
   """Many To many model representing a user's roles or positions."""
   user_role_id = models.IntegerField(primary_key=True)
-  user = models.ForeignKey(User)
-  role = models.ForeignKey(Role)
+  user_id = models.ForeignKey(User)
+  role_id = models.ForeignKey(Role)
   class Meta:
-    db_table = u'UserRole'
+    db_table = u'hw_user_roles'
 
-class UserSkill(models.Model):
+class UserSkills(models.Model):
   """Many to Many model joining user and skill.
 
   This model represents the skill-set of users, and also indicates their level
   of expertise in a given skill. Currently, expertise is two-tier; users are
   either skilled or expert in a given area.
   """
-  user_skill_id = models.IntegerField(primary_key=True, db_column='user_skill_Id') # Field name made lowercase.
-  user = models.ForeignKey(User)
-  skill = models.ForeignKey(Skill)
+  user_skill_id = models.IntegerField(primary_key=True)
+  user_id = models.ForeignKey(User)
+  skill_id = models.ForeignKey(Skill)
   level = models.IntegerField()
   class Meta:
-    db_table = u'UserSkill'
-    
+    db_table = u'hw_user_skills'
+  
 # Getters for setting the default values for ForeignKeys on other models.
 def GetDefaultLanguage():
   return Language.objects.get(pk='en')
@@ -348,6 +365,6 @@ def GetDefaultLanguage():
 
 def GetHunchGroup():
   # TODO(leah): Set this up to auto-create a new group, taking names, owners
-  #             etc. from the hunch. Need to figure out how to pass that stuff
-  #             in.
+  #       etc. from the hunch. Need to figure out how to pass that stuff
+  #       in.
   pass
