@@ -1,0 +1,24 @@
+install MAMP, MySQL-python 1.2.2, DJANGO 1.3, MySQL, XCode
+
+Attempt to import MySQLdb into python by typing:
+python
+import MySQLdb
+
+if it fails:
+Follow :
+http://www.mangoorange.com/2008/08/01/installing-python-mysqldb-122-on-mac-os-x/
+
+then:
+
+sudo ln -s /usr/local/mysql/lib/libsqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib
+
+####Note this did not immediately cause the import to work####
+###did python import mysqlDB within the folder that contained libmysqlclient. maybe that was why it worked???###
+
+This needs to be done no matter if the above was done or not, and only if you are using a MAMP database.
+
+ADD 'HOST': '/Applications/MAMP/tmp/mysql/mysql.sock', # For MAMP to know where to the socket is
+to settings.py file in project root foler.
+
+sourced from:
+http://www.marteinn.se/blog/?p=467
