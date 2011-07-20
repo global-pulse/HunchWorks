@@ -1,3 +1,7 @@
+"""Please note that all INT's, TINYINT's, or other numbers that aren't dates
+	are unsigned, with the exception of the strength value in hw_evidence
+	and hw_hunch"""
+
 hw_album
 	"""This represents a collection of pictures and possibly videos as well
 		that can be stored into an album instead of indivulally putting each 
@@ -8,7 +12,7 @@ hw_album
 hw_album_attachments
 	"""This represents a cross table between hw_album and hw_attachment as a 
 		album can have mutliplte attachments."""
-	album_attachment_id = primary key, auto increment
+	Compound Key = album_id + attachment_id
 	album_id = the id of the hw_album it is associated with
 	attachment_id = the id of the hw_attachment it is associated with
 	
@@ -16,6 +20,7 @@ hw_attachment
 	"""This represents a table that will store the location and type of
 		attachment that is attached"""
 	attachment_id = primary key, auto increment
+	attachment_type = Enum of video, picture, text, etc.
 	file_location = location of the file on the server to be retrieved.
 	
 hw_class
@@ -35,7 +40,18 @@ hw_education
 	qualification = the degree being obtained or obtained already
 	start_date = the date the qualification was started
 	end_date = the date the qualification ended, can be null as may still be there
-	
+
+hw_education_connections
+	"""This represents a cross table between the hw_user and the hw_class,
+		hw_education tables. Class_id or education_id can be null, but only 1
+		should be null at any point, and never both or none. This was combined
+		from 2 seperate cross tables because they both had the same information
+		being stored, and to stop repetition we combined them."""
+	education_connection_id = primary key, auto increment
+	user_id = the id of the hw_user that has a class or education information
+	education_id = the id of the hw_education that the user has, can be null
+	class_id = the id of the hw_class that the user has, can be null
+
 hw_evidence
 	"""This represents a table of comments that will be posted to a hunch. Each
 		comment can have some text associated with it as well as many attachments
@@ -43,6 +59,8 @@ hw_evidence
 	evidence_id = primary key, auto increment
 	hunch_id = the id of the hw_hunch it is associated with
 	creator_id = the id of the hw_user that created the evidence
+	strength = the strength of the evidence posted, values from -2 to 2, relating
+		to string values of strongly refutes to strongly supports. 
 	time_created = the specific time the evidence was created (down to seconds)
 	description = the text that can be put as a comment in reference to the hunch,
 		users may also use this as a possible explanation of the attachments they
@@ -51,14 +69,14 @@ hw_evidence
 hw_evidence_albums
 	"""This represents a cross table between hw_evidence and hw_album, as a
 		evidence can have multiple albums attached to it."""
-	evidence_album_id = primary key, auto increment
+	Compound Key = album_id + evidence_id
 	album_id = the id of the hw_album it is associated with
 	evidence_id = the id of the hw_evidence it is associated with
 	
 hw_evidence_attachments
 	"""This represents a cross table between hw_evidence and hw_attachment as a
 		evidence can have multiple attachments"""
-	evidence_attachment_id = primary key, auto increment
+	Compound Key = attachment_id + evidence_id
 	attachment_id = the id of the hw_attachment it is associated with
 	evidence_id = the id of the hw_evidence it is associated with
 	
@@ -75,10 +93,14 @@ hw_group
 	location_id = the id of the hw_location it is associated with.
 	logo = the file locoation of the group picture.
 	
-hw_group_connections 
-	"""This represents a cross table between hw_group and hw_user as a group
-		will have mutliple users and a user will be a part of multiple groups"""
-	group_user_id = primary key, auto increment
+hw_human_connections 
+	"""This represents a cross table between hw_group and hw_user as well as 
+		a cross table between hw_user and hw_user for user relationships. Groups
+		will have mutliple users and a user will be a part of multiple groups.
+		Users will be able to connect, trust, and share information with multiple
+		users. Either group_id or other_user_id will be null and there will never
+		be a point where neither are null or both will be null."""
+	human_connection_id = primary key, auto increment
 	user_id = the id of the hw_user that its associated with
 	group_id = the id og the hw_group that its associated with
 	access_level = can be Admin or Member at this point, located as GroupPrivelege
@@ -88,6 +110,7 @@ hw_group_connections
 	recieve_updates = does the user want to recieve updates about posts and other
 		items in this group
 	status = Accepted, invited, blocked
+	other_user_id = the id of the hw_user that this user is connected with.
 	
 hw_hunch
 	"""This represents a hunch posted by a user about something they think might
@@ -105,49 +128,28 @@ hw_hunch
 	description = the hunch that the user thinks is going on in the world
 	
 hw_hunch_connections
-	"""This represents a cross table between hw_hunch and hw_user as a hunch can
-		have multiple invited users to work on it and a user can have multiple
-		hunches"""
+	"""This represents a cross table between hw_hunch, hw_group, hw_user and 
+		hw_invited_user as a hunch can have multiple invited users, groups, and
+		invited users to work on it. Also groups, invited users, and users can
+		have multiple hunches associated with them. This table was combined from
+		3 seperate cross tables because it was storing the same information
+		besides the unique identifiers to the tables, and did not want repetitive
+		information. One of the three: user_id, group_id, inivted_email will not
+		be null at any given point, and there will never be a point where 2 or 3
+		of them will have values, and no point where none of them have no values"""
 	hunch_connection_id = primary key, auto increment
 	hunch_id = the id of the hw_hunch it is associated with
+	status = Can be accepted, invited, or blocked.
 	user_id = the id of the hw_user it is associated with
-	status = Can be accepted, invited, or blocked.
-	
-hw_hunch_groups
-	"""This represents a cross table between hw_hunch and hw_group as a hunch can
-		have multiple groups working on it, and a group can have multiple hunches
-		it is working on"""
-	hunch_group_id = primary key, auto increment
-	group_id = the id of the hw_group that it is associated with
-	hunch_id = the id of the hw_hunch that it is associated with
-	status = Can be accepted, invited, or blocked.
-	
-hw_hunch_invites
-	"""This represents a cross table between hw_hunch and hw_invited_user as a
-		hunch can invite multiple people who are not a part of hunchworks to
-		work on the hunch, however to work on the hunch they need to create
-		an account."""
-	hunch_invites_id = primary key, auto increment
-	invited_users_id = the id of the hw_invited_user that its associated with
-	hunch_id = the id of the hw_hunch that its associated with
-	status = can be invited, accepted, or blocked.
-	
-hw_hunch_skills
-	"""This represents a cross table between hw_hunch and hw_skill, as a hunch may
-		need many people of many skills to work on it.
-	hunch_skill_id = primary key, auto increment
-	hunch_id = the id of the hw_hunch it is associated with
-	skill_id = the id of the hw_skill it is associated with
-	level = the skill level required of each skill, can currently be skilled, or
-		expert as specified by SkillLevel in hunchworks_enums.py
+	group_id = the id of the hw_group it is associated with
+	invited_email = the email of the hw_invited_user it is associated with
 
 hw_invited_user
 	"""This table represents the master list of all people in hunchworks and all
 		people that have been invited by users of hunchworks. If they become a
 		member then user_id will be filled in."""
-	invited_user_id = primary key, auto increment
-	user_id = the id of the hw_user if the user has become a member
-	email = the email of the invited user, UNIQUE
+	email = the email of the invited user, primary key, if they have created
+		a user account the email will be the same as the hw_user. 
 	
 hw_language
 	"""This table represents all languages that HunchWorks will translate into
@@ -199,6 +201,21 @@ hw_skill
 	is_language = boolean of whether the skill is a language or not
 	is_technical = boolean of whether the skill is technical or not
 	
+hw_skill_connections
+	"""This represents a cross table between hw_hunch, hw_user and hw_skill, as
+		a hunch may need many people of many skills to work on it, and a user may
+		have multiple skills and skills may have multiple users. This table was
+		combined from 2 seperate cross tables into 1 because they both stored
+		the same information besides the different between user and hunch id.
+		Only hunch_id or user_id will be null at any given point, and there will
+		never be a point where both are null or neither."""
+	hw_skill_connection_id = primary key, auto increment
+	skill_id = the id of the hw_skill it is associated with
+	level = the skill level required of each skill, can currently be skilled, or
+		expert as specified by SkillLevel in hunchworks_enums.py
+	hunch_id = the id of the hw_hunch it is associated with
+	user_id = the id of the hw_user it is associated with
+
 hw_user
 	"""This represents a user that has registered in Hunchworks and has an
 		account"""
@@ -207,12 +224,6 @@ hw_user
 	first_name = the first name of the user
 	last_name = the last name of the user
 	title = Can be Mr, Mrs, Ms as specified by UserTitle in hunchworks_enums.py
-	bio_text = a description of the user
-	phone = the phone number of the user
-	skype_name = the skype name of the user
-	instant_messanger_id = the id of the hw_user_messanger table
-	website = the URL of the users website
-	profile_picture = the URL of the users picture on the server
 	show_profile_reminder = boolean for reminding the user to fill out more of
 		their profile
 	privacy = can be open, closed, or hidden as specified by PrivacyLevel in
@@ -220,30 +231,15 @@ hw_user
 	default_language_id = the id of the language that will be the default language
 		the user will always see. The system will take this information and
 		translate the contents of every page into this language.
-
-hw_user_classes
-	"""This represents a cross table between hw_user and hw_class as a user can
-		have multiple classes and a class can have multiple users."""
-	user_class_id = primary key, auto increment
-	user_id = the id of the hw_user it is associated with
-	class_id = the id of the hw_class it is associated with
-	
-hw_user_connections
-	"""This represents a cross table between a hw_user and a hw_user as a user
-		can be connected with multiple users."""
-	user_connection_id = primary key, auto increment
-	user_a_id = the id of the a hw_user
-	user_b_id = the id of another hw_user
-	status = Can be invited, blocked, accepted
-	
-hw_user_education
-	"""This represents a cross table between hw_user and hw_education as a user
-		can have multiple education backgrounds and a educational place can have
-		multiple users"""
-	user_education_id = primary key, auto increment
-	user_id = the id of the hw_user that its associated with
-	education_id = the id of the hw_education it is associated with.
-	
+	bio_text = a description of the user
+	phone = the phone number of the user
+	skype_name = the skype name of the user
+	instant_messanger_id = the id of the hw_user_messanger table
+	website = the URL of the users website
+	profile_picture = the URL of the users picture on the server
+	screen_name = the instant messanger screen name of the user
+	messenger_service = the service provider of the instant messanger.
+		
 hw_user_invites
 	"""This represents a cross table between hw_user and hw_invited_user as a user
 		may invite multiple users to hunchworks and an invitied user may be
@@ -253,25 +249,10 @@ hw_user_invites
 	invited_user_id = the id of the hw_invited_user it is associated with
 	status = Can be invited, blocked, accepted
 	
-hw_user_messenger
-	"""This represents a user's instant messenger"""
-	user_messenger_id = primary_key, auto increment
-	screen_name = the screen name of the user in the messenger service
-	messenger_service = the type of messenger it is, AOL, YAHOO, MEEBO, Etc
-	
 hw_user_roles
 	"""This is a cross table between hw_user and hw_role as a user may have
 		multiple places of work history."""
 	user_role_id = primary key, auto increment
 	user_id = the id of the hw_user it is associated with
 	role_id = the id of the hw_role it is associated with
-	
-hw_user_skills
-	"""This is a cross table between hw_user and hw_skill as a user may have
-		multiple skills and a skill may be associated with multiple users"""
-	user_skill_id = primary key, auto increment
-	user_id = the id of the hw_user that it is associated with
-	level = the level of skill the user has in this skill, currently can be
-		assigned skilled and expert as specified in SkillLevel in
-		hunchworks_enums.py
 	
