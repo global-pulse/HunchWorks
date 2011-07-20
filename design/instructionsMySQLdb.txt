@@ -1,10 +1,29 @@
 install MAMP, MySQL-python 1.2.2, DJANGO 1.3, MySQL, XCode
 
+How to install MySQL-python:
+
 Attempt to import MySQLdb into python by typing:
 python
 import MySQLdb
 
-if it fails:
+if it fails, you have two options:
+
+==OPTION 1:==
+
+First Try: 
+ #check python version
+ python -V #make sure this says python-2.7 or 2.6
+ which easy_install #this path should determine the python version easy_install works with
+
+Then:
+ sudo easy_install pip #pip is a much better installer for python packages than easy_install
+ sudo pip install MySQL-python 
+Attempt to import MySQLdb into python again
+ 
+==OPTION 2:==
+
+#if both programs should reference the same python version, and ideally python-2.7
+MySQL-python
 Follow :
 http://www.mangoorange.com/2008/08/01/installing-python-mysqldb-122-on-mac-os-x/
 
@@ -18,7 +37,7 @@ sudo ln -s /usr/local/mysql/lib/libsqlclient.18.dylib /usr/lib/libmysqlclient.18
 This needs to be done no matter if the above was done or not, and only if you are using a MAMP database.
 
 ADD 'HOST': '/Applications/MAMP/tmp/mysql/mysql.sock', # For MAMP to know where to the socket is
-to settings.py file in project root foler.
+to settings.py file in project root folder.
 
 sourced from:
 http://www.marteinn.se/blog/?p=467
