@@ -16,7 +16,7 @@ from django.forms import ModelForm
 
 class SignUpForm(ModelForm):
 	class Meta:
-		model = models.Users
+		model = models.User
 		exclude = ( 
 		'expertise', 'skills', 'invited_by', 'has_invited', 'education',
 		'not_interested_in_finishing_profile', 'languages_known', 'hometown',
@@ -27,4 +27,4 @@ class SignUpForm(ModelForm):
 		
 class HomepageForm(ModelForm):
 	class Meta:
-		model = models.Users
+		model = models.User
