@@ -28,14 +28,15 @@ from django.http import HttpResponseRedirect
 def index(request):
 	form = forms.SignUpForm() # An unbound form
 	context = { 'form': form }
-  	return render_to_response('signupStrict.html', context)
+  	return render_to_response('signup.html', context)
 
 
 def homepage(request):
   	#This picks up the user located at index 1 of the users table
-  	user = models.User.objects.get(pk=1) 
-  	context = {'first_name': user.first_name, 'location': user.location}
-  	return render_to_response('homepageStrict.html', context)
+  	#user = models.User.objects.get(pk=1) 
+  	#context = {'first_name': user.first_name, 'location': user.location}
+  	context = {'first_name': 'User', 'location': 'New York'}
+  	return render_to_response('homepage.html', context)
 
 
 def profile(request):

@@ -31,7 +31,7 @@ urlpatterns = patterns(
   (r'^importTeamWorks', 'importTeamWorks'),
   (r'^importLinkedIn', 'importLinkedIn'),
   (r'^importFacebook', 'importFacebook'),
-  (r'^homepageStrict', 'homepage'),
+  (r'^homepage', 'homepage'),
   (r'^profileStrict', 'profile'),
   (r'^', 'index'),
 
