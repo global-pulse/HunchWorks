@@ -24,8 +24,19 @@ from django.forms.models import modelformset_factory
 # This import is used to used the redirect method
 from django.http import HttpResponseRedirect
 
-
 def index(request):
+  form = forms.SignInForm()
+  context = { 'form': form }
+  return render_to_response('index.html', context)
+
+
+def signin(request):
+  form = forms.SignInForm() # An unbound form
+  context = { 'form': form }
+  return render_to_response('signin.html', context)
+
+
+def signup(request):
   form = forms.SignUpForm() # An unbound form
   context = { 'form': form }
   return render_to_response('signup.html', context)

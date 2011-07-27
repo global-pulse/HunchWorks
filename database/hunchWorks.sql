@@ -32,6 +32,8 @@ CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_user` (
   `title` TINYINT UNSIGNED NOT NULL ,
   `show_profile_reminder` TINYINT UNSIGNED NOT NULL ,
   `privacy` TINYINT UNSIGNED NOT NULL ,
+  `username` VARCHAR(20) NOT NULL ,
+  `password` VARCHAR(20) NOT NULL ,
   `default_language_id` INT UNSIGNED NOT NULL ,
   `bio_text` TEXT NULL ,
   `phone` VARCHAR(20) NULL ,

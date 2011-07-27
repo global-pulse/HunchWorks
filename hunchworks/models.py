@@ -116,6 +116,8 @@ class HwUser(models.Model):
   show_profile_reminder = models.IntegerField()
   privacy = models.IntegerField(
     choices=hunchworks_enums.PrivacyLevel.GetChoices())
+  username = models.CharField(max_length=20)
+  password = models.CharField(max_length=20)
   default_language = models.ForeignKey(HwLanguage)
   bio_text = models.TextField(blank=True)
   phone = models.CharField(max_length=20, blank=True)

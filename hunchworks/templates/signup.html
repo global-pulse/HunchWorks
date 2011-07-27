@@ -5,14 +5,6 @@
     <h1>Tell us about yourself:</h1>
     <h3>Personal Information</h3>
     <div id='inputForm'>
-      <div>
-        <button class='importButton' type='button' onclick='return popup(
-          "importLinkedIn.html", "linkedIn")'>Linked In</button>
-        <button class='importButton' type='button' onclick='return popup(
-          "importTeamWorks.html", "teamWorks")'>Teamworks</button>
-        <button class='importButton' type='button' onclick='return popup(
-          "importFacebook.html", "facebook")'>Facebook</button>
-      </div>
       <div class='divInput'>
         Title
         <div class='inputText'>
@@ -41,6 +33,18 @@
         Privacy setting:
         <div class='inputText'>
           {{ form.privacy }}
+        </div>
+      </div>
+      <div class='divInput'>
+        Username:
+        <div class='inputText'>
+          {{ form.username }}
+        </div>
+      </div>
+      <div class='divInput'>
+        Password:
+        <div class='inputText'>
+          {{ form.password }}
         </div>
       </div>
       <!--<div class='divInput'>

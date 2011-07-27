@@ -12,12 +12,24 @@
 
 import models
 
+from django import forms
 from django.forms import ModelForm
+from django.forms.widgets import PasswordInput 
+
+class SignInForm(ModelForm):
+  class Meta:
+    model= models.HwUser
+    widgets = {
+      'password': PasswordInput()
+      }
 
 class SignUpForm(ModelForm):
   class Meta:
-    model = models.HwUser
-    
+    model= models.HwUser
+    widgets = {
+      'password': PasswordInput()
+      }
+  
 class HomepageForm(ModelForm):
   class Meta:
     model = models.HwUser

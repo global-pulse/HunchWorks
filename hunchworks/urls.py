@@ -33,7 +33,8 @@ urlpatterns = patterns(
   (r'^importFacebook', 'importFacebook'),
   (r'^homepage', 'homepage'),
   (r'^profileStrict', 'profile'),
+  (r'^signup', 'signup'),
+  (r'^signin', 'signin'),
   (r'^', 'index'),
-
 
 )
