@@ -16,15 +16,15 @@ from django.conf.urls.defaults import *
 # from django.contrib import admin
 # admin.autodiscover()
 
-    # Examples:
-    # url(r'^$', 'hunchWorks.views.home', name='home'),
-    # url(r'^hunchWorks/', include('hunchWorks.foo.urls')),
+  # Examples:
+  # url(r'^$', 'hunchWorks.views.home', name='home'),
+  # url(r'^hunchWorks/', include('hunchWorks.foo.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+  # Uncomment the admin/doc line below to enable admin documentation:
+  # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+  # Uncomment the next line to enable the admin:
+  # url(r'^admin/', include(admin.site.urls)),
 
 urlpatterns = patterns(
   'hunchworks.views',

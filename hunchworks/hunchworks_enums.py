@@ -5,6 +5,7 @@
 __author__ = ('Leah',)
 __license__ = 'GPLv3'
 
+import inspect
 
 class Error(Exception):
   pass
@@ -80,19 +81,20 @@ class ConnectionStatus(Enum):
   """Enum representing the possible statuses a user connection can take."""
   BLOCKED = 0
   FRIEND = 1
+  ACCEPTED = 2
 
 
 class UserTitle(Enum):
   """Enum representing the possible titles users can use."""
-  FIELD_LOOKUP = {
-      UserTitle.MR: 'Mr.',
-      UserTitle.MRS: 'Mrs.',
-      UserTitle.MS: 'Ms.',
-      }
-
   MR = 0
   MRS = 1
   MS = 2
+  
+  FIELD_LOOKUP = {
+    MR: 'Mr.',
+    MRS: 'Mrs.',
+    MS: 'Ms.',
+    }
 
 
 class PrivacyLevel(Enum):
@@ -100,6 +102,12 @@ class PrivacyLevel(Enum):
   HIDDEN = 0
   CLOSED = 1
   OPEN = 2
+  
+  FIELD_LOOKUP = {
+  	HIDDEN: 'Hidden',
+  	CLOSED: 'Closed',
+  	OPEN: 'Open',
+  	}
 
 
 class SkillLevel(Enum):
@@ -116,15 +124,7 @@ class HunchStatus(Enum):
 
 
 class Group(Enum):
-  FIELD_LOOKUP = {
-      Group.AD_HOC: 'Ad-Hoc',
-      Group.ALUMNI: 'Alumni',
-      Group.COMPLEMENT: 'Complement',
-      Group.CORPORATE: 'Corporate',
-      Group.INTEREST: 'Interest',
-      Group.NON_PROFIT: 'Non-Profit',
-      }
-
+  """Enum representing the types of groups that can be made"""
   AD_HOC = 0
   ALUMNI = 1
   COMPLEMENT = 2
@@ -132,6 +132,14 @@ class Group(Enum):
   INTEREST = 4
   NON_PROFIT = 5
 
+  FIELD_LOOKUP = {
+    AD_HOC: 'Ad-Hoc',
+    ALUMNI: 'Alumni',
+    COMPLEMENT: 'Complement',
+    CORPORATE: 'Corporate',
+    INTEREST: 'Interest',
+    NON_PROFIT: 'Non-Profit',
+    }
 
 class GroupPrivilege(Enum):
   ADMIN = 0

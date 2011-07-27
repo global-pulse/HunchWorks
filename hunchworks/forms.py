@@ -15,16 +15,9 @@ import models
 from django.forms import ModelForm
 
 class SignUpForm(ModelForm):
-	class Meta:
-		model = models.User
-		exclude = ( 
-		'expertise', 'skills', 'invited_by', 'has_invited', 'education',
-		'not_interested_in_finishing_profile', 'languages_known', 'hometown',
-		'work_phone', 'location_interests', 'organization', 'bio_text',
-		'work_history', 'skype_name', 'instant_messanger', 'website', 
-		'profile_picture_location', 'blocked_users', 'user_id', 'occupation'
-		)
-		
+  class Meta:
+    model = models.HwUser
+    
 class HomepageForm(ModelForm):
-	class Meta:
-		model = models.User
+  class Meta:
+    model = models.HwUser
