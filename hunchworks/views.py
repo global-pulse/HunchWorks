@@ -51,6 +51,7 @@ def homepage(request):
 
 
 def profile(request):
+  print 'here'
   if request.method == 'POST': # If the form has been submitted...
     form = forms.SignUpForm(request.POST) # A form bound to the POST data
     if form.is_valid(): # All validation rules pass

@@ -12,6 +12,11 @@
 __author__ = ('Chris',)
 __license__ = 'GPLv3'
 
+GENDER_CHOICES = (
+    ('M', 'Male'),
+    ('F', 'Female'),
+)
+
 """Enums used throughout Hunchworks."""
 import hunchworks_enums
 
@@ -157,7 +162,7 @@ class HwHunch(models.Model):
   time_created = models.DateTimeField()
   status = models.IntegerField()
   title = models.CharField(max_length=100)
-  privacy = models.IntegerField()
+  privacy = models.IntegerField(hunchworks_enums.PrivacyLevel.GetChoices())
   strength = models.IntegerField()
   language = models.ForeignKey(HwLanguage, null=True, blank=True)
   location = models.ForeignKey(HwLocation, null=True, blank=True)

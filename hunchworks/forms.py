@@ -26,6 +26,12 @@ class SignInForm(ModelForm):
 class SignUpForm(ModelForm):
   class Meta:
     model= models.HwUser
+    exclude = ( 
+	'show_profile_reminder', 'default_language', 'bio_text', 'phone', 
+	'skype_name', 'website', 'profile_picture', 'screen_name',
+	'messenger_service', 'skills', 'education', 'classes',
+	'location_interests', 'roles', 'hunches', 'invited_users', 'groups'
+	)
     widgets = {
       'password': PasswordInput()
       }
