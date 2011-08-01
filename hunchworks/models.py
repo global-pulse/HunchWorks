@@ -9,59 +9,68 @@
 # of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
 # Public License for more details.
 
-"""Enums used throughout Hunchworks."""
-
 __author__ = ('Chris',)
 __license__ = 'GPLv3'
 
-#import hunchworks_enums
+GENDER_CHOICES = (
+    ('M', 'Male'),
+    ('F', 'Female'),
+)
+
+"""Enums used throughout Hunchworks."""
+import hunchworks_enums
 
 from django.db import models
 
-class Album(models.Model):
+class HwAlbum(models.Model):
   """Class representing a collection of pictures in an album"""
   album_id = models.IntegerField(primary_key=True)
   name = models.CharField(max_length=45)
+  evidence = models.ManyToManyField('HwEvidence', through='HwEvidenceAlbums')
   class Meta:
     db_table = u'hw_album'
-
-class Attachment(models.Model):
+    
+class HwAttachment(models.Model):
   """Class representing an attachment for a hunch"""
   attachment_id = models.IntegerField(primary_key=True)
   attachment_type = models.IntegerField()
-  file_location = models.CharField(max_length=45)
+  file_location = models.CharField(max_length=100)
+  albums = models.ManyToManyField('HwAlbum', through='HwAlbumAttachments')
+  evidence = models.ManyToManyField(
+    'HwEvidence', through='HwEvidenceAttachments')
   class Meta:
     db_table = u'hw_attachment'
-
-class AlbumAttachments(models.Model):
+    
+class HwAlbumAttachments(models.Model):
   """Many to Many model joining Album and attachments"""
-  album_attachments_id = models.IntegerField(primary_key=True)
-  album_id = models.ForeignKey(Album)
-  attachment = models.ForeignKey(Attachment)
+  album = models.ForeignKey(HwAlbum)
+  attachment = models.ForeignKey(HwAttachment)
   class Meta:
     db_table = u'hw_album_attachments'
 
-class Class(models.Model):
+class HwClass(models.Model):
   """Class representing a educational class taken that may or may not have
   been at a college"""
   class_id = models.IntegerField(primary_key=True)
   name = models.CharField(max_length=45)
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
+  users = models.ManyToManyField('HwUser', through='HwEducationConnections')
   class Meta:
     db_table = u'hw_class'
-
-class Education(models.Model):
+    
+class HwEducation(models.Model):
   """Class representing a degree or qualification obtained by a user."""
   education_id = models.IntegerField(primary_key=True)
   school = models.CharField(max_length=255)
   qualification = models.CharField(max_length=100)
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
+  users = models.ManyToManyField('HwUser', through='HwEducationConnections')
   class Meta:
     db_table = u'hw_education'
-  
-class Language(models.Model):
+    
+class HwLanguage(models.Model):
   """Class representing a language supported by the application.
 
   This table is provided during development to ease integration of i18n and
@@ -79,12 +88,12 @@ class Language(models.Model):
   4. de: de-DE
   5. zh-cn: zh-cn (use simplified Chinese)
   """
-  language_id = models.IntegerField(primary_key=True)
+  language_id = models.IntegerField(primary_key=True, default=0)
   name = models.CharField(unique=True, max_length=45)
   class Meta:
     db_table = u'hw_language'
-  
-class Location(models.Model):
+
+class HwLocation(models.Model):
   """Class representing a location used by the application.
 
   These locations are derived from either:
@@ -97,267 +106,223 @@ class Location(models.Model):
   """
   location_id = models.IntegerField(primary_key=True)
   name = models.CharField(unique=True, max_length=45)
+  users = models.ManyToManyField('HwUser', through='HwLocationInterests')
   class Meta:
     db_table = u'hw_location'
-  
-class UserInstantMessenger(models.Model):
-  """Class representing the users Instant Messenger and the service under which
-  the messenger is provided"""
-  user_messenger_id = models.IntegerField(primary_key=True)
-  screen_name = models.CharField(max_length=45)
-  messenger_service = models.IntegerField()
-  class Meta:
-    db_table = u'hw_user_messenger'
-
-class User(models.Model):
+    
+class HwUser(models.Model):
   """Class representing a Hunchworks user."""
   user_id = models.IntegerField(primary_key=True)
-  email = models.CharField(unique=True, max_length=45)
+  email = models.EmailField(max_length=45)
   first_name = models.CharField(max_length=25)
   last_name = models.CharField(max_length=50)
-  title = models.IntegerField()
+  title = models.IntegerField(
+    choices=hunchworks_enums.UserTitle.GetChoices())
+  show_profile_reminder = models.IntegerField(default=0)
+  privacy = models.IntegerField(
+    choices=hunchworks_enums.PrivacyLevel.GetChoices())
+  username = models.CharField(max_length=20)
+  password = models.CharField(max_length=20)
+  default_language = models.ForeignKey(HwLanguage)
   bio_text = models.TextField(blank=True)
-  phone = models.CharField(max_length=30, blank=True)
+  phone = models.CharField(max_length=20, blank=True)
   skype_name = models.CharField(max_length=30, blank=True)
-  #instant_messenger_id = models.ForeignKey(UserInstantMessenger, null=True, blank=True)
   website = models.CharField(max_length=100, blank=True)
   profile_picture = models.CharField(max_length=100, blank=True)
-  show_profile_reminder = models.IntegerField()
-  privacy = models.IntegerField()
-  default_language = models.ForeignKey(Language)
-  #skills = models.ManyToManyField('Skill', through='UserSkills')
-  #education = models.ManyToManyField('Education', through='UserEducation')
-  #classes = models.ManyToManyField('Class', through='UserClasses')
+  screen_name = models.CharField(max_length=45, blank=True)
+  messenger_service = models.IntegerField(null=True, blank=True)
+  skills = models.ManyToManyField('HwSkill', through='HwSkillConnections')
+  education = models.ManyToManyField(
+  	'HwEducation', through='HwEducationConnections')
+  classes = models.ManyToManyField('HwClass', through='HwEducationConnections')
   location_interests = models.ManyToManyField(
-  'Location', through='LocationInterests')
-  roles = models.ManyToManyField('Role', through='UserRoles')
-  hunches = models.ManyToManyField('Hunch', through='HunchConnections')
-  invited_users = models.ManyToManyField('InvitedUser', through='UserInvites')
-  groups = models.ManyToManyField('Group', through='GroupConnections')
-  #@property
-  #def title_text(self):
-  #  return hunchworks_enums.UserTitle.GetValue(self.title)
+  	'HwLocation', through='HwLocationInterests')
+  roles = models.ManyToManyField('HwRole', through='HwUserRoles')
+  hunches = models.ManyToManyField('HwHunch', through='HwHunchConnections')
+  invited_users = models.ManyToManyField(
+  	'HwInvitedUser', through='HwUserInvites')
+  groups = models.ManyToManyField('HwGroup', through='HwHumanConnections')
+  ####collaborators = models.ManyToManyField('HwUser', through='HwHumanConnections')
   class Meta:
     db_table = u'hw_user'
 
-class Hunch(models.Model):
+class HwEducationConnections(models.Model):
+  """Many to Many model representing a user's education and/or classes"""
+  education_connection_id = models.IntegerField(primary_key=True)
+  user = models.ForeignKey(HwUser)
+  education = models.ForeignKey(HwEducation, null=True, blank=True)
+  class_field = models.ForeignKey(HwClass, null=True, blank=True)
+  class Meta:
+    db_table = u'hw_education_connections'
+    
+class HwHunch(models.Model):
   """Class representing a Hunch."""
   hunch_id = models.IntegerField(primary_key=True)
+  creator = models.ForeignKey(HwUser, related_name='%(class)s_creator_id' )
   time_created = models.DateTimeField()
   status = models.IntegerField()
   title = models.CharField(max_length=100)
-  privacy = models.IntegerField()
-  language = models.ForeignKey(Language, null=True, blank=True)
-  location = models.ForeignKey(Location, null=True, blank=True)
+  privacy = models.IntegerField(hunchworks_enums.PrivacyLevel.GetChoices())
+  strength = models.IntegerField()
+  language = models.ForeignKey(HwLanguage, null=True, blank=True)
+  location = models.ForeignKey(HwLocation, null=True, blank=True)
   description = models.TextField(blank=True)
-  creator_id = models.ForeignKey(User, related_name='%(class)s_creator_id')
-  skills = models.ManyToManyField('Skill', through='HunchSkills')
-  groups = models.ManyToManyField('Group', through='HunchGroups')
-  users = models.ManyToManyField('User', through='HunchConnections')
-  evidence = models.ManyToManyField('Evidence')
-  invited_users = models.ManyToManyField('InvitedUser', through='HunchInvites')
+  skills = models.ManyToManyField('HwSkill', through='HwSkillConnections')
+  groups = models.ManyToManyField('HwGroup', through='HwHunchConnections')
+  users = models.ManyToManyField('HwUser', through='HwHunchConnections')
+  invited_users = models.ManyToManyField(
+    'HwInvitedUser', through='HwHunchConnections')
   class Meta:
     db_table = u'hw_hunch'
 
-class Evidence(models.Model):
+class HwEvidence(models.Model):
   """Class representing a response to the hunch"""
   evidence_id = models.IntegerField(primary_key=True)
-  hunch_id = models.ForeignKey(Hunch, related_name='%(class)s_hunch_id')
-  creator_id = models.ForeignKey(User)
+  hunch = models.ForeignKey(HwHunch)
+  creator = models.ForeignKey(HwUser)
+  strength = models.IntegerField()
   time_created = models.DateTimeField()
   description = models.TextField(blank=True)
-  albums = models.ManyToManyField('Album', through='EvidenceAlbums')
-  attachments = models.ManyToManyField('Attachment', through='EvidenceAttachments')
+  albums = models.ManyToManyField('HwAlbum', through='HwEvidenceAlbums')
+  attachments = models.ManyToManyField(
+    'HwAttachment', through='HwEvidenceAttachments')
   class Meta:
     db_table = u'hw_evidence'
 
-class EvidenceAlbums(models.Model):
+class HwEvidenceAlbums(models.Model):
   """Many to Many model joining Evidence and Album together"""
-  evidence_albums_id = models.IntegerField(primary_key=True)
-  album_id = models.ForeignKey(Album)
-  evidence_id = models.ForeignKey(Evidence)
+  album = models.ForeignKey(HwAlbum)
+  evidence = models.ForeignKey(HwEvidence)
   class Meta:
     db_table = u'hw_evidence_albums'
 
-class EvidenceAttachments(models.Model):
+class HwEvidenceAttachments(models.Model):
   """Many to Many model joining evidence and attachments."""
-  evidence_attachment_id = models.IntegerField(primary_key=True)
-  attachment_id = models.ForeignKey(Attachment)
-  evidence_id = models.ForeignKey(Evidence)
+  attachment = models.ForeignKey(HwAttachment)
+  evidence = models.ForeignKey(HwEvidence)
   class Meta:
     db_table = u'hw_evidence_attachments'
 
-class Group(models.Model):
+class HwGroup(models.Model):
   """Class representing a logical grouping of Hunchworks users."""
   group_id = models.IntegerField(primary_key=True)
   name = models.CharField(unique=True, max_length=100, blank=True)
   group_type = models.IntegerField()
   privacy = models.IntegerField()
-  location = models.ForeignKey(Location, null=True, blank=True)
+  location = models.ForeignKey(HwLocation, null=True, blank=True)
   logo = models.CharField(max_length=100, blank=True)
-  hunches = models.ManyToManyField('Hunch', through='HunchGroups')
-  users = models.ManyToManyField('User', through='GroupConnections')
+  hunches = models.ManyToManyField('HwHunch', through='HwHunchConnections')
+  users = models.ManyToManyField('HwUser', through='HwHumanConnections')
   class Meta:
     db_table = u'hw_group'
 
-class GroupConnections(models.Model):
-  """Many to Many model joining groups with their member users."""
-  group_user_id = models.IntegerField(primary_key=True)
-  user_id = models.ForeignKey(User)
-  group_id = models.ForeignKey(Group)
+class HwHumanConnections(models.Model):
+  """Many to Many model joining groups and users with users."""
+  human_connection_id = models.IntegerField(primary_key=True)
+  user = models.ForeignKey(HwUser, related_name='%(class)s_user_id')
   access_level = models.IntegerField()
   trust_from_user = models.IntegerField()
   trust_from_group = models.IntegerField()
   receive_updates = models.IntegerField()
   status = models.IntegerField()
+  group = models.ForeignKey(HwGroup, null=True, blank=True)
+  #other_user = models.ForeignKey(HwUser, null=True, blank=True)
   class Meta:
-    db_table = u'hw_group_connections'
+    db_table = u'hw_human_connections'
 
-class HunchConnections(models.Model):
-  """Many to Many model joining Hunch and User together"""
-  hunch_connections_id = models.IntegerField(primary_key=True)
-  hunch_id = models.ForeignKey(Hunch)
-  user_id = models.ForeignKey(User)
-  status = models.IntegerField()
-  class Meta:
-    db_table = u'hw_hunch_connections'
-
-class HunchGroups(models.Model):
-  """Many to Many model joining Hunch and Group together"""
-  hunch_groups_id = models.IntegerField(primary_key=True)
-  group_id = models.ForeignKey(Group)
-  hunch_id = models.ForeignKey(Hunch)
-  status = models.IntegerField()
-  class Meta:
-    db_table = u'hw_hunch_groups'
-  
-class InvitedUser(models.Model):
+class HwInvitedUser(models.Model):
   """Class representing a master list of all users ever invited to the system
   and their respective user id's if they created an account."""
-  invited_users_id = models.IntegerField(primary_key=True)
-  user_id = models.ForeignKey(User, null=True, blank=True)
-  email = models.CharField(unique=True, max_length=45)
+  email = models.CharField(max_length=45, primary_key=True)
+  user = models.ForeignKey(HwUser, related_name='%(class)s_user_id')
+  hunches = models.ManyToManyField('HwHunch', through='HwHunchConnections')
+  users = models.ManyToManyField('HwUser', through='HwUserInvites')
   class Meta:
     db_table = u'hw_invited_user'
 
-class HunchInvites(models.Model):
-  """Many to Many model joining Hunch and Invited Users together"""
-  hunch_invites_id = models.IntegerField(primary_key=True)
-  invited_user_id = models.ForeignKey(InvitedUser)
-  hunch_id = models.ForeignKey(Hunch)
+class HwHunchConnections(models.Model):
+  """Many to Many model joining Hunch and User,Group,InvitedUser together"""
+  hunch_connection_id = models.IntegerField(primary_key=True)
+  hunch = models.ForeignKey(HwHunch)
   status = models.IntegerField()
+  user = models.ForeignKey(HwUser, null=True, blank=True)
+  group = models.ForeignKey(HwGroup, null=True, blank=True)
+  invited_email = models.ForeignKey(HwInvitedUser, null=True, blank=True)
   class Meta:
-    db_table = u'hw_hunch_invites'
-  
-class Skill(models.Model):
+    db_table = u'hw_hunch_connections'
+
+class HwLocationInterests(models.Model):
+  """Many to Many model joining User and Location together for their list
+  of locations they are interested in"""
+  user = models.ForeignKey(HwUser)
+  location = models.ForeignKey(HwLocation)
+  class Meta:
+    db_table = u'hw_location_interests'
+
+class HwOrganization(models.Model):
+  """Class representing an external organization (UNDP etc.)."""
+  organization_id = models.IntegerField(primary_key=True)
+  name = models.CharField(max_length=125)
+  abbreviation = models.CharField(max_length=7)
+  group = models.ForeignKey(HwGroup)
+  location = models.ForeignKey(HwLocation, null=True, blank=True)
+  class Meta:
+    db_table = u'hw_organization'
+
+class HwRole(models.Model):
+  """Class representing a role held by a given user."""
+  role_id = models.IntegerField(primary_key=True)
+  organization = models.ForeignKey(HwOrganization)
+  title = models.CharField(max_length=40)
+  start_date = models.DateField()
+  end_date = models.DateField(null=True, blank=True)
+  description = models.TextField(blank=True)
+  users = models.ManyToManyField('HwUser', through='HwUserRoles')
+  class Meta:
+    db_table = u'hw_role'
+
+class HwSkill(models.Model):
   """Class representing a skill possessed by a user, e.g. HTML."""
   skill_id = models.IntegerField(primary_key=True)
   skill = models.CharField(unique=True, max_length=100)
   is_language = models.IntegerField()
   is_technical = models.IntegerField()
+  hunches = models.ManyToManyField('HwHunch', through='HwSkillConnections')
+  users = models.ManyToManyField('HwUser', through='HwSkillConnections')
   class Meta:
-    db_table = u'skill'
+    db_table = u'hw_skill'
 
-class HunchSkills(models.Model):
-  """Many to Many model joining hunches and skills.
+class HwSkillConnections(models.Model):
+  """Many to Many model joining hunches, user and skills.
 
   This model represents the skill-set required to progress a hunch and the skill
-  level needed for each skill.
+  level needed for each skill. It also has the skillset of a user, and the level
+  for each skill. 
   """
-  hunch_skill_id = models.IntegerField(primary_key=True)
-  hunch_id = models.ForeignKey(Hunch)
-  skill_id = models.ForeignKey(Skill)
+  skill_connection_id = models.IntegerField(primary_key=True)
+  skill = models.ForeignKey(HwSkill)
   level = models.IntegerField()
+  hunch = models.ForeignKey(HwHunch, null=True, blank=True)
+  user = models.ForeignKey(HwUser, null=True, blank=True)
   class Meta:
-    db_table = u'hw_hunch_skills'
+    db_table = u'hw_skill_connections'
 
-class LocationInterests(models.Model):
-  """Many to Many model joining User and Location together for their list
-  of locations they are interested in"""
-  location_interests_id = models.IntegerField(primary_key=True)
-  user_id = models.ForeignKey(User)
-  location_id = models.ForeignKey(Location)
-  class Meta:
-    db_table = u'hw_location_interests'
-
-class Organization(models.Model):
-  """Class representing an external organization (UNDP etc.)."""
-  organization_id = models.IntegerField(primary_key=True)
-  name = models.CharField(max_length=125)
-  abbreviation = models.CharField(max_length=15)
-  group_id = models.ForeignKey(Group)
-  location_id = models.ForeignKey(Location, null=True, blank=True)
-  class Meta:
-    db_table = u'hw_organization'
-
-class Role(models.Model):
-  """Class representing a role held by a given user."""
-  role_id = models.IntegerField(primary_key=True)
-  organization = models.ForeignKey(Organization)
-  title = models.CharField(max_length=255)
-  start_date = models.DateField()
-  end_date = models.DateField(null=True, blank=True)
-  description = models.TextField(blank=True)
-  class Meta:
-    db_table = u'hw_role'
-
-class UserClasses(models.Model):
-  """Many to Many model joining User and Class together"""
-  user_class_id = models.IntegerField(primary_key=True)
-  user_id = models.ForeignKey(User)
-  class_id = models.ForeignKey(Class)
-  class Meta:
-    db_table = u'hw_user_classes'
-
-class UserConnections(models.Model):
-  """Class representing a personal connection between two users."""
-  user_connection_id = models.IntegerField(primary_key=True)
-  user_a_id = models.ForeignKey(User, related_name='%(class)s_user_a_id')
-  user_b_id = models.ForeignKey(User, related_name='%(class)s_user_b_id')
-  status = models.IntegerField()
-  class Meta:
-    db_table = u'hw_user_connections'
-
-class UserEducation(models.Model):
-  """Many to Many model representing a user's degrees / education."""
-  user_education_id = models.IntegerField(primary_key=True)
-  user_id = models.ForeignKey(User)
-  education_id = models.ForeignKey(Education)
-  class Meta:
-    db_table = u'hw_user_education'
-
-class UserInvites(models.Model):
+class HwUserInvites(models.Model):
   """Many to Many model joining User and Invited User together for the users 
   invited people list"""
-  user_invites_id = models.IntegerField(primary_key=True)
-  user_id = models.ForeignKey(User)
-  invited_users = models.ForeignKey(InvitedUser)
+  user = models.ForeignKey(HwUser)
+  invited_email = models.ForeignKey(HwInvitedUser)
   status = models.IntegerField()
   class Meta:
     db_table = u'hw_user_invites'
 
-class UserRoles(models.Model):
+class HwUserRoles(models.Model):
   """Many To many model representing a user's roles or positions."""
-  user_role_id = models.IntegerField(primary_key=True)
-  user_id = models.ForeignKey(User)
-  role_id = models.ForeignKey(Role)
+  user = models.ForeignKey(HwUser)
+  role = models.ForeignKey(HwRole)
   class Meta:
     db_table = u'hw_user_roles'
 
-class UserSkills(models.Model):
-  """Many to Many model joining user and skill.
-
-  This model represents the skill-set of users, and also indicates their level
-  of expertise in a given skill. Currently, expertise is two-tier; users are
-  either skilled or expert in a given area.
-  """
-  user_skill_id = models.IntegerField(primary_key=True)
-  user_id = models.ForeignKey(User)
-  skill_id = models.ForeignKey(Skill)
-  level = models.IntegerField()
-  class Meta:
-    db_table = u'hw_user_skills'
-  
 # Getters for setting the default values for ForeignKeys on other models.
 def GetDefaultLanguage():
   return Language.objects.get(pk='en')

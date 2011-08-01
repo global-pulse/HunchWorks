@@ -32,6 +32,8 @@ CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_user` (
   `title` TINYINT UNSIGNED NOT NULL ,
   `show_profile_reminder` TINYINT UNSIGNED NOT NULL ,
   `privacy` TINYINT UNSIGNED NOT NULL ,
+  `username` VARCHAR(20) NOT NULL ,
+  `password` VARCHAR(20) NOT NULL ,
   `default_language_id` INT UNSIGNED NOT NULL ,
   `bio_text` TEXT NULL ,
   `phone` VARCHAR(20) NULL ,
@@ -487,18 +489,18 @@ DROP TABLE IF EXISTS `hunchWorks`.`hw_user_invites` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_user_invites` (
   `user_id` INT UNSIGNED NOT NULL ,
-  `Invited_email` VARCHAR(45) NOT NULL ,
+  `invited_email` VARCHAR(45) NOT NULL ,
   `status` TINYINT UNSIGNED NOT NULL ,
   INDEX `fk_hw_user_invites__user_id` (`user_id` ASC) ,
-  INDEX `fk_hw_user_invites__invited_email` (`Invited_email` ASC) ,
-  PRIMARY KEY (`user_id`, `Invited_email`) ,
+  INDEX `fk_hw_user_invites__invited_email` (`invited_email` ASC) ,
+  PRIMARY KEY (`user_id`, `invited_email`) ,
   CONSTRAINT `fk_hw_user_invites__user_id`
     FOREIGN KEY (`user_id` )
     REFERENCES `hunchWorks`.`hw_user` (`user_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_hw_user_invites__invited_email`
-    FOREIGN KEY (`Invited_email` )
+    FOREIGN KEY (`invited_email` )
     REFERENCES `hunchWorks`.`hw_invited_user` (`email` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

@@ -1,0 +1,23 @@
+{% extends "base.html" %} 
+
+{% block content %}
+  <form method='post' action='profileStrict.html'>{% csrf_token %}
+    <h2>Sign up with Hunchworks to get started...</h2>
+    <div id='inputForm'>
+      <h3>Import your profile</h3>
+      <div>
+        <button class='importButton' type='button' onclick='return popup(
+          "importLinkedIn.html", "linkedIn")'>Linked In</button>
+        <button class='importButton' type='button' onclick='return popup(
+          "importTeamWorks.html", "teamWorks")'>Teamworks</button>
+        <button class='importButton' type='button' onclick='return popup(
+          "importFacebook.html", "facebook")'>Facebook</button>
+      </div>
+      <h3>Or create a new account</h3>
+      <div>
+        <input type='submit' value='Create a new profile to join'/>
+      </div>
+    </div> <!-- end inputForm -->
+  </form>
+
+{% endblock %}

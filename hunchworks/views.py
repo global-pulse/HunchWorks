@@ -24,45 +24,55 @@ from django.forms.models import modelformset_factory
 # This import is used to used the redirect method
 from django.http import HttpResponseRedirect
 
-
 def index(request):
-	form = forms.SignUpForm() # An unbound form
-	context = { 'form': form }
-  	return render_to_response('signup.html', context)
+  form = forms.SignInForm()
+  context = { 'form': form }
+  return render_to_response('index.html', context)
+
+
+def signin(request):
+  form = forms.SignInForm() # An unbound form
+  context = { 'form': form }
+  return render_to_response('signin.html', context)
+
+
+def signup(request):
+  form = forms.SignUpForm() # An unbound form
+  context = { 'form': form }
+  return render_to_response('signup.html', context)
 
 
 def homepage(request):
-  	#This picks up the user located at index 1 of the users table
-  	#user = models.User.objects.get(pk=1) 
-  	#context = {'first_name': user.first_name, 'location': user.location}
-  	context = {'first_name': 'User', 'location': 'New York'}
-  	return render_to_response('homepage.html', context)
+  #This picks up the user located at index 1 of the users table
+  user = models.HwUser.objects.get(pk=1) 
+  context = {'first_name': user.first_name}
+  #context = {'first_name': 'User', 'location': 'New York'}
+  return render_to_response('homepage.html', context)
 
 
 def profile(request):
-	if request.method == 'POST': # If the form has been submitted...
-		form = forms.SignUpForm(request.POST) # A form bound to the POST data
-		if form.is_valid(): # All validation rules pass
-			form.save()
-			#return HttpResponseRedirect('/thanks/') # Redirect after POST
-		else:
-			return HttpResponseRedirect('signup.html') # Redirect after POST
-  	user = models.Users.objects.get(pk=1)
-  	context = {
-     	'first_name': user.first_name, 'last_name': user.last_name,
-     	'email': user.email, 'location': user.location,
-     	'occupation': user.occupation,
-    }
-  	return render_to_response('profile.html', context)
-
+  print 'here'
+  if request.method == 'POST': # If the form has been submitted...
+    form = forms.SignUpForm(request.POST) # A form bound to the POST data
+    if form.is_valid(): # All validation rules pass
+      form.save()
+      #return HttpResponseRedirect('/thanks/') # Redirect after POST
+    else:
+      return HttpResponseRedirect('signup.html') # Redirect after POST
+  user = models.HwUser.objects.get(pk=1)
+  context = {
+    'first_name': user.first_name, 'last_name': user.last_name,
+    'email': user.email,
+  }
+  return render_to_response('profileStrict.html', context)
 
 def importFacebook(request):
-  	return render_to_response('importFacebook.html')
+  return render_to_response('importFacebook.html')
 
 
 def importLinkedIn(request):
- 	return render_to_response('importLinkedIn.html')
+  return render_to_response('importLinkedIn.html')
 
 
 def importTeamWorks(request):
-  	return render_to_response('importTeamWorks.html')
+  return render_to_response('importTeamWorks.html')
