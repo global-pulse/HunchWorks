@@ -93,6 +93,10 @@ class HwLanguage(models.Model):
   class Meta:
     db_table = u'hw_language'
 
+  def __unicode__(self):
+    return self.name
+
+
 class HwLocation(models.Model):
   """Class representing a location used by the application.
 
@@ -123,7 +127,7 @@ class HwUser(models.Model):
     choices=hunchworks_enums.PrivacyLevel.GetChoices())
   username = models.CharField(max_length=20)
   password = models.CharField(max_length=20)
-  default_language = models.ForeignKey(HwLanguage)
+  default_language = models.ForeignKey(HwLanguage, verbose_name='name')
   bio_text = models.TextField(blank=True)
   phone = models.CharField(max_length=20, blank=True)
   skype_name = models.CharField(max_length=30, blank=True)
@@ -174,6 +178,7 @@ class HwHunch(models.Model):
     'HwInvitedUser', through='HwHunchConnections')
   class Meta:
     db_table = u'hw_hunch'
+ 
 
 class HwEvidence(models.Model):
   """Class representing a response to the hunch"""
