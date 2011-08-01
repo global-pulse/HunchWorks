@@ -1,9 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <title>Your profile</title>
+{% extends "base.html" %}
+  {% block title %}Your profile{% endblock %}
+  {% block css %}
     <style type='text/css'>
       #leftSide {
         float: left;
@@ -24,9 +21,9 @@
         list-style-type: none;
       }
     </style>
-  </head>
-  <body>
-    <div id='page'>
+  {% endblock %}
+
+  {% block content %}
       <div id='leftSide'>
         Welcome {{ first_name }} to HunchWorks!
         <div id='profile'>
@@ -198,6 +195,6 @@
           </ol>
         </div> <!-- end matchingHunches div -->
       </div> <!-- end rightSide div -->
-    </div> <!-- end page div -->
-  </body>
-</html>
+
+
+  {% endblock %}
