@@ -1,5 +1,7 @@
 {% extends "base.html" %} 
 
+{% block js %}<script src="/static/signup.js"></script>{% endblock %}
+{% block title %}Signup{% endblock %}
 {% block content %}
   <form method='post' action='profileStrict.html'>{% csrf_token %}
     <h1>Tell us about yourself:</h1>

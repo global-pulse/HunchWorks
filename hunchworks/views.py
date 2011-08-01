@@ -66,6 +66,7 @@ def profile(request):
   }
   return render_to_response('profileStrict.html', context)
 
+
 def createHunch(request):
   return render_to_response('createHunch.html')
 

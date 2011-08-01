@@ -51,13 +51,24 @@ if platform.system() == 'Darwin':
 else:
   DATABASES = {
     'default': {
-      'ENGINE': 'django.db.backends.mysql',
-      'NAME': 'hunchWorks',
-      'USER': 'root',
-      'PASSWORD': 'root',
-      'HOST': 'localhost',
-      'PORT': '3306'
+      'ENGINE': 'django.db.backends.sqlite3',
+      'NAME': 'database/hunchWorks.sqlite',
+      'USER': '',
+      'PASSWORD': '',
+      'HOST': '',
+      'PORT': '',
     }
+
+#  DATABASES = {
+#    'default': {
+#      'ENGINE': 'django.db.backends.mysql',
+#      'NAME': 'hunchWorks',
+#      'USER': 'root',
+#      'PASSWORD': 'root',
+#      'HOST': 'localhost',
+#      'PORT': '3306'
+#    }
+#  }
   }
 
 # Local time zone for this installation. Choices can be found here:
