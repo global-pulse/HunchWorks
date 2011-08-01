@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+	<div id='leftSide'>
+		Welcome {{ first_name }} to HunchWorks!
+		<div id='profile'>
+			<h3>Your Profile:</h3>
+			<div class='divInput'>
+				<b>First Name:</b> 
+				{{ first_name }}
+			</div>
+			<div class='divInput'>
+				<b>Last Name:</b> 
+				{{ last_name }}
+			</div>
+			<div class='divInput'>
+				<b>Location:</b> 
+				{{ location }}
+			</div>
+			<div class='divInput'>
+				<b>Email:</b> 
+				{{ email }}
+			</div>
+			<div class='divInput'>
+				<b>Occupation:</b> 
+				{% if occupation %}
+					{{ occupation }}
+				{% else %}
+					Occupation not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>	
+				<b>Hometown:</b> 
+				{% if hometown %}
+					{{ hometown }}
+				{% else %}
+					Hometown not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>Education:</b>
+				{% if education %}
+					{{ education }}
+				{% else %}
+					Education not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>Phone Number:</b>
+				{% if phone_number %}
+					{{ phone_number }}
+				{% else %}
+					Phone Number not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>Organization:</b>
+				{% if organization %}
+					{{ organization }}
+				{% else %}
+					Organization not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>About Yourself:</b>
+				{% if bio_text %}
+					{{ bio_text }}
+				{% else %}
+					Biography not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>Work History:</b>
+				{% if work_history %}
+					{{ work_history }}
+				{% else %}
+					Work history not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>Skype:</b>
+				{% if skype_name %}
+					{{ skype_name }}
+				{% else %}
+					Skype name not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>Instant Messanger:</b>
+				{% if instant_messanger %}
+					{{ instant_messanger }}
+				{% else %}
+					Instant Messanger not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>Website:</b>
+				{% if website %}
+					{{ website }}
+				{% else %}
+					Website not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>Expertise:</b>
+				{% if expertise %}
+					{{ expertise }}
+				{% else %}
+					Expertise not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>Skills:</b>
+				{% if skills %}
+					{{ skills }}
+				{% else %}
+					Skills not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>Languages:</b>
+				{% if languages_known %}
+					{{ languages_known }}
+				{% else %}
+					Languages known not entered
+				{% endif %}
+			</div>
+			<div class='divInput'>
+				<b>Location interests:</b>
+				{% if location_interests %}
+					{{ location_interests }}
+				{% else %}
+					Location Interests not entered
+				{% endif %}  
+			</div>
+		</div> <!-- end profile div -->
+		<div id='invite'>
+			<h3>Invite People to HunchWorks</h3>
+			<textarea rows='10' cols='30'>type each email here separated by a comma
+			</textarea>
+			<button type='submit'>Invite your friends!</button>
+			<!-- 1. Check data to make sure it is inputed correctly. If not throw error. 
+					Should be name@blah.com, name@yahoo.com, etc...
+				2. String parse the string on the value ', ' to get each value.
+				3. Send invites to each email.
+				4. Append original string into variable hasInvited of user's DB, required a
+					select and insert.
+			-->
+		</div> <!-- end invite div -->
+	</div> <!-- end leftSide div -->
+	<div id='rightSide'>
+		<button id='createHunchButton' type='button'> Create a Hunch! </button>
+		<!-- Link to the createHunch page -->
+		<div id='complementaryDiv'>
+			<h3>People with complementary skills</h3>
+			<ul id='complementaryList'>
+				<li id='complementaryPerson1'>
+					<a id='linkToProfile1' href='linkToProfile1'>
+					<img id='imgToProfile1'src='profile1pic' alt='imgToProfile1'/>
+					Profile 1 name</a></li>
+				<li id='complementaryPerson2'>
+					<a id='linkToProfile2' href='linkToProfile2'>
+					<img id='imgToProfile2'src='profile2pic' alt='imgToProfile2'/>
+					Profile 2 name</a></li>
+				<li id='complementaryPerson3'>
+					<a id='linkToProfile3' href='linkToProfile3'>
+					<img id='imgToProfile3' src='profile3pic' alt='imgToProfile3'/>
+					Profile 3 name</a></li>
+				<li id='complementaryPerson4'>
+					<a id='linkToProfile4' href='linkToProfile4'>
+					<img id='imgToProfile4' src='profile4pic' alt='imgToProfile4'/>
+					Profile 4 name</a></li>
+				<li id='complementaryPerson5'>
+					<a id='linkToProfile5' href='linkToProfile5'>
+					<img id='imgToProfile5' src='profile5pic' alt='imgToProfile5'/>
+					Profile 5 name</a></li>
+			</ul>
+		</div> <!-- end complementaryDiv div -->
+		<div id='matchingHunches'>
+			<h3>Hunches matching your expertise</h3>
+			<ol id='matchingHunchesList'>
+				<li><a id='linkToMatchingHunch1' href='linkToHunch1'>
+					Title of Matching Hunch 1</a></li>
+				<li><a id='linkToMatchingHunch2' href='linkToHunch2'>
+					Title of Matching Hunch 2</a></li>
+				<li><a id='linkToMatchingHunch3' href='linkToHunch3'>
+					Title of Matching Hunch 3</a></li>
+				<li><a id='linkToMatchingHunch4' href='linkToHunch4'>
+					Title of Matching Hunch 4</a></li>
+				<li><a id='linkToMatchingHunch5' href='linkToHunch5'>
+					Title of Matching Hunch 5</a></li>
+			</ol>
+		</div> <!-- end matchingHunches div -->
+	</div> <!-- end rightSide div -->
+
+{% endblock %}

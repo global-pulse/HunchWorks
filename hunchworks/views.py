@@ -46,14 +46,14 @@ def profile(request):
 			form.save()
 			#return HttpResponseRedirect('/thanks/') # Redirect after POST
 		else:
-			return HttpResponseRedirect('signupStrict.html') # Redirect after POST
+			return HttpResponseRedirect('signup.html') # Redirect after POST
   	user = models.Users.objects.get(pk=1)
   	context = {
      	'first_name': user.first_name, 'last_name': user.last_name,
      	'email': user.email, 'location': user.location,
      	'occupation': user.occupation,
     }
-  	return render_to_response('profileStrict.html', context)
+  	return render_to_response('profile.html', context)
 
 
 def importFacebook(request):

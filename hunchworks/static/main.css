@@ -60,3 +60,15 @@
 			.importButton {
 				font-size: 15px;
 			}
+			#profile {
+				border-bottom: 2px solid black
+			}
+			#rightSide {
+				float: left;
+			}
+			#createHunchButton {
+				font-size: 30px;
+			}
+			#complementaryList{
+				list-style-type: none;
+			}
