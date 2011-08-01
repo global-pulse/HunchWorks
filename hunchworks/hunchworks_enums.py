@@ -154,8 +154,25 @@ class Group(Enum):
 class GroupPrivilege(Enum):
   ADMIN = 0
   MEMBER = 1
+  
+class LanguageOptions(Enum):
 
+  MAP = {}
 
+  ENGLISH = 0
+  SPANISH = 1
+  GERMAN = 2
+  FRENCH = 3
+  MANDARIN = 4
+
+  FIELD_LOOKUP = {
+    ENGLISH: 'English',
+    SPANISH: 'Spanish',
+    FRENCH: 'French',
+    GERMAN: 'German',
+    MANDARIN: 'Mandarin',
+    }
+  
 ATTACHMENT_TYPES = (
   ('Photo', 'Photo'),
   ('Link', 'Link'),

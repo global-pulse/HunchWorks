@@ -88,7 +88,7 @@ class HwLanguage(models.Model):
   4. de: de-DE
   5. zh-cn: zh-cn (use simplified Chinese)
   """
-  language_id = models.IntegerField(primary_key=True)
+  language_id = models.IntegerField(primary_key=True, default=0)
   name = models.CharField(unique=True, max_length=45)
   class Meta:
     db_table = u'hw_language'
@@ -113,12 +113,12 @@ class HwLocation(models.Model):
 class HwUser(models.Model):
   """Class representing a Hunchworks user."""
   user_id = models.IntegerField(primary_key=True)
-  email = models.CharField(max_length=45)
+  email = models.EmailField(max_length=45)
   first_name = models.CharField(max_length=25)
   last_name = models.CharField(max_length=50)
   title = models.IntegerField(
     choices=hunchworks_enums.UserTitle.GetChoices())
-  show_profile_reminder = models.IntegerField()
+  show_profile_reminder = models.IntegerField(default=0)
   privacy = models.IntegerField(
     choices=hunchworks_enums.PrivacyLevel.GetChoices())
   username = models.CharField(max_length=20)
@@ -142,7 +142,7 @@ class HwUser(models.Model):
   invited_users = models.ManyToManyField(
   	'HwInvitedUser', through='HwUserInvites')
   groups = models.ManyToManyField('HwGroup', through='HwHumanConnections')
-  #collaborators = models.ManyToManyField('HwUser', through='HwHumanConnections')
+  ####collaborators = models.ManyToManyField('HwUser', through='HwHumanConnections')
   class Meta:
     db_table = u'hw_user'
 

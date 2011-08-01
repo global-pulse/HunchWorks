@@ -44,9 +44,9 @@ def signup(request):
 
 def homepage(request):
   #This picks up the user located at index 1 of the users table
-  #user = models.User.objects.get(pk=1) 
-  #context = {'first_name': user.first_name, 'location': user.location}
-  context = {'first_name': 'User', 'location': 'New York'}
+  user = models.HwUser.objects.get(pk=1) 
+  context = {'first_name': user.first_name}
+  #context = {'first_name': 'User', 'location': 'New York'}
   return render_to_response('homepage.html', context)
 
 
@@ -59,13 +59,12 @@ def profile(request):
       #return HttpResponseRedirect('/thanks/') # Redirect after POST
     else:
       return HttpResponseRedirect('signup.html') # Redirect after POST
-  user = models.Users.objects.get(pk=1)
+  user = models.HwUser.objects.get(pk=1)
   context = {
     'first_name': user.first_name, 'last_name': user.last_name,
-    'email': user.email, 'location': user.location,
-    'occupation': user.occupation,
+    'email': user.email,
   }
-  return render_to_response('profile.html', context)
+  return render_to_response('profileStrict.html', context)
 
 
 def importFacebook(request):

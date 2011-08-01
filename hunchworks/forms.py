@@ -27,9 +27,9 @@ class SignUpForm(ModelForm):
   class Meta:
     model= models.HwUser
     exclude = ( 
-	'show_profile_reminder', 'default_language', 'bio_text', 'phone', 
+	'show_profile_reminder', 'bio_text', 'phone', 'default_langauge',
 	'skype_name', 'website', 'profile_picture', 'screen_name',
-	'messenger_service', 'skills', 'education', 'classes',
+	'messenger_service', 'skills', 'education', 'classes', 'user_id',
 	'location_interests', 'roles', 'hunches', 'invited_users', 'groups'
 	)
     widgets = {
