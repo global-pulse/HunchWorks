@@ -66,6 +66,13 @@ def profile(request):
   }
   return render_to_response('profileStrict.html', context)
 
+def createHunch(request):
+  return render_to_response('createHunch.html')
+
+
+def HunchEvidence(request):
+  return render_to_response('addEvidence.html')
+
 
 def importFacebook(request):
   return render_to_response('importFacebook.html')
@@ -77,3 +84,5 @@ def importLinkedIn(request):
 
 def importTeamWorks(request):
   return render_to_response('importTeamWorks.html')
+  
+

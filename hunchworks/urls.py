@@ -35,6 +35,8 @@ urlpatterns = patterns(
   (r'^profileStrict', 'profile'),
   (r'^signup', 'signup'),
   (r'^signin', 'signin'),
+  (r'^createHunch', 'createHunch'),
+  (r'^addEvidence', 'HunchEvidence'),
   (r'^', 'index'),
 
 )

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Create a Hunch</title>
+    <style type='text/css'>
+      #leftSide {
+        float: left;
+        clear: both;
+        width: 600px;
+        }
+      #rightSide {
+        float: left;
+      }
+      .divInput {
+        padding-bottom: 10px;
+      }
+      #relatedSkills, #languagesRequired{
+        padding-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='page'>
+      <div id='header'>
+        <h3>Create a new hunch</h3>
+      </div>
+      <div id='contents'>
+		<div id='leftSide'>
+		  <div class='divInput'>
+			<b>Title:</b><em>(required)</em>
+			<textarea rows='1' cols='80'></textarea>
+		  </div>
+		  <div class='divInput'>
+			<b>Description:</b><em>(required)</em>
+			<textarea rows='10' cols='80'></textarea>
+		  </div>
+		  <div class='divInput'>
+			<b>Tags:</b><em>(optional but recommended)</em>
+			<input type='text' maxlength='40'>
+			<button type='button'>Add tag</button>
+			<div id='tagsAdded'></div>
+		  </div>
+		  <div class='divInput'>
+			<b>Location:</b>
+			<button type='button'>GIS COORDINATES</button>
+			<button type='button'>PIN ON MAP</button>
+			<button type='button'>DRAW ON MAP</button>
+			<button type='button'>LOCATION NAME</button>
+			<img src='googlemap' alt='googlemap' height='400px' width='580px'/> 
+		  </div>
+		  <button type='button' onclick="location.href='addEvidence.html'">
+		    Next Step
+		  </button>
+		</div> <!-- end leftSide div -->
+		<div id='rightSide'>
+		  <div id='relatedSkills'>
+			<b>Related Skills:</b><em>(optional)</em>
+			<!-- The following are just place holders for now -->
+			<div>Language translation</div>
+			<div>GIS analysis</div>
+			<div>text analysis</div>
+			<div>economcis</div>
+			<div>data Cleaning</div>
+			<div>classification</div>
+			<div>mobile data</div>
+			<div>monitoring & evaluation</div>
+			<div>natural language processing</div>
+			<div>image processing</div>
+			<div>data analysis</div>
+			<div>data mining</div>
+		  </div>
+		  <div id='languagesRequired'>
+			<b>Languages required:</b><em>(optional)</em>
+			  <!-- The following are just place holders for now -->
+			<div>English</div>
+			<div>French</div>
+			<div>Arabic</div>
+			<div>Russian</div>
+			<div>Spanish</div>
+			<div>Chinese</div>
+		  </div>
+		</div> <!-- end rightSide div -->
+      </div>
+    </div> <!-- end page div -->
+  </body>
+</html>
