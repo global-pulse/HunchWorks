@@ -1,0 +1,11 @@
+.inputText {
+	float: right;
+	clear: both;
+	}
+.divInput {
+	width:300px;
+	clear: both;
+}
+.importButton {
+	font-size: 15px;
+}

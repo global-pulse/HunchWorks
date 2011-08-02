@@ -33,11 +33,15 @@
 		    <form action="{{action}}" method="post">{% csrf_token %}
 		      <b>Title:</b><em>(required)</em>
 		      <div class="inputText">
-			{{ form.title }} 
+			    {{ form.title }} 
 		      </div>
 		      <b>Description:</b><em>(required)</em>
 		      <div class="inputText">
-			{{form.description}}
+			    {{form.description}}
+		      </div>
+		      <b>Tags:</b><em>(optional but recommended)</em>
+		      <div class="inputText">
+			    {{form.tags}}
 		      </div>
 		      <input type="submit" value="Submit" />
 		    </form>

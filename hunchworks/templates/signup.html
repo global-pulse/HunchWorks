@@ -1,7 +1,9 @@
 {% extends "base.html" %} 
-
 {% block js %}<script src="/static/signup.js"></script>{% endblock %}
 {% block title %}Signup{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="/static/signup.css" type="text/css"/>
+{% endblock %}
 {% block content %}
   <form method='post' action='profileStrict.html'>{% csrf_token %}
     <h1>Tell us about yourself:</h1>
@@ -56,12 +58,6 @@
           {{ form.password }}
         </div>
       </div>
-      <!--<div class='divInput'>
-        Preferred Language:
-        <div class ='inputText'>
-          {{ form.default_language }}
-        </div>
-      </div>-->
       <div>
         <input type='submit' value='join'/>
       </div>

@@ -31,10 +31,10 @@ def index(request):
   return render_to_response('index.html', context)
 
 
-def signin(request):
+def login(request):
   form = forms.SignInForm() # An unbound form
   context = { 'form': form }
-  return render_to_response('signin.html', context)
+  return render_to_response('login.html', context)
 
 
 def signup(request):
@@ -63,7 +63,7 @@ def profile(request):
     'first_name': user.first_name, 'last_name': user.last_name,
     'email': user.email,
   }
-  return render_to_response('profileStrict.html', context)
+  return render_to_response('profile.html', context)
 
 
 #In progress
@@ -82,7 +82,7 @@ def createHunch(request):
     if form.is_valid():
       form.save()
       print 'valid'
-      return render_to_response('profileStrict.html', 
+      return render_to_response('profile.html', 
                                 )
     else:
       print 'not valid'

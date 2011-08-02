@@ -34,7 +34,7 @@ urlpatterns = patterns(
   (r'^homepage', 'homepage'),
   (r'^profile', 'profile'),
   (r'^signup', 'signup'),
-  (r'^signin', 'signin'),
+  (r'^login', 'login'),
   (r'^createHunch', 'createHunch'),
   (r'^addEvidence', 'HunchEvidence'),
   (r'^', 'index'),
