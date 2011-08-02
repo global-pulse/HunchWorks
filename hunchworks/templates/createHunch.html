@@ -29,12 +29,19 @@
       <div id='contents'>
 		<div id='leftSide'>
 		  <div class='divInput'>
-			<b>Title:</b><em>(required)</em>
-			<textarea rows='1' cols='80'></textarea>
-		  </div>
-		  <div class='divInput'>
-			<b>Description:</b><em>(required)</em>
-			<textarea rows='10' cols='80'></textarea>
+			
+		    <form action="{{action}}" method="post">{% csrf_token %}
+		      <b>Title:</b><em>(required)</em>
+		      <div class="inputText">
+			{{ form.title }} 
+		      </div>
+		      <b>Description:</b><em>(required)</em>
+		      <div class="inputText">
+			{{form.description}}
+		      </div>
+		      <input type="submit" value="Submit" />
+		    </form>
+
 		  </div>
 		  <div class='divInput'>
 			<b>Tags:</b><em>(optional but recommended)</em>

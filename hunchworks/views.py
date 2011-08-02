@@ -24,6 +24,7 @@ from django.forms.models import modelformset_factory
 # This import is used to used the redirect method
 from django.http import HttpResponseRedirect
 
+
 def index(request):
   form = forms.SignInForm()
   context = { 'form': form }
@@ -49,9 +50,7 @@ def homepage(request):
   #context = {'first_name': 'User', 'location': 'New York'}
   return render_to_response('homepage.html', context)
 
-
 def profile(request):
-  print 'here'
   if request.method == 'POST': # If the form has been submitted...
     form = forms.SignUpForm(request.POST) # A form bound to the POST data
     if form.is_valid(): # All validation rules pass
@@ -67,8 +66,29 @@ def profile(request):
   return render_to_response('profileStrict.html', context)
 
 
+#In progress
+from django.template import RequestContext
+from django.views.decorators.csrf import csrf_protect
+@csrf_protect
 def createHunch(request):
-  return render_to_response('createHunch.html')
+  print 'createHunch'
+  if request.method != 'POST':
+    print 'not post'
+    form = forms.AddHunchForm()
+    return render_to_response('createHunch.html', { 'form':form }, RequestContext(request))
+    
+  elif request.method == 'POST':
+    form = forms.AddHunchForm(request.POST)
+    if form.is_valid():
+      form.save()
+      print 'valid'
+      return render_to_response('profileStrict.html', 
+                                )
+    else:
+      print 'not valid'
+      return HttpResponseRedirect('createHunch.html')
+
+
 
 
 def HunchEvidence(request):

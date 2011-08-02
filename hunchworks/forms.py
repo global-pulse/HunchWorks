@@ -35,7 +35,15 @@ class SignUpForm(ModelForm):
     widgets = {
       'password': PasswordInput()
       }
-  
+
+class AddHunchForm(ModelForm):
+  class Meta:
+    model = models.HwHunch
+    exclude = (
+      'hunch_id','creator_id','time_created','status','privacy',
+      'strength','language','location','skills','groups','users',
+      'invited_users',)
+
 class HomepageForm(ModelForm):
   class Meta:
     model = models.HwUser
