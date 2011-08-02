@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/env python2.7
 # Managing file for hunchWorks project.
 # Author: Auto created by DJANGO
 # Date: 2011-6-1
