@@ -290,7 +290,7 @@ class HwRole(models.Model):
 class HwSkill(models.Model):
   """Class representing a skill possessed by a user, e.g. HTML."""
   skill_id = models.IntegerField(primary_key=True)
-  skill = models.CharField(unique=True, max_length=100)
+  skill_name = models.CharField(unique=True, max_length=100)
   is_language = models.IntegerField()
   is_technical = models.IntegerField()
   hunches = models.ManyToManyField('HwHunch', through='HwSkillConnections')

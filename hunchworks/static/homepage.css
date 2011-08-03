@@ -1,9 +1,9 @@
-#leftSide {
+#column1 {
 	float: left;
 	clear: both;
 	width: 400px;
 	}
-#rightSide {
+#column2 {
 	padding-left: 15px;
 	float: left;
 	width: 320px;

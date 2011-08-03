@@ -1,15 +1,16 @@
-#leftSide {
+#column1 {
 	float: left;
 	clear: both;
 	width: 250px;
 	border: 2px solid black;
 	}
+#column2 {
+	float: left;
+}
 #profile {
 	border-bottom: 2px solid black
 }
-#rightSide {
-	float: left;
-}
+
 #createHunchButton {
 	font-size: 30px;
 }

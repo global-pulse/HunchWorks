@@ -24,12 +24,14 @@ class SignInForm(ModelForm):
       }
 
 class SignUpForm(ModelForm):
+  skill_name = forms.CharField( max_length=100 )
+
   class Meta:
     model= models.HwUser
     exclude = ( 
-	'show_profile_reminder', 'bio_text', 'phone', 
+	'show_profile_reminder', 'bio_text', 'phone', 'skills',
 	'skype_name', 'website', 'profile_picture', 'screen_name',
-	'messenger_service', 'skills', 'education', 'classes', 'user_id',
+	'messenger_service', 'education', 'classes', 'user_id',
 	'location_interests', 'roles', 'hunches', 'invited_users', 'groups'
 	)
     widgets = {

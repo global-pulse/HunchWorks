@@ -51,11 +51,14 @@ def homepage(request):
   return render_to_response('homepage.html', context)
 
 def profile(request):
+  ###This is the POST information coming from signup.html###
   if request.method == 'POST': # If the form has been submitted...
     form = forms.SignUpForm(request.POST) # A form bound to the POST data
     if form.is_valid(): # All validation rules pass
+      skill = models.HwSkill( skill_name=request.POST['skill_name'], 
+        is_language=0, is_technical=1 )
+      skill.save()
       form.save()
-      #return HttpResponseRedirect('/thanks/') # Redirect after POST
     else:
       return HttpResponseRedirect('signup.html') # Redirect after POST
   user = models.HwUser.objects.get(pk=1)

@@ -5,63 +5,69 @@
   <link rel="stylesheet" href="/static/signup.css" type="text/css"/>
 {% endblock %}
 {% block content %}
-  <form method='post' action='profileStrict.html'>{% csrf_token %}
-    <h1>Tell us about yourself:</h1>
-    <h3>Personal Information</h3>
-    <div id='inputForm'>
-      <div class='divInput'>
-        Title
-        	<!--{{form}}-->
-        <div class='inputText'>
-          {{ form.title }}
-        </div>
-      </div>
-      <div class='divInput'>
-        First Name: 
-        <div class='inputText'>
-          {{ form.first_name }}
-        </div>
-      </div>
-      <div class='divInput'>
-        Last Name:
-        <div class='inputText'>
-          {{ form.last_name }}
-        </div>
-      </div>
-      <div class='divInput'>
-        Email:
-        <div class='inputText'>
-          {{ form.email }}
-        </div>
-      </div>
-      <div class='divInput'>
-        Privacy setting:
-        <div class='inputText'>
-          {{ form.privacy }}
-        </div>
-      </div>
-      <div class='divInput'>
-        Default Language:
-        <div class='inputText'>
-          {{ form.default_language }}
-        </div>
-      </div>
-      <div class='divInput'>
-        Username:
-        <div class='inputText'>
-          {{ form.username }}
-        </div>
-      </div>
-      <div class='divInput'>
-        Password:
-        <div class='inputText'>
-          {{ form.password }}
-        </div>
-      </div>
-      <div>
-        <input type='submit' value='join'/>
-      </div>
-    </div> <!-- end inputForm -->
-  </form>
+  <div id='contents'>
+	<form method='post' action='profile.html'>{% csrf_token %}
+	  <h1>Tell us about yourself:</h1>
+	  <h3>Personal Information</h3>
+	  <div class='inputWrapper'>
+		Title
+			<!--{{form}}-->
+		<div class='inputText'>
+		  {{ form.title }}
+		</div>
+	  </div>
+	  <div class='inputWrapper'>
+		First Name: 
+		<div class='inputText'>
+		  {{ form.first_name }}
+		</div>
+	  </div>
+	  <div class='inputWrapper'>
+		Last Name:
+		<div class='inputText'>
+		  {{ form.last_name }}
+		</div>
+	  </div>
+	  <div class='inputWrapper'>
+		Email:
+		<div class='inputText'>
+		  {{ form.email }}
+		</div>
+	  </div>
+	  <div class='inputWrapper'>
+		Privacy setting:
+		<div class='inputText'>
+		  {{ form.privacy }}
+		</div>
+	  </div>
+	  <div class='inputWrapper'>
+		Default Language:
+		<div class='inputText'>
+		  {{ form.default_language }}
+		</div>
+	  </div>
+	  <div class='inputWrapper'>
+		Username:
+		<div class='inputText'>
+		  {{ form.username }}
+		</div>
+	  </div>
+	  <div class='inputWrapper'>
+		Password:
+		<div class='inputText'>
+		  {{ form.password }}
+		</div>
+	  </div>
+	  <div class='inputWrapper'>
+		Skill1:
+		<div class='inputText'>
+		  {{ form.skill_name }}
+		</div>
+	  </div>
+	  <div>
+		<input type='submit' value='join'/>
+	  </div>
+	</form>
+  </div> <!-- end contents -->
 
 {% endblock %}

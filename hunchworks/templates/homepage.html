@@ -4,261 +4,262 @@
   <link rel="stylesheet" href="/static/homepage.css" type="text/css"/>
 {% endblock %}
 {% block content %}
-  <div id='leftSide'>
-    <div id='welcome'>
-      <div>
-        Welcome Back, {{ first_name }}.
-      </div>
-      <div>
-        Your Network:<a href='network'># of networked Users</a>
-      </div>
-      <div>
-        Hunches Created:<a href='hunchesCreatedHistory'># of hunches created</a>
-      </div>
-      <div>
-        Hunches Confirmed:
-        <a href='hunchesConfirmedHistory'># of hunches confirmed</a>
-      </div>
-    </div> <!-- end welcome div -->
-    <div id='createHunch'>
-      Start a new Hunch! 
-      <button type='button' onclick="location.href='createHunch.html'">
-        Create a Hunch
-      </button>
-    </div> <!-- end createHunch -->
-    <div id='recentHunches'>
-      <h3>Recent Hunch updates:</h3>
-      <div id='recentHunch1' class='recentHunch'>
-        <div class='title'>
-          <a href='HUNCH TITLE1'>HUNCH TITLE 1</a>
-        </div>
-        <div class='info'>
-          by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
-          # of Collaborators</a><a href='hunchAttachments'># of attachments</a>
-        </div>
-      </div>
-      <div class='time'>
-          0 min
-      </div>
-      <div id='recentHunch2' class='recentHunch'>
-        <div class='title'>
-          <a href='HUNCH TITLE2'>HUNCH TITLE 2</a>
-        </div>
-        <div class='info'>
-          by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
-          # of Collaborators</a><a href='hunchAttachments'># of attachments</a>
-        </div>
-      </div>
-      <div class='time'>
-          10 min
-      </div>
-      <div id='recentHunch3' class='recentHunch'>
-        <div class='title'>
-          <a href='HUNCH TITLE3'>HUNCH TITLE 3</a>
-        </div>
-        <div class='info'>
-          by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
-          # of Collaborators</a><a href='hunchAttachments'># of attachments</a>
-        </div>
-      </div>
-      <div class='time'>
-          20 min
-      </div>
-      <div id='recentHunch4' class='recentHunch'>
-        <div class='title'>
-          <a href='HUNCH TITLE4'>HUNCH TITLE 4</a>
-        </div>
-        <div class='info'>
-          by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
-          # of Collaborators</a><a href='hunchAttachments'># of attachments</a>
-        </div>
-      </div>
-      <div class='time'>
-          40 min
-      </div>
-      <div id='recentHunch5' class='recentHunch'>
-        <div class='title'>
-          <a href='HUNCH TITLE5'>HUNCH TITLE 5</a>
-        </div>
-        <div class='info'>
-          by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
-          # of Collaborators</a><a href='hunchAttachments'># of attachments</a>
-        </div>
-      </div>
-      <div class='time'>
-        60 min
-      </div>
-      <div class='viewMore'>
-        <a href='listOfMoreHunches'>View More</a>
-      </div>
-    </div> <!-- end recentHunches div -->
-    <div id='recentConfirmedHunches'>
-      <h3>Recent Confirmed Hunches</h3>
-      <div id='recentConfirmed1' class='recentHunch'>
-        <div class='title'>
-          <a href='CONFIRMED HUNCH TITLE1'> CONFIRMED HUNCH TITLE 1</a>
-        </div>
-        <div class='info'>
-          by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
-          # of Collaborators</a><a href='hunchAttachments'># of attachments</a>
-        </div>
-      </div>
-      <div class='time'>
-        0 min
-      </div>
-      <div id='recentConfirmed2' class='recentHunch'>
-        <div class='title'>
-          <a href='CONFIRMED HUNCH TITLE2'> CONFIRMED HUNCH TITLE 2</a>
-        </div>
-        <div class='info'>
-          by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
-          # of Collaborators</a><a href='hunchAttachments'># of attachments</a>
-        </div>
-      </div>
-      <div class='time'>
-        30 min
-      </div>
-      <div id='recentConfirmed3' class='recentHunch'>
-        <div class='title'>
-          <a href='CONFIRMED HUNCH TITLE3'> CONFIRMED HUNCH TITLE 3</a>
-        </div>
-        <div class='info'>
-          by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
-          # of Collaborators</a><a href='hunchAttachments'># of attachments</a>
-        </div>
-      </div>
-      <div class='time'>
-        60 min
-      </div>
-      <div class='viewMore'>
-        <a href='listOfMoreHunches'>View More</a>
-      </div>
-    </div> <!-- end recentConfirmedHunches div -->
-  </div> <!-- end leftSide div -->
-  <div id='rightSide'>
-    <div id='googleMap'>
-      <div id='links'>
-        <a href='yourHunchesHistory'>Your Hunches</a>
-        <a href='communityHunchesHistory'>Community Hunches</a>
-      </div>
-      <div id='maps'>
-        <img src='googleMap' alt='googleMap' height='200px' width='200px'/>
-      </div>
-    </div>
-    <div id='communities'>
-      <h3> Communities you might like to join: </h3>
-      <div id='community1' class='connections'>
-        <img src='communityPicture' alt='communityPicture' height='50px'/>
-        <div class='title'>
-          <a href='communityLink1'>Community Name 1</a>
-        </div>
-        <div class='info'>
-          Location of community
-        </div>
-      </div>
-      <div class='time'>
-        <button type='button'>Join</button>
-        <!-- If the user can join this community, then they do become part of the
-          community, Else if the community is invite only, the user is prompted 
-          with a message dialogue to the group, which will be recieved by the 
-          admin's and moderators of the group.
-        -->
-      </div>
-      <div id='community2' class='connections'>
-        <img src='communityPicture' alt='communityPicture' height='50px'/>
-        <div class='title'>
-          <a href='communityLink2'>Community Name 2</a>
-        </div>
-        <div class='info'>
-          Location of community
-        </div>
-      </div>
-      <div class='time'>
-        <button type='button'>Join</button>
-        <!-- If the user can join this community, then they do become part of the
-          community, Else if the community is invite only, the user is prompted 
-          with a message dialogue to the group, which will be recieved by the 
-          admin's and moderators of the group.
-        -->
-      </div>
-      <div id='community3' class='connections'>
-        <img src='communityPicture' alt='communityPicture' height='50px'/>
-        <div class='title'>
-          <a href='communityLink3'>Community Name 3</a>
-        </div>
-        <div class='info'>
-          Location of community
-        </div>
-      </div>
-      <div class='time'>
-        <button type='button'>Join</button>
-        <!-- If the user can join this community, then they do become part of 
-          the community, Else if the community is invite only, the user is 
-          prompted with a message dialogue to the group, which will be recieved
-          by the admin's and moderators of the group.
-        -->
-      </div>
-      <div class='viewMore'>
-        <a href='listOfMoreHunches'>View More</a>
-      </div>
-    </div>
-    <div id='people'>
-      <h3> People you might like to connect with: </h3>
-      <div id='person1' class='connections'>
-        <img src='personPicture' alt='personPicture' height='50px'/>
-        <div class='title'>
-          <a href='personLink1'>Person name 1</a>
-        </div>
-        <div class='info'>
-          Location of person
-        <!-- If the user can connect with this user2, then they do become 
-          connected, Else if the user2 is invite only, the user is prompted 
-          with a message  dialogue to the user, which will be recieved by the 
-          user2.
-        -->
-        </div>
-      </div>
-      <div class='time'>
-        <button type='button'>Connect</button>
-      </div>
-      <div id='person2' class='connections'>
-        <img src='personPicture' alt='personPicture' height='50px'/>
-        <div class='title'>
-          <a href='personLink2'>Person name 2</a>
-        </div>
-        <div class='info'>
-          Location of person
-        </div>
-      </div>
-      <div class='time'>
-        <button type='button'>Connect</button>
-        <!-- If the user can connect with this user2, then they do become 
-          connected, Else if the user2 is invite only, the user is prompted 
-          with a message  dialogue to the user, which will be recieved by the 
-          user2.
-        -->
-      </div>
-      <div id='person3' class='connections'>
-        <img src='personPicture' alt='personPicture' height='50px'/>
-        <div class='title'>
-          <a href='personLink3'>Person name 3</a>
-        </div>
-        <div class='info'>
-          Location of person
-        </div>
-      </div>
-      <div class='time'>
-        <button type='button'>Connect</button>
-        <!-- If the user can connect with this user2, then they do become 
-          connected, Else if the user2 is invite only, the user is prompted 
-          with a message  dialogue to the user, which will be recieved by the 
-          user2.
-        -->
-      </div>
-      <div class='viewMore'>
-        <a href='listOfMoreHunches'>View More</a>
-      </div>
-    </div>
-  </div> <!-- end rightSide div -->
-
+  <div id='contents'>
+	<div id='column1'>
+	  <div id='welcome'>
+		<div>
+		  Welcome Back, {{ first_name }}.
+		</div>
+		<div>
+		  Your Network:<a href='network'># of networked Users</a>
+		</div>
+		<div>
+		  Hunches Created:<a href='hunchesCreatedHistory'># of hunches created</a>
+		</div>
+		<div>
+		  Hunches Confirmed:
+		  <a href='hunchesConfirmedHistory'># of hunches confirmed</a>
+		</div>
+	  </div> <!-- end welcome div -->
+	  <div id='createHunch'>
+		Start a new Hunch! 
+		<button type='button' onclick="location.href='createHunch.html'">
+		  Create a Hunch
+		</button>
+	  </div> <!-- end createHunch -->
+	  <div id='recentHunches'>
+		<h3>Recent Hunch updates:</h3>
+		<div id='recentHunch1' class='recentHunch'>
+		  <div class='title'>
+			<a href='HUNCH TITLE1'>HUNCH TITLE 1</a>
+		  </div>
+		  <div class='info'>
+			by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
+			# of Collaborators</a><a href='hunchAttachments'># of attachments</a>
+		  </div>
+		</div>
+		<div class='time'>
+			0 min
+		</div>
+		<div id='recentHunch2' class='recentHunch'>
+		  <div class='title'>
+			<a href='HUNCH TITLE2'>HUNCH TITLE 2</a>
+		  </div>
+		  <div class='info'>
+			by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
+			# of Collaborators</a><a href='hunchAttachments'># of attachments</a>
+		  </div>
+		</div>
+		<div class='time'>
+			10 min
+		</div>
+		<div id='recentHunch3' class='recentHunch'>
+		  <div class='title'>
+			<a href='HUNCH TITLE3'>HUNCH TITLE 3</a>
+		  </div>
+		  <div class='info'>
+			by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
+			# of Collaborators</a><a href='hunchAttachments'># of attachments</a>
+		  </div>
+		</div>
+		<div class='time'>
+			20 min
+		</div>
+		<div id='recentHunch4' class='recentHunch'>
+		  <div class='title'>
+			<a href='HUNCH TITLE4'>HUNCH TITLE 4</a>
+		  </div>
+		  <div class='info'>
+			by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
+			# of Collaborators</a><a href='hunchAttachments'># of attachments</a>
+		  </div>
+		</div>
+		<div class='time'>
+			40 min
+		</div>
+		<div id='recentHunch5' class='recentHunch'>
+		  <div class='title'>
+			<a href='HUNCH TITLE5'>HUNCH TITLE 5</a>
+		  </div>
+		  <div class='info'>
+			by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
+			# of Collaborators</a><a href='hunchAttachments'># of attachments</a>
+		  </div>
+		</div>
+		<div class='time'>
+		  60 min
+		</div>
+		<div class='viewMore'>
+		  <a href='listOfMoreHunches'>View More</a>
+		</div>
+	  </div> <!-- end recentHunches div -->
+	  <div id='recentConfirmedHunches'>
+		<h3>Recent Confirmed Hunches</h3>
+		<div id='recentConfirmed1' class='recentHunch'>
+		  <div class='title'>
+			<a href='CONFIRMED HUNCH TITLE1'> CONFIRMED HUNCH TITLE 1</a>
+		  </div>
+		  <div class='info'>
+			by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
+			# of Collaborators</a><a href='hunchAttachments'># of attachments</a>
+		  </div>
+		</div>
+		<div class='time'>
+		  0 min
+		</div>
+		<div id='recentConfirmed2' class='recentHunch'>
+		  <div class='title'>
+			<a href='CONFIRMED HUNCH TITLE2'> CONFIRMED HUNCH TITLE 2</a>
+		  </div>
+		  <div class='info'>
+			by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
+			# of Collaborators</a><a href='hunchAttachments'># of attachments</a>
+		  </div>
+		</div>
+		<div class='time'>
+		  30 min
+		</div>
+		<div id='recentConfirmed3' class='recentHunch'>
+		  <div class='title'>
+			<a href='CONFIRMED HUNCH TITLE3'> CONFIRMED HUNCH TITLE 3</a>
+		  </div>
+		  <div class='info'>
+			by <a href='userProfileLink'>USER</a> and <a href='collaboratorsLink'>
+			# of Collaborators</a><a href='hunchAttachments'># of attachments</a>
+		  </div>
+		</div>
+		<div class='time'>
+		  60 min
+		</div>
+		<div class='viewMore'>
+		  <a href='listOfMoreHunches'>View More</a>
+		</div>
+	  </div> <!-- end recentConfirmedHunches div -->
+	</div> <!-- end column1 div -->
+	<div id='column2'>
+	  <div id='googleMap'>
+		<div id='links'>
+		  <a href='yourHunchesHistory'>Your Hunches</a>
+		  <a href='communityHunchesHistory'>Community Hunches</a>
+		</div>
+		<div id='maps'>
+		  <img src='googleMap' alt='googleMap' height='200px' width='200px'/>
+		</div>
+	  </div>
+	  <div id='communities'>
+		<h3> Communities you might like to join: </h3>
+		<div id='community1' class='connections'>
+		  <img src='communityPicture' alt='communityPicture' height='50px'/>
+		  <div class='title'>
+			<a href='communityLink1'>Community Name 1</a>
+		  </div>
+		  <div class='info'>
+			Location of community
+		  </div>
+		</div>
+		<div class='time'>
+		  <button type='button'>Join</button>
+		  <!-- If the user can join this community, then they do become part of the
+			community, Else if the community is invite only, the user is prompted 
+			with a message dialogue to the group, which will be recieved by the 
+			admin's and moderators of the group.
+		  -->
+		</div>
+		<div id='community2' class='connections'>
+		  <img src='communityPicture' alt='communityPicture' height='50px'/>
+		  <div class='title'>
+			<a href='communityLink2'>Community Name 2</a>
+		  </div>
+		  <div class='info'>
+			Location of community
+		  </div>
+		</div>
+		<div class='time'>
+		  <button type='button'>Join</button>
+		  <!-- If the user can join this community, then they do become part of the
+			community, Else if the community is invite only, the user is prompted 
+			with a message dialogue to the group, which will be recieved by the 
+			admin's and moderators of the group.
+		  -->
+		</div>
+		<div id='community3' class='connections'>
+		  <img src='communityPicture' alt='communityPicture' height='50px'/>
+		  <div class='title'>
+			<a href='communityLink3'>Community Name 3</a>
+		  </div>
+		  <div class='info'>
+			Location of community
+		  </div>
+		</div>
+		<div class='time'>
+		  <button type='button'>Join</button>
+		  <!-- If the user can join this community, then they do become part of 
+			the community, Else if the community is invite only, the user is 
+			prompted with a message dialogue to the group, which will be recieved
+			by the admin's and moderators of the group.
+		  -->
+		</div>
+		<div class='viewMore'>
+		  <a href='listOfMoreHunches'>View More</a>
+		</div>
+	  </div>
+	  <div id='people'>
+		<h3> People you might like to connect with: </h3>
+		<div id='person1' class='connections'>
+		  <img src='personPicture' alt='personPicture' height='50px'/>
+		  <div class='title'>
+			<a href='personLink1'>Person name 1</a>
+		  </div>
+		  <div class='info'>
+			Location of person
+		  <!-- If the user can connect with this user2, then they do become 
+			connected, Else if the user2 is invite only, the user is prompted 
+			with a message  dialogue to the user, which will be recieved by the 
+			user2.
+		  -->
+		  </div>
+		</div>
+		<div class='time'>
+		  <button type='button'>Connect</button>
+		</div>
+		<div id='person2' class='connections'>
+		  <img src='personPicture' alt='personPicture' height='50px'/>
+		  <div class='title'>
+			<a href='personLink2'>Person name 2</a>
+		  </div>
+		  <div class='info'>
+			Location of person
+		  </div>
+		</div>
+		<div class='time'>
+		  <button type='button'>Connect</button>
+		  <!-- If the user can connect with this user2, then they do become 
+			connected, Else if the user2 is invite only, the user is prompted 
+			with a message  dialogue to the user, which will be recieved by the 
+			user2.
+		  -->
+		</div>
+		<div id='person3' class='connections'>
+		  <img src='personPicture' alt='personPicture' height='50px'/>
+		  <div class='title'>
+			<a href='personLink3'>Person name 3</a>
+		  </div>
+		  <div class='info'>
+			Location of person
+		  </div>
+		</div>
+		<div class='time'>
+		  <button type='button'>Connect</button>
+		  <!-- If the user can connect with this user2, then they do become 
+			connected, Else if the user2 is invite only, the user is prompted 
+			with a message  dialogue to the user, which will be recieved by the 
+			user2.
+		  -->
+		</div>
+		<div class='viewMore'>
+		  <a href='listOfMoreHunches'>View More</a>
+		</div>
+	  </div>
+	</div> <!-- end column2 div -->
+  </div> <!-- end contents div -->
 {% endblock %}
