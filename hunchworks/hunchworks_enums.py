@@ -172,6 +172,25 @@ class LanguageOptions(Enum):
     GERMAN: 'German',
     MANDARIN: 'Mandarin',
     }
+    
+class MessangerServices(Enum):
+
+  MAP = {}
+  
+  AIM = 0
+  YAHOO = 1
+  MSN = 2
+  IRC = 3
+  MEEBO = 4
+  
+  FIELD_LOOKUP = {
+    AIM: 'AIM',
+    YAHOO: 'YAHOO',
+    MSN: 'MSN',
+    IRC: 'IRC',
+    MEEBO: 'MEEBO',
+    }
+    
   
 ATTACHMENT_TYPES = (
   ('Photo', 'Photo'),

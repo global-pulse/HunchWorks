@@ -13,9 +13,19 @@
   </head>
   <body>
     <div id='page'>
-      {% block header %}{% endblock %}
+      <!--uncomment this when header created
+      <div id='header'>
+        <!--#include virtual="templates/header.html" -->
+      </div> <!-- end Header --> 
+
+      <!--{% block header %}{% endblock %}-->
       {% block content %}{% endblock %}
-      {% block footer %}{% endblock %}
+      <!--uncomment this when footer created
+      <div id='header'>
+        <!--#include virtual="templates/footer.html" -->
+      </div> <!-- end Footer -->
+
+      <!--{% block footer %}{% endblock %}-->
     </div> <!-- end page -->
   </body>
 </html>

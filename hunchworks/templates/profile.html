@@ -139,17 +139,20 @@
 		</div>
 	  </div> <!-- end profile div -->
 	  <div id='invite'>
+	    <form method='post' action='profile.html'>
 		<h3>Invite People to HunchWorks</h3>
-		<textarea rows='10' cols='30'>type each email here separated by a comma
-		</textarea>
-		<button type='submit'>Invite your friends!</button>
-		<!-- 1. Check data to make sure it is inputed correctly. If not throw error. 
-			Should be name@blah.com, name@yahoo.com, etc...
-		  2. String parse the string on the value ', ' to get each value.
-		  3. Send invites to each email.
-		  4. Append original string into variable hasInvited of user's DB, required a
-			select and insert.
-		-->
+		  {{ invite_form }}
+		  <!--<textarea rows='10' cols='30'>type each email here separated by a comma
+		  </textarea>-->
+		  <input type='submit' value='Invite your friends!'/>
+		  <!-- 1. Check data to make sure it is inputed correctly. If not throw error. 
+			  Should be name@blah.com, name@yahoo.com, etc...
+			2. String parse the string on the value ', ' to get each value.
+			3. Send invites to each email.
+			4. Append original string into variable hasInvited of user's DB, required a
+			  select and insert.
+		  -->
+		</form>
 	  </div> <!-- end invite div -->
 	</div> <!-- end column1 div -->
 	<div id='column2'>
