@@ -1,46 +1,33 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <title>Add Evidence</title>
-    <style type='text/css'>
-      #leftSide {
-        float: left;
-        clear: both;
-        width: 600px;
-        }
-      #rightSide {
-        float: left;
-      }
-      .divInput {
-        padding-bottom: 10px;
-      }
-      #relatedSkills, #languagesRequired{
-        padding-bottom: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id='page'>
-      <div id='header'>
-        <h3>Create a new hunch</h3>
-      </div>
-      <div id='contents'>
-		<div id='leftSide'>
-		  <b>Add evidence</b>
-		  <button type='button'>Tweet</button>
-		  <button type='button'>Dataset</button>
-		  <button type='button'>Link</button>
-		  <button type='button'>Photo</button>
-		  <button type='button'>Video</button>
-		  <button type='button'>Anecdote</button>
-		  <img src='googlemap' alt='googlemap' height='400px' width='580px'/>
-		</div> <!-- end leftSide div -->
-		<div id='rightSide'>
-		 
-		</div> <!-- end rightSide div -->
-      </div>
-    </div> <!-- end page div -->
-  </body>
-</html>
+{% extends "base.html" %}
+{% block title %}Add Evidence{% endblock %}
+{% block css %}
+  <style type='text/css'>
+	#column1 {
+	  float: left;
+	  clear: both;
+	  width: 600px;
+	  }
+	#column2 {
+	  float: left;
+	}
+  </style>
+{% endblock %}
+{% block content %}
+  <div id='header'>
+	<h3>Create a new hunch</h3>
+  </div>
+  <div id='contents'>
+	<div id='column1'>
+	  <b>Add evidence</b>
+	  <button type='button'>Tweet</button>
+	  <button type='button'>Dataset</button>
+	  <button type='button'>Link</button>
+	  <button type='button'>Photo</button>
+	  <button type='button'>Video</button>
+	  <button type='button'>Anecdote</button>
+	  <img src='googlemap' alt='googlemap' height='400px' width='580px'/>
+	</div> <!-- end column1 div -->
+	<div id='column2'>
+	</div> <!-- end column2 div -->
+  </div> <!-- end contents -->
+{% endblock %}

@@ -19,23 +19,55 @@ from django.forms.widgets import PasswordInput
 class SignInForm(ModelForm):
   class Meta:
     model= models.HwUser
+    fields = ( 'username', 'password' )
     widgets = {
       'password': PasswordInput()
       }
 
+
 class SignUpForm(ModelForm):
+  skill_name = forms.CharField( max_length=100 )
+
   class Meta:
     model= models.HwUser
     exclude = ( 
-	'show_profile_reminder', 'bio_text', 'phone', 'default_langauge',
-	'skype_name', 'website', 'profile_picture', 'screen_name',
-	'messenger_service', 'skills', 'education', 'classes', 'user_id',
+	'show_profile_reminder', 'bio_text', 'phone', 'skills', 'user_id',
+	'skype_name', 'website', 'profile_picture', 'education', 'classes', 
 	'location_interests', 'roles', 'hunches', 'invited_users', 'groups'
 	)
     widgets = {
       'password': PasswordInput()
       }
-  
+
+
+class AddHunchForm(ModelForm):
+  tags = forms.CharField(max_length=40)
+
+  class Meta:
+    model = models.HwHunch
+    exclude = (
+    'hunch_id', 'creator_id', 'time_created', 'status', 'privacy',
+    'strength', 'language', 'location', 'skills', 'groups', 'users',
+    'invited_users', 'tags'
+    )
+
+
+class CreateGroup(ModelForm):
+  logo = forms.CharField( max_length=100)
+
+  class Meta:
+    model= models.HwGroup
+
+
 class HomepageForm(ModelForm):
   class Meta:
     model = models.HwUser
+
+
+class InvitePeople(ModelForm):
+  invited_emails = forms.CharField(widget=forms.Textarea(
+    attrs={'cols': 30, 'rows': 10}))
+  
+  class Meta:
+    model = models.HwInvitedUser
+    fields = ()

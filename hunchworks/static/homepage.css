@@ -1,0 +1,51 @@
+#column1 {
+	float: left;
+	clear: both;
+	width: 400px;
+	}
+#column2 {
+	padding-left: 15px;
+	float: left;
+	width: 320px;
+}
+#createHunch {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-size: 20px;
+}
+#createHunch button {
+	font-size: 20px;
+	float: right;
+}
+#recentConfirmedHunches {
+	padding-top: 10px;
+	clear:both;
+}
+#people {
+	clear: both;
+	padding-top: 10px;
+}
+.viewMore {
+	float: right;
+	clear: both;
+}
+.time {
+	float: right;
+	padding-top: 15px;
+}
+.recentHunch {
+	float: left;
+	clear: both;
+	width: 320px;
+	padding-top: 10px;
+}
+.connections {
+	float: left;
+	clear: both;
+	width: 250px;
+	padding-top: 10px;
+}
+.connections img {
+	float: left;
+	padding-right: 5px;
+} 

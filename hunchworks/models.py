@@ -89,9 +89,13 @@ class HwLanguage(models.Model):
   5. zh-cn: zh-cn (use simplified Chinese)
   """
   language_id = models.IntegerField(primary_key=True, default=0)
-  name = models.CharField(unique=True, max_length=45)
+  language_name = models.CharField(unique=True, max_length=45)
   class Meta:
     db_table = u'hw_language'
+
+  def __unicode__(self):
+    return self.language_name
+
 
 class HwLocation(models.Model):
   """Class representing a location used by the application.
@@ -105,10 +109,13 @@ class HwLocation(models.Model):
   That decision is still TBD, so for now this class is a stub.
   """
   location_id = models.IntegerField(primary_key=True)
-  name = models.CharField(unique=True, max_length=45)
+  location_name = models.CharField(unique=True, max_length=45)
   users = models.ManyToManyField('HwUser', through='HwLocationInterests')
   class Meta:
     db_table = u'hw_location'
+    
+  def __unicode__(self):
+    return self.location_name
     
 class HwUser(models.Model):
   """Class representing a Hunchworks user."""
@@ -117,20 +124,21 @@ class HwUser(models.Model):
   first_name = models.CharField(max_length=25)
   last_name = models.CharField(max_length=50)
   title = models.IntegerField(
-    choices=hunchworks_enums.UserTitle.GetChoices())
+    choices=hunchworks_enums.UserTitle.GetChoices(), default=0)
   show_profile_reminder = models.IntegerField(default=0)
   privacy = models.IntegerField(
-    choices=hunchworks_enums.PrivacyLevel.GetChoices())
+    choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
   username = models.CharField(max_length=20)
   password = models.CharField(max_length=20)
-  default_language = models.ForeignKey(HwLanguage)
+  default_language = models.ForeignKey(HwLanguage, default=0)
   bio_text = models.TextField(blank=True)
   phone = models.CharField(max_length=20, blank=True)
   skype_name = models.CharField(max_length=30, blank=True)
   website = models.CharField(max_length=100, blank=True)
   profile_picture = models.CharField(max_length=100, blank=True)
   screen_name = models.CharField(max_length=45, blank=True)
-  messenger_service = models.IntegerField(null=True, blank=True)
+  messenger_service = models.IntegerField(null=True, blank=True, 
+    choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
   skills = models.ManyToManyField('HwSkill', through='HwSkillConnections')
   education = models.ManyToManyField(
   	'HwEducation', through='HwEducationConnections')
@@ -170,10 +178,12 @@ class HwHunch(models.Model):
   skills = models.ManyToManyField('HwSkill', through='HwSkillConnections')
   groups = models.ManyToManyField('HwGroup', through='HwHunchConnections')
   users = models.ManyToManyField('HwUser', through='HwHunchConnections')
+  tags = models.ManyToManyField('HwTag', through='HwTagConnections', blank=True)
   invited_users = models.ManyToManyField(
     'HwInvitedUser', through='HwHunchConnections')
   class Meta:
     db_table = u'hw_hunch'
+ 
 
 class HwEvidence(models.Model):
   """Class representing a response to the hunch"""
@@ -234,7 +244,8 @@ class HwInvitedUser(models.Model):
   """Class representing a master list of all users ever invited to the system
   and their respective user id's if they created an account."""
   email = models.CharField(max_length=45, primary_key=True)
-  user = models.ForeignKey(HwUser, related_name='%(class)s_user_id')
+  created_user = models.ForeignKey(HwUser, related_name='%(class)s_user_id',
+    blank=True)
   hunches = models.ManyToManyField('HwHunch', through='HwHunchConnections')
   users = models.ManyToManyField('HwUser', through='HwUserInvites')
   class Meta:
@@ -284,7 +295,7 @@ class HwRole(models.Model):
 class HwSkill(models.Model):
   """Class representing a skill possessed by a user, e.g. HTML."""
   skill_id = models.IntegerField(primary_key=True)
-  skill = models.CharField(unique=True, max_length=100)
+  skill_name = models.CharField(unique=True, max_length=100)
   is_language = models.IntegerField()
   is_technical = models.IntegerField()
   hunches = models.ManyToManyField('HwHunch', through='HwSkillConnections')
@@ -295,9 +306,9 @@ class HwSkill(models.Model):
 class HwSkillConnections(models.Model):
   """Many to Many model joining hunches, user and skills.
 
-  This model represents the skill-set required to progress a hunch and the skill
-  level needed for each skill. It also has the skillset of a user, and the level
-  for each skill. 
+  This model represents the skill-set required to progress a hunch and the 
+  skill level needed for each skill. It also has the skillset of a user, and 
+  the level for each skill. 
   """
   skill_connection_id = models.IntegerField(primary_key=True)
   skill = models.ForeignKey(HwSkill)
@@ -322,6 +333,24 @@ class HwUserRoles(models.Model):
   role = models.ForeignKey(HwRole)
   class Meta:
     db_table = u'hw_user_roles'
+
+class HwTag(models.Model):
+  """Class representing tags you can add to Evidence and Hunches for searching
+  easability"""
+  tag_id = models.IntegerField(primary_key=True)
+  tag_name = models.CharField(max_length=40)
+  class Meta:
+    db_table = u'hw_tag'
+
+class HwTagConnections(models.Model):
+  """Many to Many connector for Hunch, Evidence, and Tag classes"""
+  tag_connection_id = models.IntegerField(primary_key=True)
+  tag = models.ForeignKey(HwTag)
+  hunch = models.ForeignKey(HwHunch)
+  evidence = models.ForeignKey(HwEvidence)
+  class Meta:
+    db_table = u'hw_tag_connections'
+  
 
 # Getters for setting the default values for ForeignKeys on other models.
 def GetDefaultLanguage():

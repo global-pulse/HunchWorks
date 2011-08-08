@@ -1,0 +1,19 @@
+#column1 {
+	float: left;
+	clear: both;
+	width: 250px;
+	border: 2px solid black;
+	}
+#column2 {
+	float: left;
+}
+#profile {
+	border-bottom: 2px solid black
+}
+
+#createHunchButton {
+	font-size: 30px;
+}
+#complementaryList{
+	list-style-type: none;
+}

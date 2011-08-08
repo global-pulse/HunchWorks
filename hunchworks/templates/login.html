@@ -1,0 +1,23 @@
+{% extends "base.html" %} 
+
+{% block content %}
+  <div id='contents'>
+	<form method='post' action='profile.html'>{% csrf_token %}
+	  <div class='inputWrapper'>
+		Username:
+		<div class='inputText'>
+		  {{ form.username }}
+		</div>
+	  </div>
+	  <div class='inputWrapper'>
+		Password:
+		<div class='inputText'>
+		  {{ form.password }}
+		</div>
+	  </div>
+	  <div>
+		<input type='submit' value='Sign In'/>
+	  </div>
+	</form>
+  </div> <!-- end contents div -->
+{% endblock %}

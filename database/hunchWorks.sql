@@ -13,9 +13,9 @@ DROP TABLE IF EXISTS `hunchWorks`.`hw_language` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_language` (
   `language_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(45) NOT NULL ,
+  `language_name` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`language_id`) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+  UNIQUE INDEX `name_UNIQUE` (`language_name` ASC) )
 ENGINE = InnoDB;
 
 
@@ -61,9 +61,9 @@ DROP TABLE IF EXISTS `hunchWorks`.`hw_location` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_location` (
   `location_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(45) NOT NULL ,
+  `location_name` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`location_id`) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+  UNIQUE INDEX `name_UNIQUE` (`location_name` ASC) )
 ENGINE = InnoDB;
 
 
@@ -170,11 +170,11 @@ DROP TABLE IF EXISTS `hunchWorks`.`hw_skill` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_skill` (
   `skill_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `skill` VARCHAR(100) NOT NULL ,
+  `skill_name` VARCHAR(100) NOT NULL ,
   `is_language` TINYINT NOT NULL ,
   `is_technical` TINYINT NOT NULL ,
   PRIMARY KEY (`skill_id`) ,
-  UNIQUE INDEX `skill_UNIQUE` (`skill` ASC) )
+  UNIQUE INDEX `skill_UNIQUE` (`skill_name` ASC) )
 ENGINE = InnoDB;
 
 
@@ -574,6 +574,50 @@ CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_album_attachments` (
   CONSTRAINT `fk_hw_album_attachments__attachment_id`
     FOREIGN KEY (`attachment_id` )
     REFERENCES `hunchWorks`.`hw_attachment` (`attachment_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hunchWorks`.`hw_tag`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hunchWorks`.`hw_tag` ;
+
+CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_tag` (
+  `tag_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `tag_name` VARCHAR(30) NOT NULL ,
+  PRIMARY KEY (`tag_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hunchWorks`.`hw_tag_connections`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hunchWorks`.`hw_tag_connections` ;
+
+CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_tag_connections` (
+  `tag_connections_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `hunch_id` INT UNSIGNED NULL ,
+  `tag_id` INT UNSIGNED NOT NULL ,
+  `evidence_id` INT UNSIGNED NULL ,
+  PRIMARY KEY (`tag_connections_id`) ,
+  INDEX `fk_hw_tag_connections__hunch_id` () ,
+  INDEX `fk_hw_tag_connections__evidence_id` () ,
+  INDEX `fk_hw_tag_connections__tag_id` () ,
+  CONSTRAINT `fk_hw_tag_connections__hunch_id`
+    FOREIGN KEY ()
+    REFERENCES `hunchWorks`.`hw_hunch` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_hw_tag_connections__evidence_id`
+    FOREIGN KEY ()
+    REFERENCES `hunchWorks`.`hw_evidence` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_hw_tag_connections__tag_id`
+    FOREIGN KEY ()
+    REFERENCES `hunchWorks`.`hw_tag` ()
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
