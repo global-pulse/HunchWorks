@@ -41,7 +41,7 @@ class SignUpForm(ModelForm):
 
 
 class AddHunchForm(ModelForm):
-  tags = forms.TextField(max_length=40)
+  tags = forms.CharField(max_length=40)
 
   class Meta:
     model = models.HwHunch
@@ -50,6 +50,13 @@ class AddHunchForm(ModelForm):
     'strength', 'language', 'location', 'skills', 'groups', 'users',
     'invited_users', 'tags'
     )
+
+
+class CreateGroup(ModelForm):
+  logo = forms.CharField( max_length=100)
+
+  class Meta:
+    model= models.HwGroup
 
 
 class HomepageForm(ModelForm):

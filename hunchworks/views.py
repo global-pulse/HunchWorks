@@ -83,7 +83,7 @@ def profile(request):
   return render_to_response('profile.html', context)
 
 
-def invitePeople(request):
+def invite_people(request):
   if request.method == 'POST': # If the form has been submitted...
     form = forms.InvitePeople(request.POST)
     if form.is_valid(): # All validation rules pass
@@ -120,6 +120,8 @@ def createHunch(request):
       return HttpResponseRedirect('createHunch.html')
 
 
+def createGroup(request):
+  return renter_to_response('createGroup.html')
 
 
 def HunchEvidence(request):
