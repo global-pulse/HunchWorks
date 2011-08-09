@@ -2,83 +2,104 @@
 {% block js %}<script src="/static/signup.js"></script>{% endblock %}
 {% block title %}Signup{% endblock %}
 {% block css %}
-  <link rel="stylesheet" href="/static/signup.css" type="text/css"/>
+	<link rel="stylesheet" href="/static/signup.css" type="text/css"/>
 {% endblock %}
 {% block content %}
-  <div id='contents'>
-	<form method='post' action='profile.html'>{% csrf_token %}
-	  <h1>Tell us about yourself:</h1>
-	  <h3>Personal Information</h3>
-	  <div class='inputWrapper'>
+	<div id='contents'>
+	<form method='post' action="signup">
+		{{ form.non_field_errors }}
+		{% csrf_token %}
+
+		<h1>Tell us about yourself:</h1>
+		<h3>Personal Information</h3>
+		<div class='inputWrapper'>
 		Title
-			<!--{{form}}-->
+		{{ form.title.errors }}
 		<div class='inputText'>
-		  {{ form.title }}
+			{{ form.title }}
 		</div>
-	  </div>
-	  <div class='inputWrapper'>
+		</div>
+
+		<div class='inputWrapper'>
 		First Name: 
+		{{ form.first_name.errors }}
 		<div class='inputText'>
-		  {{ form.first_name }}
+			{{ form.first_name }}
 		</div>
-	  </div>
-	  <div class='inputWrapper'>
+		</div>
+
+		<div class='inputWrapper'>
 		Last Name:
+		{{ form.last_name.errors }}
 		<div class='inputText'>
-		  {{ form.last_name }}
+			{{ form.last_name }}
 		</div>
-	  </div>
-	  <div class='inputWrapper'>
+		</div>
+
+		<div class='inputWrapper'>
 		Email:
+		{{ form.email.errors }}
 		<div class='inputText'>
-		  {{ form.email }}
+			{{ form.email }}
 		</div>
-	  </div>
-	  <div class='inputWrapper'>
+		</div>
+
+		<div class='inputWrapper'>
 		Privacy setting:
+		{{ form.privacy.errors }}
 		<div class='inputText'>
-		  {{ form.privacy }}
+			{{ form.privacy }}
 		</div>
-	  </div>
-	  <div class='inputWrapper'>
+		</div>
+
+		<div class='inputWrapper'>
 		Default Language:
+		{{ form.default_language.errors }}
 		<div class='inputText'>
-		  {{ form.default_language }}
+			{{ form.default_language }}
 		</div>
-	  </div>
-	  <div class='inputWrapper'>
+		</div>
+
+		<div class='inputWrapper'>
 		Username:
+		{{ form.username.errors }}
 		<div class='inputText'>
-		  {{ form.username }}
+			{{ form.username }}
 		</div>
-	  </div>
-	  <div class='inputWrapper'>
+		</div>
+
+		<div class='inputWrapper'>
 		Password:
+		{{ form.password.errors }}
 		<div class='inputText'>
-		  {{ form.password }}
+			{{ form.password }}
 		</div>
-	  </div>
-	  <div class='inputWrapper'>
+		</div>
+
+		<div class='inputWrapper'>
 		Instant Messenger:
+		{{ form.screen_name.errors }}
 		<div class='inputText'>
-		  {{ form.screen_name }}
+			{{ form.screen_name }}
 		</div>
+		{{ form.messenger_service.errors }}
 		<div class='inputText'>
-		  {{ form.messenger_service }}
+			{{ form.messenger_service }}
 		</div>
-	  </div>
-	  <div class='inputWrapper'>
+		</div>
+
+		<div class='inputWrapper'>
 		Skill1:
+		{{ form.skill_name.errors }}
 		<div class='inputText'>
-		  {{ form.skill_name }}
+			{{ form.skill_name }}
 		</div>
-	  </div>
+		</div>
 
-
-	  <div>
+		<div>
 		<input type='submit' value='join'/>
-	  </div>
+		</div>
 	</form>
-  </div> <!-- end contents -->
+	</div> <!-- end contents -->
 
 {% endblock %}
