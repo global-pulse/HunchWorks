@@ -16,7 +16,7 @@
     </style>
   </head>
   <body>
-    <form method='post' action=''>
+    <form method='post' action=''>{% csrf_token %}
       <div class='inputWrapper'>
         Username:<input class='inputText' id='username' type='text' name='username'/>
       </div>

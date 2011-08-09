@@ -139,7 +139,7 @@
 		</div>
 	  </div> <!-- end profile div -->
 	  <div id='invite'>
-	    <form method='post' action='profile.html'>
+	    <form method='post' action='profile.html'>{% csrf_token %}
 		<h3>Invite People to HunchWorks</h3>
 		  {{ invite_form }}
 		  <!--<textarea rows='10' cols='30'>type each email here separated by a comma

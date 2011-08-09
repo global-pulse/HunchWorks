@@ -28,27 +28,31 @@ from django.template import RequestContext
 
 def index(request):
   form = forms.SignInForm()
-  context = { 'form': form }
+  context = RequestContext(request)
+  context.update({ 'form': form })
   return render_to_response('index.html', context)
 
 
 def login(request):
   form = forms.SignInForm() # An unbound form
-  context = { 'form': form }
+  context = RequestContext(request)
+  context.update({ 'form': form })
   return render_to_response('login.html', context)
 
 
 def signup(request):
   form = forms.SignUpForm() # An unbound form
-  context = { 'form': form }
+  context = RequestContext(request)
+  context.update({ 'form': form })
   return render_to_response('signup.html', context)
 
 
 def homepage(request):
   #This picks up the user located at index 1 of the users table
   user = models.HwUser.objects.get(pk=1) 
-  context = {'first_name': user.first_name}
-  #context = {'first_name': 'User', 'location': 'New York'}
+  context = RequestContext(request)
+  context.update({'first_name': user.first_name})
+  #context.update({'first_name': 'User', 'location': 'New York'})
   return render_to_response('homepage.html', context)
 
 def profile(request):
@@ -77,10 +81,11 @@ def profile(request):
       return HttpResponseRedirect('signup.html') # Redirect after POST
   user = models.HwUser.objects.get(pk=1)
   invite_form = forms.InvitePeople()
-  context = {
+  context = RequestContext(request)
+  context.update({
     'first_name': user.first_name, 'last_name': user.last_name,
     'email': user.email, 'invite_form': invite_form,
-  }
+  })
   return render_to_response('profile.html', context)
 
 
@@ -96,17 +101,18 @@ def invite_people(request):
         invited_user.save()
     else:
       return HttpResponseRedirect('profile.html') # Redirect after POST
-  return render_to_response('profile.html')
+  return render_to_response('profile.html', RequestContext(request))
 
 
 def createHunch(request):
   print 'createHunch'
+  context = RequestContext(request)
+
   if request.method != 'POST':
     print 'not post'
     form = forms.AddHunchForm()
-    context =  RequestContext(request)
     context.update({ 'form':form })
-    
+    print context['csrf_token']
     return render_to_response('createHunch.html', context)
     
   elif request.method == 'POST':
@@ -114,8 +120,7 @@ def createHunch(request):
     if form.is_valid():
       form.save()
       print 'valid'
-      return render_to_response('profile.html', 
-                                )
+      return render_to_response('profile.html', context)
     else:
       print 'not valid'
       return HttpResponseRedirect('createHunch.html')
@@ -134,10 +139,10 @@ def importFacebook(request):
 
 
 def importLinkedIn(request):
-  return render_to_response('importLinkedIn.html')
+  return render_to_response('importLinkedIn.html', RequestContext(request))
 
 
 def importTeamWorks(request):
-  return render_to_response('importTeamWorks.html')
+  return render_to_response('importTeamWorks.html', RequestContext(request))
   
 
