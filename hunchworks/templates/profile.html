@@ -6,29 +6,29 @@
 {% block content %}
   <div id='contents'>
 	<div id='column1'>
-	  Welcome {{ first_name }} to HunchWorks!
+	  Welcome {{ user.first_name }} to HunchWorks!
 	  <div id='profile'>
 		<h3>Your Profile:</h3>
 		<div class='inputWrapper'>
 		  <b>First Name:</b> 
-		  {{ first_name }}
+		  {{ user.first_name }}
 		</div>
 		<div class='inputWrapper'>
 		  <b>Last Name:</b> 
-		  {{ last_name }}
+		  {{ user.last_name }}
 		</div>
 		<div class='inputWrapper'>
 		  <b>Location:</b> 
-		  {{ location }}
+		  {{ user.location }}
 		</div>
 		<div class='inputWrapper'>
 		  <b>Email:</b> 
-		  {{ email }}
+		  {{ user.email }}
 		</div>
 		<div class='inputWrapper'>
 		  <b>Occupation:</b> 
 		  {% if occupation %}
-			{{ occupation }}
+			{{ user.occupation }}
 		  {% else %}
 			Occupation not entered
 		  {% endif %}
@@ -36,7 +36,7 @@
 		<div class='inputWrapper'>  
 		  <b>Hometown:</b> 
 		  {% if hometown %}
-			{{ hometown }}
+			{{ user.hometown }}
 		  {% else %}
 			Hometown not entered
 		  {% endif %}
@@ -44,7 +44,7 @@
 		<div class='inputWrapper'>
 		  <b>Education:</b>
 		  {% if education %}
-			{{ education }}
+			{{ user.education }}
 		  {% else %}
 			Education not entered
 		  {% endif %}
@@ -52,7 +52,7 @@
 		<div class='inputWrapper'>
 		  <b>Phone Number:</b>
 		  {% if phone_number %}
-			{{ phone_number }}
+			{{ user.phone_number }}
 		  {% else %}
 			Phone Number not entered
 		  {% endif %}
@@ -60,7 +60,7 @@
 		<div class='inputWrapper'>
 		  <b>Organization:</b>
 		  {% if organization %}
-			{{ organization }}
+			{{ user.organization }}
 		  {% else %}
 			Organization not entered
 		  {% endif %}
@@ -68,7 +68,7 @@
 		<div class='inputWrapper'>
 		  <b>About Yourself:</b>
 		  {% if bio_text %}
-			{{ bio_text }}
+			{{ user.bio_text }}
 		  {% else %}
 			Biography not entered
 		  {% endif %}
@@ -76,7 +76,7 @@
 		<div class='inputWrapper'>
 		  <b>Work History:</b>
 		  {% if work_history %}
-			{{ work_history }}
+			{{ user.work_history }}
 		  {% else %}
 			Work history not entered
 		  {% endif %}
@@ -84,7 +84,7 @@
 		<div class='inputWrapper'>
 		  <b>Skype:</b>
 		  {% if skype_name %}
-			{{ skype_name }}
+			{{ user.skype_name }}
 		  {% else %}
 			Skype name not entered
 		  {% endif %}
@@ -92,7 +92,7 @@
 		<div class='inputWrapper'>
 		  <b>Instant Messanger:</b>
 		  {% if instant_messanger %}
-			{{ instant_messanger }}
+			{{ user.instant_messanger }}
 		  {% else %}
 			Instant Messanger not entered
 		  {% endif %}
@@ -100,7 +100,7 @@
 		<div class='inputWrapper'>
 		  <b>Website:</b>
 		  {% if website %}
-			{{ website }}
+			{{ user.website }}
 		  {% else %}
 			Website not entered
 		  {% endif %}
@@ -108,7 +108,7 @@
 		<div class='inputWrapper'>
 		  <b>Expertise:</b>
 		  {% if expertise %}
-			{{ expertise }}
+			{{ user.expertise }}
 		  {% else %}
 			Expertise not entered
 		  {% endif %}
@@ -116,7 +116,7 @@
 		<div class='inputWrapper'>
 		  <b>Skills:</b>
 		  {% if skills %}
-			{{ skills }}
+			{{ user.skills }}
 		  {% else %}
 			Skills not entered
 		  {% endif %}
@@ -124,7 +124,7 @@
 		<div class='inputWrapper'>
 		  <b>Languages:</b>
 		  {% if languages_known %}
-			{{ languages_known }}
+			{{ user.languages_known }}
 		  {% else %}
 			Languages known not entered
 		  {% endif %}
@@ -132,7 +132,7 @@
 		<div class='inputWrapper'>
 		  <b>Location interests:</b>
 		  {% if location_interests %}
-			{{ location_interests }}
+			{{ user.location_interests }}
 		  {% else %}
 			Location Interests not entered
 		  {% endif %}  
@@ -141,7 +141,7 @@
 	  <div id='invite'>
 	    <form method='post' action='profile.html'>
 		<h3>Invite People to HunchWorks</h3>
-		  {{ invite_form }}
+		  {{ user.invite_form }}
 		  <!--<textarea rows='10' cols='30'>type each email here separated by a comma
 		  </textarea>-->
 		  <input type='submit' value='Invite your friends!'/>

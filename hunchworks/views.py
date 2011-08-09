@@ -17,7 +17,8 @@ import forms
 from django import http
 # We use this function because it allows you to send an html file as a template
 # and be displayed. With http response you cannot do this.
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
+from django.core.urlresolvers import reverse
 # This import is used to import the model form factory so that the forms
 # created in forms.py can be outputted into the templates.
 from django.forms.models import modelformset_factory
@@ -31,18 +32,28 @@ def index(request):
   context = { 'form': form }
   return render_to_response('index.html', context)
 
-
 def login(request):
   form = forms.SignInForm() # An unbound form
   context = { 'form': form }
   return render_to_response('login.html', context)
 
-
 def signup(request):
-  form = forms.SignUpForm() # An unbound form
-  context = { 'form': form }
-  return render_to_response('signup.html', context)
+  context = RequestContext(request)
 
+  if request.method == "POST":
+    form = forms.SignUpForm(request.POST)
+
+    if form.is_valid():
+      user = form.save()
+      return HttpResponseRedirect(
+        reverse(profile, kwargs={
+          'user_id': user.pk}))
+
+  else:
+    form = forms.SignUpForm()
+
+  context['form'] = form
+  return render_to_response("signup.html", context)
 
 def homepage(request):
   #This picks up the user located at index 1 of the users table
@@ -51,37 +62,13 @@ def homepage(request):
   #context = {'first_name': 'User', 'location': 'New York'}
   return render_to_response('homepage.html', context)
 
-def profile(request):
-  ###This is the POST information coming from signup.html###
-  if request.method == 'POST': # If the form has been submitted...
-    form = forms.SignUpForm(request.POST) # A form bound to the POST data
-    if form.is_valid(): # All validation rules pass
-      skill_obj = models.HwSkill( skill_name=request.POST['skill_name'], 
-        is_language=0, is_technical=1 )
-      language_obj = models.HwLanguage.objects.get( 
-        pk=request.POST['default_language'] )
-      user_obj = models.HwUser( title=request.POST['title'],
-        first_name=request.POST['first_name'], email=request.POST['email'],
-        last_name=request.POST['last_name'], privacy=request.POST['privacy'],
-        default_language=language_obj, screen_name=request.POST['screen_name'],
-        username=request.POST['username'], password=request.POST['password'],
-        messenger_service=request.POST['messenger_service']
-        )
-      #user_obj.save()
-      #skill_obj.save()
-      skill_connection = models.HwSkillConnections( skill_id=0, 
-        user_id=0, level=0)
-      skill_connection.save()
-      #form.save()
-    else:
-      return HttpResponseRedirect('signup.html') # Redirect after POST
-  user = models.HwUser.objects.get(pk=1)
+def profile(request, user_id):
+  user = get_object_or_404(models.HwUser, pk=user_id)
   invite_form = forms.InvitePeople()
-  context = {
-    'first_name': user.first_name, 'last_name': user.last_name,
-    'email': user.email, 'invite_form': invite_form,
-  }
-  return render_to_response('profile.html', context)
+
+  return render_to_response('profile.html', {
+    "user": user
+  })
 
 
 def invite_people(request):

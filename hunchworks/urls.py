@@ -32,12 +32,12 @@ urlpatterns = patterns(
   (r'^importLinkedIn', 'importLinkedIn'),
   (r'^importFacebook', 'importFacebook'),
   (r'^homepage', 'homepage'),
-  (r'^profile', 'profile'),
-  (r'^signup', 'signup'),
+  url(r'^profile/(?P<user_id>\d+)$', 'profile', name="profile"),
+  (r'^signup$', 'signup'),
   (r'^login', 'login'),
   (r'^createHunch', 'createHunch'),
   (r'^addEvidence', 'HunchEvidence'),
-  (r'^invitePeople', 'invitePeople'),
+  #(r'^invitePeople', 'invitePeople'),
   (r'^', 'index'),
 
 )
