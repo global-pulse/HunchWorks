@@ -32,7 +32,7 @@ urlpatterns = patterns(
   (r'^importLinkedIn', 'importLinkedIn'),
   (r'^importFacebook', 'importFacebook'),
   (r'^homepage', 'homepage'),
-  (r'^profile', 'profile'),
+  (r'^profile/(?P<user_id>\d+)', 'profile'),
   (r'^signup', 'signup'),
   (r'^login', 'login'),
   (r'^createHunch', 'createHunch'),

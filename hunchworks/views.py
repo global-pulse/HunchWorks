@@ -17,7 +17,7 @@ import forms
 from django import http
 # We use this function because it allows you to send an html file as a template
 # and be displayed. With http response you cannot do this.
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 # This import is used to import the model form factory so that the forms
 # created in forms.py can be outputted into the templates.
 from django.forms.models import modelformset_factory
@@ -58,8 +58,8 @@ def homepage(request):
   #context = {'first_name': 'User', 'location': 'New York'}
   return render_to_response('homepage.html', context)
 
-def profile(request):
-  user = models.HwUser.objects.get(pk=1)
+def profile(request, user_id):
+  user = get_object_or_404(models.HwUser, pk=user_id)
   invite_form = forms.InvitePeople()
 
   return render_to_response('profile.html', {
