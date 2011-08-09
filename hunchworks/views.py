@@ -23,6 +23,7 @@ from django.shortcuts import render_to_response
 from django.forms.models import modelformset_factory
 # This import is used to used the redirect method
 from django.http import HttpResponseRedirect
+from django.template import RequestContext
 
 
 def index(request):
@@ -97,16 +98,16 @@ def invite_people(request):
       return HttpResponseRedirect('profile.html') # Redirect after POST
   return render_to_response('profile.html')
 
-#In progress
-from django.template import RequestContext
-from django.views.decorators.csrf import csrf_protect
-@csrf_protect
+
 def createHunch(request):
   print 'createHunch'
   if request.method != 'POST':
     print 'not post'
     form = forms.AddHunchForm()
-    return render_to_response('createHunch.html', { 'form':form }, RequestContext(request))
+    context =  RequestContext(request)
+    context.update({ 'form':form })
+    
+    return render_to_response('createHunch.html', context)
     
   elif request.method == 'POST':
     form = forms.AddHunchForm(request.POST)
@@ -121,7 +122,7 @@ def createHunch(request):
 
 
 def createGroup(request):
-  return renter_to_response('createGroup.html')
+  return render_to_response('createGroup.html')
 
 
 def HunchEvidence(request):
