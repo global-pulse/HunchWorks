@@ -66,7 +66,7 @@ def profile(request):
         username=request.POST['username'], password=request.POST['password'],
         messenger_service=request.POST['messenger_service']
         )
-      #user_obj.save()
+      user_obj.save()
       #skill_obj.save()
       skill_connection = models.HwSkillConnections( skill_id=0, 
         user_id=0, level=0)
