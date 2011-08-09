@@ -18,6 +18,7 @@ from django import http
 # We use this function because it allows you to send an html file as a template
 # and be displayed. With http response you cannot do this.
 from django.shortcuts import render_to_response, get_object_or_404
+from django.core.urlresolvers import reverse
 # This import is used to import the model form factory so that the forms
 # created in forms.py can be outputted into the templates.
 from django.forms.models import modelformset_factory
@@ -38,12 +39,14 @@ def login(request):
 def signup(request):
   context = RequestContext(request)
 
-  if request.method == 'POST':
+  if request.method == "POST":
     form = forms.SignUpForm(request.POST)
 
     if form.is_valid():
-      form.save()
-      return HttpResponseRedirect("profile.html")
+      user = form.save()
+      return HttpResponseRedirect(
+        reverse(profile, kwargs={
+          'user_id': user.pk}))
 
   else:
     form = forms.SignUpForm()
