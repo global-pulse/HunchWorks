@@ -1,0 +1,78 @@
+This is for MAC OS X, commands will be similar in Windows and Linux, but
+	may not be exactly as stated here.
+
+You need Python version 2.4-2.7 as MySQL python does not currently work with
+	python 3 at the moment.
+
+Install:
+
+setup tools (from http://pypi.python.org/pypi/setuptools)
+cd into the setup tools directory
+to install type: sh setuptools then hit tab. It should look something like
+	setuptools-0.6c9-py2.4.egg
+
+Git (from http://git-scm.com/)
+Run the DMG to install it. This is to pull and push to the github directory
+You will need to setup your username and password in GIT as well as generate
+	your key. http://help.github.com/mac-set-up-git/ should have everything you
+	need to do
+
+DJANGO 1.3 from https://www.djangoproject.com/download/
+	follow instrcutions on that webpage
+
+
+The application also supports MySQL database, if you want to use that instead
+must do the following:
+
+Install:
+
+XCode (this is located on your MAC install CD, under optional installs)
+
+MySQL version 5.* As long as it is 5, there should be no problems.
+	located at http://www.mysql.com/downloads/mysql/
+Get the DMG, not the tar
+
+MySQL-python 1.2.2 or 1.2.3 (I could not get 1.2.3 working on my MAC
+	which is why I have 1.2.2 listed)
+
+MAMP (this is for running a local MySQL/apache server on your localhost)
+	download at http://www.mamp.info/en/index.html
+
+How to install MySQL-python:
+
+==OPTION 1:==
+
+First Try: 
+ #check python version
+ python -V #make sure this says python-2.7 or 2.6
+ which easy_install #this path should determine the python version easy_install
+ 	works with
+
+Then:
+	sudo easy_install pip #pip is a much better installer for python packages 
+		than easy_install
+ 	sudo pip install MySQL-python 
+	Attempt to import MySQLdb into python again
+ 
+==OPTION 2:==
+
+#if both programs should reference the same python version, and ideally 
+	python-2.7
+Follow :
+http://www.mangoorange.com/2008/08/01/installing-python-mysqldb-122-on-mac-os-x/
+
+then if it fails still:
+
+sudo ln -s /usr/local/mysql/lib/libsqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib
+
+####Note this did not immediately cause the import to work####
+###did python import mysqlDB within the folder that contained libmysqlclient.
+maybe that was why it worked???###
+
+If you are using MAMP this needed to be added to settings.py in the project folder
+
+ADD 'HOST': '/Applications/MAMP/tmp/mysql/mysql.sock', # For MAMP to know where
+to the socket is to settings.py file in project root folder.
+
+sourced from:
+http://www.marteinn.se/blog/?p=467

@@ -2,7 +2,8 @@
     {
         "pk": 1,
         "model": "hunchworks.hwlanguage",
-        "fields": {
+        "fields": 
+        {
             "language_id": 1,
             "language_name": "English"
         }
@@ -10,7 +11,8 @@
     {
         "pk": 2,
         "model": "hunchworks.hwlanguage",
-        "fields": {
+        "fields": 
+        {
             "language_id": 2,
             "language_name": "French"
         }
@@ -18,7 +20,8 @@
     {
         "pk": 3,
         "model": "hunchworks.hwlanguage",
-        "fields": {
+        "fields": 
+        {
             "language_id": 3,
             "language_name": "Spanish"
         }
@@ -26,9 +29,96 @@
     {
         "pk": 4,
         "model": "hunchworks.hwlanguage",
-        "fields": {
+        "fields": 
+        {
             "language_id": 4,
             "language_name": "German"
+        }
+    },
+    
+    
+    
+    {
+        "pk": 1,
+        "model": "hunchworks.hwlocation",
+        "fields": 
+        {
+            "location_id": 1,
+            "location_name": "New York City, NY"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.hwlocation",
+        "fields": 
+        {
+            "location_id": 2,
+            "location_name": "San Francisco, CA"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "hunchworks.hwlocation",
+        "fields": 
+        {
+            "location_id": 3,
+            "location_name": "Miami, FL"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "hunchworks.hwlocation",
+        "fields": 
+        {
+            "location_id": 4,
+            "location_name": "San Antonio, TX"
+        }
+    },
+    
+    
+    
+    {
+    	"pk": 1,
+        "model": "hunchworks.hwskill",
+        "fields": 
+        {
+            "skill_id": 1,
+            "skill_name": "English",
+            "is_language": "1",
+            "is_technical": "0"
+        }
+    },
+    {
+    	"pk": 2,
+        "model": "hunchworks.hwskill",
+        "fields": 
+        {
+            "skill_id": 1,
+            "skill_name": "French",
+            "is_language": "1",
+            "is_technical": "0"
+        }
+    },
+    {
+    	"pk": 3,
+        "model": "hunchworks.hwskill",
+        "fields": 
+        {
+            "skill_id": 1,
+            "skill_name": "Spanish",
+            "is_language": "1",
+            "is_technical": "0"
+        }
+    },
+    {
+    	"pk": 4,
+        "model": "hunchworks.hwskill",
+        "fields": 
+        {
+            "skill_id": 1,
+            "skill_name": "German",
+            "is_language": "1",
+            "is_technical": "0"
         }
     }
 ]

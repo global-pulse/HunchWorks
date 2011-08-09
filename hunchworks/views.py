@@ -28,47 +28,68 @@ from django.template import RequestContext
 
 
 def index(request):
-  form = forms.SignInForm()
-  context = { 'form': form }
-  return render_to_response('index.html', context)
+  return render_to_response('index.html')
+
 
 def login(request):
-  form = forms.SignInForm() # An unbound form
+  context = RequestContext(request)
+  
+  if request.method == 'POST':
+    form = forms.LoginForm(request.POST)
+    
+    if form.is_valid():
+      user = models.HwUser.objects.get(username=request.POST['username'],
+        password=request.POST['password'])
+      if user:
+        return HttpResponseRedirect(
+          reverse(home, kwargs={'user_id': user.pk}))
+      else:
+        print "not user"
+    
+  form = forms.LoginForm() # An unbound form
   context = { 'form': form }
   return render_to_response('login.html', context)
+
 
 def signup(request):
   context = RequestContext(request)
 
+#TODO(Chris Aug-9-2011): This always goes into POST, which always
+# causes the errors to be displayed. Need to figure out what is going wrong.
   if request.method == "POST":
     form = forms.SignUpForm(request.POST)
 
     if form.is_valid():
+      skill = models.HwSkill( skill_name = request.POST['skill_name'],
+        is_technical=0, is_language=0 )
+      skill_connection = models.HwSkillConnections( skill_id = skill.pk, 
+        user_id = user.pk, level=1 )
       user = form.save()
+      skill.save()
+      skill_connection.save()
       return HttpResponseRedirect(
-        reverse(profile, kwargs={
-          'user_id': user.pk}))
-
+        reverse(profile, kwargs={'user_id': user.pk}))
+      
   else:
     form = forms.SignUpForm()
-
+    
   context['form'] = form
   return render_to_response("signup.html", context)
 
-def homepage(request):
+
+def home(request, user_id):
+  user = get_object_or_404(models.HwUser, pk=user_id)
   #This picks up the user located at index 1 of the users table
-  user = models.HwUser.objects.get(pk=1) 
+  #user = models.HwUser.objects.get(pk=1) 
   context = {'first_name': user.first_name}
-  #context = {'first_name': 'User', 'location': 'New York'}
-  return render_to_response('homepage.html', context)
+  return render_to_response('home.html', context)
+
 
 def profile(request, user_id):
   user = get_object_or_404(models.HwUser, pk=user_id)
   invite_form = forms.InvitePeople()
 
-  return render_to_response('profile.html', {
-    "user": user
-  })
+  return render_to_response('profile.html', { "user": user })
 
 
 def invite_people(request):
@@ -87,9 +108,7 @@ def invite_people(request):
 
 
 def createHunch(request):
-  print 'createHunch'
   if request.method != 'POST':
-    print 'not post'
     form = forms.AddHunchForm()
     context =  RequestContext(request)
     context.update({ 'form':form })
