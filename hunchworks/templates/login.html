@@ -2,15 +2,19 @@
 
 {% block content %}
   <div id='contents'>
-	<form method='post' action='profile.html'>{% csrf_token %}
+	<form method='post' action='login'>
+	  {{ form.non_field_errors }}
+	  {% csrf_token %}
 	  <div class='inputWrapper'>
 		Username:
+		{{ form.username.errors }}
 		<div class='inputText'>
 		  {{ form.username }}
 		</div>
 	  </div>
 	  <div class='inputWrapper'>
 		Password:
+		{{ form.password.errors }}
 		<div class='inputText'>
 		  {{ form.password }}
 		</div>

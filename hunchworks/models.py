@@ -24,7 +24,7 @@ from django.db import models
 
 class HwAlbum(models.Model):
   """Class representing a collection of pictures in an album"""
-  album_id = models.IntegerField(primary_key=True)
+  album_id = models.AutoField(primary_key=True)
   name = models.CharField(max_length=45)
   evidence = models.ManyToManyField('HwEvidence', through='HwEvidenceAlbums')
   class Meta:
@@ -32,7 +32,7 @@ class HwAlbum(models.Model):
     
 class HwAttachment(models.Model):
   """Class representing an attachment for a hunch"""
-  attachment_id = models.IntegerField(primary_key=True)
+  attachment_id = models.AutoField(primary_key=True)
   attachment_type = models.IntegerField()
   file_location = models.CharField(max_length=100)
   albums = models.ManyToManyField('HwAlbum', through='HwAlbumAttachments')
@@ -51,7 +51,7 @@ class HwAlbumAttachments(models.Model):
 class HwClass(models.Model):
   """Class representing a educational class taken that may or may not have
   been at a college"""
-  class_id = models.IntegerField(primary_key=True)
+  class_id = models.AutoField(primary_key=True)
   name = models.CharField(max_length=45)
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
@@ -61,7 +61,7 @@ class HwClass(models.Model):
     
 class HwEducation(models.Model):
   """Class representing a degree or qualification obtained by a user."""
-  education_id = models.IntegerField(primary_key=True)
+  education_id = models.AutoField(primary_key=True)
   school = models.CharField(max_length=255)
   qualification = models.CharField(max_length=100)
   start_date = models.DateField()
@@ -88,7 +88,7 @@ class HwLanguage(models.Model):
   4. de: de-DE
   5. zh-cn: zh-cn (use simplified Chinese)
   """
-  language_id = models.IntegerField(primary_key=True, default=0)
+  language_id = models.AutoField(primary_key=True, default=0)
   language_name = models.CharField(unique=True, max_length=45)
   class Meta:
     db_table = u'hw_language'
@@ -108,7 +108,7 @@ class HwLocation(models.Model):
 
   That decision is still TBD, so for now this class is a stub.
   """
-  location_id = models.IntegerField(primary_key=True)
+  location_id = models.AutoField(primary_key=True)
   location_name = models.CharField(unique=True, max_length=45)
   users = models.ManyToManyField('HwUser', through='HwLocationInterests')
   class Meta:
@@ -119,7 +119,7 @@ class HwLocation(models.Model):
     
 class HwUser(models.Model):
   """Class representing a Hunchworks user."""
-  user_id = models.IntegerField(primary_key=True)
+  user_id = models.AutoField(primary_key=True)
   email = models.EmailField(max_length=45)
   first_name = models.CharField(max_length=25)
   last_name = models.CharField(max_length=50)
@@ -156,7 +156,7 @@ class HwUser(models.Model):
 
 class HwEducationConnections(models.Model):
   """Many to Many model representing a user's education and/or classes"""
-  education_connection_id = models.IntegerField(primary_key=True)
+  education_connection_id = models.AutoField(primary_key=True)
   user = models.ForeignKey(HwUser)
   education = models.ForeignKey(HwEducation, null=True, blank=True)
   class_field = models.ForeignKey(HwClass, null=True, blank=True)
@@ -165,7 +165,7 @@ class HwEducationConnections(models.Model):
     
 class HwHunch(models.Model):
   """Class representing a Hunch."""
-  hunch_id = models.IntegerField(primary_key=True)
+  hunch_id = models.AutoField(primary_key=True)
   creator = models.ForeignKey(HwUser, related_name='%(class)s_creator_id' )
   time_created = models.DateTimeField()
   status = models.IntegerField()
@@ -187,7 +187,7 @@ class HwHunch(models.Model):
 
 class HwEvidence(models.Model):
   """Class representing a response to the hunch"""
-  evidence_id = models.IntegerField(primary_key=True)
+  evidence_id = models.AutoField(primary_key=True)
   hunch = models.ForeignKey(HwHunch)
   creator = models.ForeignKey(HwUser)
   strength = models.IntegerField()
@@ -215,7 +215,7 @@ class HwEvidenceAttachments(models.Model):
 
 class HwGroup(models.Model):
   """Class representing a logical grouping of Hunchworks users."""
-  group_id = models.IntegerField(primary_key=True)
+  group_id = models.AutoField(primary_key=True)
   name = models.CharField(unique=True, max_length=100, blank=True)
   group_type = models.IntegerField()
   privacy = models.IntegerField()
@@ -228,7 +228,7 @@ class HwGroup(models.Model):
 
 class HwHumanConnections(models.Model):
   """Many to Many model joining groups and users with users."""
-  human_connection_id = models.IntegerField(primary_key=True)
+  human_connection_id = models.AutoField(primary_key=True)
   user = models.ForeignKey(HwUser, related_name='%(class)s_user_id')
   access_level = models.IntegerField()
   trust_from_user = models.IntegerField()
@@ -253,7 +253,7 @@ class HwInvitedUser(models.Model):
 
 class HwHunchConnections(models.Model):
   """Many to Many model joining Hunch and User,Group,InvitedUser together"""
-  hunch_connection_id = models.IntegerField(primary_key=True)
+  hunch_connection_id = models.AutoField(primary_key=True)
   hunch = models.ForeignKey(HwHunch)
   status = models.IntegerField()
   user = models.ForeignKey(HwUser, null=True, blank=True)
@@ -272,7 +272,7 @@ class HwLocationInterests(models.Model):
 
 class HwOrganization(models.Model):
   """Class representing an external organization (UNDP etc.)."""
-  organization_id = models.IntegerField(primary_key=True)
+  organization_id = models.AutoField(primary_key=True)
   name = models.CharField(max_length=125)
   abbreviation = models.CharField(max_length=7)
   group = models.ForeignKey(HwGroup)
@@ -282,7 +282,7 @@ class HwOrganization(models.Model):
 
 class HwRole(models.Model):
   """Class representing a role held by a given user."""
-  role_id = models.IntegerField(primary_key=True)
+  role_id = models.AutoField(primary_key=True)
   organization = models.ForeignKey(HwOrganization)
   title = models.CharField(max_length=40)
   start_date = models.DateField()
@@ -294,7 +294,7 @@ class HwRole(models.Model):
 
 class HwSkill(models.Model):
   """Class representing a skill possessed by a user, e.g. HTML."""
-  skill_id = models.IntegerField(primary_key=True)
+  skill_id = models.AutoField(primary_key=True)
   skill_name = models.CharField(unique=True, max_length=100)
   is_language = models.IntegerField()
   is_technical = models.IntegerField()
@@ -310,7 +310,7 @@ class HwSkillConnections(models.Model):
   skill level needed for each skill. It also has the skillset of a user, and 
   the level for each skill. 
   """
-  skill_connection_id = models.IntegerField(primary_key=True)
+  skill_connection_id = models.AutoField(primary_key=True)
   skill = models.ForeignKey(HwSkill)
   level = models.IntegerField()
   hunch = models.ForeignKey(HwHunch, null=True, blank=True)
@@ -337,14 +337,14 @@ class HwUserRoles(models.Model):
 class HwTag(models.Model):
   """Class representing tags you can add to Evidence and Hunches for searching
   easability"""
-  tag_id = models.IntegerField(primary_key=True)
+  tag_id = models.AutoField(primary_key=True)
   tag_name = models.CharField(max_length=40)
   class Meta:
     db_table = u'hw_tag'
 
 class HwTagConnections(models.Model):
   """Many to Many connector for Hunch, Evidence, and Tag classes"""
-  tag_connection_id = models.IntegerField(primary_key=True)
+  tag_connection_id = models.AutoField(primary_key=True)
   tag = models.ForeignKey(HwTag)
   hunch = models.ForeignKey(HwHunch)
   evidence = models.ForeignKey(HwEvidence)
