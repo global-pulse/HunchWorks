@@ -28,11 +28,7 @@ from django.template import RequestContext
 
 
 def index(request):
-  form = forms.SignInForm()
-  context = RequestContext(request)
-  context.update({ 'form': form })
-  return render_to_response('index.html', context)
-
+  return render_to_response('index.html')
 
 def login(request):
   context = RequestContext(request)
