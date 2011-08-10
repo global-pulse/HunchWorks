@@ -11,3 +11,4 @@ from django.contrib import admin
 
 
 admin.site.register(models.HwHunch)
+admin.site.register(models.HwUser)
