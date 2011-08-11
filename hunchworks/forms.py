@@ -40,14 +40,17 @@ class SignUpForm(ModelForm):
       }
 
 
-class AddHunchForm(ModelForm):
-  tags = forms.CharField(max_length=40)
+class CreateHunchForm(ModelForm):
+  #tags = forms.CharField(max_length=40)
+  #import datetime
+  #time_created = forms.DateTimeField(initial=datetime.datetime.today)
+  #creator_id = models.HwUser.objects.get(pk=1)
+  #creator = models.HwUser.objects.get(pk=1)
 
   class Meta:
     model = models.HwHunch
     exclude = (
-    'hunch_id', 'creator_id', 'time_created', 'status', 'privacy',
-    'strength', 'language', 'location', 'skills', 'groups', 'users',
+    'hunch_id', 'language', 'location', 'skills', 'groups', 'users',
     'invited_users', 'tags'
     )
 

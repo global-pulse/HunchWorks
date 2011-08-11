@@ -25,6 +25,7 @@ from django.forms.models import modelformset_factory
 # This import is used to used the redirect method
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
+import datetime
 
 
 def index(request):
@@ -109,25 +110,33 @@ def invite_people(request):
 
 
 def createHunch(request):
-  print 'createHunch'
+  """Create a Hunch.  Assumes HwHunch.user = request.user! """
   context = RequestContext(request)
+  if request.method == 'POST':
 
-  if request.method != 'POST':
-    form = forms.AddHunchForm()
-    context.update({ 'form':form })
-    print context['csrf_token']
-    return render_to_response('createHunch.html', context)
+    d = request.POST.copy()
+    d.update({'creator':request.user.pk, 
+              'time_created':datetime.datetime.today(),
+              'status':1,
+              'privacy':1,
+              'strength':1})
+    form = forms.CreateHunchForm(d)
     
-  elif request.method == 'POST':
-    form = forms.AddHunchForm(request.POST)
     if form.is_valid():
+      #print 'createHunch: valid form'
       form.save()
-      print 'valid'
-      return render_to_response('profile.html', context)
+      #print '    valid model, too!'
+      return HttpResponseRedirect('profile.html')
     else:
-      print 'not valid'
-      return HttpResponseRedirect('createHunch.html')
-
+      #print 'createHunch: invalid form'
+      #print form.errors
+      #print form.non_field_errors
+      form = forms.CreateHunchForm(request.POST)
+  else:
+    form = forms.CreateHunchForm()
+  context.update({ 'form':form })
+  return render_to_response('createHunch.html', context)
+  
 
 def createGroup(request):
   return render_to_response('createGroup.html')
