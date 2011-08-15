@@ -17,6 +17,12 @@
 	  padding-bottom: 10px;
 	}
   </style>
+  <link rel="stylesheet" href="/static/token-input-facebook.css" type="text/css" />
+{% endblock %}
+
+{% block js %}
+  <script src='/static/jquery.tokenInput.js'></script>
+  <script src='/static/createHunch.js'></script>
 {% endblock %}
 {% block content %}
   <div id='header'>
@@ -58,23 +64,11 @@
 	  </button>
 	</div> <!-- end column1 div -->
 	<div id='column2'>
-	  <div id='relatedSkills'>
+	  <div>
 		<b>Related Skills:</b><em>(optional)</em>
-		<!-- The following are just place holders for now -->
-		<div>Language translation</div>
-		<div>GIS analysis</div>
-		<div>text analysis</div>
-		<div>economcis</div>
-		<div>data Cleaning</div>
-		<div>classification</div>
-		<div>mobile data</div>
-		<div>monitoring & evaluation</div>
-		<div>natural language processing</div>
-		<div>image processing</div>
-		<div>data analysis</div>
-		<div>data mining</div>
+		<input id='relatedSkills' type='text'>
 	  </div>
-	  <div id='languagesRequired'>
+	  <!--<div id='languagesRequired'>
 		<b>Languages required:</b><em>(optional)</em>
 		  <!-- The following are just place holders for now -->
 		<div>English</div>

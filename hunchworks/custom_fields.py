@@ -8,11 +8,29 @@ __license__ = 'GPLv3'
 
 from django.core import validators
 from django.db.models import fields
+from django import forms
 
 UINT_64 = 0xffffffffffffffff
 UINT_32 = 0xffffffff
 UINT_8 = 0xff
 
+class MultiEmailField(forms.Field):
+  def to_python(self, value):
+    "Normalize data to a list of strings."
+
+    # Return an empty list if no input was given.
+    if not value:
+      return []
+    return value.split(',')
+
+  def validate(self, value):
+    "Check if value consists only of valid emails."
+
+    # Use the parent's handling of required fields, etc.
+    super(MultiEmailField, self).validate(value)
+
+    for email in value:
+      validators.validate_email(email)
 
 class UnsignedBigIntegerField(fields.PositiveIntegerField):
   """mySQL unsigned BIGINT field."""

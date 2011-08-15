@@ -17,7 +17,7 @@ GENDER_CHOICES = (
     ('F', 'Female'),
 )
 
-"""Enums used throughout Hunchworks."""
+# Enums used throughout Hunchworks.
 import hunchworks_enums
 
 from django.db import models
@@ -26,7 +26,6 @@ class HwAlbum(models.Model):
   """Class representing a collection of pictures in an album"""
   album_id = models.AutoField(primary_key=True)
   name = models.CharField(max_length=45)
-  evidence = models.ManyToManyField('HwEvidence', through='HwEvidenceAlbums')
   class Meta:
     db_table = u'hw_album'
     
@@ -36,8 +35,6 @@ class HwAttachment(models.Model):
   attachment_type = models.IntegerField()
   file_location = models.CharField(max_length=100)
   albums = models.ManyToManyField('HwAlbum', through='HwAlbumAttachments')
-  evidence = models.ManyToManyField(
-    'HwEvidence', through='HwEvidenceAttachments')
   class Meta:
     db_table = u'hw_attachment'
     
@@ -55,7 +52,6 @@ class HwClass(models.Model):
   name = models.CharField(max_length=45)
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
-  users = models.ManyToManyField('HwUser', through='HwEducationConnections')
   class Meta:
     db_table = u'hw_class'
     
@@ -66,7 +62,6 @@ class HwEducation(models.Model):
   qualification = models.CharField(max_length=100)
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
-  users = models.ManyToManyField('HwUser', through='HwEducationConnections')
   class Meta:
     db_table = u'hw_education'
     
@@ -110,7 +105,6 @@ class HwLocation(models.Model):
   """
   location_id = models.AutoField(primary_key=True)
   location_name = models.CharField(unique=True, max_length=45)
-  users = models.ManyToManyField('HwUser', through='HwLocationInterests')
   class Meta:
     db_table = u'hw_location'
     
@@ -149,8 +143,8 @@ class HwUser(models.Model):
   hunches = models.ManyToManyField('HwHunch', through='HwHunchConnections')
   invited_users = models.ManyToManyField(
   	'HwInvitedUser', through='HwUserInvites')
-  groups = models.ManyToManyField('HwGroup', through='HwHumanConnections')
-  ####collaborators = models.ManyToManyField('HwUser', through='HwHumanConnections')
+  #groups = models.ManyToManyField('HwGroup', through='HwHumanConnections', symmetrical=False)
+  collaborators = models.ManyToManyField('self', through='HwHumanConnections', symmetrical=False)
   class Meta:
     db_table = u'hw_user'
 
@@ -176,8 +170,6 @@ class HwHunch(models.Model):
   location = models.ForeignKey(HwLocation, null=True, blank=True)
   description = models.TextField(blank=True)
   skills = models.ManyToManyField('HwSkill', through='HwSkillConnections')
-  groups = models.ManyToManyField('HwGroup', through='HwHunchConnections')
-  users = models.ManyToManyField('HwUser', through='HwHunchConnections')
   tags = models.ManyToManyField('HwTag', through='HwTagConnections', blank=True)
   invited_users = models.ManyToManyField(
     'HwInvitedUser', through='HwHunchConnections')
@@ -222,7 +214,6 @@ class HwGroup(models.Model):
   location = models.ForeignKey(HwLocation, null=True, blank=True)
   logo = models.CharField(max_length=100, blank=True)
   hunches = models.ManyToManyField('HwHunch', through='HwHunchConnections')
-  users = models.ManyToManyField('HwUser', through='HwHumanConnections')
   class Meta:
     db_table = u'hw_group'
 
@@ -235,8 +226,8 @@ class HwHumanConnections(models.Model):
   trust_from_group = models.IntegerField()
   receive_updates = models.IntegerField()
   status = models.IntegerField()
-  group = models.ForeignKey(HwGroup, null=True, blank=True)
-  #other_user = models.ForeignKey(HwUser, null=True, blank=True)
+  #group = models.ForeignKey(HwGroup, null=True, blank=True)
+  other_user = models.ForeignKey(HwUser, related_name='other_user_id')
   class Meta:
     db_table = u'hw_human_connections'
 
@@ -246,8 +237,6 @@ class HwInvitedUser(models.Model):
   email = models.CharField(max_length=45, primary_key=True)
   created_user = models.ForeignKey(HwUser, related_name='%(class)s_user_id',
     blank=True)
-  hunches = models.ManyToManyField('HwHunch', through='HwHunchConnections')
-  users = models.ManyToManyField('HwUser', through='HwUserInvites')
   class Meta:
     db_table = u'hw_invited_user'
 
@@ -288,7 +277,6 @@ class HwRole(models.Model):
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
   description = models.TextField(blank=True)
-  users = models.ManyToManyField('HwUser', through='HwUserRoles')
   class Meta:
     db_table = u'hw_role'
 
@@ -298,8 +286,6 @@ class HwSkill(models.Model):
   skill_name = models.CharField(unique=True, max_length=100)
   is_language = models.IntegerField()
   is_technical = models.IntegerField()
-  hunches = models.ManyToManyField('HwHunch', through='HwSkillConnections')
-  users = models.ManyToManyField('HwUser', through='HwSkillConnections')
   class Meta:
     db_table = u'hw_skill'
 

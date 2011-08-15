@@ -11,10 +11,12 @@
 # Public License for more details.
 
 import models
+import custom_fields
 
 from django import forms
 from django.forms import ModelForm
-from django.forms.widgets import PasswordInput 
+from django.forms.widgets import PasswordInput
+
 
 class LoginForm(ModelForm):
   class Meta:
@@ -67,10 +69,17 @@ class HomepageForm(ModelForm):
     model = models.HwUser
 
 
-class InvitePeople(ModelForm):
-  invited_emails = forms.CharField(widget=forms.Textarea(
+class InvitePeople(forms.Form):
+  invited_emails = custom_fields.MultiEmailField(widget=forms.Textarea(
     attrs={'cols': 30, 'rows': 10}))
   
-  class Meta:
-    model = models.HwInvitedUser
-    fields = ()
+  def save(self, *args, **kwargs):
+    created_user = models.HwUser.objects.get(pk=1)
+    print self.cleaned_data
+    #TODO( Chris: 8-15-2011): figure out how ot introspect invited_emails object instead
+    # of using email_input
+    for email_input in self.cleaned_data['invited_emails']:
+      invited_email = models.HwInvitedUser( email=email_input )
+      invited_user = models.HwUserInvites( invited_email=invited_email, user=created_user, status=0)
+      invited_user.save()
+    

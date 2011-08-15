@@ -37,6 +37,17 @@ urlpatterns = patterns(
   url(r'^login$', 'login', name='login'),
   url(r'^createHunch', 'createHunch',),
   url(r'^addEvidence', 'HunchEvidence', 'hunchEvidence'),
-  #(r'^invitePeople', 'invitePeople'),
+  (r'^invitePeople', 'invitePeople'),
+  
+)
+
+urlpatterns += patterns(
+  'hunchworks.json_views',
+  (r'^skills', 'skills'),
+)
+
+urlpatterns += patterns(
+  'hunchworks.views',
   url(r'^', 'index', name='index'),
 )
+

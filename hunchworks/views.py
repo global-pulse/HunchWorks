@@ -26,6 +26,7 @@ from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 import datetime
+from django.core import exceptions
 
 
 def index(request):
@@ -38,13 +39,14 @@ def login(request):
     form = forms.LoginForm(request.POST)
     
     if form.is_valid():
-      user = models.HwUser.objects.get(username=request.POST['username'],
-        password=request.POST['password'])
-      if user:
+      try:
+        user = models.HwUser.objects.get(username=request.POST['username'],
+          password=request.POST['password'])
         return HttpResponseRedirect(
           reverse(home, kwargs={'user_id': user.pk}))
-      else:
-        print "not user"
+      except exceptions.ObjectDoesNotExist:
+        pass
+        #TODO( Chris-8-16-2011) Find something to do wiht thrown exception
     
   form = forms.LoginForm() # An unbound form
   context = RequestContext(request)
@@ -90,20 +92,21 @@ def profile(request, user_id):
   user = get_object_or_404(models.HwUser, pk=user_id)
   invite_form = forms.InvitePeople()
   context = RequestContext(request)
-  context.update({ "user": user })
+  context.update({ "user": user, "invite_form": invite_form })
   return render_to_response('profile.html', context)
 
 
-def invite_people(request):
+def invitePeople(request):
   if request.method == 'POST': # If the form has been submitted...
     form = forms.InvitePeople(request.POST)
     if form.is_valid(): # All validation rules pass
-      string = request.POST['invited_emails']
-      invite_list = string.split(',')
-      for email_input in invite_list:
+      form.save()
+      #string = request.POST['invited_emails']
+      #invite_list = string.split(',')
+      #for email_input in invite_list:
         #email_form = models.EmailField(  )
-        invited_user = models.HwInvitedUser( email=email_input)
-        invited_user.save()
+      #  invited_user = models.HwInvitedUser( email=email_input)
+      #  invited_user.save()
     else:
       return HttpResponseRedirect('profile.html') # Redirect after POST
   return render_to_response('profile.html', RequestContext(request))
