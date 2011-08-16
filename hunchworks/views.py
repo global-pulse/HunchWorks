@@ -29,6 +29,9 @@ from django.template import RequestContext
 import datetime
 from django.core import exceptions
 
+from django.contrib.auth import authenticate, login as login_, logout
+from django.http import HttpResponseForbidden
+from django.contrib.auth.decorators import login_required
 
 def index(request):
   return render_to_response('index.html')
@@ -42,19 +45,32 @@ def login(request):
     
     if form.is_valid():
       try:
-        user = models.HwUser.objects.get(username=request.POST['username'],
-          password=request.POST['password'])
-        return HttpResponseRedirect(
-          reverse(home, kwargs={'user_id': user.pk}))
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+          if user.is_active:
+            login_(request, user)
+            return HttpResponseRedirect(
+              reverse(home, kwargs={'user_id': user.pk}))
+          else:
+            # Disabled account error #todo
+            return HttpResponseForbidden()
+        else:
+          # Invalid login #todo
+          return HttpResponseForbidden()
+
       except exceptions.ObjectDoesNotExist:
         pass
         #TODO( Chris-8-16-2011) Find something to do wiht thrown exception
-    
   form = forms.LoginForm() # An unbound form
   context = RequestContext(request)
   context.update({ 'form': form })
   return render_to_response('login.html', context)
 
+def logout_view(request):
+  logout(request)
+  return render_to_response('')
 
 @transaction.commit_on_success
 def signup(request):
@@ -87,6 +103,7 @@ def signup(request):
   return render_to_response("signup.html", context)
 
 
+@login_required
 def home(request, user_id):
   user = get_object_or_404(models.HwUser, pk=user_id)
   #This picks up the user located at index 1 of the users table
@@ -95,6 +112,7 @@ def home(request, user_id):
   return render_to_response('home.html', context)
 
 
+@login_required
 def profile(request, user_id):
   user = get_object_or_404(models.HwUser, pk=user_id)
   invite_form = forms.InvitePeople()
@@ -103,6 +121,7 @@ def profile(request, user_id):
   return render_to_response('profile.html', context)
 
 
+@login_required
 def invitePeople(request):
   if request.method == 'POST': # If the form has been submitted...
     form = forms.InvitePeople(request.POST)
@@ -119,6 +138,7 @@ def invitePeople(request):
   return render_to_response('profile.html', RequestContext(request))
 
 
+@login_required
 def createHunch(request):
   """Create a Hunch.  Assumes HwHunch.user = request.user! """
   context = RequestContext(request)
@@ -148,10 +168,12 @@ def createHunch(request):
   return render_to_response('createHunch.html', context)
   
 
+@login_required
 def createGroup(request):
   return render_to_response('createGroup.html')
 
 
+@login_required
 def HunchEvidence(request):
   return render_to_response('addEvidence.html')
 
