@@ -35,6 +35,7 @@ urlpatterns = patterns(
   url(r'^profile/(?P<user_id>\d+)$', 'profile', name="profile"),
   url(r'^signup$', 'signup', name='signup'),
   url(r'^login$', 'login', name='login'),
+  (r'^logout$', 'logout_view'),
   url(r'^createHunch', 'createHunch',),
   url(r'^addEvidence', 'HunchEvidence', 'hunchEvidence'),
   (r'^invitePeople', 'invitePeople'),
