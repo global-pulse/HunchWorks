@@ -148,6 +148,9 @@ class HwUser(models.Model):
   class Meta:
     db_table = u'hw_user'
 
+  def __unicode__(self):
+    return self.username
+
 class HwEducationConnections(models.Model):
   """Many to Many model representing a user's education and/or classes"""
   education_connection_id = models.AutoField(primary_key=True)
@@ -286,8 +289,12 @@ class HwSkill(models.Model):
   skill_name = models.CharField(unique=True, max_length=100)
   is_language = models.IntegerField()
   is_technical = models.IntegerField()
+
   class Meta:
     db_table = u'hw_skill'
+
+  def __unicode__(self):
+    return self.skill_name
 
 class HwSkillConnections(models.Model):
   """Many to Many model joining hunches, user and skills.
@@ -303,6 +310,9 @@ class HwSkillConnections(models.Model):
   user = models.ForeignKey(HwUser, null=True, blank=True)
   class Meta:
     db_table = u'hw_skill_connections'
+
+  def __unicode__(self):
+    return "%s has %s" % (self.user, self.skill)
 
 class HwUserInvites(models.Model):
   """Many to Many model joining User and Invited User together for the users 
