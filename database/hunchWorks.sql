@@ -25,15 +25,9 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `hunchWorks`.`hw_user` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_user` (
-  `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `email` VARCHAR(45) NOT NULL ,
-  `first_name` VARCHAR(25) NOT NULL ,
-  `last_name` VARCHAR(50) NOT NULL ,
   `title` TINYINT UNSIGNED NOT NULL ,
   `show_profile_reminder` TINYINT UNSIGNED NOT NULL ,
   `privacy` TINYINT UNSIGNED NOT NULL ,
-  `username` VARCHAR(20) NOT NULL ,
-  `password` VARCHAR(20) NOT NULL ,
   `default_language_id` INT UNSIGNED NOT NULL ,
   `bio_text` TEXT NULL ,
   `phone` VARCHAR(20) NULL ,
@@ -42,7 +36,6 @@ CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_user` (
   `profile_picture` VARCHAR(100) NULL ,
   `screen_name` VARCHAR(45) NULL ,
   `messenger_service` TINYINT UNSIGNED NULL ,
-  PRIMARY KEY (`user_id`) ,
   INDEX `fk_hw_user__language_id` (`default_language_id` ASC) ,
   CONSTRAINT `fk_hw_user__language_id`
     FOREIGN KEY (`default_language_id` )

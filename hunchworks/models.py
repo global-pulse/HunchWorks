@@ -21,6 +21,8 @@ GENDER_CHOICES = (
 import hunchworks_enums
 
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 class HwAlbum(models.Model):
   """Class representing a collection of pictures in an album"""
@@ -112,18 +114,15 @@ class HwLocation(models.Model):
     return self.location_name
     
 class HwUser(models.Model):
+  """Extend HwUser from User"""
+  user = models.OneToOneField(User)
   """Class representing a Hunchworks user."""
-  user_id = models.AutoField(primary_key=True)
-  email = models.EmailField(max_length=45)
-  first_name = models.CharField(max_length=25)
-  last_name = models.CharField(max_length=50)
+
   title = models.IntegerField(
     choices=hunchworks_enums.UserTitle.GetChoices(), default=0)
   show_profile_reminder = models.IntegerField(default=0)
   privacy = models.IntegerField(
     choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
-  username = models.CharField(max_length=20)
-  password = models.CharField(max_length=20)
   default_language = models.ForeignKey(HwLanguage, default=0)
   bio_text = models.TextField(blank=True)
   phone = models.CharField(max_length=20, blank=True)
@@ -348,3 +347,10 @@ def GetHunchGroup():
   #       etc. from the hunch. Need to figure out how to pass that stuff
   #       in.
   pass
+
+def create_hw_user(sender, instance, created, **kwargs):
+    if created:
+        HwUser.objects.create(user=instance)
+
+post_save.connect(create_hw_user, sender=User)
+
