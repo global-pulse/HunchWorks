@@ -15,11 +15,20 @@ import models
 from django import http
 from django.utils import simplejson
 
+
 def skills(request):
-  skills = models.HwSkill.objects.all()
+  skills = models.HwSkill.objects.filter(is_language=False)
   skills = skills.values_list('skill_id', 'skill_name')
   skills =  [{ "id": x[0], "name": x[1]} for x in skills]
   
+  return http.HttpResponse( simplejson.dumps(skills) )
+
+
+def languages(request):
+  skills = models.HwSkill.objects.filter(is_language=True)
+  skills = skills.values_list('skill_id', 'skill_name')
+  skills =  [{ "id": x[0], "name": x[1]} for x in skills]
+
   return http.HttpResponse( simplejson.dumps(skills) )
 
 
@@ -29,5 +38,4 @@ def tags(request):
   tags =  [{ "id": x[0], "name": x[1]} for x in tags]
 
   return http.HttpResponse( simplejson.dumps(tags) )
-
 
