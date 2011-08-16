@@ -93,7 +93,7 @@
         "model": "hunchworks.hwskill",
         "fields": 
         {
-            "skill_id": 1,
+            "skill_id": 2,
             "skill_name": "French",
             "is_language": "1",
             "is_technical": "0"
@@ -104,7 +104,7 @@
         "model": "hunchworks.hwskill",
         "fields": 
         {
-            "skill_id": 1,
+            "skill_id": 3,
             "skill_name": "Spanish",
             "is_language": "1",
             "is_technical": "0"
@@ -115,7 +115,7 @@
         "model": "hunchworks.hwskill",
         "fields": 
         {
-            "skill_id": 1,
+            "skill_id": 4,
             "skill_name": "German",
             "is_language": "1",
             "is_technical": "0"
