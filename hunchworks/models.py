@@ -133,7 +133,7 @@ class HwUser(models.Model):
   screen_name = models.CharField(max_length=45, blank=True)
   messenger_service = models.IntegerField(null=True, blank=True, 
     choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
-  skills = models.ManyToManyField('HwSkill', through='HwSkillConnections')
+  skills = models.ManyToManyField('HwSkill', through='HwSkillConnections', blank=True)
   education = models.ManyToManyField(
   	'HwEducation', through='HwEducationConnections')
   classes = models.ManyToManyField('HwClass', through='HwEducationConnections')
@@ -144,7 +144,7 @@ class HwUser(models.Model):
   invited_users = models.ManyToManyField(
   	'HwInvitedUser', through='HwUserInvites')
   #groups = models.ManyToManyField('HwGroup', through='HwHumanConnections', symmetrical=False)
-  collaborators = models.ManyToManyField('self', through='HwHumanConnections', symmetrical=False)
+  collaborators = models.ManyToManyField('self', through='HwHumanConnections', symmetrical=False, blank=True)
   class Meta:
     db_table = u'hw_user'
 
