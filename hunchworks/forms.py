@@ -35,7 +35,8 @@ class SignUpForm(ModelForm):
     exclude = ( 
 	'show_profile_reminder', 'bio_text', 'phone', 'skills', 'user_id',
 	'skype_name', 'website', 'profile_picture', 'education', 'classes', 
-	'location_interests', 'roles', 'hunches', 'invited_users', 'groups'
+	'location_interests', 'roles', 'hunches', 'invited_users', 'groups',
+	'collaborators'
 	)
     widgets = {
       'password': PasswordInput()

@@ -15,6 +15,7 @@ import models
 import forms
 
 from django import http
+from django.db import transaction
 # We use this function because it allows you to send an html file as a template
 # and be displayed. With http response you cannot do this.
 from django.shortcuts import render_to_response, get_object_or_404
@@ -34,6 +35,7 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
   return render_to_response('index.html')
+
 
 def login(request):
   context = RequestContext(request)
@@ -70,28 +72,33 @@ def logout_view(request):
   logout(request)
   return render_to_response('')
 
+@transaction.commit_on_success
 def signup(request):
   context = RequestContext(request)
 
-#TODO(Chris Aug-9-2011): This always goes into POST, which always
-# causes the errors to be displayed. Need to figure out what is going wrong.
   if request.method == "POST":
     form = forms.SignUpForm(request.POST)
 
     if form.is_valid():
-      skill = models.HwSkill( skill_name = request.POST['skill_name'],
-        is_technical=0, is_language=0 )
-      skill_connection = models.HwSkillConnections( skill_id = skill.pk, 
-        user_id = user.pk, level=1 )
       user = form.save()
-      skill.save()
-      skill_connection.save()
+
+      for skill_name in request.POST.getlist("skill_name"):
+        skill, created = models.HwSkill.objects.get_or_create(
+          skill_name=skill_name,
+          is_technical=0,
+          is_language=0)
+
+        skill_connection = models.HwSkillConnections.objects.create(
+          skill=skill,
+          user=user,
+          level=1)
+
       return HttpResponseRedirect(
         reverse(profile, kwargs={'user_id': user.pk}))
-      
+
   else:
     form = forms.SignUpForm()
-    
+
   context['form'] = form
   return render_to_response("signup.html", context)
 

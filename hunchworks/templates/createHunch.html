@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block js %}
-  <script src='/static/jquery.tokenInput.js'></script>
+  <script src='/static/jquery.tokeninput.js'></script>
   <script src='/static/createHunch.js'></script>
 {% endblock %}
 {% block content %}
@@ -42,15 +42,10 @@
 		  <b>Tags:</b><em>(optional but recommended)</em>
 		  <div class="inputText">
 			{{form.tags}}
+		  <input id='id_tags' type='text'>
 		  </div>
 		  <input type="submit" value="Submit" />
 		</form>
-	  <div class='inputText'>
-		<b>Tags:</b><em>(optional but recommended)</em>
-		<input type='text' maxlength='40'>
-		<button type='button'>Add tag</button>
-		<div id='tagsAdded'></div>
-	  </div>
 	  <div class='inputText'>
 		<b>Location:</b>
 		<button type='button'>GIS COORDINATES</button>
@@ -67,6 +62,10 @@
 	  <div>
 		<b>Related Skills:</b><em>(optional)</em>
 		<input id='relatedSkills' type='text'>
+	  </div>
+	  <div>
+		<b>Languages Required:</b><em>(optional)</em>
+		<input id='id_languages' type='text'>
 	  </div>
 	  <!--<div id='languagesRequired'>
 		<b>Languages required:</b><em>(optional)</em>

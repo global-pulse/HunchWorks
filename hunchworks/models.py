@@ -132,7 +132,7 @@ class HwUser(models.Model):
   screen_name = models.CharField(max_length=45, blank=True)
   messenger_service = models.IntegerField(null=True, blank=True, 
     choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
-  skills = models.ManyToManyField('HwSkill', through='HwSkillConnections')
+  skills = models.ManyToManyField('HwSkill', through='HwSkillConnections', blank=True)
   education = models.ManyToManyField(
   	'HwEducation', through='HwEducationConnections')
   classes = models.ManyToManyField('HwClass', through='HwEducationConnections')
@@ -143,9 +143,12 @@ class HwUser(models.Model):
   invited_users = models.ManyToManyField(
   	'HwInvitedUser', through='HwUserInvites')
   #groups = models.ManyToManyField('HwGroup', through='HwHumanConnections', symmetrical=False)
-  collaborators = models.ManyToManyField('self', through='HwHumanConnections', symmetrical=False)
+  collaborators = models.ManyToManyField('self', through='HwHumanConnections', symmetrical=False, blank=True)
   class Meta:
     db_table = u'hw_user'
+
+  def __unicode__(self):
+    return self.username
 
 class HwEducationConnections(models.Model):
   """Many to Many model representing a user's education and/or classes"""
@@ -285,8 +288,12 @@ class HwSkill(models.Model):
   skill_name = models.CharField(unique=True, max_length=100)
   is_language = models.IntegerField()
   is_technical = models.IntegerField()
+
   class Meta:
     db_table = u'hw_skill'
+
+  def __unicode__(self):
+    return self.skill_name
 
 class HwSkillConnections(models.Model):
   """Many to Many model joining hunches, user and skills.
@@ -302,6 +309,9 @@ class HwSkillConnections(models.Model):
   user = models.ForeignKey(HwUser, null=True, blank=True)
   class Meta:
     db_table = u'hw_skill_connections'
+
+  def __unicode__(self):
+    return "%s has %s" % (self.user, self.skill)
 
 class HwUserInvites(models.Model):
   """Many to Many model joining User and Invited User together for the users 
