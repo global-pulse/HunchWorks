@@ -12,3 +12,5 @@ from django.contrib import admin
 
 admin.site.register(models.HwHunch)
 admin.site.register(models.HwUser)
+admin.site.register(models.HwSkill)
+admin.site.register(models.HwSkillConnections)
