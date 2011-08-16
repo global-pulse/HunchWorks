@@ -212,3 +212,5 @@ LOGGING = {
     },
   }
 }
+
+AUTH_PROFILE_MODULE = 'hunchworks.HwUser'
