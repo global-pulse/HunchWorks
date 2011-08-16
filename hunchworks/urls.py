@@ -44,6 +44,7 @@ urlpatterns = patterns(
 urlpatterns += patterns(
   'hunchworks.json_views',
   (r'^skills', 'skills'),
+  (r'^tags', 'tags'),
 )
 
 urlpatterns += patterns(

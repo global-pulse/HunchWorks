@@ -21,6 +21,13 @@ def skills(request):
   skills =  [{ "id": x[0], "name": x[1]} for x in skills]
   
   return http.HttpResponse( simplejson.dumps(skills) )
-  
+
+
+def tags(request):
+  tags = models.HwTag.objects.all()
+  tags = tags.values_list('tag_id', 'tag_name')
+  tags =  [{ "id": x[0], "name": x[1]} for x in tags]
+
+  return http.HttpResponse( simplejson.dumps(tags) )
 
 
