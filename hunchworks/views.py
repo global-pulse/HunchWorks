@@ -42,14 +42,20 @@ def login(request):
   
   if request.method == 'POST':
     form = forms.LoginForm(request.POST)
-    
+    print 'before validation'
+    print form.errors
     if form.is_valid():
+      print 'is valid'
       try:
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
+        print "attempt Auth"
+        print 
         if user is not None:
+          print "not None"
           if user.is_active:
+            print "here"
             login_(request, user)
             return HttpResponseRedirect(
               reverse(home, kwargs={'user_id': user.pk}))
@@ -62,7 +68,7 @@ def login(request):
 
       except exceptions.ObjectDoesNotExist:
         pass
-        #TODO( Chris-8-16-2011) Find something to do wiht thrown exception
+        #TODO( Chris-8-16-2011) Find something to do with thrown exception
   form = forms.LoginForm() # An unbound form
   context = RequestContext(request)
   context.update({ 'form': form })
@@ -77,10 +83,18 @@ def signup(request):
   context = RequestContext(request)
 
   if request.method == "POST":
-    form = forms.SignUpForm(request.POST)
+    data = request.POST.copy()
+    data.update({'is_active':0, 'is_staff':1, 'is_superuser':1,
+              'last_login':datetime.datetime.today(),
+              'date_joined':datetime.datetime.today(),
+              })
+    form = forms.SignUpForm(data)
 
+    print form.errors
     if form.is_valid():
       user = form.save()
+      user.set_password(request.POST['password'])
+      user.save()
 
       for skill_name in request.POST.getlist("skill_name"):
         skill, created = models.HwSkill.objects.get_or_create(
@@ -90,7 +104,7 @@ def signup(request):
 
         skill_connection = models.HwSkillConnections.objects.create(
           skill=skill,
-          user=user,
+          user=user.get_profile(),
           level=1)
 
       return HttpResponseRedirect(
@@ -127,12 +141,6 @@ def invitePeople(request):
     form = forms.InvitePeople(request.POST)
     if form.is_valid(): # All validation rules pass
       form.save()
-      #string = request.POST['invited_emails']
-      #invite_list = string.split(',')
-      #for email_input in invite_list:
-        #email_form = models.EmailField(  )
-      #  invited_user = models.HwInvitedUser( email=email_input)
-      #  invited_user.save()
     else:
       return HttpResponseRedirect('profile.html') # Redirect after POST
   return render_to_response('profile.html', RequestContext(request))
@@ -144,13 +152,13 @@ def createHunch(request):
   context = RequestContext(request)
   if request.method == 'POST':
 
-    d = request.POST.copy()
-    d.update({'creator':request.user.pk, 
+    data = request.POST.copy()
+    data.update({'creator':request.user.pk, 
               'time_created':datetime.datetime.today(),
               'status':1,
               'privacy':1,
               'strength':1})
-    form = forms.CreateHunchForm(d)
+    form = forms.CreateHunchForm(data)
     
     if form.is_valid():
       #print 'createHunch: valid form'

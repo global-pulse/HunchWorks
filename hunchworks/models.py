@@ -115,15 +115,21 @@ class HwLocation(models.Model):
     
 class HwUser(models.Model):
   """Extend HwUser from User"""
-  user = models.OneToOneField(User)
+  user = models.ForeignKey(User, unique=True)
   """Class representing a Hunchworks user."""
-
+  #user_id = models.AutoField(primary_key=True)
+  #email = models.EmailField(max_length=45)
+  #first_name = models.CharField(max_length=25)
+  #last_name = models.CharField(max_length=50)
+  #username = models.CharField(max_length=20)
+  #password = models.CharField(max_length=20)
   title = models.IntegerField(
     choices=hunchworks_enums.UserTitle.GetChoices(), default=0)
   show_profile_reminder = models.IntegerField(default=0)
   privacy = models.IntegerField(
     choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
   default_language = models.ForeignKey(HwLanguage, default=0)
+
   bio_text = models.TextField(blank=True)
   phone = models.CharField(max_length=20, blank=True)
   skype_name = models.CharField(max_length=30, blank=True)
@@ -147,8 +153,8 @@ class HwUser(models.Model):
   class Meta:
     db_table = u'hw_user'
 
-  def __unicode__(self):
-    return self.username
+  #def __unicode__(self):
+  #  return self.username
 
 class HwEducationConnections(models.Model):
   """Many to Many model representing a user's education and/or classes"""
