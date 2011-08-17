@@ -18,26 +18,24 @@ from django.forms import ModelForm
 from django.forms.widgets import PasswordInput
 
 
-class LoginForm(ModelForm):
-  class Meta:
-    model= models.HwUser
-    fields = ( 'username', 'password' )
-    widgets = {
-      'password': PasswordInput()
-      }
+class LoginForm(forms.Form):
+  username = forms.CharField( max_length=30 )
+  password = forms.CharField( max_length=30, widget=forms.PasswordInput() )
 
 
 class SignUpForm(ModelForm):
   skill_name = forms.CharField( max_length=100 )
 
   class Meta:
-    model= models.HwUser
+    model= models.User
     exclude = ( 
-	'show_profile_reminder', 'bio_text', 'phone', 'skills', 'user_id',
-	'skype_name', 'website', 'profile_picture', 'education', 'classes', 
-	'location_interests', 'roles', 'hunches', 'invited_users', 'groups',
-	'collaborators'
-	)
+    'groups', 'user_permissions',
+    )
+	#'show_profile_reminder', 'bio_text', 'phone', 'skills', 'user_id',
+	#'skype_name', 'website', 'profile_picture', 'education', 'classes', 
+	#'location_interests', 'roles', 'hunches', 'invited_users', 'groups',
+	#'collaborators', 'user'
+	#)
     widgets = {
       'password': PasswordInput()
       }

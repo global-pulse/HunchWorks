@@ -9,16 +9,16 @@
 	<form method='post' action="signup">
 		{{ form.non_field_errors }}
 		{% csrf_token %}
-
+		<!--{{ form }}-->
 		<h1>Tell us about yourself:</h1>
 		<h3>Personal Information</h3>
-		<div class='inputWrapper'>
+		<!--<div class='inputWrapper'>
 		Title
 		{{ form.title.errors }}
 		<div class='inputText'>
 			{{ form.title }}
 		</div>
-		</div>
+		</div>-->
 
 		<div class='inputWrapper'>
 		First Name: 
@@ -44,21 +44,21 @@
 		</div>
 		</div>
 
-		<div class='inputWrapper'>
+		<!--<div class='inputWrapper'>
 		Privacy setting:
 		{{ form.privacy.errors }}
 		<div class='inputText'>
 			{{ form.privacy }}
 		</div>
-		</div>
+		</div>-->
 
-		<div class='inputWrapper'>
+		<!--<div class='inputWrapper'>
 		Default Language:
 		{{ form.default_language.errors }}
 		<div class='inputText'>
 			{{ form.default_language }}
 		</div>
-		</div>
+		</div>-->
 
 		<div class='inputWrapper'>
 		Username:
@@ -76,7 +76,7 @@
 		</div>
 		</div>
 
-		<div class='inputWrapper'>
+		<!--<div class='inputWrapper'>
 		Instant Messenger:
 		{{ form.screen_name.errors }}
 		<div class='inputText'>
@@ -86,7 +86,7 @@
 		<div class='inputText'>
 			{{ form.messenger_service }}
 		</div>
-		</div>
+		</div>-->
 
 		<div class='inputWrapper'>
 		Skill1:
