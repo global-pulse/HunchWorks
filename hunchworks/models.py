@@ -115,7 +115,7 @@ class HwLocation(models.Model):
     
 class HwUser(models.Model):
   """Extend HwUser from User"""
-  user = models.ForeignKey(User, unique=True)
+  user = models.ForeignKey(User, unique=True, primary_key=True)
   """Class representing a Hunchworks user."""
   #user_id = models.AutoField(primary_key=True)
   #email = models.EmailField(max_length=45)
