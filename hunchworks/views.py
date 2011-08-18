@@ -118,11 +118,16 @@ def signup(request):
 
 
 @login_required
-def home(request, user_id):
-  user = get_object_or_404(models.HwUser, pk=user_id)
+def home(request):
+#def home(request, user_id):
+  #user = get_object_or_404(models.HwUser, pk=user_id)
+  user_id = request.user.pk
+  recent_hunches = models.HwHunch.objects.filter(creator=user_id)
+
   #This picks up the user located at index 1 of the users table
   context = RequestContext(request)
-  context.update({'first_name': user.first_name})
+  context.update({'first_name': request.user.first_name,
+                  'recent_hunches': recent_hunches})
   return render_to_response('home.html', context)
 
 
