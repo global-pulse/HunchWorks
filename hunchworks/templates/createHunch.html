@@ -18,6 +18,7 @@
 	}
   </style>
   <link rel="stylesheet" href="/static/token-input-facebook.css" type="text/css" />
+  <link rel="stylesheet" href="/static/token-input.css" type="text/css" />
 {% endblock %}
 
 {% block js %}
@@ -42,21 +43,32 @@
 		  <b>Tags:</b><em>(optional but recommended)</em>
 		  <div class="inputText">
 			{{form.tags}}
-		  <input id='id_tags' type='text'>
+		  	<input id='id_tags' type='text'>
 		  </div>
-		  <input type="submit" value="Submit" />
-		</form>
-	  <div class='inputText'>
-		<b>Location:</b>
-		<button type='button'>GIS COORDINATES</button>
-		<button type='button'>PIN ON MAP</button>
-		<button type='button'>DRAW ON MAP</button>
-		<button type='button'>LOCATION NAME</button>
-		<img src='googlemap' alt='googlemap' height='400px' width='580px'/> 
-	  </div>
-	  <button type='button' onclick="location.href='addEvidence.html'">
-		Next Step
-	  </button>
+		  <div class="inputText">
+		  	<b>Privacy Level:</b>
+			{{form.privacy}}
+		  </div>
+		<div class='inputText'>
+		  <b>Location:</b>
+		  <button type='button'>GIS COORDINATES</button>
+		  <button type='button'>PIN ON MAP</button>
+		  <button type='button'>DRAW ON MAP</button>
+		  <button type='button'>LOCATION NAME</button>
+		  <img src='googlemap' alt='googlemap' height='400px' width='580px'/> 
+	    </div>
+	    <div class='inputText'>
+	  	  <b>Add evidence</b>
+	  	  <button type='button'>Tweet</button>
+	  	  <button type='button'>Dataset</button>
+	  	  <button type='button'>Link</button>
+	  	  <button type='button'>Photo</button>
+	  	  <button type='button'>Video</button>
+	  	  <button type='button'>Anecdote</button>
+	  	  <img src='googlemap' alt='googlemap' height='400px' width='580px'/>
+	    </div>
+	  	<input type="submit" value="Submit" />
+	  </form>
 	</div> <!-- end column1 div -->
 	<div id='column2'>
 	  <div>
@@ -66,16 +78,6 @@
 	  <div>
 		<b>Languages Required:</b><em>(optional)</em>
 		<input id='id_languages' type='text'>
-	  </div>
-	  <!--<div id='languagesRequired'>
-		<b>Languages required:</b><em>(optional)</em>
-		  <!-- The following are just place holders for now -->
-		<div>English</div>
-		<div>French</div>
-		<div>Arabic</div>
-		<div>Russian</div>
-		<div>Spanish</div>
-		<div>Chinese</div>
 	  </div>
 	</div> <!-- end column2 div -->
   </div>

@@ -2,20 +2,35 @@
 	are unsigned, with the exception of the strength value in hw_evidence
 	and hw_hunch"""
 
+auth_user
+	"""This is the Django built in user table for authenitaction"""
+	id = primary key, auto increment
+	username = unique, the username of the user
+	password = must be encrypted in database or authentication fails, the
+		password associated with the username used to login.
+	first_name = the first name of the user
+	last_name = the last name of the user
+	email = the email of the user
+	is_staff = boolean, true if they are staff
+	is_active = boolean, true if the user is active
+	is_superuser = boolean, true if the user is admin
+	last_login = datetime, date of last login into the system, down to microseconds
+	date_joined = datetime, date of user being created down to microseconds
+
 hw_album
 	"""This represents a collection of pictures and possibly videos as well
 		that can be stored into an album instead of indivulally putting each 
 		picture or video as an attachment"""
 	album_id = primary key, auto increment
 	name = the name of the album
-	
+
 hw_album_attachments
 	"""This represents a cross table between hw_album and hw_attachment as a 
 		album can have mutliplte attachments."""
-	Compound Key = album_id + attachment_id
+	album_attachment_id = primary key, auto increment
 	album_id = the id of the hw_album it is associated with
 	attachment_id = the id of the hw_attachment it is associated with
-	
+
 hw_attachment
 	"""This represents a table that will store the location and type of
 		attachment that is attached"""
@@ -57,26 +72,26 @@ hw_evidence
 		comment can have some text associated with it as well as many attachments
 		of videos, pictures, documents, etc."""
 	evidence_id = primary key, auto increment
-	hunch_id = the id of the hw_hunch it is associated with
-	creator_id = the id of the hw_user that created the evidence
 	strength = the strength of the evidence posted, values from -2 to 2, relating
 		to string values of strongly refutes to strongly supports. 
 	time_created = the specific time the evidence was created (down to seconds)
 	description = the text that can be put as a comment in reference to the hunch,
 		users may also use this as a possible explanation of the attachments they
 		are posting.
+	hunch_id = the id of the hw_hunch it is associated with
+	creator_id = the id of the hw_user that created the evidence
 		
 hw_evidence_albums
 	"""This represents a cross table between hw_evidence and hw_album, as a
 		evidence can have multiple albums attached to it."""
-	Compound Key = album_id + evidence_id
+	evidence_album_id = primary key, auto increment
 	album_id = the id of the hw_album it is associated with
 	evidence_id = the id of the hw_evidence it is associated with
 	
 hw_evidence_attachments
 	"""This represents a cross table between hw_evidence and hw_attachment as a
 		evidence can have multiple attachments"""
-	Compound Key = attachment_id + evidence_id
+	evidence_attachment_id = primary key, auto increment
 	attachment_id = the id of the hw_attachment it is associated with
 	evidence_id = the id of the hw_evidence it is associated with
 	
@@ -93,35 +108,30 @@ hw_group
 	location_id = the id of the hw_location it is associated with.
 	logo = the file locoation of the group picture.
 	
-hw_human_connections 
-	"""This represents a cross table between hw_group and hw_user as well as 
-		a cross table between hw_user and hw_user for user relationships. Groups
+hw_group_connections 
+	"""This represents a cross table between hw_group and hw_user. Groups
 		will have mutliple users and a user will be a part of multiple groups.
 		Users will be able to connect, trust, and share information with multiple
-		users. Either group_id or other_user_id will be null and there will never
-		be a point where neither are null or both will be null."""
-	human_connection_id = primary key, auto increment
+		users. """
+	group_connection_id = primary key, auto increment
 	user_id = the id of the hw_user that its associated with
 	group_id = the id og the hw_group that its associated with
 	access_level = can be Admin or Member at this point, located as GroupPrivelege
 		under hunchworks_enums.py
-	trust_from_user = boolean value for if this user trusts the group
-	trust_from_group = boolean value for if the group trusts the user
-	recieve_updates = does the user want to recieve updates about posts and other
-		items in this group
 	status = Accepted, invited, blocked
-	other_user_id = the id of the hw_user that this user is connected with.
 	
 hw_hunch
 	"""This represents a hunch posted by a user about something they think might
 		be going on in the world"""
 	hunch_id = primary key, auto increment
+	creator = the user_id of the person who created the hunch
 	time_created = the time (down to seconds) of the hunch being created
 	status = can be Confirmed, Denied, Undetermined located under HunchStatus in
 		hunchworks_enums.py
 	title = The title of the hunch the user is posting
 	privacy = Can be Open, Closed, hidden located under PrivacyLevel in
 		hunchworks_enums.py
+	strength = the strength of the evidence
 	language_id = the id of the hw_language that the hunch will be the default
 		language of the hunch
 	location_id = the id of the hw_location for the hunch
@@ -138,8 +148,8 @@ hw_hunch_connections
 		be null at any given point, and there will never be a point where 2 or 3
 		of them will have values, and no point where none of them have no values"""
 	hunch_connection_id = primary key, auto increment
-	hunch_id = the id of the hw_hunch it is associated with
 	status = Can be accepted, invited, or blocked.
+	hunch_id = the id of the hw_hunch it is associated with
 	user_id = the id of the hw_user it is associated with
 	group_id = the id of the hw_group it is associated with
 	invited_email = the email of the hw_invited_user it is associated with
@@ -147,10 +157,15 @@ hw_hunch_connections
 hw_invited_user
 	"""This table represents the master list of all people in hunchworks and all
 		people that have been invited by users of hunchworks. If they become a
-		member then user_id will be filled in."""
+		member then created_user_id will be filled in."""
+	invited_user_id = primary key, auto increment
 	email = the email of the invited user, primary key, if they have created
-		a user account the email will be the same as the hw_user. 
-	
+		a user account the email will be the same as the hw_user.
+	status = enum of invited, blocked, or accepted
+	created_user_id = the id of the user that this person creates when they sign
+		up an account.
+	invited_by_id = the id of the user that has invited this email.
+		
 hw_language
 	"""This table represents all languages that HunchWorks will translate into
 		that users and Hunches will be able to pick from. Only languages in this
@@ -219,10 +234,7 @@ hw_skill_connections
 hw_user
 	"""This represents a user that has registered in Hunchworks and has an
 		account"""
-	user_id = the id of the user it is associated with
-	email = the email of the user
-	first_name = the first name of the user
-	last_name = the last name of the user
+	user_id = the id of the auth_user, primary key
 	title = Can be Mr, Mrs, Ms as specified by UserTitle in hunchworks_enums.py
 	show_profile_reminder = boolean for reminding the user to fill out more of
 		their profile
@@ -234,20 +246,17 @@ hw_user
 	bio_text = a description of the user
 	phone = the phone number of the user
 	skype_name = the skype name of the user
-	instant_messanger_id = the id of the hw_user_messanger table
 	website = the URL of the users website
 	profile_picture = the URL of the users picture on the server
 	screen_name = the instant messanger screen name of the user
 	messenger_service = the service provider of the instant messanger.
-		
-hw_user_invites
-	"""This represents a cross table between hw_user and hw_invited_user as a user
-		may invite multiple users to hunchworks and an invitied user may be
-		invited by multiple users."""
-	user_invites_id = primary key, auto increment
-	user_id = the id of the hw_user it is associated with
-	invited_user_id = the id of the hw_invited_user it is associated with
-	status = Can be invited, blocked, accepted
+	
+hw_user_connections
+	"""This represents a cross table between hw_user and hw_user. """
+	user_connection_id = primary key, auto increment
+	user_id = the 1st user id
+	other_user_id = the second user id
+	status = enum of blocked, accepted, invited
 	
 hw_user_roles
 	"""This is a cross table between hw_user and hw_role as a user may have

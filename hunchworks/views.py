@@ -58,7 +58,7 @@ def login(request):
             print "here"
             login_(request, user)
             return HttpResponseRedirect(
-              reverse(home, kwargs={'user_id': user.pk}))
+              reverse(home ))
           else:
             # Disabled account error #todo
             return HttpResponseForbidden()
@@ -76,7 +76,7 @@ def login(request):
 
 def logout_view(request):
   logout(request)
-  return render_to_response('')
+  return render_to_response('index.html')
 
 @transaction.commit_on_success
 def signup(request):
@@ -84,7 +84,7 @@ def signup(request):
 
   if request.method == "POST":
     data = request.POST.copy()
-    data.update({'is_active':0, 'is_staff':1, 'is_superuser':1,
+    data.update({'is_active':1, 'is_staff':0, 'is_superuser':0,
               'last_login':datetime.datetime.today(),
               'date_joined':datetime.datetime.today(),
               })
