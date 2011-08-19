@@ -25,10 +25,16 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `hunchWorks`.`hw_user` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_user` (
+  `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `default_language_id` INT UNSIGNED NOT NULL ,
+  `email` VARCHAR(45) NOT NULL ,
+  `first_name` VARCHAR(25) NOT NULL ,
+  `last_name` VARCHAR(50) NOT NULL ,
   `title` TINYINT UNSIGNED NOT NULL ,
   `show_profile_reminder` TINYINT UNSIGNED NOT NULL ,
   `privacy` TINYINT UNSIGNED NOT NULL ,
-  `default_language_id` INT UNSIGNED NOT NULL ,
+  `username` VARCHAR(20) NOT NULL ,
+  `password` VARCHAR(20) NOT NULL ,
   `bio_text` TEXT NULL ,
   `phone` VARCHAR(20) NULL ,
   `skype_name` VARCHAR(30) NULL ,
@@ -36,6 +42,7 @@ CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_user` (
   `profile_picture` VARCHAR(100) NULL ,
   `screen_name` VARCHAR(45) NULL ,
   `messenger_service` TINYINT UNSIGNED NULL ,
+  PRIMARY KEY (`user_id`) ,
   INDEX `fk_hw_user__language_id` (`default_language_id` ASC) ,
   CONSTRAINT `fk_hw_user__language_id`
     FOREIGN KEY (`default_language_id` )
@@ -67,9 +74,9 @@ DROP TABLE IF EXISTS `hunchWorks`.`hw_group` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_group` (
   `group_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(100) NULL ,
   `group_type` TINYINT UNSIGNED NOT NULL ,
   `privacy` TINYINT UNSIGNED NOT NULL ,
+  `name` VARCHAR(100) NULL ,
   `location_id` INT UNSIGNED NULL ,
   `logo` VARCHAR(100) NULL ,
   PRIMARY KEY (`group_id`) ,
@@ -90,9 +97,9 @@ DROP TABLE IF EXISTS `hunchWorks`.`hw_organization` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_organization` (
   `organization_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(125) NOT NULL ,
-  `abbreviation` VARCHAR(7) NOT NULL ,
   `group_id` INT UNSIGNED NOT NULL ,
+  `abbreviation` VARCHAR(7) NOT NULL ,
+  `name` VARCHAR(125) NOT NULL ,
   `location_id` INT UNSIGNED NULL ,
   PRIMARY KEY (`organization_id`) ,
   INDEX `fk_hw_organization__group_id` (`group_id` ASC) ,
@@ -138,11 +145,12 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `hunchWorks`.`hw_user_roles` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_user_roles` (
+  `user_role_id` INT UNSIGNED NOT NULL ,
   `user_id` INT UNSIGNED NOT NULL ,
   `role_id` INT UNSIGNED NOT NULL ,
   INDEX `fk_hw_user_roles__user_id` (`user_id` ASC) ,
   INDEX `fk_hw_user_roles__role_id` (`role_id` ASC) ,
-  PRIMARY KEY (`user_id`, `role_id`) ,
+  PRIMARY KEY (`user_role_id`) ,
   CONSTRAINT `fk_hw_user_roles__user_id`
     FOREIGN KEY (`user_id` )
     REFERENCES `hunchWorks`.`hw_user` (`user_id` )
@@ -216,7 +224,7 @@ DROP TABLE IF EXISTS `hunchWorks`.`hw_education` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_education` (
   `education_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `school` VARCHAR(255) NOT NULL ,
+  `school_name` VARCHAR(255) NOT NULL ,
   `qualification` VARCHAR(100) NOT NULL ,
   `start_date` DATE NOT NULL ,
   `end_date` DATE NULL ,
@@ -231,7 +239,7 @@ DROP TABLE IF EXISTS `hunchWorks`.`hw_class` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_class` (
   `class_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(45) NOT NULL ,
+  `class_name` VARCHAR(45) NOT NULL ,
   `start_date` DATE NOT NULL ,
   `end_date` DATE NULL ,
   PRIMARY KEY (`class_id`) )
@@ -304,37 +312,27 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `hunchWorks`.`hw_human_connections`
+-- Table `hunchWorks`.`hw_group_connections`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `hunchWorks`.`hw_human_connections` ;
+DROP TABLE IF EXISTS `hunchWorks`.`hw_group_connections` ;
 
-CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_human_connections` (
-  `human_connection_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_group_connections` (
+  `group_connection_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `group_id` INT UNSIGNED NOT NULL ,
   `user_id` INT UNSIGNED NOT NULL ,
   `access_level` TINYINT UNSIGNED NOT NULL ,
-  `trust_from_user` TINYINT UNSIGNED NOT NULL ,
-  `trust_from_group` TINYINT UNSIGNED NOT NULL ,
-  `receive_updates` TINYINT UNSIGNED NOT NULL ,
   `status` TINYINT UNSIGNED NOT NULL ,
-  `group_id` INT UNSIGNED NULL ,
-  `other_user_id` INT UNSIGNED NULL ,
-  INDEX `fk_hw_human_connections__group_id` (`group_id` ASC) ,
-  INDEX `fk_hw_human_connections__user` (`user_id` ASC) ,
-  PRIMARY KEY (`human_connection_id`) ,
-  INDEX `fk_hw_human_connections__other_user_id` (`other_user_id` ASC) ,
-  CONSTRAINT `fk_hw_human_connections__group_id`
-    FOREIGN KEY (`group_id` )
-    REFERENCES `hunchWorks`.`hw_group` (`group_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_hw_human_connections__user`
+  PRIMARY KEY (`group_connection_id`) ,
+  INDEX `fk_hw_group_connections__user_id` (`user_id` ASC) ,
+  INDEX `fk_hw_group_connections__group_id` (`group_id` ASC) ,
+  CONSTRAINT `fk_hw_group_connections__user_id`
     FOREIGN KEY (`user_id` )
     REFERENCES `hunchWorks`.`hw_user` (`user_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_hw_human_connections__other_user_id`
-    FOREIGN KEY (`other_user_id` )
-    REFERENCES `hunchWorks`.`hw_user` (`user_id` )
+  CONSTRAINT `fk_hw_group_connections__group_id`
+    FOREIGN KEY (`group_id` )
+    REFERENCES `hunchWorks`.`hw_group` (`group_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -387,11 +385,12 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `hunchWorks`.`hw_evidence_attachments` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_evidence_attachments` (
+  `evidence_attachment_id` INT UNSIGNED NOT NULL ,
   `attachment_id` INT UNSIGNED NOT NULL ,
   `evidence_id` INT UNSIGNED NOT NULL ,
   INDEX `fk_hw_evidence_attachments__attachment_id` (`attachment_id` ASC) ,
-  PRIMARY KEY (`attachment_id`, `evidence_id`) ,
   INDEX `fk_hw_evidence_attachment__evidence_id` (`evidence_id` ASC) ,
+  PRIMARY KEY (`evidence_attachment_id`) ,
   CONSTRAINT `fk_hw_evidence_attachments__attachment_id`
     FOREIGN KEY (`attachment_id` )
     REFERENCES `hunchWorks`.`hw_attachment` (`attachment_id` )
@@ -423,12 +422,21 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `hunchWorks`.`hw_invited_user` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_invited_user` (
+  `invited_user_id` INT UNSIGNED NOT NULL ,
   `email` VARCHAR(45) NOT NULL ,
-  `user_id` INT UNSIGNED NOT NULL ,
-  PRIMARY KEY (`email`) ,
-  INDEX `fk_hw_invited_user__user_id` (`user_id` ASC) ,
+  `created_user_id` INT UNSIGNED NULL ,
+  `invited_by_id` INT UNSIGNED NOT NULL ,
+  `status` TINYINT UNSIGNED NOT NULL ,
+  PRIMARY KEY (`invited_user_id`) ,
+  INDEX `fk_hw_invited_user__user_id` (`created_user_id` ASC) ,
+  INDEX `fk_hw_invited_user__invited_by_id` (`invited_by_id` ASC) ,
   CONSTRAINT `fk_hw_invited_user__user_id`
-    FOREIGN KEY (`user_id` )
+    FOREIGN KEY (`created_user_id` )
+    REFERENCES `hunchWorks`.`hw_user` (`user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_hw_invited_user__invited_by_id`
+    FOREIGN KEY (`invited_by_id` )
     REFERENCES `hunchWorks`.`hw_user` (`user_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -476,41 +484,17 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `hunchWorks`.`hw_user_invites`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `hunchWorks`.`hw_user_invites` ;
-
-CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_user_invites` (
-  `user_id` INT UNSIGNED NOT NULL ,
-  `invited_email` VARCHAR(45) NOT NULL ,
-  `status` TINYINT UNSIGNED NOT NULL ,
-  INDEX `fk_hw_user_invites__user_id` (`user_id` ASC) ,
-  INDEX `fk_hw_user_invites__invited_email` (`invited_email` ASC) ,
-  PRIMARY KEY (`user_id`, `invited_email`) ,
-  CONSTRAINT `fk_hw_user_invites__user_id`
-    FOREIGN KEY (`user_id` )
-    REFERENCES `hunchWorks`.`hw_user` (`user_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_hw_user_invites__invited_email`
-    FOREIGN KEY (`invited_email` )
-    REFERENCES `hunchWorks`.`hw_invited_user` (`email` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `hunchWorks`.`hw_location_interests`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `hunchWorks`.`hw_location_interests` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_location_interests` (
+  `location_interest_id` INT UNSIGNED NOT NULL ,
   `user_id` INT UNSIGNED NOT NULL ,
   `location_id` INT UNSIGNED NOT NULL ,
   INDEX `fk_hw_location_interests__user_id` (`user_id` ASC) ,
   INDEX `fk_hw_location_interests__location_id` (`location_id` ASC) ,
-  PRIMARY KEY (`user_id`, `location_id`) ,
+  PRIMARY KEY (`location_interest_id`) ,
   CONSTRAINT `fk_hw_location_interests__user_id`
     FOREIGN KEY (`user_id` )
     REFERENCES `hunchWorks`.`hw_user` (`user_id` )
@@ -530,10 +514,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `hunchWorks`.`hw_evidence_albums` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_evidence_albums` (
+  `evidence_album_id` INT UNSIGNED NOT NULL ,
   `album_id` INT UNSIGNED NOT NULL ,
   `evidence_id` INT UNSIGNED NOT NULL ,
   INDEX `fk_hw_evidence_albums__album_id` (`album_id` ASC) ,
-  PRIMARY KEY (`album_id`, `evidence_id`) ,
+  PRIMARY KEY (`evidence_album_id`) ,
   INDEX `fk_hw_evidence_albums__evidence_id` (`evidence_id` ASC) ,
   CONSTRAINT `fk_hw_evidence_albums__album_id`
     FOREIGN KEY (`album_id` )
@@ -554,11 +539,12 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `hunchWorks`.`hw_album_attachments` ;
 
 CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_album_attachments` (
+  `album_attachment_id` INT UNSIGNED NOT NULL ,
   `album_id` INT UNSIGNED NOT NULL ,
   `attachment_id` INT UNSIGNED NOT NULL ,
   INDEX `fk_hw_album_attachments__album_id` (`album_id` ASC) ,
   INDEX `fk_hw_album_attachments__attachment_id` (`attachment_id` ASC) ,
-  PRIMARY KEY (`album_id`, `attachment_id`) ,
+  PRIMARY KEY (`album_attachment_id`) ,
   CONSTRAINT `fk_hw_album_attachments__album_id`
     FOREIGN KEY (`album_id` )
     REFERENCES `hunchWorks`.`hw_album` (`album_id` )
@@ -611,6 +597,32 @@ CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_tag_connections` (
   CONSTRAINT `fk_hw_tag_connections__tag_id`
     FOREIGN KEY ()
     REFERENCES `hunchWorks`.`hw_tag` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hunchWorks`.`hw_user_connections`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hunchWorks`.`hw_user_connections` ;
+
+CREATE  TABLE IF NOT EXISTS `hunchWorks`.`hw_user_connections` (
+  `user_connection_id` INT UNSIGNED NOT NULL ,
+  `user_id` INT UNSIGNED NOT NULL ,
+  `other_user_id` INT UNSIGNED NOT NULL ,
+  `status` TINYINT UNSIGNED NOT NULL ,
+  PRIMARY KEY (`user_connection_id`) ,
+  INDEX `fk_hw_user_connections__other_user_id` (`user_id` ASC) ,
+  INDEX `fk_hw_user_connections__user_id` (`other_user_id` ASC) ,
+  CONSTRAINT `fk_hw_user_connections__other_user_id`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `hunchWorks`.`hw_user` (`user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_hw_user_connections__user_id`
+    FOREIGN KEY (`other_user_id` )
+    REFERENCES `hunchWorks`.`hw_user` (`user_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

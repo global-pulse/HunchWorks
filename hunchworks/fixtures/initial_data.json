@@ -120,5 +120,99 @@
             "is_language": "1",
             "is_technical": "0"
         }
+    },
+    
+    
+    
+    {
+    	"pk": 1,
+    	"model": "auth.user",
+    	"fields":
+    	{
+    		"first_name": "test",
+    		"last_name": "test",
+    		"email": "test@test.com",
+    		"username": "test",
+    		"password": "sha1$485c2$9b04c450941be70bbad00283ff8897e7bb03bf9c",
+    		"is_active": "True",
+    		"is_staff": "False",
+    		"is_superuser": "False",
+    		"last_login": "2011-08-18 11:14:19.244634",
+    		"date_joined": "2011-08-18 11:14:19.244634"
+    	}
+    },
+    
+    
+    
+    {
+        "pk": 1,
+        "model": "hunchworks.hwtag",
+        "fields": 
+        {
+            "tag_name": "Global Warming"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.hwtag",
+        "fields": 
+        {
+            "tag_name": "Drought"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "hunchworks.hwtag",
+        "fields": 
+        {
+            "tag_name": "Flood"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "hunchworks.hwtag",
+        "fields": 
+        {
+            "tag_name": "Tsunami"
+        }
+    },
+    
+    
+    
+    {
+        "pk": 1,
+        "model": "hunchworks.hwtagconnections",
+        "fields": 
+        {
+            "tag": 1,
+            "hunch": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.hwtagconnections",
+        "fields": 
+        {
+            "tag": 2,
+			"hunch": 1
+        }
+    },
+    {
+        "pk": 3,
+        "model": "hunchworks.hwtagconnections",
+        "fields": 
+        {
+            "tag": 3,
+            "hunch": 2
+        }
+    },
+    {
+        "pk": 4,
+        "model": "hunchworks.hwtagconnections",
+        "fields": 
+        {
+            "tag": 4,
+            "hunch": 2
+        }
     }
 ]

@@ -42,11 +42,6 @@ class SignUpForm(ModelForm):
 
 
 class CreateHunchForm(ModelForm):
-  #tags = forms.CharField(max_length=40)
-  #import datetime
-  #time_created = forms.DateTimeField(initial=datetime.datetime.today)
-  #creator_id = models.HwUser.objects.get(pk=1)
-  #creator = models.HwUser.objects.get(pk=1)
 
   class Meta:
     model = models.HwHunch
