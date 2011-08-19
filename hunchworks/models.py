@@ -168,7 +168,7 @@ class HwHunch(models.Model):
   strength = models.IntegerField()
   language = models.ForeignKey(HwLanguage, null=True, blank=True)
   location = models.ForeignKey(HwLocation, null=True, blank=True)
-  description = models.TextField(blank=True)
+  description = models.TextField()
   skills = models.ManyToManyField('HwSkill', through='HwSkillConnections')
   tags = models.ManyToManyField('HwTag', through='HwTagConnections', blank=True)
   invited_users = models.ManyToManyField(
