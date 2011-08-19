@@ -42,6 +42,7 @@ class SignUpForm(ModelForm):
 
 
 class CreateHunchForm(ModelForm):
+  evidence_text = forms.CharField( max_length=100 )
 
   class Meta:
     model = models.HwHunch
