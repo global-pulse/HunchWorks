@@ -131,7 +131,7 @@ class HunchStatus(Enum):
   UNDETERMINED = 2
 
 
-class Group(Enum):
+class GroupType(Enum):
   """Enum representing the types of groups that can be made"""
   MAP = {}
   

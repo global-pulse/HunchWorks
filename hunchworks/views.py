@@ -124,7 +124,6 @@ def home(request):
   user_id = request.user.pk
   recent_hunches = models.HwHunch.objects.filter(creator=user_id)
 
-  #This picks up the user located at index 1 of the users table
   context = RequestContext(request)
   context.update({'first_name': request.user.first_name,
                   'recent_hunches': recent_hunches})
@@ -183,7 +182,10 @@ def createHunch(request):
 
 @login_required
 def createGroup(request):
-  return render_to_response('createGroup.html')
+  form = forms.CreateGroupForm()
+  context = RequestContext(request)
+  context['form'] = form;
+  return render_to_response('createGroup.html', context)
 
 
 @login_required
