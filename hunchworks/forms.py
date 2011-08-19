@@ -52,11 +52,12 @@ class CreateHunchForm(ModelForm):
     )
 
 
-class CreateGroup(ModelForm):
+class CreateGroupForm(ModelForm):
   logo = forms.CharField( max_length=100)
 
   class Meta:
     model= models.HwGroup
+    exclude = ( 'logo' )
 
 
 class HomepageForm(ModelForm):

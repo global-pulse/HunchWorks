@@ -212,8 +212,8 @@ class HwGroup(models.Model):
   """Class representing a logical grouping of Hunchworks users."""
   group_id = models.AutoField(primary_key=True)
   name = models.CharField(unique=True, max_length=100, blank=True)
-  group_type = models.IntegerField()
-  privacy = models.IntegerField()
+  group_type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
+  privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
   logo = models.CharField(max_length=100, blank=True)
   location = models.ForeignKey(HwLocation, null=True, blank=True)
   hunches = models.ManyToManyField('HwHunch', through='HwHunchConnections')
