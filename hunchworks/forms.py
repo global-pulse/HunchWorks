@@ -40,6 +40,16 @@ class SignUpForm(ModelForm):
       'password': PasswordInput()
       }
 
+class HwUserForm(ModelForm):
+
+  class Meta:
+    model = models.HwUser
+    exclude = (
+    'show_profile_reminder', 'bio_text', 'phone', 'skills', 'user_id',
+	'skype_name', 'website', 'profile_picture', 'education', 'classes', 
+	'location_interests', 'roles', 'hunches', 'invited_users', 'groups',
+	'collaborators', 'user',
+	)
 
 class CreateHunchForm(ModelForm):
   evidence_text = forms.CharField( max_length=100 )

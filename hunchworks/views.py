@@ -88,13 +88,17 @@ def signup(request):
               'last_login':datetime.datetime.today(),
               'date_joined':datetime.datetime.today(),
               })
-    form = forms.SignUpForm(data)
+    auth_user_form = forms.SignUpForm(data, instance=models.User())
+    hw_user_form = forms.HwUserForm(data, instance=models.HwUser())
 
-    print form.errors
-    if form.is_valid():
-      user = form.save()
+    print auth_user_form.errors
+    if auth_user_form.is_valid() and hw_user_form.is_valid():
+      user = auth_user_form.save()
       user.set_password(request.POST['password'])
       user.save()
+      hw_user = hw_user_form.save(commit=False)
+      hw_user.user_id = user
+      hw_user.save()
 
       for skill_name in request.POST.getlist("skill_name"):
         skill, created = models.HwSkill.objects.get_or_create(
@@ -111,9 +115,11 @@ def signup(request):
         reverse(profile, kwargs={'user_id': user.pk}))
 
   else:
-    form = forms.SignUpForm()
+    auth_user_form = forms.SignUpForm()
+    hw_user_form = forms.HwUserForm()
 
-  context['form'] = form
+  context['auth_user_form'] = auth_user_form
+  context['hw_user_form'] = hw_user_form
   return render_to_response("signup.html", context)
 
 
@@ -132,7 +138,7 @@ def home(request):
 
 @login_required
 def profile(request, user_id):
-  user = get_object_or_404(models.HwUser, pk=user_id)
+  user = get_object_or_404(models.User, pk=user_id)
   invite_form = forms.InvitePeople()
   context = RequestContext(request)
   context.update({ "user": user, "invite_form": invite_form })
