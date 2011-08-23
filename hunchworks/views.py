@@ -168,7 +168,7 @@ def createHunch(request):
               'status':1,
               'privacy':1,
               'strength':1})
-    form = forms.CreateHunchForm(data)
+    form = forms.HwHunchForm(data)
     
     if form.is_valid():
       #print 'createHunch: valid form'
@@ -179,12 +179,46 @@ def createHunch(request):
       #print 'createHunch: invalid form'
       #print form.errors
       #print form.non_field_errors
-      form = forms.CreateHunchForm(request.POST)
+      form = forms.HwHunchForm(request.POST)
   else:
-    form = forms.CreateHunchForm()
+    form = forms.HwHunchForm()
   context.update({ 'form':form })
   return render_to_response('createHunch.html', context)
-  
+
+@login_required
+def editHunch(request, hunch_id):
+  """Edit a Hunch."""
+  hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
+  context = RequestContext(request)
+  if request.method == 'POST':
+    data = request.POST.copy()
+    data.update({'creator':request.user.pk, 
+              'time_created':datetime.datetime.today(),
+              'status':1,
+              'privacy':1,
+              'strength':1})
+    form = forms.HwHunchForm(data)
+
+    if form.is_valid():
+      print 'editHunch: valid form'
+      form.save()
+      return HttpResponseRedirect('profile.html')
+    else:
+      print 'editHunch: invalid form'
+      print form.errors
+      print form.non_field_errors
+      form = forms.HwHunchForm(request.POST)
+  else:
+    form = forms.HwHunchForm(instance = hunch)
+  context.update({ 'form': form, 'hunch': hunch })
+  return render_to_response('editHunch.html', context)
+
+def showHunch(request, hunch_id):
+  """Show a Hunch."""
+  hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
+  context = RequestContext(request)
+  context.update({ "hunch": hunch })
+  return render_to_response('showHunch.html', context) 
 
 @login_required
 def createGroup(request):

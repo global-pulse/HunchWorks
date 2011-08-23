@@ -51,7 +51,7 @@ class HwUserForm(ModelForm):
 	'collaborators', 'user',
 	)
 
-class CreateHunchForm(ModelForm):
+class HwHunchForm(ModelForm):
   evidence_text = forms.CharField( max_length=100 )
 
   class Meta:
