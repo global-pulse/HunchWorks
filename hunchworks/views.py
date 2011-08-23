@@ -168,26 +168,40 @@ def createHunch(request):
               'status':1,
               'privacy':1,
               'strength':1})
-    form = forms.CreateHunchForm(data)
+    form = forms.HwHunchForm(data)
     
     if form.is_valid():
       #print 'createHunch: valid form'
       form.save()
       #print '    valid model, too!'
-      return HttpResponseRedirect('profile.html')
+      return HttpResponseRedirect('showHunch.html')
     else:
       #print 'createHunch: invalid form'
       #print form.errors
       #print form.non_field_errors
-      form = forms.CreateHunchForm(request.POST)
+      form = forms.HwHunchForm(request.POST)
   else:
-    form = forms.CreateHunchForm()
+    form = forms.HwHunchForm()
   context.update({ 'form':form })
   return render_to_response('createHunch.html', context)
 
-def editHunch(request):
+def editHunch(request, hunch_id):
   """Edit a Hunch."""
-  return HttpResponse("You're on an edit hunch page for hunch")
+  hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
+  context = RequestContext(request)
+  if request.method == 'POST':
+    data = request.POST.copy()
+    form = forms.HwHunchForm(data)
+
+    if form.is_valid():
+      form.save()
+      return HttpResponseRedirect('showHunch.html')
+    else:
+      form = forms.HwHunchForm(request.POST)
+  else:
+    form = forms.HwHunchForm(instance = hunch)
+  context.update({ 'form': form, 'hunch': hunch })
+  return render_to_response('editHunch.html', context)
 
 def showHunch(request, hunch_id):
   """Show a Hunch."""
