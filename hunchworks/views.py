@@ -184,7 +184,17 @@ def createHunch(request):
     form = forms.CreateHunchForm()
   context.update({ 'form':form })
   return render_to_response('createHunch.html', context)
-  
+
+def editHunch(request):
+  """Edit a Hunch."""
+  return HttpResponse("You're on an edit hunch page for hunch")
+
+def showHunch(request, hunch_id):
+  """Show a Hunch."""
+  hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
+  context = RequestContext(request)
+  context.update({ "hunch": hunch })
+  return render_to_response('showHunch.html', context) 
 
 @login_required
 def createGroup(request):
