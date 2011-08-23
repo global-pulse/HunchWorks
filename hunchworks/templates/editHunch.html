@@ -32,6 +32,7 @@
   <div id='contents'>
 	<div id='column1'>
 		<form action="{{action}}" method="post">{% csrf_token %}
+		  {{ form.errors }}
 		  {{ form.non_field_errors }}
 		  <b>Title:</b><em>(required)</em>
 		  {{ form.title.errors }}
