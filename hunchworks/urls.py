@@ -38,7 +38,9 @@ urlpatterns = patterns(
   url(r'^login$', 'login', name='login'),
   (r'^logout$', 'logout_view'),
   (r'^createGroup', 'createGroup'),
-  url(r'^createHunch', 'createHunch',),
+  url(r'^hunches/create', 'createHunch',),
+  url(r'^hunches/(?P<hunch_id>\d+)$', 'showHunch', name="showHunch"),
+  url(r'^hunches/edit/(?P<hunch_id>\d+)$', 'editHunch', name="editHunch"),
   url(r'^addEvidence', 'HunchEvidence', 'hunchEvidence'),
   (r'^invitePeople', 'invitePeople'),
   
