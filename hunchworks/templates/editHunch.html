@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Create a Hunch{% endblock %}
+{% block css %}
+  <style type='text/css'>
+	#column1 {
+	  float: left;
+	  clear: both;
+	  width: 600px;
+	  }
+	#column2 {
+	  float: left;
+	}
+	.inputText {
+	  padding-bottom: 10px;
+	}
+	#relatedSkills, #languagesRequired{
+	  padding-bottom: 10px;
+	}
+  </style>
+  <link rel="stylesheet" href="/static/token-input-facebook.css" type="text/css" />
+  <link rel="stylesheet" href="/static/token-input.css" type="text/css" />
+{% endblock %}
+
+{% block js %}
+  <script src='/static/jquery.tokeninput.js'></script>
+  <script src='/static/createHunch.js'></script>
+{% endblock %}
+{% block content %}
+  <div id='header'>
+	<h3>Edit a hunch</h3>
+  </div>
+  <div id='contents'>
+	<div id='column1'>
+		<form action="{{action}}" method="post">{% csrf_token %}
+		  {{ form.non_field_errors }}
+		  <b>Title:</b><em>(required)</em>
+		  {{ form.title.errors }}
+		  <div class="inputText">
+			{{ form.title }} 
+		  </div>
+		  <b>Description:</b><em>(required)</em>
+		  {{ form.description.errors }}
+		  <div class="inputText">
+			{{form.description}}
+		  </div>
+		  <b>Tags:</b><em>(optional but recommended)</em>
+		  {{ form.tags.errors }}
+		  <div class="inputText">
+			{{form.tags}}
+		  	<input id='id_tags' type='text'>
+		  </div>
+		  <b>Privacy Level:</b>
+		  {{ form.privacy.errors }}
+		  <div class="inputText">
+			{{form.privacy}}
+		  </div>
+		  <div class='inputText'>
+			<b>Location:</b>
+			<button type='button'>GIS COORDINATES</button>
+			<button type='button'>PIN ON MAP</button>
+			<button type='button'>DRAW ON MAP</button>
+			<button type='button'>LOCATION NAME</button>
+		  </div>
+		  <div class='googleMap'>
+			<img src='googlemap' alt='googlemap' height='400px' width='580px'/> 
+		  </div>
+		  <div class='inputText'>
+			<b>Add evidence</b>
+			<button type='button'>Tweet</button>
+			<button type='button'>Dataset</button>
+			<button type='button'>Link</button>
+			<button type='button'>Photo</button>
+			<button type='button'>Video</button>
+			<button type='button'>Anecdote</button>
+		  </div>
+		  <div class='googleMap'>
+			<img src='googlemap' alt='googlemap' height='400px' width='580px'/>
+		  </div>
+		  <b>Evidence text:</b>
+		  {{ form.evidence_text.errors }}
+		  <div class="inputText">
+			{{form.evidence_text}}
+		  </div>
+	  	<input type="submit" value="Submit" />
+	  </form>
+	</div> <!-- end column1 div -->
+	<div id='column2'>
+	  <div>
+		<b>Related Skills:</b><em>(optional)</em>
+		<input id='relatedSkills' type='text'>
+	  </div>
+	  <div>
+		<b>Languages Required:</b><em>(optional)</em>
+		<input id='id_languages' type='text'>
+	  </div>
+	</div> <!-- end column2 div -->
+  </div>
+{% endblock %}
