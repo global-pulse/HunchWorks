@@ -135,8 +135,8 @@
     		"username": "test",
     		"password": "sha1$485c2$9b04c450941be70bbad00283ff8897e7bb03bf9c",
     		"is_active": "True",
-    		"is_staff": "False",
-    		"is_superuser": "False",
+    		"is_staff": "True",
+    		"is_superuser": "True",
     		"last_login": "2011-08-18 11:14:19.244634",
     		"date_joined": "2011-08-18 11:14:19.244634"
     	}
