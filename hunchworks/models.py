@@ -312,8 +312,8 @@ class HwSkillConnections(models.Model):
   class Meta:
     db_table = u'hw_skill_connections'
 
-  def __unicode__(self):
-    return "%s has %s" % (self.user, self.skill)
+  #def __unicode__(self):
+  #  return str(self.skill.skill_id)
 
 class HwUserRoles(models.Model):
   """Many To many model representing a user's roles or positions."""

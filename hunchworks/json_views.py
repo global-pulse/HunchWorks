@@ -38,4 +38,26 @@ def tags(request):
   tags =  [{ "id": x[0], "name": x[1]} for x in tags]
 
   return http.HttpResponse( simplejson.dumps(tags) )
+  
+def userSkills(request, user_id):
+  skill_connections = models.HwSkillConnections.objects.filter(user=user_id)
+  skill_connections = skill_connections.values_list('skill', flat=True)
+  
+  skills = models.HwSkill.objects.filter(is_language=False, skill_id__in=skill_connections)
+  print skills
+  skills = skills.values_list('skill_id', 'skill_name')
+  skills =  [{ "id": x[0], "name": x[1]} for x in skills]
+  
+  return http.HttpResponse( simplejson.dumps(skills) )
+  
+def userLanguages(request, user_id):
+  skill_connections = models.HwSkillConnections.objects.filter(user=user_id)
+  skill_connections = skill_connections.values_list('skill', flat=True)
+  
+  languages = models.HwSkill.objects.filter(is_language=True, skill_id__in=skill_connections)
+  print languages
+  languages = languages.values_list('skill_id', 'skill_name')
+  languages =  [{ "id": x[0], "name": x[1]} for x in languages]
+  
+  return http.HttpResponse( simplejson.dumps(languages) )
 

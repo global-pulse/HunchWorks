@@ -32,7 +32,7 @@ urlpatterns = patterns(
   (r'^importLinkedIn', 'importLinkedIn'),
   (r'^importFacebook', 'importFacebook'),
   #url(r'^home/(?P<user_id>\d+)$', 'home', name='home'),
-  url(r'^home/$', 'home', name='home'),
+  url(r'^home$', 'home', name='home'),
   url(r'^profile/(?P<user_id>\d+)$', 'profile', name="profile"),
   url(r'^signup$', 'signup', name='signup'),
   url(r'^login$', 'login', name='login'),
@@ -48,9 +48,12 @@ urlpatterns = patterns(
 
 urlpatterns += patterns(
   'hunchworks.json_views',
+  (r'^skills/(?P<user_id>\d+)$', 'userSkills'),
+  (r'^languages/(?P<user_id>\d+)$', 'userLanguages'),
   (r'^skills', 'skills'),
   (r'^languages', 'languages'),
   (r'^tags', 'tags'),
+
 )
 
 urlpatterns += patterns(
