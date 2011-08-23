@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="header">
+  <h1>Hunch:</h1>
+  <h2>{{ hunch.title }}</h2>
+</div>
+<div id="contents">
+  <p>Created by: {{ hunch.creator.user.first_name }} {{ hunch.creator.user.last_name }}</p>
+</div>
+
+{% endblock %}
