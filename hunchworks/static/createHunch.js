@@ -26,7 +26,11 @@ function init()
 	
 	$("#id_tags").tokenInput("/hunchworks/tags", { theme: 'facebook', preventDuplicates: true});
 	
-	
+	$("#add_tag_button").click( function()
+	{
+		alert( document.getElementById('token-input-id_tags').value );
+		$("#id_tags").tokenInput("add", { name: document.getElementById('token-input-id_tags').value });
+	});
 	
 }
 
