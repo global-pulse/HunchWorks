@@ -42,20 +42,14 @@ def login(request):
   
   if request.method == 'POST':
     form = forms.LoginForm(request.POST)
-    print 'before validation'
     print form.errors
     if form.is_valid():
-      print 'is valid'
       try:
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        print "attempt Auth"
-        print 
         if user is not None:
-          print "not None"
           if user.is_active:
-            print "here"
             login_(request, user)
             return HttpResponseRedirect(
               reverse(home ))
@@ -91,7 +85,6 @@ def signup(request):
     auth_user_form = forms.SignUpForm(data, instance=models.User())
     hw_user_form = forms.HwUserForm(data, instance=models.HwUser())
 
-    print auth_user_form.errors
     if auth_user_form.is_valid() and hw_user_form.is_valid():
       user = auth_user_form.save()
       user.set_password(request.POST['password'])
@@ -111,8 +104,17 @@ def signup(request):
           user=user.get_profile(),
           level=1)
 
-      return HttpResponseRedirect(
-        reverse(profile, kwargs={'user_id': user.pk}))
+      try:
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+          if user.is_active:
+            login_(request, user)
+            return HttpResponseRedirect( reverse(home ))
+      except exceptions.ObjectDoesNotExist:
+        pass
+        #TODO( Chris-8-24-2011) Find something to do with thrown exception
 
   else:
     auth_user_form = forms.SignUpForm()
