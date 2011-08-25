@@ -48,8 +48,11 @@ urlpatterns = patterns(
 
 urlpatterns += patterns(
   'hunchworks.json_views',
-  (r'^skills/(?P<user_id>\d+)$', 'userSkills'),
-  (r'^languages/(?P<user_id>\d+)$', 'userLanguages'),
+  (r'^skills/user/(?P<user_id>\d+)$', 'userSkills'),
+  (r'^languages/user/(?P<user_id>\d+)$', 'userLanguages'),
+  (r'^skills/hunch/(?P<hunch_id>\d+)$', 'hunchSkills'),
+  (r'^languages/hunch/(?P<hunch_id>\d+)$', 'hunchLanguages'),
+  (r'^tags/hunch/(?P<hunch_id>\d+)$', 'hunchTags'),
   (r'^skills', 'skills'),
   (r'^languages', 'languages'),
   (r'^tags', 'tags'),

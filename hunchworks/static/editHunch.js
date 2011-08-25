@@ -1,10 +1,9 @@
 function init()
 {
-	var user_id = document.getElementById('user_id').getAttribute('user');
-	var skill_url = '/hunchworks/skills/user/' + user_id;
-	var language_url = '/hunchworks/languages/user/' + user_id;
-	alert( user_id );
 	//code for displaying data in related skills tab
+	var hunch_id = document.getElementById('hunch_id').getAttribute('hunch');
+	var skill_url = '/hunchworks/skills/hunch/' + hunch_id;
+	var language_url = '/hunchworks/languages/hunch/' + hunch_id;
 	var userSkills = $.getJSON(skill_url, function(data)
 	{
 		prePopArray = new Array();
@@ -35,7 +34,6 @@ function init()
 		alert( document.getElementById('token-input-id_tags').value );
 		$("#id_tags").tokenInput("add", { name: document.getElementById('token-input-id_tags').value });
 	});
-	
 }
 
 $(document).ready(init);

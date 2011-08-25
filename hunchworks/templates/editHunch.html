@@ -1,33 +1,17 @@
 {% extends "base.html" %}
-{% block title %}Create a Hunch{% endblock %}
+{% block title %}Edit your Hunch{% endblock %}
 {% block css %}
-  <style type='text/css'>
-	#column1 {
-	  float: left;
-	  clear: both;
-	  width: 600px;
-	  }
-	#column2 {
-	  float: left;
-	}
-	.inputText {
-	  padding-bottom: 10px;
-	}
-	#relatedSkills, #languagesRequired{
-	  padding-bottom: 10px;
-	}
-  </style>
+  <link rel="stylesheet" href="/static/hunch.css" type="text/css" />
   <link rel="stylesheet" href="/static/token-input-facebook.css" type="text/css" />
   <link rel="stylesheet" href="/static/token-input.css" type="text/css" />
 {% endblock %}
-
 {% block js %}
   <script src='/static/jquery.tokeninput.js'></script>
-  <script src='/static/createHunch.js'></script>
+  <script src='/static/editHunch.js'></script>
 {% endblock %}
 {% block content %}
   <div id='header'>
-	<h3>Edit a hunch</h3>
+	<h3 id='hunch_id' hunch='{{hunch.hunch_id}}'>Edit Hunch #{{hunch.hunch_id}}</h3>
   </div>
   <div id='contents'>
 	<div id='column1'>
@@ -48,7 +32,7 @@
 		  {{ form.tags.errors }}
 		  <div class="inputText">
 			{{form.tags}}
-		  	<input id='id_tags' type='text'>
+			<input id='id_tags' type='text'>
 		  </div>
 		  <b>Privacy Level:</b>
 		  {{ form.privacy.errors }}
@@ -82,7 +66,7 @@
 		  <div class="inputText">
 			{{form.evidence_text}}
 		  </div>
-	  	<input type="submit" value="Submit" />
+		<input type="submit" value="Submit" />
 	  </form>
 	</div> <!-- end column1 div -->
 	<div id='column2'>
