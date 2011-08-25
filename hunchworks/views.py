@@ -130,13 +130,14 @@ def home(request):
   recent_hunches = models.HwHunch.objects.filter(creator=user_id)
 
   context = RequestContext(request)
-  context.update({'first_name': request.user.first_name,
-                  'recent_hunches': recent_hunches})
+  context.update({'recent_hunches': recent_hunches })
   return render_to_response('home.html', context)
 
 
 @login_required
-def profile(request, user_id):
+def profile(request, user_id=None):
+  if not user_id:
+    user_id = request.user.pk
   user = get_object_or_404(models.User, pk=user_id)
   invite_form = forms.InvitePeople()
   context = RequestContext(request)
