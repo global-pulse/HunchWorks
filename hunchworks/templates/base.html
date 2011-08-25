@@ -13,9 +13,19 @@
   <body>
     <div id='page'>
       
-
       <div id='header'>
-        {% include "navigation.html" %} 
+        <div id='contents'>
+          {% if user.is_authenticated %}
+          <a href='/hunchworks/home'>Home</a>
+          <a href='/hunchworks/profile'>Profile</a>
+          <a href='/hunchworks/myhunches'>Hunches</a>
+          <a href='/hunchworks/messages'>Messages</a>
+          <a href='/hunchworks/groups'>Groups</a>
+	  <a href='/hunchworks/logout'>Logout</a>
+	  {% else %}
+	  <a href='/hunchworks/signup'>Signup</a>
+	  {% endif %}
+        </div> 
       </div>
       
       {% block content %}{% endblock %}
