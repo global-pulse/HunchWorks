@@ -231,6 +231,86 @@
             "user": 1
         }
     },
+    {
+        "pk": 9,
+        "model": "hunchworks.hwskillconnections",
+        "fields": 
+        {
+            "skill": 1,
+            "level": 0,
+            "hunch": 1
+        }
+    },
+    {
+        "pk": 10,
+        "model": "hunchworks.hwskillconnections",
+        "fields": 
+        {
+            "skill": 5,
+            "level": 0,
+            "hunch": 1
+        }
+    },
+    {
+        "pk": 11,
+        "model": "hunchworks.hwskillconnections",
+        "fields": 
+        {
+            "skill": 2,
+            "level": 0,
+            "hunch": 2
+        }
+    },
+    {
+        "pk": 12,
+        "model": "hunchworks.hwskillconnections",
+        "fields": 
+        {
+            "skill": 6,
+            "level": 0,
+            "hunch": 2
+        }
+    },
+    {
+        "pk": 13,
+        "model": "hunchworks.hwskillconnections",
+        "fields": 
+        {
+            "skill": 3,
+            "level": 0,
+            "hunch": 3
+        }
+    },
+    {
+        "pk": 14,
+        "model": "hunchworks.hwskillconnections",
+        "fields": 
+        {
+            "skill": 7,
+            "level": 0,
+            "hunch": 3
+        }
+    },
+    {
+        "pk": 15,
+        "model": "hunchworks.hwskillconnections",
+        "fields": 
+        {
+            "skill": 4,
+            "level": 0,
+            "hunch": 4
+        }
+    },
+    {
+        "pk": 16,
+        "model": "hunchworks.hwskillconnections",
+        "fields": 
+        {
+            "skill": 8,
+            "level": 0,
+            "hunch": 4
+        }
+    },
     
     
     

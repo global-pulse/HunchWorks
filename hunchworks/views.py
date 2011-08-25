@@ -13,6 +13,7 @@
 import linkedin_api
 import models
 import forms
+import datetime
 
 from django import http
 from django.db import transaction
@@ -20,13 +21,9 @@ from django.db import transaction
 # and be displayed. With http response you cannot do this.
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-# This import is used to import the model form factory so that the forms
-# created in forms.py can be outputted into the templates.
-from django.forms.models import modelformset_factory
 # This import is used to used the redirect method
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-import datetime
 from django.core import exceptions
 
 from django.contrib.auth import authenticate, login as login_, logout
@@ -173,24 +170,22 @@ def createHunch(request):
     form = forms.HwHunchForm(data)
     
     if form.is_valid():
-      #print 'createHunch: valid form'
       form.save()
-      #print '    valid model, too!'
       return HttpResponseRedirect('profile.html')
     else:
-      #print 'createHunch: invalid form'
-      #print form.errors
-      #print form.non_field_errors
+
       form = forms.HwHunchForm(request.POST)
   else:
     form = forms.HwHunchForm()
-  context.update({ 'form':form })
+  print request.user.pk
+  context.update({ 'form':form, 'user_id': request.user.pk })
   return render_to_response('createHunch.html', context)
 
 @login_required
 def editHunch(request, hunch_id):
   """Edit a Hunch."""
   hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
+  print hunch.hunch_id
   context = RequestContext(request)
   if request.method == 'POST':
     data = request.POST.copy()
@@ -202,13 +197,9 @@ def editHunch(request, hunch_id):
     form = forms.HwHunchForm(data)
 
     if form.is_valid():
-      print 'editHunch: valid form'
       form.save()
       return HttpResponseRedirect('profile.html')
     else:
-      print 'editHunch: invalid form'
-      print form.errors
-      print form.non_field_errors
       form = forms.HwHunchForm(request.POST)
   else:
     form = forms.HwHunchForm(instance = hunch)
