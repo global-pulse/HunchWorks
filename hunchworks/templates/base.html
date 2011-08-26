@@ -16,23 +16,22 @@
       <div id='header'>
         <div id='contents'>
           {% if user.is_authenticated %}
-          <a href='/hunchworks/home'>Home</a>
-          <a href='/hunchworks/profile'>Profile</a>
-          <a href='/hunchworks/myhunches'>Hunches</a>
-          <a href='/hunchworks/messages'>Messages</a>
-          <a href='/hunchworks/groups'>Groups</a>
-	  <a href='/hunchworks/logout'>Logout</a>
-	  {% else %}
-	  <a href='/hunchworks/signup'>Signup</a>
-	  {% endif %}
+          	<a href='/hunchworks/home'>Home</a>
+          	<a href='/hunchworks/profile'>Profile</a>
+          	<a href='/hunchworks/myhunches'>Hunches</a>
+          	<a href='/hunchworks/messages'>Messages</a>
+          	<a href='/hunchworks/groups'>Groups</a>
+	  	  	<a href='/hunchworks/logout'>Logout</a>
+	  	  {% else %}
+			<a href='/hunchworks/signup'>Signup</a>
+	 	  {% endif %}
         </div> 
       </div>
       
       {% block content %}{% endblock %}
       
       <!--uncomment this when footer created
-      <div id='header'>
-        <!--#include virtual="templates/footer.html" -->
+      <div id='footer'>
       </div> <!-- end Footer -->
 
       <!--{% block footer %}{% endblock %}-->

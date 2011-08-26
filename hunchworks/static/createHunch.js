@@ -3,7 +3,6 @@ function init()
 	var user_id = document.getElementById('user_id').getAttribute('user');
 	var skill_url = '/hunchworks/skills/user/' + user_id;
 	var language_url = '/hunchworks/languages/user/' + user_id;
-	alert( user_id );
 	//code for displaying data in related skills tab
 	var userSkills = $.getJSON(skill_url, function(data)
 	{
