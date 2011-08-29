@@ -166,13 +166,13 @@ def createHunch(request):
     data.update({'creator':request.user.pk, 
               'time_created':datetime.datetime.today(),
               'status':1,
-              'privacy':1,
+              #'privacy':1,
               'strength':1})
     form = forms.HwHunchForm(data)
     
     if form.is_valid():
       form.save()
-      return HttpResponseRedirect('profile.html')
+      return HttpResponseRedirect('/hunchworks/profile')
     else:
 
       form = forms.HwHunchForm(request.POST)

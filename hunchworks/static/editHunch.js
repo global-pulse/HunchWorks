@@ -2,8 +2,8 @@ function init()
 {
 	//code for displaying data in related skills tab
 	var hunch_id = document.getElementById('hunch_id').getAttribute('hunch');
-	var skill_url = '/hunchworks/skills/hunch/' + hunch_id;
-	var language_url = '/hunchworks/languages/hunch/' + hunch_id;
+	var skill_url = '/hunchworks/skills/not_language/hunch/' + hunch_id;
+	var language_url = '/hunchworks/skills/languages/hunch/' + hunch_id;
 	var userSkills = $.getJSON(skill_url, function(data)
 	{
 		prePopArray = new Array();
