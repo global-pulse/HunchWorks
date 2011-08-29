@@ -24,7 +24,6 @@ class LoginForm(forms.Form):
 
 
 class SignUpForm(ModelForm):
-  skill_name = forms.CharField( max_length=100 )
 
   class Meta:
     model= models.User
@@ -41,6 +40,7 @@ class SignUpForm(ModelForm):
       }
 
 class HwUserForm(ModelForm):
+  skill_name = forms.CharField( max_length=100 )
 
   class Meta:
     model = models.HwUser
@@ -52,12 +52,13 @@ class HwUserForm(ModelForm):
 	)
 
 class HwHunchForm(ModelForm):
-  evidence_text = forms.CharField( max_length=100 )
+  evidence_text = forms.CharField(widget=forms.Textarea(
+    attrs={'cols': 60, 'rows': 10}))
 
   class Meta:
     model = models.HwHunch
     exclude = (
-    'hunch_id', 'language', 'location', 'skills', 'groups', 'users',
+    'hunch_id', 'skills', 'groups', 'users',
     'invited_users', 'tags'
     )
 

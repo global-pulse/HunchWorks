@@ -39,6 +39,16 @@
 		  <div class="inputText">
 			{{form.privacy}}
 		  </div>
+		  <b>Location:</b>
+		  {{ form.location.errors }}
+		  <div class="inputText">
+			{{form.location}}
+		  </div>
+		  <b>Language:</b>
+		  {{ form.language.errors }}
+		  <div class="inputText">
+			{{form.language}}
+		  </div>
 		  <div class='inputText'>
 			<b>Location:</b>
 			<button type='button'>GIS COORDINATES</button>
@@ -66,6 +76,10 @@
 		  <div class="inputText">
 			{{form.evidence_text}}
 		  </div>
+		  <div>
+		    <b>Invite Users:</b><em>(optional)</em>
+			<input id='inviteFriends' type='text'>
+	  	  </div>
 	  	<input type="submit" value="Submit" />
 	  </form>
 	</div> <!-- end column1 div -->
