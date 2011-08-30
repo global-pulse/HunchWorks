@@ -14,6 +14,7 @@ import linkedin_api
 import models
 import forms
 import datetime
+from hunchworks_enums import PrivacyLevel
 
 from django import http
 from django.db import transaction
@@ -127,7 +128,7 @@ def home(request):
 #def home(request, user_id):
   #user = get_object_or_404(models.HwUser, pk=user_id)
   user_id = request.user.pk
-  recent_hunches = models.HwHunch.objects.filter(creator=user_id)
+  recent_hunches = models.HwHunch.objects.filter(creator=user_id, privacy=PrivacyLevel.OPEN)
 
   context = RequestContext(request)
   context.update({'recent_hunches': recent_hunches })
