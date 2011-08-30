@@ -192,6 +192,10 @@ class HwHunch(models.Model):
     self.time_modified = now
     super(HwHunch, self).save(*args, **kwargs)
 
+  def is_editable_by(self, user):
+    """Return True if this Hunch is editable by `user` (a Django auth user)."""
+    return (self.creator.user == user)
+
 
 class HwEvidence(models.Model):
   """Class representing a response to the hunch"""

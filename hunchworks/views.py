@@ -21,6 +21,7 @@ from django.db import transaction
 # We use this function because it allows you to send an html file as a template
 # and be displayed. With http response you cannot do this.
 from django.shortcuts import render_to_response, get_object_or_404
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 # This import is used to used the redirect method
 from django.http import HttpResponseRedirect
@@ -186,7 +187,10 @@ def createHunch(request):
 def editHunch(request, hunch_id):
   """Edit a Hunch."""
   hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
-  print hunch.hunch_id
+
+  if not hunch.is_editable_by(request.user):
+    raise PermissionDenied
+
   context = RequestContext(request)
   if request.method == 'POST':
     data = request.POST.copy()
