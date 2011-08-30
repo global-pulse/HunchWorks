@@ -414,6 +414,7 @@
         {
             "creator": 1,
             "time_created": "2011-08-18 11:14:19.244634",
+            "time_modified": "2011-08-18 11:14:19.244634",
             "status": 0,
             "title": "Global Warming is True",
             "privacy": 0,
@@ -430,6 +431,7 @@
         {
             "creator": 1,
             "time_created": "2011-08-19 11:14:19.244634",
+            "time_modified": "2011-08-19 11:14:19.244634",
             "status": 1,
             "title": "Global Warming is False",
             "privacy": 0,
@@ -446,6 +448,7 @@
         {
             "creator": 1,
             "time_created": "2011-08-20 11:14:19.244634",
+            "time_modified": "2011-08-20 11:14:19.244634",
             "status": 2,
             "title": "Famine in Horn of Africa",
             "privacy": 0,
@@ -462,6 +465,7 @@
         {
             "creator": 1,
             "time_created": "2011-08-21 11:14:19.244634",
+            "time_modified": "2011-08-21 11:14:19.244634",
             "status": 0,
             "title": "Japan nuclear plant still releasing radiation",
             "privacy": 0,

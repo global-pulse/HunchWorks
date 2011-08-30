@@ -163,8 +163,7 @@ def createHunch(request):
   if request.method == 'POST':
 
     data = request.POST.copy()
-    data.update({'creator':request.user.pk, 
-              'time_created':datetime.datetime.today(),
+    data.update({'creator':request.user.pk,
               'status':1,
               #'privacy':1,
               'strength':1})
@@ -191,7 +190,6 @@ def editHunch(request, hunch_id):
   if request.method == 'POST':
     data = request.POST.copy()
     data.update({'creator':request.user.pk, 
-              'time_created':datetime.datetime.today(),
               'status':1,
               'privacy':1,
               'strength':1})
