@@ -213,6 +213,10 @@ def editHunch(request, hunch_id):
 def showHunch(request, hunch_id):
   """Show a Hunch."""
   hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
+
+  if not hunch.is_viewable_by(request.user):
+    raise PermissionDenied
+
   context = RequestContext(request)
   context.update({ "hunch": hunch })
   return render_to_response('showHunch.html', context) 

@@ -196,6 +196,19 @@ class HwHunch(models.Model):
     """Return True if this Hunch is editable by `user` (a Django auth user)."""
     return (self.creator.user == user)
 
+  def is_viewable_by(self, user):
+    """Return True if this Hunch is viewable by `user` (a Django auth user)."""
+
+    if self._is_hidden():
+      return (self.creator.user == user)
+
+    # Otherwise, if the hunch is OPEN or CLOSED, anyone (even anonymous) can
+    # view it. The only distinction between the levels is in the editing.
+    return True
+
+  def _is_hidden(self):
+    """Return True if this Hunch is hidden."""
+    return (self.privacy == hunchworks_enums.PrivacyLevel.HIDDEN)
 
 class HwEvidence(models.Model):
   """Class representing a response to the hunch"""
