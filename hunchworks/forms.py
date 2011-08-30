@@ -24,6 +24,7 @@ class LoginForm(forms.Form):
 
 
 class SignUpForm(ModelForm):
+  skill_name = forms.CharField( max_length=100 )
 
   class Meta:
     model= models.User
@@ -40,7 +41,7 @@ class SignUpForm(ModelForm):
       }
 
 class HwUserForm(ModelForm):
-  skill_name = forms.CharField( max_length=100 )
+  
 
   class Meta:
     model = models.HwUser

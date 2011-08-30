@@ -14,12 +14,14 @@ import linkedin_api
 import models
 import forms
 import datetime
+from hunchworks_enums import PrivacyLevel
 
 from django import http
 from django.db import transaction
 # We use this function because it allows you to send an html file as a template
 # and be displayed. With http response you cannot do this.
 from django.shortcuts import render_to_response, get_object_or_404
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 # This import is used to used the redirect method
 from django.http import HttpResponseRedirect
@@ -124,11 +126,8 @@ def signup(request):
 
 @login_required
 def home(request):
-#def home(request, user_id):
-  #user = get_object_or_404(models.HwUser, pk=user_id)
   user_id = request.user.pk
-  recent_hunches = models.HwHunch.objects.filter(creator=user_id)
-
+  recent_hunches = models.HwHunch.objects.filter(privacy=PrivacyLevel.OPEN).order_by("-time_modified")[:5]
   context = RequestContext(request)
   context.update({'recent_hunches': recent_hunches })
   return render_to_response('home.html', context)
@@ -163,8 +162,7 @@ def createHunch(request):
   if request.method == 'POST':
 
     data = request.POST.copy()
-    data.update({'creator':request.user.pk, 
-              'time_created':datetime.datetime.today(),
+    data.update({'creator':request.user.pk,
               'status':1,
               #'privacy':1,
               'strength':1})
@@ -186,12 +184,13 @@ def createHunch(request):
 def editHunch(request, hunch_id):
   """Edit a Hunch."""
   hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
-  print hunch.hunch_id
+  if not hunch.is_editable_by(request.user):
+    raise PermissionDenied
+
   context = RequestContext(request)
   if request.method == 'POST':
     data = request.POST.copy()
     data.update({'creator':request.user.pk, 
-              'time_created':datetime.datetime.today(),
               'status':1,
               'privacy':1,
               'strength':1})
@@ -210,6 +209,10 @@ def editHunch(request, hunch_id):
 def showHunch(request, hunch_id):
   """Show a Hunch."""
   hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
+
+  if not hunch.is_viewable_by(request.user):
+    raise PermissionDenied
+
   context = RequestContext(request)
   context.update({ "hunch": hunch })
   return render_to_response('showHunch.html', context) 

@@ -17,6 +17,8 @@ GENDER_CHOICES = (
     ('F', 'Female'),
 )
 
+import datetime
+
 # Enums used throughout Hunchworks.
 import hunchworks_enums
 
@@ -156,12 +158,14 @@ class HwEducationConnections(models.Model):
   class_field = models.ForeignKey(HwClass, null=True, blank=True)
   class Meta:
     db_table = u'hw_education_connections'
-    
+
+
 class HwHunch(models.Model):
   """Class representing a Hunch."""
   hunch_id = models.AutoField(primary_key=True)
   creator = models.ForeignKey(HwUser, related_name='%(class)s_creator_id' )
   time_created = models.DateTimeField()
+  time_modified = models.DateTimeField()
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
   title = models.CharField(max_length=100)
   privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
@@ -174,9 +178,37 @@ class HwHunch(models.Model):
   tags = models.ManyToManyField('HwTag', through='HwTagConnections', blank=True)
   invited_users = models.ManyToManyField(
     'HwInvitedUser', through='HwHunchConnections')
+
   class Meta:
     db_table = u'hw_hunch'
- 
+
+  def save(self, *args, **kwargs):
+    now = datetime.datetime.today()
+
+    # for new records.
+    if not self.hunch_id:
+      self.time_created = now
+
+    self.time_modified = now
+    super(HwHunch, self).save(*args, **kwargs)
+
+  def is_editable_by(self, user):
+    """Return True if this Hunch is editable by `user` (a Django auth user)."""
+    return (self.creator.user == user)
+
+  def is_viewable_by(self, user):
+    """Return True if this Hunch is viewable by `user` (a Django auth user)."""
+
+    if self._is_hidden():
+      return (self.creator.user == user)
+
+    # Otherwise, if the hunch is OPEN or CLOSED, anyone (even anonymous) can
+    # view it. The only distinction between the levels is in the editing.
+    return True
+
+  def _is_hidden(self):
+    """Return True if this Hunch is hidden."""
+    return (self.privacy == hunchworks_enums.PrivacyLevel.HIDDEN)
 
 class HwEvidence(models.Model):
   """Class representing a response to the hunch"""
