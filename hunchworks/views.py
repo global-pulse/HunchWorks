@@ -128,7 +128,7 @@ def home(request):
 #def home(request, user_id):
   #user = get_object_or_404(models.HwUser, pk=user_id)
   user_id = request.user.pk
-  recent_hunches = models.HwHunch.objects.filter(creator=user_id, privacy=PrivacyLevel.OPEN)
+  recent_hunches = models.HwHunch.objects.filter(privacy=PrivacyLevel.OPEN).order_by("-time_modified")[:5]
 
   context = RequestContext(request)
   context.update({'recent_hunches': recent_hunches })
