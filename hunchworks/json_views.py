@@ -39,7 +39,7 @@ def tags(request):
 
   return http.HttpResponse( simplejson.dumps(tags) )
   
-def userSkills(request, user_id):
+def user_skills(request, user_id):
   skill_connections = models.HwSkillConnections.objects.filter(user=user_id)
   skill_connections = skill_connections.values_list('skill', flat=True)
   
@@ -49,7 +49,7 @@ def userSkills(request, user_id):
   
   return http.HttpResponse( simplejson.dumps(skills) )
   
-def userLanguages(request, user_id):
+def user_languages(request, user_id):
   skill_connections = models.HwSkillConnections.objects.filter(user=user_id)
   skill_connections = skill_connections.values_list('skill', flat=True)
   
@@ -59,7 +59,17 @@ def userLanguages(request, user_id):
   
   return http.HttpResponse( simplejson.dumps(languages) )
   
-def hunchSkills(request, hunch_id):
+def user_collaborators(request, user_id):
+  user_connections = models.HwUserConnections.objects.filter(user=user_id)
+  user_connections = user_connections.values_list('other_user', flat=True)
+  
+  collaborators = models.User.objects.filter(id__in=user_connections)
+  collaborators = collaborators.values_list('id', 'first_name', 'last_name')
+  collaborators =  [{ "id": x[0], "name": x[1]+" " +x[2]} for x in collaborators]
+  
+  return http.HttpResponse( simplejson.dumps(collaborators) )
+  
+def hunch_skills(request, hunch_id):
   skill_connections = models.HwSkillConnections.objects.filter(hunch=hunch_id)
   skill_connections = skill_connections.values_list('skill', flat=True)
   
@@ -69,7 +79,7 @@ def hunchSkills(request, hunch_id):
   
   return http.HttpResponse( simplejson.dumps(skills) )
   
-def hunchLanguages(request, hunch_id):
+def hunch_languages(request, hunch_id):
   skill_connections = models.HwSkillConnections.objects.filter(hunch=hunch_id)
   skill_connections = skill_connections.values_list('skill', flat=True)
   
@@ -79,7 +89,7 @@ def hunchLanguages(request, hunch_id):
   
   return http.HttpResponse( simplejson.dumps(languages) )
   
-def hunchTags(request, hunch_id):
+def hunch_tags(request, hunch_id):
   tag_connections = models.HwTagConnections.objects.filter(hunch=hunch_id)
   tag_connections = tag_connections.values_list('tag', flat=True)
   

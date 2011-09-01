@@ -331,6 +331,120 @@
     		"date_joined": "2011-08-18 11:14:19.244634"
     	}
     },
+    {
+    	"pk": 2,
+    	"model": "auth.user",
+    	"fields":
+    	{
+    		"first_name": "test2",
+    		"last_name": "test2",
+    		"email": "test2@test2.com",
+    		"username": "test2",
+    		"password": "sha1$7668f$d8e32fd7241ba5e19ccaea6eee69452e64ccc9ca",
+    		"is_active": "True",
+    		"is_staff": "False",
+    		"is_superuser": "False",
+    		"last_login": "2011-08-19 11:14:19.244634",
+    		"date_joined": "2011-08-19 11:14:19.244634"
+    	}
+    },
+    {
+    	"pk": 3,
+    	"model": "auth.user",
+    	"fields":
+    	{
+    		"first_name": "test3",
+    		"last_name": "test3",
+    		"email": "test3@test3.com",
+    		"username": "test3",
+    		"password": "sha1$bd339$4e5cbd2c04d4125222c05e8cf5bc4c757533d202",
+    		"is_active": "True",
+    		"is_staff": "False",
+    		"is_superuser": "False",
+    		"last_login": "2011-08-20 11:14:19.244634",
+    		"date_joined": "2011-08-20 11:14:19.244634"
+    	}
+    },
+    {
+    	"pk": 4,
+    	"model": "auth.user",
+    	"fields":
+    	{
+    		"first_name": "test4",
+    		"last_name": "test4",
+    		"email": "test4@test4.com",
+    		"username": "test4",
+    		"password": "sha1$6b45c$0c5611d85d551dde8bbc486dc36b9d521f4966a2",
+    		"is_active": "True",
+    		"is_staff": "False",
+    		"is_superuser": "False",
+    		"last_login": "2011-08-21 11:14:19.244634",
+    		"date_joined": "2011-08-21 11:14:19.244634"
+    	}
+    },
+    
+    
+    
+    {
+        "pk": 1,
+        "model": "hunchworks.hwuserconnections",
+        "fields": 
+        {
+            "user": 1,
+            "other_user": 2,
+            "status": 0
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.hwuserconnections",
+        "fields": 
+        {
+            "user": 1,
+            "other_user": 3,
+            "status": 0
+        }
+    },
+    {
+        "pk": 3,
+        "model": "hunchworks.hwuserconnections",
+        "fields": 
+        {
+            "user": 1,
+            "other_user": 4,
+            "status": 0
+        }
+    },
+    {
+        "pk": 4,
+        "model": "hunchworks.hwuserconnections",
+        "fields": 
+        {
+            "user": 2,
+            "other_user": 3,
+            "status": 0
+        }
+    },
+    {
+        "pk": 5,
+        "model": "hunchworks.hwuserconnections",
+        "fields": 
+        {
+            "user": 2,
+            "other_user": 4,
+            "status": 0
+        }
+    },
+    {
+        "pk": 6,
+        "model": "hunchworks.hwuserconnections",
+        "fields": 
+        {
+            "user": 3,
+            "other_user": 4,
+            "status": 0
+        }
+    },
     
     
     

@@ -1,105 +1,115 @@
 {% extends "base.html" %} 
-{% block js %}<script src="/static/signup.js"></script>{% endblock %}
 {% block title %}Signup{% endblock %}
 {% block css %}
-	<link rel="stylesheet" href="/static/signup.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/token-input.css" type="text/css" />
+  <link rel="stylesheet" href="/static/signup.css" type="text/css"/>
+{% endblock %}
+{% block js %}
+  <script src='/static/jquery.tokeninput.js'></script>
+  <script src="/static/signup.js"></script>
 {% endblock %}
 {% block content %}
-	<div id='contents'>
-	<form method='post' action="signup">
-		{{ auth_user_form.non_field_errors }}
-		{% csrf_token %}
-		<!--{{ auth_user_form }}-->
-		<h1>Tell us about yourself:</h1>
-		<h3>Personal Information</h3>
-		<div class='inputWrapper'>
-		Title
-		{{ hw_user_form.title.errors }}
-		<div class='inputText'>
-			{{ hw_user_form.title }}
-		</div>
-		</div>
+  <div id='contents'>
+  <form method='post' action="signup">
+    {{ auth_user_form.non_field_errors }}
+    {% csrf_token %}
+    <!--{{ auth_user_form }}-->
+    <h1>Tell us about yourself:</h1>
+    <h3>Personal Information</h3>
+    <div class='inputWrapper'>
+      Title
+      {{ hw_user_form.title.errors }}
+      <div class='inputText'>
+        {{ hw_user_form.title }}
+      </div>
+    </div>
 
-		<div class='inputWrapper'>
-		First Name: 
-		{{ auth_user_form.first_name.errors }}
-		<div class='inputText'>
-			{{ auth_user_form.first_name }}
-		</div>
-		</div>
+    <div class='inputWrapper'>
+      First Name: 
+      {{ auth_user_form.first_name.errors }}
+      <div class='inputText'>
+      {{ auth_user_form.first_name }}
+      </div>
+    </div>
 
-		<div class='inputWrapper'>
-		Last Name:
-		{{ auth_user_form.last_name.errors }}
-		<div class='inputText'>
-			{{ auth_user_form.last_name }}
-		</div>
-		</div>
+    <div class='inputWrapper'>
+      Last Name:
+      {{ auth_user_form.last_name.errors }}
+      <div class='inputText'>
+      {{ auth_user_form.last_name }}
+      </div>
+    </div>
 
-		<div class='inputWrapper'>
-		Email:
-		{{ auth_user_form.email.errors }}
-		<div class='inputText'>
-			{{ auth_user_form.email }}
-		</div>
-		</div>
+    <div class='inputWrapper'>
+      Email:
+      {{ auth_user_form.email.errors }}
+      <div class='inputText'>
+      {{ auth_user_form.email }}
+      </div>
+    </div>
 
-		<div class='inputWrapper'>
-		Privacy setting:
-		{{ hw_user_form.privacy.errors }}
-		<div class='inputText'>
-			{{ hw_user_form.privacy }}
-		</div>
-		</div>
+    <div class='inputWrapper'>
+      Privacy setting:
+      {{ hw_user_form.privacy.errors }}
+      <div class='inputText'>
+      {{ hw_user_form.privacy }}
+      </div>
+    </div>
 
-		<div class='inputWrapper'>
-		Default Language:
-		{{ hw_user_form.default_language.errors }}
-		<div class='inputText'>
-			{{ hw_user_form.default_language }}
-		</div>
-		</div>
+    <div class='inputWrapper'>
+      Default Language:
+      {{ hw_user_form.default_language.errors }}
+      <div class='inputText'>
+      {{ hw_user_form.default_language }}
+      </div>
+    </div>
 
-		<div class='inputWrapper'>
-		Username:
-		{{ auth_user_form.username.errors }}
-		<div class='inputText'>
-			{{ auth_user_form.username }}
-		</div>
-		</div>
+    <div class='inputWrapper'>
+      Username:
+      {{ auth_user_form.username.errors }}
+      <div class='inputText'>
+      {{ auth_user_form.username }}
+      </div>
+    </div>
 
-		<div class='inputWrapper'>
-		Password:
-		{{ auth_user_form.password.errors }}
-		<div class='inputText'>
-			{{ auth_user_form.password }}
-		</div>
-		</div>
+    <div class='inputWrapper'>
+      Password:
+      {{ auth_user_form.password.errors }}
+      <div class='inputText'>
+      {{ auth_user_form.password }}
+      </div>
+    </div>
 
-		<div class='inputWrapper'>
-		Instant Messenger:
-		{{ hw_user_form.screen_name.errors }}
-		<div class='inputText'>
-			{{ hw_user_form.screen_name }}
-		</div>
-		{{ hw_user_form.messenger_service.errors }}
-		<div class='inputText'>
-			{{ hw_user_form.messenger_service }}
-		</div>
-		</div>
+    <div class='inputWrapper'>
+      Instant Messenger:
+      {{ hw_user_form.screen_name.errors }}
+      <div class='inputText'>
+      {{ hw_user_form.screen_name }}
+      </div>
+      {{ hw_user_form.messenger_service.errors }}
+      <div class='inputText'>
+      {{ hw_user_form.messenger_service }}
+      </div>
+    </div>
 
-		<div class='inputWrapper'>
-		Skill1:
-		{{ auth_user_form.skill_name.errors }}
-		<div class='inputText'>
-			{{ auth_user_form.skill_name }}
-		</div>
-		</div>
+    <div class='inputWrapper'>
+      Skills:
+      {{ hw_user_form.skill_name.errors }}
+      <div class='inputText'>
+      {{ hw_user_form.skill_name }}
+      </div>
+      <div class='inputText'>
+        <input id='userSkills' type='text'>
+      </div>
+      <div class='inputText'>
+        <input id='userLanguages' type='text'>
+      </div>
+    </div>
 
-		<div>
-		<input type='submit' value='join'/>
-		</div>
-	</form>
-	</div> <!-- end contents -->
+    <div>
+    <input type='submit' value='join'/>
+    </div>
+  </form>
+  </div> <!-- end contents -->
 
 {% endblock %}

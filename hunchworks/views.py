@@ -22,6 +22,7 @@ from django.db import transaction
 # and be displayed. With http response you cannot do this.
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.exceptions import PermissionDenied
+from django.db import DatabaseError
 from django.core.urlresolvers import reverse
 # This import is used to used the redirect method
 from django.http import HttpResponseRedirect
@@ -88,9 +89,13 @@ def signup(request):
       user = auth_user_form.save()
       user.set_password(request.POST['password'])
       user.save()
+      #if not user.save():
+      #  raise DatabaseError
       hw_user = hw_user_form.save(commit=False)
       hw_user.user_id = user
       hw_user.save()
+      #if not hw_user.save():
+      #  raise DatabaseError
 
       for skill_name in request.POST.getlist("skill_name"):
         skill, created = models.HwSkill.objects.get_or_create(
@@ -113,7 +118,7 @@ def signup(request):
             return HttpResponseRedirect( reverse(home ))
       except exceptions.ObjectDoesNotExist:
         pass
-        #TODO( Chris-8-24-2011) Find something to do with thrown exception
+        #TODO(Chris:2011-8-24) Find something to do with thrown exception
 
   else:
     auth_user_form = forms.SignUpForm()

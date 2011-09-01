@@ -379,6 +379,8 @@ class HwUserConnections(models.Model):
   status = models.IntegerField()
   user = models.ForeignKey(HwUser, related_name='conn_user_id')
   other_user = models.ForeignKey(HwUser, related_name='other_user_id')
+  class Meta:
+    db_table = u'hw_user_connections'
   
 
 # Getters for setting the default values for ForeignKeys on other models.
