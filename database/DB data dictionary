@@ -75,6 +75,7 @@ hw_evidence
 	strength = the strength of the evidence posted, values from -2 to 2, relating
 		to string values of strongly refutes to strongly supports. 
 	time_created = the specific time the evidence was created (down to seconds)
+	time_modified = the last time this evidence was modified
 	description = the text that can be put as a comment in reference to the hunch,
 		users may also use this as a possible explanation of the attachments they
 		are posting.
@@ -126,6 +127,7 @@ hw_hunch
 	hunch_id = primary key, auto increment
 	creator = the user_id of the person who created the hunch
 	time_created = the time (down to seconds) of the hunch being created
+	time_modified = the last time this hunch was modified
 	status = can be Confirmed, Denied, Undetermined located under HunchStatus in
 		hunchworks_enums.py
 	title = The title of the hunch the user is posting
@@ -151,7 +153,6 @@ hw_hunch_connections
 	status = Can be accepted, invited, or blocked.
 	hunch_id = the id of the hw_hunch it is associated with
 	user_id = the id of the hw_user it is associated with
-	group_id = the id of the hw_group it is associated with
 	invited_email = the email of the hw_invited_user it is associated with
 
 hw_invited_user

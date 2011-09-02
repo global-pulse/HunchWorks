@@ -82,7 +82,7 @@ def signup(request):
               'last_login':datetime.datetime.today(),
               'date_joined':datetime.datetime.today(),
               })
-    auth_user_form = forms.SignUpForm(data, instance=models.User())
+    auth_user_form = forms.AuthUserForm(data, instance=models.User())
     hw_user_form = forms.HwUserForm(data, instance=models.HwUser())
 
     if auth_user_form.is_valid() and hw_user_form.is_valid():
@@ -119,9 +119,13 @@ def signup(request):
       except exceptions.ObjectDoesNotExist:
         pass
         #TODO(Chris:2011-8-24) Find something to do with thrown exception
+    
+    else:
+      auth_user_form = forms.AuthUserForm(request.POST)
+      hw_user_form = forms.HwUserForm(request.POST)
 
   else:
-    auth_user_form = forms.SignUpForm()
+    auth_user_form = forms.AuthUserForm()
     hw_user_form = forms.HwUserForm()
 
   context['auth_user_form'] = auth_user_form
@@ -167,22 +171,32 @@ def createHunch(request):
   if request.method == 'POST':
 
     data = request.POST.copy()
-    data.update({'creator':request.user.pk,
-              'status':1,
-              #'privacy':1,
-              'strength':1})
-    form = forms.HwHunchForm(data)
-    
-    if form.is_valid():
-      form.save()
+    data.update({'creator':request.user.pk, 'status':2})
+    hw_hunch_form = forms.HwHunchForm(data, instance=models.HwHunch())
+    hw_evidence_form = forms.HwEvidenceForm(data, instance=models.HwEvidence())
+
+    print request.POST['languages_required']
+    if hw_hunch_form.is_valid() and hw_evidence_form.is_valid():
+      hw_hunch = hw_hunch_form.save()
+      for skill_id in request.POST.getlist('languages_required'):
+        skill_connection = models.HwSkillConnections.objects.create(
+          skill=skill_id,
+          hunch=hw_hunch.pk,
+          level=1)
+      
+      hw_evidence = hw_evidence_form.save(commit=False)
+      hw_evidence.hunch_id = hw_hunch.pk
+      hw_evidence.save()
       return HttpResponseRedirect('/hunchworks/profile')
     else:
-
-      form = forms.HwHunchForm(request.POST)
+      hunch_form = forms.HwHunchForm(request.POST)
+      evidence_form = forms.HwEvidenceForm(request.POST)
   else:
-    form = forms.HwHunchForm()
-  print request.user.pk
-  context.update({ 'form':form, 'user_id': request.user.pk })
+    hunch_form = forms.HwHunchForm()
+    evidence_form = forms.HwEvidenceForm()
+    
+  context.update({ 'hunch_form':hunch_form, 'evidence_form':evidence_form,
+    'user_id': request.user.pk })
   return render_to_response('createHunch.html', context)
 
 @login_required

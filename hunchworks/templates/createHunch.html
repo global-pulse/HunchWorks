@@ -14,84 +14,86 @@
 	<h3 id='user_id' user='{{user_id}}'>Create a new hunch</h3>
   </div>
   <div id='contents'>
+  	<form action="{{action}}" method="post">{% csrf_token %}
 	<div id='column1'>
-		<form action="{{action}}" method="post">{% csrf_token %}
-		  {{ form.non_field_errors }}
-		  <b>Title:</b><em>(required)</em>
-		  {{ form.title.errors }}
-		  <div class="inputText">
-			{{ form.title }} 
-		  </div>
-		  <b>Description:</b><em>(required)</em>
-		  {{ form.description.errors }}
-		  <div class="inputText">
-			{{form.description}}
-		  </div>
-		  <b>Tags:</b><em>(optional but recommended)</em>
-		  {{ form.tags.errors }}
-		  <div class="inputText">
-			{{form.tags}}
-			<button id='add_tag_button' type='button'>Add Tag into list</button> 
-		  	<input id='tags' type='text'>
-		  </div>
-		  <b>Privacy Level:</b>
-		  {{ form.privacy.errors }}
-		  <div class="inputText">
-			{{form.privacy}}
-		  </div>
+		{{ hunch_form.non_field_errors }}
+		<b>Title:</b><em>(required)</em>
+		{{ hunch_form.title.errors }}
+		<div class="inputText">
+		  {{ hunch_form.title }} 
+		</div>
+		<b>Description:</b><em>(required)</em>
+		{{ hunch_form.hunch_description.errors }}
+		<div class="inputText">
+		  {{hunch_form.hunch_description}}
+		</div>
+		<b>Tags:</b><em>(optional but recommended)</em>
+		{{ hunch_form.tags.errors }}
+		<div class="inputText">
+		  {{hunch_form.tags}}
+		  <button id='add_tag_button' type='button'>Add Tag into list</button> 
+		  <input id='tags' type='text'>
+		</div>
+		<b>Privacy Level:</b>
+		{{ hunch_form.privacy.errors }}
+		<div class="inputText">
+		  {{hunch_form.privacy}}
+		</div>
+		<b>Location:</b>
+		{{ hunch_form.location.errors }}
+		<div class="inputText">
+		  {{hunch_form.location}}
+		</div>
+		<b>Language:</b>
+		{{ hunch_form.language.errors }}
+		<div class="inputText">
+		  {{hunch_form.language}}
+		</div>
+		<div class='inputText'>
 		  <b>Location:</b>
-		  {{ form.location.errors }}
-		  <div class="inputText">
-			{{form.location}}
-		  </div>
-		  <b>Language:</b>
-		  {{ form.language.errors }}
-		  <div class="inputText">
-			{{form.language}}
-		  </div>
-		  <div class='inputText'>
-			<b>Location:</b>
-			<button type='button'>GIS COORDINATES</button>
-			<button type='button'>PIN ON MAP</button>
-			<button type='button'>DRAW ON MAP</button>
-			<button type='button'>LOCATION NAME</button>
-		  </div>
-		  <div class='googleMap'>
-			<img src='googlemap' alt='googlemap' height='400px' width='580px'/> 
-		  </div>
-		  <div class='inputText'>
-			<b>Add evidence</b>
-			<button type='button'>Tweet</button>
-			<button type='button'>Dataset</button>
-			<button type='button'>Link</button>
-			<button type='button'>Photo</button>
-			<button type='button'>Video</button>
-			<button type='button'>Anecdote</button>
-		  </div>
-		  <div class='googleMap'>
-			<img src='googlemap' alt='googlemap' height='400px' width='580px'/>
-		  </div>
-		  <b>Evidence text:</b>
-		  {{ form.evidence_text.errors }}
-		  <div class="inputText">
-			{{form.evidence_text}}
-		  </div>
-		  <div>
-		    <b>Invite Users:</b><em>(optional)</em>
-			<input id='inviteFriends' type='text'>
-	  	  </div>
-	  	<input type="submit" value="Submit" />
-	  </form>
+		  <button type='button'>GIS COORDINATES</button>
+		  <button type='button'>PIN ON MAP</button>
+		  <button type='button'>DRAW ON MAP</button>
+		  <button type='button'>LOCATION NAME</button>
+		</div>
+		<div class='googleMap'>
+		  <img src='googlemap' alt='googlemap' height='400px' width='580px'/> 
+		</div>
+		<div class='inputText'>
+		  <b>Add evidence</b>
+		  <button type='button'>Tweet</button>
+		  <button type='button'>Dataset</button>
+		  <button type='button'>Link</button>
+		  <button type='button'>Photo</button>
+		  <button type='button'>Video</button>
+		  <button type='button'>Anecdote</button>
+		</div>
+		<div class='googleMap'>
+		  <img src='googlemap' alt='googlemap' height='400px' width='580px'/>
+		</div>
+		<b>Evidence text:</b>
+		{{ evidence_form.evidence_description.errors }}
+		<div class="inputText">
+		  {{evidence_form.evidence_description}}
+		</div>
+		<div>
+		  <b>Invite Users:</b><em>(optional)</em>
+		  <input id='inviteUsers' type='text'>
+		</div>
+	  <input type="submit" value="Submit" />
 	</div> <!-- end column1 div -->
 	<div id='column2'>
 	  <div>
+	  {{ hunch_form.skills_required.errors }}
 		<b>Skills Required:</b><em>(optional)</em>
-		<input id='skillsRequired' type='text'>
+		{{ hunch_form.skills_required }}
 	  </div>
 	  <div>
+	  {{ hunch_form.languages_required.errors }}
 		<b>Languages Required:</b><em>(optional)</em>
-		<input id='languagesRequired' type='text'>
+		{{ hunch_form.languages_required }}
 	  </div>
 	</div> <!-- end column2 div -->
+	</form>
   </div>
 {% endblock %}

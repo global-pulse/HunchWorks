@@ -169,11 +169,10 @@ class HwHunch(models.Model):
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
   title = models.CharField(max_length=100)
   privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
-  strength = models.IntegerField(default=0)
+  hunch_strength = models.IntegerField(default=0)
   language = models.ForeignKey(HwLanguage)
-  #language = models.ForeignKey(HwLanguage, null=True, blank=True)
   location = models.ForeignKey(HwLocation, null=True, blank=True)
-  description = models.TextField()
+  hunch_description = models.TextField()
   skills = models.ManyToManyField('HwSkill', through='HwSkillConnections')
   tags = models.ManyToManyField('HwTag', through='HwTagConnections', blank=True)
   invited_users = models.ManyToManyField(
@@ -213,9 +212,10 @@ class HwHunch(models.Model):
 class HwEvidence(models.Model):
   """Class representing a response to the hunch"""
   evidence_id = models.AutoField(primary_key=True)
-  strength = models.IntegerField()
+  evidence_strength = models.IntegerField(default=0)
   time_created = models.DateTimeField()
-  description = models.TextField(blank=True)
+  time_modified = models.DateTimeField()
+  evidence_description = models.TextField(blank=True)
   hunch = models.ForeignKey(HwHunch)
   creator = models.ForeignKey(HwUser)
   albums = models.ManyToManyField('HwAlbum', through='HwEvidenceAlbums')
@@ -224,6 +224,16 @@ class HwEvidence(models.Model):
   tags = models.ManyToManyField('HwTag', through='HwTagConnections')
   class Meta:
     db_table = u'hw_evidence'
+    
+  def save(self, *args, **kwargs):
+    now = datetime.datetime.today()
+
+    # for new records.
+    if not self.evidence_id:
+      self.time_created = now
+
+    self.time_modified = now
+    super(HwEvidence, self).save(*args, **kwargs)
 
 class HwEvidenceAlbums(models.Model):
   """Many to Many model joining Evidence and Album together"""
@@ -249,7 +259,6 @@ class HwGroup(models.Model):
   privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
   logo = models.CharField(max_length=100, blank=True)
   location = models.ForeignKey(HwLocation, null=True, blank=True)
-  hunches = models.ManyToManyField('HwHunch', through='HwHunchConnections')
   class Meta:
     db_table = u'hw_group'
 
@@ -282,7 +291,6 @@ class HwHunchConnections(models.Model):
   status = models.IntegerField()
   hunch = models.ForeignKey(HwHunch)
   user = models.ForeignKey(HwUser, null=True, blank=True)
-  group = models.ForeignKey(HwGroup, null=True, blank=True)
   invited_email = models.ForeignKey(HwInvitedUser, null=True, blank=True)
   class Meta:
     db_table = u'hw_hunch_connections'

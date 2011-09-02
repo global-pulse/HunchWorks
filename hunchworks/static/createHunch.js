@@ -1,8 +1,9 @@
 function init()
 {
 	var user_id = document.getElementById('user_id').getAttribute('user');
-	var skill_url = '/hunchworks/user/' + user_id + "/skills/notLanguages";
-	var language_url = '/hunchworks/user/' + user_id + "/skills/languages";
+	var skill_url = '/hunchworks/user/' + user_id + '/skills/notLanguages';
+	var language_url = '/hunchworks/user/' + user_id + '/skills/languages';
+	var collaborators_url = '/hunchworks/user/' + user_id + '/collaborators';
 	//code for displaying data in related skills tab
 	var userSkills = $.getJSON(skill_url, function(data)
 	{
@@ -12,7 +13,7 @@ function init()
 			prePopArray[skill] = { id: data[skill].id, name: data[skill].name }
 
 		}
-		$("#skillsRequired").tokenInput("/hunchworks/skills/notLanguages", 
+		$('#id_skills_required').tokenInput('/hunchworks/skills/notLanguages', 
 			{ prePopulate: prePopArray, preventDuplicates: true });
 	});
 	
@@ -25,17 +26,20 @@ function init()
 			prePopArray[skill] = { id: data[skill].id, name: data[skill].name }
 
 		}
-		$("#languagesRequired").tokenInput("/hunchworks/skills/languages", 
+		$('#id_languages_required').tokenInput('/hunchworks/skills/languages', 
 			{ prePopulate: prePopArray, preventDuplicates: true });
 	});
 	
-	$("#tags").tokenInput("/hunchworks/tags", 
-		{ theme: 'facebook', preventDuplicates: true});
+	$('#tags').tokenInput('/hunchworks/tags', 
+		{ theme: 'facebook', preventDuplicates: true });
+		
+	$('#inviteUsers').tokenInput( collaborators_url,
+		{ preventDuplicates: true });
 	
-	$("#add_tag_button").click( function()
+	$('#add_tag_button').click( function()
 	{
 		alert( document.getElementById('token-input-tags').value );
-		$("#tags").tokenInput("add", 
+		$('#tags').tokenInput('add', 
 			{ name: document.getElementById('token-input-tags').value });
 	});
 	

@@ -1,0 +1,14 @@
+#column1 {
+  float: left;
+  clear: both;
+  width: 600px;
+  }
+#column2 {
+  float: left;
+}
+.inputText {
+  padding-bottom: 10px;
+}
+#relatedSkills, #languagesRequired{
+  padding-bottom: 10px;
+}

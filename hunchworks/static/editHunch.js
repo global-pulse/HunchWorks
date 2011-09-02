@@ -11,7 +11,7 @@ function init()
 		{
 			prePopArray[skill] = { id: data[skill].id, name: data[skill].name }
 		}
-		$("#relatedSkills").tokenInput("/hunchworks/skills/notLanguages", 
+		$("#skillsRequired").tokenInput("/hunchworks/skills/notLanguages", 
 			{ prePopulate: prePopArray, preventDuplicates: true });
 	});
 	
@@ -23,7 +23,7 @@ function init()
 		{
 			prePopArray[skill] = { id: data[skill].id, name: data[skill].name }
 		}
-		$("#id_languages").tokenInput("/hunchworks/skills/languages",
+		$("#languagesRequired").tokenInput("/hunchworks/skills/languages",
 			{ prePopulate: prePopArray, preventDuplicates: true });
 	});
 	

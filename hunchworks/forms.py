@@ -23,7 +23,7 @@ class LoginForm(forms.Form):
   password = forms.CharField( max_length=30, widget=forms.PasswordInput() )
 
 
-class SignUpForm(ModelForm):
+class AuthUserForm(ModelForm):
 
   class Meta:
     model= models.User
@@ -47,16 +47,24 @@ class HwUserForm(ModelForm):
 	)
 
 class HwHunchForm(ModelForm):
-  evidence_text = forms.CharField(widget=forms.Textarea(
-    attrs={'cols': 60, 'rows': 10}))
+  skills_required = forms.CharField()
+  languages_required = forms.CharField()
 
   class Meta:
     model = models.HwHunch
     exclude = (
-    'hunch_id', 'skills', 'groups', 'users',
-    'invited_users', 'tags'
+    'hunch_id', 'skills', 'groups', 'users', 'invited_users', 'tags',
+    'time_created', 'time_modified', 'hunch_strength',
     )
-
+    
+class HwEvidenceForm(ModelForm):
+    
+  class Meta:
+    model = models.HwEvidence
+    exclude = (
+    'hunch_id', 'creator_id', 'evidence_strength', 'time_created',
+    'time_modified', 'attachments', 'albums', 'hunch', 'tags'
+    )
 
 class CreateGroupForm(ModelForm):
   logo = forms.CharField( max_length=100)
