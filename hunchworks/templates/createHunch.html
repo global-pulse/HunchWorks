@@ -28,11 +28,10 @@
 		  {{hunch_form.hunch_description}}
 		</div>
 		<b>Tags:</b><em>(optional but recommended)</em>
-		{{ hunch_form.tags.errors }}
+		{{ hunch_form.tags_required.errors }}
 		<div class="inputText">
-		  {{hunch_form.tags}}
-		  <button id='add_tag_button' type='button'>Add Tag into list</button> 
-		  <input id='tags' type='text'>
+		  {{hunch_form.tags_required}}
+		  <!--<button id='add_tag_button' type='button'>Add Tag into list</button>-->
 		</div>
 		<b>Privacy Level:</b>
 		{{ hunch_form.privacy.errors }}

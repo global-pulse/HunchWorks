@@ -175,14 +175,31 @@ def createHunch(request):
     hw_hunch_form = forms.HwHunchForm(data, instance=models.HwHunch())
     hw_evidence_form = forms.HwEvidenceForm(data, instance=models.HwEvidence())
 
-    print request.POST['languages_required']
     if hw_hunch_form.is_valid() and hw_evidence_form.is_valid():
       hw_hunch = hw_hunch_form.save()
-      for skill_id in request.POST.getlist('languages_required'):
+      languages_required = request.POST['languages_required']
+      languages_required = languages_required.split(',')
+      for skill_id in languages_required:
         skill_connection = models.HwSkillConnections.objects.create(
-          skill=skill_id,
-          hunch=hw_hunch.pk,
+          skill=models.HwSkill.objects.get(pk=skill_id),
+          hunch=hw_hunch,
           level=1)
+      
+      skills_required = request.POST['skills_required']
+      skills_required = skills_required.split(',')
+      for skill_id in skills_required:
+        skill_connection = models.HwSkillConnections.objects.create(
+          skill=models.HwSkill.objects.get(pk=skill_id),
+          hunch=hw_hunch,
+          level=1)
+          
+      tags_required = request.POST['tags_required']
+      print tags_required
+      tags_required = tags_required.split(',')
+      for tag_id in tags_required:
+        tag_connection = models.HwTagConnections.objects.create(
+          tag=models.HwTag.objects.get(pk=tag_id),
+          hunch=hw_hunch)
       
       hw_evidence = hw_evidence_form.save(commit=False)
       hw_evidence.hunch_id = hw_hunch.pk

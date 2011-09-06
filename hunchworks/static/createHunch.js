@@ -30,7 +30,7 @@ function init()
 			{ prePopulate: prePopArray, preventDuplicates: true });
 	});
 	
-	$('#tags').tokenInput('/hunchworks/tags', 
+	$('#id_tags_required').tokenInput('/hunchworks/tags', 
 		{ theme: 'facebook', preventDuplicates: true });
 		
 	$('#inviteUsers').tokenInput( collaborators_url,
