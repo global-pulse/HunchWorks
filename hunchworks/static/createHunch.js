@@ -33,7 +33,7 @@ function init()
 	$('#id_tags_required').tokenInput('/hunchworks/tags', 
 		{ theme: 'facebook', preventDuplicates: true });
 		
-	$('#inviteUsers').tokenInput( collaborators_url,
+	$('#id_hunch_collaborators').tokenInput( collaborators_url,
 		{ preventDuplicates: true });
 	
 	$('#add_tag_button').click( function()

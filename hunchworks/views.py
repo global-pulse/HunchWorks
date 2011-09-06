@@ -33,8 +33,136 @@ from django.contrib.auth import authenticate, login as login_, logout
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 
+@login_required
+def createHunch(request):
+  """Create a Hunch.  Assumes HwHunch.user = request.user! """
+  context = RequestContext(request)
+  if request.method == 'POST':
+
+    data = request.POST.copy()
+    data.update({'creator':request.user.pk, 'status':2})
+    hw_hunch_form = forms.HwHunchForm(data, instance=models.HwHunch())
+    hw_evidence_form = forms.HwEvidenceForm(data, instance=models.HwEvidence())
+
+    if hw_hunch_form.is_valid() and hw_evidence_form.is_valid():
+      hw_hunch = hw_hunch_form.save()
+      languages_required = request.POST['languages_required']
+      languages_required = languages_required.split(',')
+      for skill_id in languages_required:
+        skill_connection = models.HwSkillConnections.objects.create(
+          skill=models.HwSkill.objects.get(pk=skill_id),
+          hunch=hw_hunch,
+          level=1)
+      
+      skills_required = request.POST['skills_required']
+      skills_required = skills_required.split(',')
+      for skill_id in skills_required:
+        skill_connection = models.HwSkillConnections.objects.create(
+          skill=models.HwSkill.objects.get(pk=skill_id),
+          hunch=hw_hunch,
+          level=1)
+          
+      tags_required = request.POST['tags_required']
+      tags_required = tags_required.split(',')
+      for tag_id in tags_required:
+        tag_connection = models.HwTagConnections.objects.create(
+          tag=models.HwTag.objects.get(pk=tag_id),
+          hunch=hw_hunch)
+          
+      hunch_collaborators = request.POST['hunch_collaborators']
+      hunch_collaborators = hunch_collaborators.split(',')
+      hunch_collaborators.append( request.user.pk )
+      for user_id in hunch_collaborators:
+        hunch_connection = models.HwHunchConnections.objects.create(
+          user=models.HwUser.objects.get(pk=user_id),
+          hunch=hw_hunch,
+          status=0)
+      
+      hw_evidence = hw_evidence_form.save(commit=False)
+      hw_evidence.hunch_id = hw_hunch.pk
+      hw_evidence.save()
+      return HttpResponseRedirect('/hunchworks/profile')
+    else:
+      hunch_form = forms.HwHunchForm(request.POST)
+      evidence_form = forms.HwEvidenceForm(request.POST)
+  else:
+    hunch_form = forms.HwHunchForm()
+    evidence_form = forms.HwEvidenceForm()
+    
+  context.update({ 'hunch_form':hunch_form, 'evidence_form':evidence_form,
+    'user_id': request.user.pk })
+  return render_to_response('createHunch.html', context)
+
+
+@login_required
+def createGroup(request):
+  form = forms.CreateGroupForm()
+  context = RequestContext(request)
+  context['form'] = form;
+  return render_to_response('createGroup.html', context)
+
+
+@login_required
+def editHunch(request, hunch_id):
+  """Edit a Hunch."""
+  hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
+  if not hunch.is_editable_by(request.user):
+    raise PermissionDenied
+
+  context = RequestContext(request)
+  if request.method == 'POST':
+    data = request.POST.copy()
+    data.update({'creator':request.user.pk, 
+              'status':1,
+              'privacy':1,
+              'strength':1})
+    form = forms.HwHunchForm(data)
+
+    if form.is_valid():
+      form.save()
+      return HttpResponseRedirect('profile.html')
+    else:
+      form = forms.HwHunchForm(request.POST)
+  else:
+    form = forms.HwHunchForm(instance = hunch)
+  context.update({ 'form': form, 'hunch': hunch })
+  return render_to_response('editHunch.html', context)
+
+
+@login_required
+def home(request):
+  user_id = request.user.pk
+  recent_hunches = models.HwHunch.objects.filter(privacy=PrivacyLevel.OPEN).order_by("-time_modified")[:5]
+  context = RequestContext(request)
+  context.update({'recent_hunches': recent_hunches })
+  return render_to_response('home.html', context)
+
+
 def index(request):
   return render_to_response('index.html')
+
+
+@login_required
+def invitePeople(request):
+  if request.method == 'POST': # If the form has been submitted...
+    form = forms.InvitePeople(request.POST)
+    if form.is_valid(): # All validation rules pass
+      form.save()
+    else:
+      return HttpResponseRedirect('profile.html') # Redirect after POST
+  return render_to_response('profile.html', RequestContext(request))
+
+
+def importFacebook(request):
+  return render_to_response('importFacebook.html')
+
+
+def importLinkedIn(request):
+  return render_to_response('importLinkedIn.html', RequestContext(request))
+
+
+def importTeamWorks(request):
+  return render_to_response('importTeamWorks.html', RequestContext(request))
 
 
 def login(request):
@@ -68,9 +196,22 @@ def login(request):
   context.update({ 'form': form })
   return render_to_response('login.html', context)
 
+
 def logout_view(request):
   logout(request)
   return render_to_response('index.html')
+
+
+@login_required
+def profile(request, user_id=None):
+  if not user_id:
+    user_id = request.user.pk
+  user = get_object_or_404(models.User, pk=user_id)
+  invite_form = forms.InvitePeople()
+  context = RequestContext(request)
+  context.update({ "user": user, "invite_form": invite_form })
+  return render_to_response('profile.html', context)
+
 
 @transaction.commit_on_success
 def signup(request):
@@ -133,115 +274,6 @@ def signup(request):
   return render_to_response("signup.html", context)
 
 
-@login_required
-def home(request):
-  user_id = request.user.pk
-  recent_hunches = models.HwHunch.objects.filter(privacy=PrivacyLevel.OPEN).order_by("-time_modified")[:5]
-  context = RequestContext(request)
-  context.update({'recent_hunches': recent_hunches })
-  return render_to_response('home.html', context)
-
-
-@login_required
-def profile(request, user_id=None):
-  if not user_id:
-    user_id = request.user.pk
-  user = get_object_or_404(models.User, pk=user_id)
-  invite_form = forms.InvitePeople()
-  context = RequestContext(request)
-  context.update({ "user": user, "invite_form": invite_form })
-  return render_to_response('profile.html', context)
-
-
-@login_required
-def invitePeople(request):
-  if request.method == 'POST': # If the form has been submitted...
-    form = forms.InvitePeople(request.POST)
-    if form.is_valid(): # All validation rules pass
-      form.save()
-    else:
-      return HttpResponseRedirect('profile.html') # Redirect after POST
-  return render_to_response('profile.html', RequestContext(request))
-
-
-@login_required
-def createHunch(request):
-  """Create a Hunch.  Assumes HwHunch.user = request.user! """
-  context = RequestContext(request)
-  if request.method == 'POST':
-
-    data = request.POST.copy()
-    data.update({'creator':request.user.pk, 'status':2})
-    hw_hunch_form = forms.HwHunchForm(data, instance=models.HwHunch())
-    hw_evidence_form = forms.HwEvidenceForm(data, instance=models.HwEvidence())
-
-    if hw_hunch_form.is_valid() and hw_evidence_form.is_valid():
-      hw_hunch = hw_hunch_form.save()
-      languages_required = request.POST['languages_required']
-      languages_required = languages_required.split(',')
-      for skill_id in languages_required:
-        skill_connection = models.HwSkillConnections.objects.create(
-          skill=models.HwSkill.objects.get(pk=skill_id),
-          hunch=hw_hunch,
-          level=1)
-      
-      skills_required = request.POST['skills_required']
-      skills_required = skills_required.split(',')
-      for skill_id in skills_required:
-        skill_connection = models.HwSkillConnections.objects.create(
-          skill=models.HwSkill.objects.get(pk=skill_id),
-          hunch=hw_hunch,
-          level=1)
-          
-      tags_required = request.POST['tags_required']
-      print tags_required
-      tags_required = tags_required.split(',')
-      for tag_id in tags_required:
-        tag_connection = models.HwTagConnections.objects.create(
-          tag=models.HwTag.objects.get(pk=tag_id),
-          hunch=hw_hunch)
-      
-      hw_evidence = hw_evidence_form.save(commit=False)
-      hw_evidence.hunch_id = hw_hunch.pk
-      hw_evidence.save()
-      return HttpResponseRedirect('/hunchworks/profile')
-    else:
-      hunch_form = forms.HwHunchForm(request.POST)
-      evidence_form = forms.HwEvidenceForm(request.POST)
-  else:
-    hunch_form = forms.HwHunchForm()
-    evidence_form = forms.HwEvidenceForm()
-    
-  context.update({ 'hunch_form':hunch_form, 'evidence_form':evidence_form,
-    'user_id': request.user.pk })
-  return render_to_response('createHunch.html', context)
-
-@login_required
-def editHunch(request, hunch_id):
-  """Edit a Hunch."""
-  hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
-  if not hunch.is_editable_by(request.user):
-    raise PermissionDenied
-
-  context = RequestContext(request)
-  if request.method == 'POST':
-    data = request.POST.copy()
-    data.update({'creator':request.user.pk, 
-              'status':1,
-              'privacy':1,
-              'strength':1})
-    form = forms.HwHunchForm(data)
-
-    if form.is_valid():
-      form.save()
-      return HttpResponseRedirect('profile.html')
-    else:
-      form = forms.HwHunchForm(request.POST)
-  else:
-    form = forms.HwHunchForm(instance = hunch)
-  context.update({ 'form': form, 'hunch': hunch })
-  return render_to_response('editHunch.html', context)
-
 def showHunch(request, hunch_id):
   """Show a Hunch."""
   hunch = get_object_or_404(models.HwHunch, pk=hunch_id)
@@ -251,30 +283,6 @@ def showHunch(request, hunch_id):
 
   context = RequestContext(request)
   context.update({ "hunch": hunch })
-  return render_to_response('showHunch.html', context) 
-
-@login_required
-def createGroup(request):
-  form = forms.CreateGroupForm()
-  context = RequestContext(request)
-  context['form'] = form;
-  return render_to_response('createGroup.html', context)
-
-
-@login_required
-def HunchEvidence(request):
-  return render_to_response('addEvidence.html')
-
-
-def importFacebook(request):
-  return render_to_response('importFacebook.html')
-
-
-def importLinkedIn(request):
-  return render_to_response('importLinkedIn.html', RequestContext(request))
-
-
-def importTeamWorks(request):
-  return render_to_response('importTeamWorks.html', RequestContext(request))
+  return render_to_response('showHunch.html', context)
   
 

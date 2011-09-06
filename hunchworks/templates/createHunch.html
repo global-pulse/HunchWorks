@@ -25,28 +25,28 @@
 		<b>Description:</b><em>(required)</em>
 		{{ hunch_form.hunch_description.errors }}
 		<div class="inputText">
-		  {{hunch_form.hunch_description}}
+		  {{ hunch_form.hunch_description }}
 		</div>
 		<b>Tags:</b><em>(optional but recommended)</em>
 		{{ hunch_form.tags_required.errors }}
 		<div class="inputText">
-		  {{hunch_form.tags_required}}
+		  {{ hunch_form.tags_required }}
 		  <!--<button id='add_tag_button' type='button'>Add Tag into list</button>-->
 		</div>
 		<b>Privacy Level:</b>
 		{{ hunch_form.privacy.errors }}
 		<div class="inputText">
-		  {{hunch_form.privacy}}
+		  {{ hunch_form.privacy }}
 		</div>
 		<b>Location:</b>
 		{{ hunch_form.location.errors }}
 		<div class="inputText">
-		  {{hunch_form.location}}
+		  {{ hunch_form.location }}
 		</div>
 		<b>Language:</b>
 		{{ hunch_form.language.errors }}
 		<div class="inputText">
-		  {{hunch_form.language}}
+		  {{ hunch_form.language }}
 		</div>
 		<div class='inputText'>
 		  <b>Location:</b>
@@ -73,11 +73,12 @@
 		<b>Evidence text:</b>
 		{{ evidence_form.evidence_description.errors }}
 		<div class="inputText">
-		  {{evidence_form.evidence_description}}
+		  {{ evidence_form.evidence_description }}
 		</div>
 		<div>
+		{{ hunch_form.hunch_collaborators.errors }}
 		  <b>Invite Users:</b><em>(optional)</em>
-		  <input id='inviteUsers' type='text'>
+		  {{ hunch_form.hunch_collaborators }}
 		</div>
 	  <input type="submit" value="Submit" />
 	</div> <!-- end column1 div -->
