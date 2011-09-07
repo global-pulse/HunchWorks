@@ -1,0 +1,5 @@
+div.clear-hack {
+  clear: both;
+	overflow: hidden;
+	height: 0;
+}

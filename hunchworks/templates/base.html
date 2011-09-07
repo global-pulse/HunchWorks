@@ -1,41 +1,48 @@
+{% load static %}
+
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{% block title %}{% endblock %}</title>
-    <!--<link rel="stylesheet" href="/static/main.css" type="text/css" />-->
+
+    <link rel="stylesheet" href="{% get_static_prefix %}css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="{% get_static_prefix %}css/base.css" type="text/css" />
+    <link rel="stylesheet" href="{% get_static_prefix %}css/utils.css" type="text/css" />
+
 	{% block css %}{% endblock %}
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
     <script src="/static/main.js"></script>
 	{% block js %}{% endblock %}
   </head>
   <body>
-    <div id='page'>
-      
-      <div id='header'>
-        <div id='contents'>
-          {% if user.is_authenticated %}
-          	<a href='/hunchworks/home'>Home</a>
-          	<a href='/hunchworks/profile'>Profile</a>
-          	<a href='/hunchworks/myhunches'>Hunches</a>
-          	<a href='/hunchworks/messages'>Messages</a>
-          	<a href='/hunchworks/groups'>Groups</a>
-	  	  	<a href='/hunchworks/logout'>Logout</a>
-	  	  {% else %}
-			<a href='/hunchworks/signup'>Signup</a>
-			<a href='/hunchworks/login'>Login</a>
-	 	  {% endif %}
-        </div> 
-      </div>
-      
-      {% block content %}{% endblock %}
-      
-      <!--uncomment this when footer created
-      <div id='footer'>
-      </div> <!-- end Footer -->
+		<div id="wrapper">
 
-      <!--{% block footer %}{% endblock %}-->
-    </div> <!-- end page -->
-  </body>
+			<div id="header">
+				<h1>HunchWorks</h1>
+
+				<ul id="nav">
+					{% if user.is_authenticated %}
+					<li><a href='/hunchworks/home'>Home</a></li>
+					<li><a href='/hunchworks/profile'>Profile</a></li>
+					<li><a href='/hunchworks/myhunches'>Hunches</a></li>
+					<li><a href='/hunchworks/messages'>Messages</a></li>
+					<li><a href='/hunchworks/groups'>Groups</a></li>
+					<li><a href='/hunchworks/logout'>Logout</a></li>
+					{% else %}
+					<li><a href='/hunchworks/signup'>Signup</a></li>
+					<li><a href='/hunchworks/login'>Login</a></li>
+					{% endif %}
+				</ul>
+
+				<div class="clear-hack"></div>
+			</div>
+
+			<div id="page">
+				{% block content %}{% endblock %}
+				<div class="clear-hack"></div>
+			</div>
+		</div>
+	</body>
 </html>

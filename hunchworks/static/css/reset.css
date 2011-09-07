@@ -1,0 +1,25 @@
+html { }
+
+body {
+  font: 10pt "helvetica neue", "helvetica", arial, sans-serif;
+  line-height: 1;
+}
+
+html, body, div, p,
+h1, h2, h3, h4, h5, h6,
+ul, ol, li,
+blockquote,
+form, fieldset, legend, input, textarea,
+th, td { 
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  font-size: 100%;
+}
+
+fieldset, img {
+  border: 0;
+}
