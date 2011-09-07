@@ -1,48 +1,53 @@
+<!DOCTYPE html>
 {% load static %}
 
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
+    <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% get_static_prefix %}css/reset.css" type="text/css" />
-    <link rel="stylesheet" href="{% get_static_prefix %}css/base.css" type="text/css" />
-    <link rel="stylesheet" href="{% get_static_prefix %}css/utils.css" type="text/css" />
+    <link rel="stylesheet" href="{% get_static_prefix %}css/reset.css">
+    <link rel="stylesheet" href="{% get_static_prefix %}css/base.css">
+    <link rel="stylesheet" href="{% get_static_prefix %}css/utils.css">
+    {% block css %}{% endblock %}
 
-	{% block css %}{% endblock %}
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
     <script src="/static/main.js"></script>
-	{% block js %}{% endblock %}
+    {% block js %}{% endblock %}
   </head>
   <body>
-		<div id="wrapper">
+    <div id="wrapper">
 
-			<div id="header">
-				<h1>HunchWorks</h1>
+      <header>
+        <h1>HunchWorks</h1>
 
-				<ul id="nav">
-					{% if user.is_authenticated %}
-					<li><a href='/hunchworks/home'>Home</a></li>
-					<li><a href='/hunchworks/profile'>Profile</a></li>
-					<li><a href='/hunchworks/myhunches'>Hunches</a></li>
-					<li><a href='/hunchworks/messages'>Messages</a></li>
-					<li><a href='/hunchworks/groups'>Groups</a></li>
-					<li><a href='/hunchworks/logout'>Logout</a></li>
-					{% else %}
-					<li><a href='/hunchworks/signup'>Signup</a></li>
-					<li><a href='/hunchworks/login'>Login</a></li>
-					{% endif %}
-				</ul>
+        <nav>
+          <ul>
+            {% if user.is_authenticated %}
+            <li><a href='/hunchworks/home'>Home</a></li>
+            <li><a href='/hunchworks/profile'>Profile</a></li>
+            <li><a href='/hunchworks/myhunches'>Hunches</a></li>
+            <li><a href='/hunchworks/messages'>Messages</a></li>
+            <li><a href='/hunchworks/groups'>Groups</a></li>
+            <li><a href='/hunchworks/logout'>Logout</a></li>
+            {% else %}
+            <li><a href='/hunchworks/signup'>Signup</a></li>
+            <li><a href='/hunchworks/login'>Login</a></li>
+            {% endif %}
+          </ul>
+        </nav>
 
-				<div class="clear-hack"></div>
-			</div>
+        <div class="clear-hack"></div>
+      </header>
 
-			<div id="page">
-				{% block content %}{% endblock %}
-				<div class="clear-hack"></div>
-			</div>
-		</div>
-	</body>
+      <div id="page">
+        {% block content %}{% endblock %}
+        <div class="clear-hack"></div>
+      </div>
+    </div>
+  </body>
 </html>

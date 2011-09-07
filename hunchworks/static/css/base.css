@@ -1,7 +1,7 @@
 body {
-	padding: 1em;
-	background: #eee;
-	color: #333;
+  padding: 1em;
+  background: #eee;
+  color: #333;
 }
 
 a {
@@ -15,55 +15,55 @@ a:hover {
 
 #wrapper {
   max-width: 960px;
-	min-width: 650px;
+  min-width: 650px;
   margin: 0 auto;
 }
 
-	#header {
-		padding: 0 1em;
-	}
+  header {
+    padding: 0 1em;
+  }
 
-	  #header h1 {
-			float: left;
-		  font-size: 200%;
-		  font-weight: bold;
-			line-height: 2em;
-	  }
+    header h1 {
+      float: left;
+      font-size: 200%;
+      font-weight: bold;
+      line-height: 2em;
+    }
 
-	  #nav {
-			float: right;
-	  }
+    header nav {
+      float: right;
+    }
 
-			#nav li {
-				float: left;
-				list-style: none;
-			
-				line-height: 3;
-				margin-top: 1em;
+      header nav li {
+        float: left;
+        list-style: none;
 
-				padding: 0 1em;
-				margin-left: 1px;
+        line-height: 3;
+        margin-top: 1em;
 
-				background: #ccc;
-				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc');
-				background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
-				background: -moz-linear-gradient(top,  #eee,  #ccc);
+        padding: 0 1em;
+        margin-left: 1px;
 
-				border: 1px solid #ccc;
-				border-top-left-radius: 5px;
-				border-top-right-radius: 5px;
-				border-bottom: none;
-			}
-		
-				#nav li a {
-					text-decoration: none;
-					color: #666;
-				}
+        background: #ccc;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc');
+        background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+        background: -moz-linear-gradient(top,  #eee,  #ccc);
 
-	#page {
-	  -webkit-box-shadow: 0 0 10px #ccc;
-	  -moz-box-shadow: 0 0 10px #ccc;
-	  box-shadow: 0 0 10px #ccc;
-  	background: #fff;
-		padding: 1em;
-	}
+        border: 1px solid #ccc;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom: none;
+      }
+
+        header nav a {
+          text-decoration: none;
+          color: #666;
+        }
+
+  #page {
+    -webkit-box-shadow: 0 0 10px #ccc;
+    -moz-box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px #ccc;
+    background: #fff;
+    padding: 1em;
+  }
