@@ -174,7 +174,7 @@ class HwHunch(models.Model):
   location = models.ForeignKey(HwLocation, null=True, blank=True)
   hunch_description = models.TextField()
   skills = models.ManyToManyField('HwSkill', through='HwSkillConnections')
-  tags = models.ManyToManyField('HwTag', through='HwTagConnections', blank=True)
+  hunch_tags = models.ManyToManyField('HwTag', through='HwTagConnections', blank=True)
   invited_users = models.ManyToManyField(
     'HwInvitedUser', through='HwHunchConnections')
 
@@ -221,7 +221,7 @@ class HwEvidence(models.Model):
   albums = models.ManyToManyField('HwAlbum', through='HwEvidenceAlbums')
   attachments = models.ManyToManyField(
     'HwAttachment', through='HwEvidenceAttachments')
-  tags = models.ManyToManyField('HwTag', through='HwTagConnections')
+  evidence_tags = models.ManyToManyField('HwTag', through='HwTagConnections')
   class Meta:
     db_table = u'hw_evidence'
     
