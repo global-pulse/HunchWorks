@@ -124,8 +124,8 @@ def editHunch(request, hunch_id):
     else:
       form = forms.HwHunchForm(request.POST)
   else:
-    form = forms.HwHunchForm(instance = hunch)
-  context.update({ 'form': form, 'hunch': hunch })
+    hunch_form = forms.HwHunchForm(instance = hunch)
+  context.update({ 'hunch_id': hunch_id, 'hunch_form': hunch_form })
   return render_to_response('editHunch.html', context)
 
 

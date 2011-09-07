@@ -49,7 +49,7 @@ class HwUserForm(ModelForm):
 class HwHunchForm(ModelForm):
   skills_required = forms.CharField()
   languages_required = forms.CharField()
-  tags_required = forms.CharField()
+  tags = forms.CharField()
   hunch_collaborators = forms.CharField()
 
   class Meta:
