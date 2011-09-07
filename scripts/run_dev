@@ -1,6 +1,0 @@
-#! /bin/bash
-#
-# Simple Bash script to start the Hunchworks development server.
-# Server starts running on port http://localhost:8080.
-
-python manage.py runserver 8080
