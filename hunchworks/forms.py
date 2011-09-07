@@ -30,7 +30,7 @@ class HwHunchForm(ModelForm):
   class Meta:
     model = models.HwHunch
     exclude = (
-    'hunch_id', 'skills', 'groups', 'users', 'invited_users', 'tags',
+    'hunch_id', 'skills', 'groups', 'users', 'invited_users', 'hunch_tags',
     'time_created', 'time_modified', 'hunch_strength',
     )
     
@@ -40,7 +40,7 @@ class HwEvidenceForm(ModelForm):
     model = models.HwEvidence
     exclude = (
     'hunch_id', 'creator_id', 'evidence_strength', 'time_created',
-    'time_modified', 'attachments', 'albums', 'hunch', 'tags'
+    'time_modified', 'attachments', 'albums', 'hunch', 'evidence_tags'
     )
 
 class CreateGroupForm(ModelForm):

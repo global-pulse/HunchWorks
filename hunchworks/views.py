@@ -38,6 +38,7 @@ def createHunch(request):
 
     if hw_hunch_form.is_valid() and hw_evidence_form.is_valid():
       hw_hunch = hw_hunch_form.save()
+      
       languages_required = request.POST['languages_required']
       languages_required = languages_required.split(',')
       for skill_id in languages_required:
@@ -105,47 +106,75 @@ def editHunch(request, hunch_id):
   if request.method == 'POST':
     data = request.POST.copy()
     data.update({'creator':request.user.pk, 'status':2})
-    hw_hunch_form = forms.HwHunchForm(data)
+    hw_hunch_form = forms.HwHunchForm(data, instance = hunch)
 
     if hw_hunch_form.is_valid():
-      hw_hunch_form.save()
+      hw_hunch = hw_hunch_form.save()
+      
+      #create new language skills for this hunch
       languages_required = request.POST['languages_required']
       languages_required = languages_required.split(',')
       for skill_id in languages_required:
-        skill_connection = models.HwSkillConnections.objects.create(
+        skill_connection = models.HwSkillConnections.objects.get_or_create(
           skill=models.HwSkill.objects.get(pk=skill_id),
           hunch=hw_hunch,
           level=1)
-      
+
+	  #create new non language skills for this hunch
       skills_required = request.POST['skills_required']
       skills_required = skills_required.split(',')
       for skill_id in skills_required:
-        skill_connection = models.HwSkillConnections.objects.create(
+        skill_connection = models.HwSkillConnections.objects.get_or_create(
           skill=models.HwSkill.objects.get(pk=skill_id),
           hunch=hw_hunch,
           level=1)
-          
+
+      #remove unneeded language and skills from this hunch
+      skill_connections = models.HwSkillConnections.objects.filter(hunch=hw_hunch.pk)
+      skills = languages_required + skills_required
+      
+      for skill_connection in skill_connections:
+        if str(skill_connection.skill_id) not in skills:
+          models.HwSkillConnections.objects.get(pk=skill_connection.pk).delete()
+
+      #create new tags for this hunch
       tags = request.POST['tags']
       tags = tags.split(',')
       for tag_id in tags:
-        tag_connection = models.HwTagConnections.objects.create(
+        tag_connection = models.HwTagConnections.objects.get_or_create(
           tag=models.HwTag.objects.get(pk=tag_id),
           hunch=hw_hunch)
+        
+      #remove unneeded tags from this hunch
+      tag_connections = models.HwTagConnections.objects.filter(hunch=hw_hunch.pk)
+      
+      for tag_connection in tag_connections:
+        if str(tag_connection.tag_id) not in tags:
+          models.HwTagConnections.objects.get(pk=tag_connection.pk).delete()
           
+      #create new collaborators for this hunch
       hunch_collaborators = request.POST['hunch_collaborators']
       hunch_collaborators = hunch_collaborators.split(',')
       hunch_collaborators.append( request.user.pk )
       for user_id in hunch_collaborators:
-        hunch_connection = models.HwHunchConnections.objects.create(
+        hunch_connection = models.HwHunchConnections.objects.get_or_create(
           user=models.HwUser.objects.get(pk=user_id),
           hunch=hw_hunch,
           status=0)
-          
-      return HttpResponseRedirect('profile.html')
+
+      #remove unneeded collaborators from this hunch
+      hunch_connections = models.HwHunchConnections.objects.filter(hunch=hw_hunch.pk)
+      
+      for hunch_connection in hunch_connections:
+        if str(hunch_connection.user_id) not in hunch_collaborators:
+          models.HwHunchConnections.objects.get(pk=hunch_connection.pk).delete()
+
+      return HttpResponseRedirect('/hunchworks/profile')
     else:
-      form = forms.HwHunchForm(request.POST)
+      hunch_form = forms.HwHunchForm(request.POST)
   else:
     hunch_form = forms.HwHunchForm(instance = hunch)
+
   context.update({ 'hunch_id': hunch_id, 'user_id': request.user.pk,
     'hunch_form': hunch_form })
   return render_to_response('editHunch.html', context)
