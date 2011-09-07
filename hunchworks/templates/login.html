@@ -1,27 +1,22 @@
 {% extends "base.html" %} 
 
 {% block content %}
-  <div id='contents'>
-	<form method='post' action='login'>
-	  {{ form.non_field_errors }}
-	  {% csrf_token %}
-	  <div class='inputWrapper'>
-		Username:
-		{{ form.username.errors }}
-		<div class='inputText'>
-		  {{ form.username }}
-		</div>
-	  </div>
-	  <div class='inputWrapper'>
-		Password:
-		{{ form.password.errors }}
-		<div class='inputText'>
-		  {{ form.password }}
-		</div>
-	  </div>
-	  <div>
-		<input type='submit' value='Sign In'/>
-	  </div>
-	</form>
-  </div> <!-- end contents div -->
+  <div id="contents">
+    <form action="{% url login %}" method="post">
+      {{ form.non_field_errors }}
+      {% csrf_token %}
+
+      {% for field in form %}
+        <div class="field text">
+          {{ field.label_tag }}
+          {{ field.errors }}
+          {{ field }}
+        </div>
+      {% endfor %}
+
+      <div class="actions">
+        <input type="submit" value="Sign In"/>
+      </div>
+    </form>
+  </div>
 {% endblock %}

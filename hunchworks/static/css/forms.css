@@ -1,0 +1,53 @@
+form { }
+
+  form ul.errorlist {
+    border: 2px solid #e05b52;
+    border-radius: 5px;
+    background: #fee;
+    margin-bottom: 1em;
+  }
+
+    form ul.errorlist li {
+      list-style: none;
+      padding: 1em;
+    }
+
+  form div.field,
+  form div.actions {
+    margin-bottom: 1em;
+    float: left;
+    clear: left;
+  }
+
+  form div.field { }
+
+    label {
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: bold;
+    }
+
+    form div.field ul.errorlist {
+      margin-bottom: 0.5em;
+      width: auto;
+    }
+
+    input {
+      font: inherit;
+      border: 2px solid #999;
+      background: #fff;
+      padding: 0.5em;
+      color: #666;
+    }
+
+    input[type=submit],
+    input[type=button] {
+      border-radius: 5px;
+      font-weight: bold;
+      background: #999;
+      color: #fff;
+    }
+
+  form div.actions {
+    margin-bottom: 0;
+  }

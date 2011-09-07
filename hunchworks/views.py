@@ -19,7 +19,9 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core import exceptions
 
+from django.contrib.auth import forms as auth_forms
 from django.contrib.auth import authenticate, login as login_, logout
+
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 
@@ -186,35 +188,29 @@ def importTeamWorks(request):
 
 
 def login(request):
-  context = RequestContext(request)
-  
-  if request.method == 'POST':
-    form = forms.LoginForm(request.POST)
-    print form.errors
-    if form.is_valid():
-      try:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-          if user.is_active:
-            login_(request, user)
-            return HttpResponseRedirect(
-              reverse(home ))
-          else:
-            # Disabled account error #todo
-            return HttpResponseForbidden()
-        else:
-          # Invalid login #todo
-          return HttpResponseForbidden()
+  if request.method == "POST":
 
-      except exceptions.ObjectDoesNotExist:
-        pass
-        #TODO( Chris-8-16-2011) Find something to do with thrown exception
-  form = forms.LoginForm() # An unbound form
-  context = RequestContext(request)
-  context.update({ 'form': form })
-  return render_to_response('login.html', context)
+    # We must use a named arg here, since AuthenticationForm expects the
+    # first arg to be an HttpRequest (to check if cookies are enabled).
+    form = auth_forms.AuthenticationForm(
+      data=request.POST)
+
+    if form.is_valid():
+      user = authenticate(
+        username=request.POST['username'],
+        password=request.POST['password'])
+
+      if user is not None and user.is_active:
+          login_(request, user)
+          return HttpResponseRedirect(
+            reverse(home))
+
+  else:
+    form = auth_forms.AuthenticationForm()
+
+  return render_to_response("login.html", {
+    "form": form
+  }, context_instance=RequestContext(request))
 
 
 def logout_view(request):
