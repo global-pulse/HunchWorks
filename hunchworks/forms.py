@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/env python
 # Forms used in the project
 # Author: Auto created by Texas
 # Date: 2011-06-20

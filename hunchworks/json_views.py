@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/env python
 # Base views files for the HunchWorks application.
 # Author: Auto created by DJANGO
 # Date: 2011-06-1
