@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/env python
 # Helper functions for working with the LinkedIn API.
 # Author: Auto created by DJANGO
 # Date: 2011-6-1
