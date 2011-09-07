@@ -11,7 +11,7 @@
 {% endblock %}
 {% block content %}
   <div id='header'>
-	<h3 id='user_id' user='{{user_id}}'>Create a new hunch</h3>
+	<h3 id='userId' user='{{user_id}}'>Create a new hunch</h3>
   </div>
   <div id='contents'>
   	<form action="{{action}}" method="post">{% csrf_token %}
@@ -28,9 +28,9 @@
 		  {{ hunch_form.hunch_description }}
 		</div>
 		<b>Tags:</b><em>(optional but recommended)</em>
-		{{ hunch_form.tags_required.errors }}
+		{{ hunch_form.tags.errors }}
 		<div class="inputText">
-		  {{ hunch_form.tags_required }}
+		  {{ hunch_form.tags }}
 		  <!--<button id='add_tag_button' type='button'>Add Tag into list</button>-->
 		</div>
 		<b>Privacy Level:</b>

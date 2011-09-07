@@ -32,21 +32,22 @@ urlpatterns = patterns(
   url(r'^hunches/create', 'createHunch',),
   url(r'^hunches/(?P<hunch_id>\d+)$', 'showHunch', name="showHunch"),
   url(r'^hunches/edit/(?P<hunch_id>\d+)$', 'editHunch', name="editHunch"),
-  url(r'^addEvidence', 'HunchEvidence', 'hunchEvidence'),
+  #url(r'^addEvidence', 'HunchEvidence', 'hunchEvidence'),
   (r'^invitePeople', 'invitePeople'),
   
 )
 
 urlpatterns += patterns(
   'hunchworks.json_views',
-  (r'^user/(?P<user_id>\d+)/skills/notLanguages$', 'user_skills'),
+  (r'^user/(?P<user_id>\d+)/collaborators$', 'user_collaborators'),
   (r'^user/(?P<user_id>\d+)/skills/languages$', 'user_languages'),
-  (r'^user/(?P<user_id>\d+)/collaborators', 'user_collaborators'),
-  (r'^hunch/(?P<hunch_id>\d+)/skills/notLanguages$', 'hunch_skills'),
+  (r'^user/(?P<user_id>\d+)/skills/notLanguages$', 'user_skills'),
+  (r'^hunch/(?P<hunch_id>\d+)/collaborators$', 'hunch_collaborators'),
   (r'^hunch/(?P<hunch_id>\d+)/skills/languages$', 'hunch_languages'),
+  (r'^hunch/(?P<hunch_id>\d+)/skills/notLanguages$', 'hunch_skills'),
   (r'^hunch/(?P<hunch_id>\d+)/tags$', 'hunch_tags'),
-  (r'^skills/notLanguages', 'skills'),
   (r'^skills/languages', 'languages'),
+  (r'^skills/notLanguages', 'skills'),
   (r'^tags', 'tags'),
 
 )
