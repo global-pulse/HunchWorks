@@ -28,7 +28,7 @@
       First Name: 
       {{ auth_user_form.first_name.errors }}
       <div class='inputText'>
-      {{ auth_user_form.first_name }}
+        {{ auth_user_form.first_name }}
       </div>
     </div>
 
@@ -36,7 +36,7 @@
       Last Name:
       {{ auth_user_form.last_name.errors }}
       <div class='inputText'>
-      {{ auth_user_form.last_name }}
+        {{ auth_user_form.last_name }}
       </div>
     </div>
 
@@ -44,7 +44,7 @@
       Email:
       {{ auth_user_form.email.errors }}
       <div class='inputText'>
-      {{ auth_user_form.email }}
+        {{ auth_user_form.email }}
       </div>
     </div>
 
@@ -52,7 +52,7 @@
       Privacy setting:
       {{ hw_user_form.privacy.errors }}
       <div class='inputText'>
-      {{ hw_user_form.privacy }}
+        {{ hw_user_form.privacy }}
       </div>
     </div>
 
@@ -60,7 +60,7 @@
       Default Language:
       {{ hw_user_form.default_language.errors }}
       <div class='inputText'>
-      {{ hw_user_form.default_language }}
+        {{ hw_user_form.default_language }}
       </div>
     </div>
 
@@ -68,7 +68,7 @@
       Username:
       {{ auth_user_form.username.errors }}
       <div class='inputText'>
-      {{ auth_user_form.username }}
+        {{ auth_user_form.username }}
       </div>
     </div>
 
@@ -76,7 +76,7 @@
       Password:
       {{ auth_user_form.password.errors }}
       <div class='inputText'>
-      {{ auth_user_form.password }}
+        {{ auth_user_form.password }}
       </div>
     </div>
 
@@ -84,25 +84,24 @@
       Instant Messenger:
       {{ hw_user_form.screen_name.errors }}
       <div class='inputText'>
-      {{ hw_user_form.screen_name }}
+        {{ hw_user_form.screen_name }}
       </div>
       {{ hw_user_form.messenger_service.errors }}
       <div class='inputText'>
-      {{ hw_user_form.messenger_service }}
+        {{ hw_user_form.messenger_service }}
       </div>
     </div>
 
     <div class='inputWrapper'>
       Skills:
-      {{ hw_user_form.skill_name.errors }}
+      {{ hw_user_form.skills.errors }}
       <div class='inputText'>
-      {{ hw_user_form.skill_name }}
+        {{ hw_user_form.skills }}
       </div>
+      Languages:
+      {{ hw_user_form.languages.errors }}
       <div class='inputText'>
-        <input id='userSkills' type='text'>
-      </div>
-      <div class='inputText'>
-        <input id='userLanguages' type='text'>
+        {{ hw_user_form.languages }}
       </div>
     </div>
 

@@ -1,10 +1,10 @@
 function init()
 {
-	$("#userSkills").tokenInput("/hunchworks/skills/notLanguages", 
+	$("#id_skills").tokenInput("/hunchworks/skills/notLanguages", 
 			{ preventDuplicates: true });
 	
 	//code for diplsaying data in the required languages tab
-	$("#userLanguages").tokenInput("/hunchworks/skills/languages", 
+	$("#id_languages").tokenInput("/hunchworks/skills/languages", 
 			{ preventDuplicates: true });
 }
 

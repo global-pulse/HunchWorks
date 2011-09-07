@@ -62,9 +62,9 @@ def createHunch(request):
           hunch=hw_hunch,
           level=1)
           
-      tags_required = request.POST['tags_required']
-      tags_required = tags_required.split(',')
-      for tag_id in tags_required:
+      tags = request.POST['tags']
+      tags = tags.split(',')
+      for tag_id in tags:
         tag_connection = models.HwTagConnections.objects.create(
           tag=models.HwTag.objects.get(pk=tag_id),
           hunch=hw_hunch)
@@ -112,20 +112,50 @@ def editHunch(request, hunch_id):
   context = RequestContext(request)
   if request.method == 'POST':
     data = request.POST.copy()
-    data.update({'creator':request.user.pk, 
-              'status':1,
-              'privacy':1,
-              'strength':1})
-    form = forms.HwHunchForm(data)
+    data.update({'creator':request.user.pk, 'status':2})
+    hw_hunch_form = forms.HwHunchForm(data)
 
-    if form.is_valid():
-      form.save()
+    if hw_hunch_form.is_valid():
+      hw_hunch_form.save()
+      languages_required = request.POST['languages_required']
+      languages_required = languages_required.split(',')
+      for skill_id in languages_required:
+        skill_connection = models.HwSkillConnections.objects.create(
+          skill=models.HwSkill.objects.get(pk=skill_id),
+          hunch=hw_hunch,
+          level=1)
+      
+      skills_required = request.POST['skills_required']
+      skills_required = skills_required.split(',')
+      for skill_id in skills_required:
+        skill_connection = models.HwSkillConnections.objects.create(
+          skill=models.HwSkill.objects.get(pk=skill_id),
+          hunch=hw_hunch,
+          level=1)
+          
+      tags = request.POST['tags']
+      tags = tags.split(',')
+      for tag_id in tags:
+        tag_connection = models.HwTagConnections.objects.create(
+          tag=models.HwTag.objects.get(pk=tag_id),
+          hunch=hw_hunch)
+          
+      hunch_collaborators = request.POST['hunch_collaborators']
+      hunch_collaborators = hunch_collaborators.split(',')
+      hunch_collaborators.append( request.user.pk )
+      for user_id in hunch_collaborators:
+        hunch_connection = models.HwHunchConnections.objects.create(
+          user=models.HwUser.objects.get(pk=user_id),
+          hunch=hw_hunch,
+          status=0)
+          
       return HttpResponseRedirect('profile.html')
     else:
       form = forms.HwHunchForm(request.POST)
   else:
     hunch_form = forms.HwHunchForm(instance = hunch)
-  context.update({ 'hunch_id': hunch_id, 'hunch_form': hunch_form })
+  context.update({ 'hunch_id': hunch_id, 'user_id': request.user.pk,
+    'hunch_form': hunch_form })
   return render_to_response('editHunch.html', context)
 
 
@@ -238,15 +268,20 @@ def signup(request):
       #if not hw_user.save():
       #  raise DatabaseError
 
-      for skill_name in request.POST.getlist("skill_name"):
-        skill, created = models.HwSkill.objects.get_or_create(
-          skill_name=skill_name,
-          is_technical=0,
-          is_language=0)
-
+      languages = request.POST['languages']
+      languages = languages.split(',')
+      for skill_id in languages:
         skill_connection = models.HwSkillConnections.objects.create(
-          skill=skill,
-          user=user.get_profile(),
+          skill=models.HwSkill.objects.get(pk=skill_id),
+          user=models.HwUser.objects.get(pk=user.pk),
+          level=1)
+      
+      skills = request.POST['skills']
+      skills = skills.split(',')
+      for skill_id in skills:
+        skill_connection = models.HwSkillConnections.objects.create(
+          skill=models.HwSkill.objects.get(pk=skill_id),
+          user=models.HwUser.objects.get(pk=user.pk),
           level=1)
 
       try:

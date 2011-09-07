@@ -35,7 +35,8 @@ class AuthUserForm(ModelForm):
       }
 
 class HwUserForm(ModelForm):
-  skill_name = forms.CharField( max_length=100 )
+  skills = forms.CharField( max_length=100 )
+  languages = forms.CharField( max_length=100 )
 
   class Meta:
     model = models.HwUser

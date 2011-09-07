@@ -1,13 +1,15 @@
 function init()
 {
-	var hunch_id = document.getElementById('hunchId').getAttribute('hunch');
-	var skill_url = '/hunchworks/hunch/' + hunch_id + "/skills/notLanguages";
-	var language_url = '/hunchworks/hunch/' + hunch_id + "/skills/languages";
-	var collaborators_url = '/hunchworks/hunch/' + hunch_id + '/collaborators';
-	var tag_url = '/hunchworks/hunch/' + hunch_id + '/tags';
+	var hunchId = document.getElementById('hunchId').getAttribute('hunch');
+	var userId = document.getElementById('hunchId').getAttribute('user');
+	var skillUrl = '/hunchworks/hunch/' + hunchId + "/skills/notLanguages";
+	var languageUrl = '/hunchworks/hunch/' + hunchId + "/skills/languages";
+	var hunchCollaborators = '/hunchworks/hunch/' + hunchId + '/collaborators';
+	var userCollaborators = '/hunchworks/user/' + userId + '/collaborators';
+	var tag_url = '/hunchworks/hunch/' + hunchId + '/tags';
 	
 	//code for displaying data in related skills tab
-	var userSkills = $.getJSON(skill_url, function(data)
+	var userSkills = $.getJSON(skillUrl, function(data)
 	{
 		prePopArray = new Array();
 		for(var skill = 0; skill < data.length; skill++)
@@ -19,7 +21,7 @@ function init()
 	});
 	
 	//code for diplsaying data in the required languages tab
-	var userLanguages = $.getJSON(language_url, function(data)
+	var userLanguages = $.getJSON(languageUrl, function(data)
 	{
 		prePopArray = new Array();
 		for(var language = 0; language < data.length; language++)
@@ -44,7 +46,7 @@ function init()
 	
 
 	//code for diplsaying users assigned to the hunch
-	var collaborators = $.getJSON(collaborators_url, function(data)
+	var collaborators = $.getJSON(hunchCollaborators, function(data)
 	{
 		prePopArray = new Array();
 		for(var collaborators = 0; collaborators < data.length; collaborators++)
@@ -52,7 +54,7 @@ function init()
 			prePopArray[collaborators] = 
 				{ id: data[collaborators].id, name: data[collaborators].name }
 		}
-		$('#id_hunch_collaborators').tokenInput( collaborators_url,
+		$('#id_hunch_collaborators').tokenInput( userCollaborators,
 			{ prePopulate: prePopArray, preventDuplicates: true });
 	});
 
