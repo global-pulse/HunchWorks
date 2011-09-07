@@ -9,19 +9,19 @@
 	  Welcome {{ user.first_name }} to HunchWorks!
 	  <div id='profile'>
 		<h3>Your Profile:</h3>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>First Name:</b> 
 		  {{ user.first_name }}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Last Name:</b> 
 		  {{ user.last_name }}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Email:</b> 
 		  {{ user.email }}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Occupation:</b> 
 		  {% if occupation %}
 			{{ user.occupation }}
@@ -29,7 +29,7 @@
 			Occupation not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>  
+		<div class='field'>  
 		  <b>Hometown:</b> 
 		  {% if hometown %}
 			{{ user.hometown }}
@@ -37,7 +37,7 @@
 			Hometown not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Education:</b>
 		  {% if education %}
 			{{ user.education }}
@@ -45,7 +45,7 @@
 			Education not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Phone Number:</b>
 		  {% if phone_number %}
 			{{ user.phone_number }}
@@ -53,7 +53,7 @@
 			Phone Number not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Organization:</b>
 		  {% if organization %}
 			{{ user.organization }}
@@ -61,7 +61,7 @@
 			Organization not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>About Yourself:</b>
 		  {% if bio_text %}
 			{{ user.bio_text }}
@@ -69,7 +69,7 @@
 			Biography not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Work History:</b>
 		  {% if work_history %}
 			{{ user.work_history }}
@@ -77,7 +77,7 @@
 			Work history not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Skype:</b>
 		  {% if skype_name %}
 			{{ user.skype_name }}
@@ -85,7 +85,7 @@
 			Skype name not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Instant Messanger:</b>
 		  {% if instant_messanger %}
 			{{ user.instant_messanger }}
@@ -93,7 +93,7 @@
 			Instant Messanger not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Website:</b>
 		  {% if website %}
 			{{ user.website }}
@@ -101,7 +101,7 @@
 			Website not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Expertise:</b>
 		  {% if expertise %}
 			{{ user.expertise }}
@@ -109,7 +109,7 @@
 			Expertise not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Skills:</b>
 		  {% if skills %}
 			{{ user.skills }}
@@ -117,7 +117,7 @@
 			Skills not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Languages:</b>
 		  {% if languages_known %}
 			{{ user.languages_known }}
@@ -125,7 +125,7 @@
 			Languages known not entered
 		  {% endif %}
 		</div>
-		<div class='inputWrapper'>
+		<div class='field'>
 		  <b>Location interests:</b>
 		  {% if location_interests %}
 			{{ user.location_interests }}

@@ -9,7 +9,7 @@
         float: right;
         clear: both;
         }
-      .inputWrapper {
+      .field {
         width:300px;
         clear: both;
       }
@@ -17,10 +17,10 @@
   </head>
   <body>
     <form method='post' action=''>{% csrf_token %}
-      <div class='inputWrapper'>
+      <div class='field'>
         Username:<input class='inputText' id='username' type='text' name='username'/>
       </div>
-      <div class='inputWrapper'>
+      <div class='field'>
         Password:<input class='inputText' id='password' type='password' name='password'/>
       </div>
       <div id="submit">
