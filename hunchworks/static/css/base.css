@@ -80,10 +80,26 @@ a {
       }
 
     #page div.links {
-      margin-top: 1em;
+      font-size: 80%;
+      margin-top: 1.25em;
+      padding: 0.625em;
+
+      background: #eee;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
+      background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
+      background: -moz-linear-gradient(top,  #eee,  #fff);
     }
 
-      #page div.links li {
-        display: inline-block;
-        margin-right: 1em;
+      #page div.links ul {
+        float: right;
       }
+
+        #page div.links li {
+          display: inline-block;
+          margin-left: 1.25em;
+        }
+
+          #page div.links ul a {
+            display: inline-block;
+            padding: 0.625em;
+          }

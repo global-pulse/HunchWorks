@@ -10,11 +10,12 @@
     </div>
   {% endfor %}
 
-  {% paginator groups %}
-
   <div class="links">
     <ul>
       <li><a href="{% url new_group %}">Add a Group</a></li>
     </ul>
+
+    {% paginator groups %}
+    <div class="clear-hack"></div>
   </div>
 {% endblock %}

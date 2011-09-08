@@ -1,13 +1,4 @@
-.paginator {
-  font-size: 80%;
-  margin: 1.25em 0;
-  padding: 0.625em;
-
-  background: #eee;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
-  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
-  background: -moz-linear-gradient(top,  #eee,  #fff);
-}
+.paginator { }
 
   .paginator a,
   .paginator span {
