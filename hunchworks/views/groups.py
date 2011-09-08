@@ -2,13 +2,12 @@
 # encoding: utf-8
 
 from hunchworks import forms, models
+from hunchworks.utils.pagination import paginated
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-
-PER_PAGE = 20
 
 
 def _render(req, template, more_context):
@@ -20,17 +19,7 @@ def _render(req, template, more_context):
 @login_required
 def index(req):
   all_groups = models.HwGroup.objects.all()
-  paginator = Paginator(all_groups, PER_PAGE)
-
-  try:
-    page = int(req.GET.get("page", "1"))
-  except ValueError:
-    page = 1
-
-  try:
-    groups = paginator.page(page)
-  except (EmptyPage, InvalidPage):
-    groups = paginator.page(paginator.num_pages)
+  groups = paginated(req, all_groups, 4)
 
   return _render(req, "index", {
     "groups": groups
