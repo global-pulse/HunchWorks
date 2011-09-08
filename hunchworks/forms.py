@@ -8,6 +8,16 @@ from django.forms import ModelForm
 from django.forms.widgets import PasswordInput
 
 
+class AuthUserForm(ModelForm):
+  class Meta:
+    model= models.User
+    exclude = (
+    'groups', 'user_permissions',
+    )
+    widgets = {
+      'password': PasswordInput()
+      }
+
 class HwUserForm(ModelForm):
   skills = forms.CharField( max_length=100 )
   languages = forms.CharField( max_length=100 )
