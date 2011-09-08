@@ -1,41 +1,37 @@
 #!/usr/bin/env python
 
 from django.conf.urls.defaults import *
-
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
-
-  # Examples:
-  # url(r'^$', 'hunchWorks.views.home', name='home'),
-  # url(r'^hunchWorks/', include('hunchWorks.foo.urls')),
-
-  # Uncomment the admin/doc line below to enable admin documentation:
-  # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-  # Uncomment the next line to enable the admin:
-  # url(r'^admin/', include(admin.site.urls)),
+from views import auth, dashboard, groups, hunches, users
 
 urlpatterns = patterns(
   'hunchworks.views',
-  (r'^importTeamWorks', 'importTeamWorks'),
-  (r'^importLinkedIn', 'importLinkedIn'),
-  (r'^importFacebook', 'importFacebook'),
-  #url(r'^home/(?P<user_id>\d+)$', 'home', name='home'),
-  url(r'^home$', 'home', name='home'),
-  url(r'^profile/(?P<user_id>\d+)$', 'profile', name='profile'),
-  url(r'^profile$', 'profile', name='profile'),
-  url(r'^signup$', 'signup', name='signup'),
-  url(r'^login$', 'login', name='login'),
-  (r'^logout$', 'logout_view'),
-  (r'^createGroup', 'createGroup'),
-  url(r'^hunches/create', 'createHunch',),
-  url(r'^hunches/(?P<hunch_id>\d+)$', 'showHunch', name="showHunch"),
-  url(r'^hunches/edit/(?P<hunch_id>\d+)$', 'editHunch', name="editHunch"),
-  #url(r'^addEvidence', 'HunchEvidence', 'hunchEvidence'),
-  (r'^invitePeople', 'invitePeople'),
-  
+
+  # dashboard
+  url(r'^$', dashboard.index, name='index'),
+  url(r'^home$', dashboard.home, name='home'),
+
+  # auth
+  url(r'^signup$', auth.signup, name='signup'),
+  url(r'^login$', auth.login, name='login'),
+  url(r'^logout$', auth.logout_view),
+  url(r'^invitePeople', auth.invitePeople),
+  url(r'^importTeamWorks', auth.importTeamWorks),
+  url(r'^importLinkedIn', auth.importLinkedIn),
+  url(r'^importFacebook', auth.importFacebook),
+
+  # users
+  url(r'^profile/(?P<user_id>\d+)$', users.profile, name='profile'),
+  url(r'^profile$', users.profile, name='profile'),
+
+  #groups
+  (r'^createGroup', groups.createGroup),
+
+  # hunches
+  url(r'^hunches/(?P<hunch_id>\d+)$', hunches.showHunch, name="showHunch"),
+  url(r'^hunches/create', hunches.createHunch),
+  url(r'^hunches/edit/(?P<hunch_id>\d+)$', hunches.editHunch, name="editHunch"),
 )
+
 
 urlpatterns += patterns(
   'hunchworks.json_views',
@@ -49,11 +45,4 @@ urlpatterns += patterns(
   (r'^skills/languages', 'languages'),
   (r'^skills/notLanguages', 'skills'),
   (r'^tags', 'tags'),
-
 )
-
-urlpatterns += patterns(
-  'hunchworks.views',
-  url(r'^', 'index', name='index'),
-)
-
