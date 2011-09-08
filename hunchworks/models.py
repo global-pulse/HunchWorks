@@ -261,7 +261,7 @@ class HwGroupConnections(models.Model):
   user = models.ForeignKey(HwUser, related_name='%(class)s_user_id')
   group = models.ForeignKey(HwGroup)
   class Meta:
-    db_table = u'hw_human_connections'
+    db_table = u'hw_group_connections'
 
 class HwInvitedUser(models.Model):
   """Class representing a master list of all users ever invited to the system
