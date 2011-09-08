@@ -24,7 +24,10 @@ urlpatterns = patterns(
   url(r'^profile$', users.profile, name='profile'),
 
   #groups
-  (r'^createGroup', groups.createGroup),
+  url(r'^groups$',                        groups.index, name="groups"),
+  url(r'^groups/(?P<group_id>\d+)$',      groups.show,  name="group"),
+  url(r'^groups/(?P<group_id>\d+)/edit$', groups.edit,  name="edit_group"),
+  url(r'^groups/new',                     groups.new,   name="new_group"),
 
   # hunches
   url(r'^hunches/(?P<hunch_id>\d+)$', hunches.showHunch, name="showHunch"),

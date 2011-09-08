@@ -242,16 +242,26 @@ class HwEvidenceAttachments(models.Model):
   class Meta:
     db_table = u'hw_evidence_attachments'
 
+
 class HwGroup(models.Model):
   """Class representing a logical grouping of Hunchworks users."""
   group_id = models.AutoField(primary_key=True)
-  name = models.CharField(unique=True, max_length=100, blank=True)
+  name = models.CharField(unique=True, max_length=100)
   group_type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
   privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
   logo = models.CharField(max_length=100, blank=True)
   location = models.ForeignKey(HwLocation, null=True, blank=True)
+
   class Meta:
     db_table = u'hw_group'
+
+  def __unicode__(self):
+    return self.name
+
+  @models.permalink
+  def get_absolute_url(self):
+    return ("group", [self.pk])
+
 
 class HwGroupConnections(models.Model):
   """Many to Many model joining groups and users with users."""

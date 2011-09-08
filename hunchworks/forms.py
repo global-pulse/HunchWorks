@@ -53,12 +53,10 @@ class HwEvidenceForm(ModelForm):
     'time_modified', 'attachments', 'albums', 'hunch', 'evidence_tags'
     )
 
-class CreateGroupForm(ModelForm):
-  logo = forms.CharField( max_length=100)
 
+class GroupForm(ModelForm):
   class Meta:
     model= models.HwGroup
-    exclude = ( 'logo' )
 
 
 class HomepageForm(ModelForm):

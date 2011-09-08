@@ -73,3 +73,21 @@ a {
     background: #fff;
     padding: 1em;
   }
+
+    #page h1 {
+      font-size: 200%;
+      margin-bottom: 0.5em;
+    }
+
+      #page h1 a {
+        text-decoration: none;
+      }
+
+    #page div.links {
+      margin-top: 1em;
+    }
+
+      #page div.links li {
+        display: inline-block;
+        margin-right: 1em;
+      }
