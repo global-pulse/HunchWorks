@@ -41,6 +41,7 @@ urlpatterns += patterns(
   (r'^user/(?P<user_id>\d+)/collaborators$', 'user_collaborators'),
   (r'^user/(?P<user_id>\d+)/skills/languages$', 'user_languages'),
   (r'^user/(?P<user_id>\d+)/skills/notLanguages$', 'user_skills'),
+  (r'^group/(?P<group_id>\d+)/collaborators$', 'group_collaborators'),
   (r'^hunch/(?P<hunch_id>\d+)/collaborators$', 'hunch_collaborators'),
   (r'^hunch/(?P<hunch_id>\d+)/skills/languages$', 'hunch_languages'),
   (r'^hunch/(?P<hunch_id>\d+)/skills/notLanguages$', 'hunch_skills'),

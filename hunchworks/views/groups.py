@@ -39,18 +39,37 @@ def show(req, group_id):
 def edit(req, group_id):
   group = get_object_or_404(models.HwGroup, pk=group_id)
 
+  context = RequestContext(req)
   if req.method == "POST":
     form = forms.GroupForm(req.POST, instance=group)
     if form.is_valid():
       group = form.save()
+      
+      #create new collaborators for this group
+      group_collaborators = req.POST['group_collaborators']
+      group_collaborators = group_collaborators.split(',')
+      group_collaborators.append( req.user.pk )
+      for user_id in group_collaborators:
+        group_connection = models.HwGroupConnections.objects.get_or_create(
+          user=models.HwUser.objects.get(pk=user_id),
+          group=group,
+          access_level=0,
+          status=0)
+
+      #remove unneeded collaborators from this hunch
+      group_connections = models.HwGroupConnections.objects.filter(group=group_id)
+
+      for group_connection in group_connections:
+        if str(group_connection.user_id) not in group_collaborators:
+          models.HwGroupConnections.objects.get(pk=group_connection.pk).delete()
+
       return redirect(group)
   else:
     form = forms.GroupForm(instance=group)
 
-  return _render(req, "edit", {
-    "group": group,
-    "form": form
-  })
+  context.update({ 'form':form, 'group':group,
+    'user_id': req.user.pk })
+  return _render(req, "edit", context)
 
 
 @login_required
@@ -73,7 +92,7 @@ def create(req):
           access_level=0,
           status=0)
 
-      return HttpResponseRedirect('/hunchworks/profile')
+      return redirect(hw_group)
     else:
       form = forms.GroupForm(req.POST)
   else:
