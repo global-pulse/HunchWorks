@@ -40,6 +40,12 @@ Installation
     $ ./manage.py runserver
 
 
+Running Tests
+-------------
+
+    $ ./manage.py test hunchworks
+
+
 License
 -------
 
