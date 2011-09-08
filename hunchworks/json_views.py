@@ -106,3 +106,13 @@ def hunch_tags(request, hunch_id):
   
   return http.HttpResponse( simplejson.dumps(tags) )
 
+
+def group_collaborators(request, group_id):
+  group_connections = models.HwGroupConnections.objects.filter(group=group_id)
+  group_connections = group_connections.values_list('user', flat=True)
+  
+  collaborators = models.User.objects.filter(id__in=group_connections)
+  collaborators = collaborators.values_list('id', 'first_name', 'last_name')
+  collaborators =  [{ "id": x[0], "name": x[1] + ' ' + x[2]} for x in collaborators]
+  
+  return http.HttpResponse( simplejson.dumps(collaborators) )

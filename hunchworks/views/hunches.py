@@ -116,7 +116,7 @@ def editHunch(request, hunch_id):
           level=1)
 
       #remove unneeded language and skills from this hunch
-      skill_connections = models.HwSkillConnections.objects.filter(hunch=hw_hunch.pk)
+      skill_connections = models.HwSkillConnections.objects.filter(hunch=hunch_id)
       skills = languages_required + skills_required
 
       for skill_connection in skill_connections:
@@ -132,7 +132,7 @@ def editHunch(request, hunch_id):
           hunch=hw_hunch)
 
       #remove unneeded tags from this hunch
-      tag_connections = models.HwTagConnections.objects.filter(hunch=hw_hunch.pk)
+      tag_connections = models.HwTagConnections.objects.filter(hunch=hunch_id)
 
       for tag_connection in tag_connections:
         if str(tag_connection.tag_id) not in tags:
@@ -149,7 +149,7 @@ def editHunch(request, hunch_id):
           status=0)
 
       #remove unneeded collaborators from this hunch
-      hunch_connections = models.HwHunchConnections.objects.filter(hunch=hw_hunch.pk)
+      hunch_connections = models.HwHunchConnections.objects.filter(hunch=hunch_id)
 
       for hunch_connection in hunch_connections:
         if str(hunch_connection.user_id) not in hunch_collaborators:
