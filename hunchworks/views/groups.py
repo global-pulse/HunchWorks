@@ -11,6 +11,12 @@ from django.contrib.auth.decorators import login_required
 PER_PAGE = 20
 
 
+def _render(req, template, more_context):
+  return render_to_response(
+    "groups/" + template +".html",
+    RequestContext(req, more_context))
+
+
 @login_required
 def index(req):
   all_groups = models.HwGroup.objects.all()
@@ -26,18 +32,18 @@ def index(req):
   except (EmptyPage, InvalidPage):
     groups = paginator.page(paginator.num_pages)
 
-  return render_to_response("groups/index.html", RequestContext(req, {
+  return _render(req, "index", {
     "groups": groups
-  }))
+  })
 
 
 @login_required
 def show(req, group_id):
   group = get_object_or_404(models.HwGroup, pk=group_id)
 
-  return render_to_response("groups/show.html", RequestContext(req, {
+  return _render(req, "show", {
     "group": group
-  }))
+  })
 
 
 @login_required
@@ -52,10 +58,10 @@ def edit(req, group_id):
   else:
     form = forms.GroupForm(instance=group)
 
-  return render_to_response("groups/edit.html", RequestContext(req, {
+  return _render(req, "edit", {
     "group": group,
     "form": form
-  }))
+  })
 
 
 @login_required
@@ -68,6 +74,6 @@ def new(req):
   else:
     form = forms.GroupForm()
 
-  return render_to_response("groups/new.html", RequestContext(req, {
+  return _render(req, "new", {
     "form": form
-  }))
+  })
