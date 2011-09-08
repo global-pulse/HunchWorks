@@ -16,49 +16,13 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-# TODO(leah): Update the user / password to pull from a config.
-# Check if the server is running on Mac or Linux.
-if platform.system() == 'Darwin':
-  DATABASES = {
-    'default': {
-      'ENGINE': 'django.db.backends.sqlite3',
-      'NAME': 'database/hunchWorks.sqlite',
-      'USER': '',
-      'PASSWORD': '',
-      'HOST': '',
-      'PORT': '',
-    }
-    #'default': {
-    #  'ENGINE': 'django.db.backends.mysql',
-    #  'NAME': 'hunchWorks',
-    #  'USER': 'root',
-    #  'PASSWORD': 'root',
-    #  'HOST': '/Applications/MAMP/tmp/mysql/mysql.sock',
-    #  'PORT': '8889',
-    #}
+DATABASES = {
+  "default": {
+    "ENGINE":    "django.db.backends.sqlite3",
+    "NAME":      "database/development.sqlite3",
+    "TEST_NAME": "database/test.sqlite3"
   }
-else:
-  DATABASES = {
-    'default': {
-      'ENGINE': 'django.db.backends.sqlite3',
-      'NAME': 'database/hunchWorks.sqlite',
-      'USER': '',
-      'PASSWORD': '',
-      'HOST': '',
-      'PORT': '',
-    }
-
-#  DATABASES = {
-#    'default': {
-#      'ENGINE': 'django.db.backends.mysql',
-#      'NAME': 'hunchWorks',
-#      'USER': 'root',
-#      'PASSWORD': 'root',
-#      'HOST': 'localhost',
-#      'PORT': '3306'
-#    }
-#  }
-  }
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -180,6 +144,7 @@ INSTALLED_APPS = (
   'django.contrib.admin',
   # Uncomment the next line to enable admin documentation:
   # 'django.contrib.admindocs',
+  "django_nose"
 )
 
 # A sample logging configuration. The only tangible logging
@@ -206,3 +171,9 @@ LOGGING = {
 }
 
 AUTH_PROFILE_MODULE = 'hunchworks.HwUser'
+
+TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
+
+LIVE_SERVER_ADDRESS = "0.0.0.0"
+LIVE_SERVER_PORT = 8000
+LIVE_SERVER_STATIC = True
