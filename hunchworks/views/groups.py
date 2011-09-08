@@ -54,32 +54,18 @@ def edit(req, group_id):
 
 
 @login_required
-def new(req):
-  if req.method == "POST":
+def create(req):
+  context = RequestContext(req)
+
+  if req.method == 'POST':
     form = forms.GroupForm(req.POST)
-    if form.is_valid():
-      group = form.save()
-      return redirect(group)
-  else:
-    form = forms.GroupForm()
-
-  return _render(req, "new", {
-    "form": form
-  })
-
-
-def createGroup(request):
-  context = RequestContext(request)
-
-  if request.method == 'POST':
-    hw_group_form = forms.HwGroupForm(request.POST)
     
-    if hw_group_form.is_valid():
-      hw_group = hw_group_form.save()
+    if form.is_valid():
+      hw_group = form.save()
       
-      group_collaborators = request.POST['group_collaborators']
+      group_collaborators = req.POST['group_collaborators']
       group_collaborators = group_collaborators.split(',')
-      group_collaborators.append( request.user.pk )
+      group_collaborators.append( req.user.pk )
       for user_id in group_collaborators:
         group_connection = models.HwGroupConnections.objects.create(
           user=models.HwUser.objects.get(pk=user_id),
@@ -89,10 +75,9 @@ def createGroup(request):
 
       return HttpResponseRedirect('/hunchworks/profile')
     else:
-      group_form = forms.HwGroupForm(request.POST)
+      form = forms.GroupForm(req.POST)
   else:
-    group_form = forms.HwGroupForm()
+    form = forms.GroupForm()
 
-  context.update({ 'group_form':group_form,
-    'user_id': request.user.pk })
-  return render_to_response('createGroup.html', context)
+  context.update({ 'form':form, 'user_id': req.user.pk })
+  return _render(req, "create", context)

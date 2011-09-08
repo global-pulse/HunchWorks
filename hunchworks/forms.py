@@ -55,6 +55,8 @@ class HwEvidenceForm(ModelForm):
 
 
 class GroupForm(ModelForm):
+  group_collaborators = forms.CharField()
+  
   class Meta:
     model= models.HwGroup
 
