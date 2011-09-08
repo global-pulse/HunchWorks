@@ -6,13 +6,10 @@
   <link rel="stylesheet" href="/static/token-input.css" type="text/css" />
 {% endblock %}
 {% block js %}
-  <script src='/static/jquery.tokeninput.js'></script>
   <script src='/static/createHunch.js'></script>
 {% endblock %}
 {% block content %}
-  <div id='header'>
-	<h3 id='userId' user='{{user_id}}'>Create a new hunch</h3>
-  </div>
+  <h3 id='userId' user='{{user_id}}'>Create a new hunch</h3>
   <div id='contents'>
   	<form action="{{action}}" method="post">{% csrf_token %}
 	<div id='column1'>

@@ -2,34 +2,46 @@
 {% block title %}Create a Group{% endblock %}
 {% block css %}
   <link rel="stylesheet" href="/static/createGroup.css" type="text/css" />
+  <link rel="stylesheet" href="/static/token-input.css" type="text/css" />
+{% endblock %}
+{% block js %}
+  <script src='/static/createGroup.js'></script>
 {% endblock %}
 {% block content %}
-  <div id='header'>
-	<h3>Create a new group</h3>
-  </div>
+  <h3 id='userId' user='{{user_id}}'>Create a new group</h3>
   <div id='contents'>
 	<div id='column1'>
-		<form action="createGroup.html" method="post">{% csrf_token %}
+		<form action="" method="post">{% csrf_token %}
 		  <b>Group Name:</b>
+		  {{ group_form.name.errors }}
 		  <div class="inputText">
-			{{ form.name }} 
+			{{ group_form.name }} 
 		  </div>
 		  <b>Group Type:</b>
+		  {{ group_form.group_type.errors }}
 		  <div class="inputText">
-			{{form.group_type}}
+			{{ group_form.group_type }}
 		  </div>
 		  <b>Privacy:</b>
+		  {{ group_form.privacy.errors }}
 		  <div class="inputText">
-			{{form.privacy}}
+			{{ group_form.privacy }}
 		  </div>
 		  <b>Location:</b>
+		  {{ group_form.location.errors }}
 		  <div class="inputText">
-			{{form.location}}
+			{{ group_form.location }}
 		  </div>
 		  <!--<b>Group Picture</b>
+		  {{ group_form.logo.errors }}
 		  <div class="inputText">
-		    {{form.logo}}
+		    {{group_form.logo}}
 		  </div>-->
+		  <b>Invite your collaborators to join:</b>
+		  {{ group_form.group_collaborators.errors }}
+		  <div class="inputText">
+			{{ group_form.group_collaborators }}
+		  </div>
 		  <input type="submit" value="Submit" />
 		</form>
 	</div> <!-- end column1 div -->
