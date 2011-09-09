@@ -18,7 +18,7 @@ def _render(req, template, more_context):
 
 @login_required
 def index(req):
-  all_groups = models.HwGroup.objects.all()
+  all_groups = models.Group.objects.all()
   groups = paginated(req, all_groups, 4)
 
   return _render(req, "index", {
@@ -28,7 +28,7 @@ def index(req):
 
 @login_required
 def show(req, group_id):
-  group = get_object_or_404(models.HwGroup, pk=group_id)
+  group = get_object_or_404(models.Group, pk=group_id)
 
   return _render(req, "show", {
     "group": group
@@ -37,7 +37,7 @@ def show(req, group_id):
 
 @login_required
 def edit(req, group_id):
-  group = get_object_or_404(models.HwGroup, pk=group_id)
+  group = get_object_or_404(models.Group, pk=group_id)
 
   context = RequestContext(req)
   if req.method == "POST":
@@ -50,18 +50,18 @@ def edit(req, group_id):
       group_collaborators = group_collaborators.split(',')
       group_collaborators.append( req.user.pk )
       for user_id in group_collaborators:
-        group_connection = models.HwGroupConnections.objects.get_or_create(
-          user=models.HwUser.objects.get(pk=user_id),
+        group_connection = models.GroupConnections.objects.get_or_create(
+          user=models.User.objects.get(pk=user_id),
           group=group,
           access_level=0,
           status=0)
 
       #remove unneeded collaborators from this hunch
-      group_connections = models.HwGroupConnections.objects.filter(group=group_id)
+      group_connections = models.GroupConnections.objects.filter(group=group_id)
 
       for group_connection in group_connections:
         if str(group_connection.user_id) not in group_collaborators:
-          models.HwGroupConnections.objects.get(pk=group_connection.pk).delete()
+          models.GroupConnections.objects.get(pk=group_connection.pk).delete()
 
       return redirect(group)
   else:
@@ -86,8 +86,8 @@ def create(req):
       group_collaborators = group_collaborators.split(',')
       group_collaborators.append( req.user.pk )
       for user_id in group_collaborators:
-        group_connection = models.HwGroupConnections.objects.create(
-          user=models.HwUser.objects.get(pk=user_id),
+        group_connection = models.GroupConnections.objects.create(
+          user=models.User.objects.get(pk=user_id),
           group=hw_group,
           access_level=0,
           status=0)

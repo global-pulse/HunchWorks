@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from hunchworks.models import HwGroup
+from hunchworks.models import Group
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -19,12 +19,12 @@ class GroupViewsTest(TestCase):
     self.assertEqual(resp.status_code, 200)
 
   def test_get_show(self):
-    group = HwGroup.objects.create(name="Test Group")
+    group = Group.objects.create(name="Test Group")
     resp = self.client.get("/hunchworks/groups/%d" % group.pk)
     self.assertEqual(resp.status_code, 200)
 
   def test_get_edit(self):
-    group = HwGroup.objects.create(name="Test Group")
+    group = Group.objects.create(name="Test Group")
     resp = self.client.get("/hunchworks/groups/%d/edit" % group.pk)
     self.assertEqual(resp.status_code, 200)
 

@@ -53,7 +53,7 @@ def signup(request):
               'date_joined':datetime.datetime.today(),
               })
     auth_user_form = forms.AuthUserForm(data, instance=models.User())
-    hw_user_form = forms.HwUserForm(data, instance=models.HwUser())
+    hw_user_form = forms.UserForm(data, instance=models.User())
 
     if auth_user_form.is_valid() and hw_user_form.is_valid():
       user = auth_user_form.save()
@@ -70,17 +70,17 @@ def signup(request):
       languages = request.POST['languages']
       languages = languages.split(',')
       for skill_id in languages:
-        skill_connection = models.HwSkillConnections.objects.create(
-          skill=models.HwSkill.objects.get(pk=skill_id),
-          user=models.HwUser.objects.get(pk=user.pk),
+        skill_connection = models.SkillConnections.objects.create(
+          skill=models.Skill.objects.get(pk=skill_id),
+          user=models.User.objects.get(pk=user.pk),
           level=1)
 
       skills = request.POST['skills']
       skills = skills.split(',')
       for skill_id in skills:
-        skill_connection = models.HwSkillConnections.objects.create(
-          skill=models.HwSkill.objects.get(pk=skill_id),
-          user=models.HwUser.objects.get(pk=user.pk),
+        skill_connection = models.SkillConnections.objects.create(
+          skill=models.Skill.objects.get(pk=skill_id),
+          user=models.User.objects.get(pk=user.pk),
           level=1)
 
       try:
@@ -97,11 +97,11 @@ def signup(request):
 
     else:
       auth_user_form = forms.AuthUserForm(request.POST)
-      hw_user_form = forms.HwUserForm(request.POST)
+      hw_user_form = forms.UserForm(request.POST)
 
   else:
     auth_user_form = forms.AuthUserForm()
-    hw_user_form = forms.HwUserForm()
+    hw_user_form = forms.UserForm()
 
   context['auth_user_form'] = auth_user_form
   context['hw_user_form'] = hw_user_form
