@@ -6,92 +6,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-GENDER_CHOICES = (
-  ('M', 'Male'),
-  ('F', 'Female'),
-)
-
-
-class Album(models.Model):
-  """Class representing a collection of pictures in an album"""
-  name = models.CharField(max_length=45)
-
-
-class Attachment(models.Model):
-  """Class representing an attachment for a hunch"""
-  attachment_type = models.IntegerField()
-  file_location = models.CharField(max_length=100)
-  albums = models.ManyToManyField('Album')
-
-
-class Course(models.Model):
-  """
-  An more informal educational course which does not fit neatly into the
-  Education model. (E.g. "Diploma from NYC underwater welding club".)
-  """
-
-  name = models.CharField(max_length=45)
-  start_date = models.DateField()
-  end_date = models.DateField(null=True, blank=True)
-  user_profiles = models.ManyToManyField('UserProfile')
-
-  class Meta:
-    verbose_name_plural = "classes"
-
-
-class Education(models.Model):
-  """Class representing a degree or qualification obtained by a user."""
-  school = models.CharField(max_length=255)
-  qualification = models.CharField(max_length=100)
-  start_date = models.DateField()
-  end_date = models.DateField(null=True, blank=True)
-  user_profiles = models.ManyToManyField('UserProfile')
-
-
-class Language(models.Model):
-  """Class representing a language supported by the application.
-
-  This table is provided during development to ease integration of i18n and
-  translation features. It provides a mapping from a purported language code to
-  the actual language code to use. This allows us to use English by default
-  everywhere, whilst plumbing in the i18n architecture from the beginning.
-
-  Languages are coded per the Django global_settings module
-  (http://goo.gl/sp5OI), rather than the full i18n values (http://goo.gl/DgmM).
-  Django uses one level language tags generally, in this application these map
-  to:
-  1. en: en-US (use US English)
-  2. es: es-ES (use Iberian Spanish)
-  3. fr: fr-FR
-  4. de: de-DE
-  5. zh-cn: zh-cn (use simplified Chinese)
-  """
-  name = models.CharField(unique=True, max_length=45)
-
-  def __unicode__(self):
-    return self.name
-
-
-class Location(models.Model):
-  """Class representing a location used by the application.
-
-  These locations are derived from either:
-  1. Open Street Map Nominatim API (
-     http://wiki.openstreetmap.org/wiki/Nominatim)
-  2. Google Maps Geocoding API (
-     http://code.google.com/apis/maps/documentation/geocoding/#JSON)
-
-  That decision is still TBD, so for now this class is a stub.
-  """
-  name = models.CharField(unique=True, max_length=45)
-
-  def __unicode__(self):
-    return self.name
-
 
 class UserProfile(models.Model):
   user = models.ForeignKey(User, unique=True)
-
   title = models.IntegerField(choices=hunchworks_enums.UserTitle.GetChoices(), default=0)
   show_profile_reminder = models.IntegerField(default=0)
   privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
@@ -102,30 +19,44 @@ class UserProfile(models.Model):
   profile_picture = models.CharField(max_length=100, blank=True)
   screen_name = models.CharField(max_length=45, blank=True)
   messenger_service = models.IntegerField(null=True, blank=True, choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
-  default_language = models.ForeignKey(Language, default=0)
+  default_language = models.ForeignKey('Language', default=0)
 
   invitation = models.ForeignKey('Invitation', unique=True, null=True, blank=True)
+  connections = models.ManyToManyField('self', through='Connection', symmetrical=False, blank=True)
 
-  connections = models.ManyToManyField('self', blank=True)
+  roles = models.ManyToManyField("Role", blank=True)
   location_interests = models.ManyToManyField('Location', blank=True)
   skills = models.ManyToManyField('Skill', through='UserProfileSkill', blank=True)
 
+  qualifications = models.ManyToManyField('Education', blank=True)
+  courses = models.ManyToManyField('Course', blank=True)
+
+
+def create_user(sender, instance, created, **kwargs):
+  if created: UserProfile.objects.create(user=instance)
+
+post_save.connect(create_user, sender=User)
+
+
+class Connection(models.Model):
+  user_profile       = models.ForeignKey('UserProfile', related_name="outgoing_connections")
+  other_user_profile = models.ForeignKey('UserProfile', related_name="incoming_connections")
+  status             = models.IntegerField(default=0)
+
 
 class Hunch(models.Model):
-  creator = models.ForeignKey(User)
+  creator = models.ForeignKey('UserProfile')
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
   title = models.CharField(max_length=100)
   privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
   hunch_strength = models.IntegerField(default=0)
-  language = models.ForeignKey(Language)
-  location = models.ForeignKey(Location, null=True, blank=True)
+  language = models.ForeignKey('Language')
+  location = models.ForeignKey('Location', null=True, blank=True)
   description = models.TextField()
   skills = models.ManyToManyField('Skill', through='HunchSkill', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
-
-  user_profiles = models.ManyToManyField('UserProfile')
 
   class Meta:
     verbose_name_plural = "hunches"
@@ -165,8 +96,8 @@ class Evidence(models.Model):
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   evidence_description = models.TextField(blank=True)
-  hunch = models.ForeignKey(Hunch)
-  creator = models.ForeignKey(User)
+  hunch = models.ForeignKey('Hunch')
+  creator = models.ForeignKey('UserProfile')
   albums = models.ManyToManyField('Album')
   attachments = models.ManyToManyField('Attachment')
   tags = models.ManyToManyField('Tag', blank=True)
@@ -183,12 +114,13 @@ class Evidence(models.Model):
 
 
 class Group(models.Model):
-  """Class representing a logical grouping of hunchworks users."""
   name = models.CharField(unique=True, max_length=100)
+  abbreviation = models.CharField(max_length=10, null=True, blank=True)
   group_type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
   privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
   logo = models.CharField(max_length=100, blank=True)
-  location = models.ForeignKey(Location, null=True, blank=True)
+  location = models.ForeignKey('Location', null=True, blank=True)
+  members = models.ManyToManyField('UserProfile', through='UserProfileGroup', null=True, blank=True)
 
   def __unicode__(self):
     return self.name
@@ -198,31 +130,64 @@ class Group(models.Model):
     return ("group", [self.pk])
 
 
-class GroupConnection(models.Model):
-  """Many to Many model joining groups and users with users."""
+class UserProfileGroup(models.Model):
+  user = models.ForeignKey('UserProfile')
+  group = models.ForeignKey('Group')
   access_level = models.IntegerField()
   status = models.IntegerField()
-  user = models.ForeignKey(User, related_name='%(class)s_user_id')
-  group = models.ForeignKey(Group)
 
 
-class Invitation(models.Model):
-  email = models.CharField(max_length=100)
-  invited_by = models.ForeignKey('UserProfile', related_name="invitations")
-  hunch = models.ForeignKey('Hunch', null=True, blank=True)
+class Attachment(models.Model):
+  attachment_type = models.IntegerField()
+  file_location = models.CharField(max_length=100)
 
 
-class Organization(models.Model):
-  """Class representing an external organization (UNDP etc.)."""
-  name = models.CharField(max_length=125)
-  abbreviation = models.CharField(max_length=7)
-  group = models.ForeignKey(Group)
-  location = models.ForeignKey(Location, null=True, blank=True)
+class Album(models.Model):
+  name = models.CharField(max_length=45)
+  attachments = models.ManyToManyField('Attachment')
+
+
+class Education(models.Model):
+  school = models.CharField(max_length=255)
+  qualification = models.CharField(max_length=100)
+  start_date = models.DateField()
+  end_date = models.DateField(null=True, blank=True)
+
+
+class Course(models.Model):
+  """
+  An more informal educational course which does not fit neatly into the
+  Education model. (E.g. "Diploma from NYC underwater welding club".)
+  """
+
+  name = models.CharField(max_length=45)
+  start_date = models.DateField()
+  end_date = models.DateField(null=True, blank=True)
+
+  class Meta:
+    verbose_name_plural = "classes"
+
+
+class Language(models.Model):
+  name = models.CharField(unique=True, max_length=45)
+
+  def __unicode__(self):
+    return self.name
+
+
+class Location(models.Model):
+  name = models.CharField(unique=True, max_length=45)
+
+  def __unicode__(self):
+    return self.name
+
+
+class Tag(models.Model):
+  name = models.CharField(max_length=40)
 
 
 class Role(models.Model):
-  """Class representing a role held by a given user."""
-  organization = models.ForeignKey(Organization)
+  group = models.ForeignKey('Group')
   title = models.CharField(max_length=40)
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
@@ -230,7 +195,6 @@ class Role(models.Model):
 
 
 class Skill(models.Model):
-  """Class representing a skill possessed by a user, e.g. HTML."""
   name = models.CharField(unique=True, max_length=100)
   is_language = models.IntegerField()
   is_technical = models.IntegerField()
@@ -240,31 +204,18 @@ class Skill(models.Model):
 
 
 class UserProfileSkill(models.Model):
-  user_profile = models.ForeignKey(UserProfile)
-  skill = models.ForeignKey(Skill)
+  user_profile = models.ForeignKey('UserProfile')
+  skill = models.ForeignKey('Skill')
   level = models.IntegerField()
 
 
 class HunchSkill(models.Model):
-  hunch = models.ForeignKey(Hunch)
-  skill = models.ForeignKey(Skill)
+  hunch = models.ForeignKey('Hunch')
+  skill = models.ForeignKey('Skill')
   level = models.IntegerField()
 
 
-class UserRole(models.Model):
-  """Many To many model representing a user's roles or positions."""
-  user = models.ForeignKey(User)
-  role = models.ForeignKey(Role)
-
-
-class Tag(models.Model):
-  """Class representing tags you can add to Evidence and Hunches for searching
-  easability"""
-  name = models.CharField(max_length=40)
-
-
-def create_user(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-
-post_save.connect(create_user, sender=User)
+class Invitation(models.Model):
+  email = models.CharField(max_length=100)
+  invited_by = models.ForeignKey('UserProfile', related_name="invitations")
+  hunch = models.ForeignKey('Hunch', null=True, blank=True)
