@@ -32,10 +32,18 @@ class EvidenceForm(ModelForm):
 
 
 class GroupForm(ModelForm):
-  group_collaborators = forms.CharField()
-  
+  group_collaborators = forms.CharField(required=False,
+    help_text="The HunchWorks members you wish to invite to this group.<br>" +
+              "You can only invite members who you are connected with.")
+
   class Meta:
-    model= models.Group
+    model = models.Group
+    exclude = ("members", "logo")
+    widgets = {
+      'name': forms.TextInput(attrs={ 'size': 50 }),
+      'abbreviation': forms.TextInput(attrs={ 'size': 15 })
+    }
+
 
 
 class HomepageForm(ModelForm):

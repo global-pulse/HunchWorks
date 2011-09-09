@@ -114,10 +114,13 @@ class Evidence(models.Model):
 
 
 class Group(models.Model):
-  name = models.CharField(unique=True, max_length=100)
+  name = models.CharField(max_length=100, unique=True)
   abbreviation = models.CharField(max_length=10, null=True, blank=True)
   group_type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
-  privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
+  privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0,
+    help_text="<strong>Hidden</strong>: only visible to invited members.<br>" +
+              "<strong>Closed</strong>: visible to everyone, but only invited members can participate.<br>" +
+              "<strong>Open</strong>: available to any HunchWorks member.")
   logo = models.CharField(max_length=100, blank=True)
   location = models.ForeignKey('Location', null=True, blank=True)
   members = models.ManyToManyField('UserProfile', through='UserProfileGroup', null=True, blank=True)
@@ -131,7 +134,7 @@ class Group(models.Model):
 
 
 class UserProfileGroup(models.Model):
-  user = models.ForeignKey('UserProfile')
+  user_profile = models.ForeignKey('UserProfile')
   group = models.ForeignKey('Group')
   access_level = models.IntegerField()
   status = models.IntegerField()

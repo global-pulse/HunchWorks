@@ -48,20 +48,22 @@ def edit(req, group_id):
       #create new collaborators for this group
       group_collaborators = req.POST['group_collaborators']
       group_collaborators = group_collaborators.split(',')
-      group_collaborators.append( req.user.pk )
+      group_collaborators.append( unicode(req.user.pk) )
+
       for user_id in group_collaborators:
-        group_connection = models.GroupConnection.objects.get_or_create(
-          user=models.User.objects.get(pk=user_id),
-          group=group,
-          access_level=0,
-          status=0)
+        if user_id.isdigit():
+          group_connection = models.UserProfileGroup.objects.get_or_create(
+            user_profile=models.UserProfile.objects.get(pk=user_id),
+            group=group,
+            access_level=0,
+            status=0)
 
       #remove unneeded collaborators from this hunch
-      group_connections = models.GroupConnection.objects.filter(group=group_id)
+      group_connections = models.UserProfileGroup.objects.filter(group=group_id)
 
       for group_connection in group_connections:
-        if str(group_connection.user_id) not in group_collaborators:
-          models.GroupConnection.objects.get(pk=group_connection.pk).delete()
+        if str(group_connection.user_profile_id) not in group_collaborators:
+          models.UserProfileGroup.objects.get(pk=group_connection.pk).delete()
 
       return redirect(group)
   else:
@@ -84,13 +86,15 @@ def create(req):
       
       group_collaborators = req.POST['group_collaborators']
       group_collaborators = group_collaborators.split(',')
-      group_collaborators.append( req.user.pk )
+      group_collaborators.append(unicode(req.user.pk))
+
       for user_id in group_collaborators:
-        group_connection = models.GroupConnection.objects.create(
-          user=models.User.objects.get(pk=user_id),
-          group=hw_group,
-          access_level=0,
-          status=0)
+        if user_id.isdigit():
+          group_connection = models.UserProfileGroup.objects.create(
+            user_profile=models.UserProfile.objects.get(pk=user_id),
+            group=hw_group,
+            access_level=0,
+            status=0)
 
       return redirect(hw_group)
     else:

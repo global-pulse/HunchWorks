@@ -6,7 +6,7 @@
 
   {% for group in groups.object_list %}
     <div class="group">
-      <h3><a href="{% url group group.group_id %}">{{ group.name }}</a></h3>
+      <h3><a href="{{ group.get_absolute_url }}">{{ group.name }}</a></h3>
     </div>
   {% endfor %}
 

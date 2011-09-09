@@ -48,6 +48,21 @@ form { }
       color: #fff;
     }
 
+    form div.field span.optional {
+      font-size: 80%;
+      color: #ccc;
+    }
+
+    form div.field p.help {
+      font-size: 80%;
+      max-width: 40em;
+      line-height: 1.2;
+      margin-top: 0.625em;
+      border-left: 0.625em solid #eee;
+      padding-left: 0.625em;
+      color: #999;
+    }
+
   form div.actions {
     margin-bottom: 0;
   }

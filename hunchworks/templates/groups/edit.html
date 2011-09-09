@@ -14,19 +14,10 @@
   </h1>
 
   <form action="" method="post">
-    {{ form.non_field_errors }}
-    {% csrf_token %}
-
-    {% for field in form %}
-      <div class="field text">
-        {{ field.label_tag }}
-        {{ field.errors }}
-        {{ field }}
-      </div>
-    {% endfor %}
+    {% include "groups/form.html" with form=form only %}
 
     <div class="actions">
-      <input type="submit">
+      <input type="submit" value="Edit Group">
     </div>
   </form>
 {% endblock %}
