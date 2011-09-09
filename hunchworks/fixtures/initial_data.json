@@ -1,34 +1,34 @@
 [
     {
         "pk": 1,
-        "model": "hunchworks.hwlanguage",
+        "model": "hunchworks.language",
         "fields": 
         {
-            "language_name": "English"
+            "name": "English"
         }
     },
     {
         "pk": 2,
-        "model": "hunchworks.hwlanguage",
+        "model": "hunchworks.language",
         "fields": 
         {
-            "language_name": "French"
+            "name": "French"
         }
     },
     {
         "pk": 3,
-        "model": "hunchworks.hwlanguage",
+        "model": "hunchworks.language",
         "fields": 
         {
-            "language_name": "Spanish"
+            "name": "Spanish"
         }
     },
     {
         "pk": 4,
-        "model": "hunchworks.hwlanguage",
+        "model": "hunchworks.language",
         "fields": 
         {
-            "language_name": "German"
+            "name": "German"
         }
     }
 ]

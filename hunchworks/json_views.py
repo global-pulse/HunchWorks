@@ -8,7 +8,7 @@ from django.utils import simplejson
 
 def languages(request):
   skills = models.Skill.objects.filter(is_language=True)
-  skills = skills.values_list('skill_id', 'skill_name')
+  skills = skills.values_list('id', 'name')
   skills =  [{ "id": x[0], "name": x[1]} for x in skills]
 
   return http.HttpResponse( simplejson.dumps(skills) )
@@ -16,7 +16,7 @@ def languages(request):
 
 def skills(request):
   skills = models.Skill.objects.filter(is_language=False)
-  skills = skills.values_list('skill_id', 'skill_name')
+  skills = skills.values_list('id', 'name')
   skills =  [{ "id": x[0], "name": x[1]} for x in skills]
   
   return http.HttpResponse( simplejson.dumps(skills) )
@@ -24,7 +24,7 @@ def skills(request):
 
 def tags(request):
   tags = models.Tag.objects.all()
-  tags = tags.values_list('tag_id', 'tag_name')
+  tags = tags.values_list('id', 'name')
   tags =  [{ "id": x[0], "name": x[1]} for x in tags]
 
   return http.HttpResponse( simplejson.dumps(tags) )
@@ -46,7 +46,7 @@ def user_languages(request, user_id):
   skill_connections = skill_connections.values_list('skill', flat=True)
   
   languages = models.Skill.objects.filter(is_language=True, skill_id__in=skill_connections)
-  languages = languages.values_list('skill_id', 'skill_name')
+  languages = languages.values_list('id', 'name')
   languages =  [{ "id": x[0], "name": x[1]} for x in languages]
   
   return http.HttpResponse( simplejson.dumps(languages) )
@@ -57,7 +57,7 @@ def user_skills(request, user_id):
   skill_connections = skill_connections.values_list('skill', flat=True)
   
   skills = models.Skill.objects.filter(is_language=False, skill_id__in=skill_connections)
-  skills = skills.values_list('skill_id', 'skill_name')
+  skills = skills.values_list('id', 'name')
   skills =  [{ "id": x[0], "name": x[1]} for x in skills]
   
   return http.HttpResponse( simplejson.dumps(skills) )
@@ -79,7 +79,7 @@ def hunch_languages(request, hunch_id):
   skill_connections = skill_connections.values_list('skill', flat=True)
   
   languages = models.Skill.objects.filter(is_language=True, skill_id__in=skill_connections)
-  languages = languages.values_list('skill_id', 'skill_name')
+  languages = languages.values_list('id', 'name')
   languages =  [{ "id": x[0], "name": x[1]} for x in languages]
   
   return http.HttpResponse( simplejson.dumps(languages) )
@@ -90,7 +90,7 @@ def hunch_skills(request, hunch_id):
   skill_connections = skill_connections.values_list('skill', flat=True)
   
   skills = models.Skill.objects.filter(is_language=False, skill_id__in=skill_connections)
-  skills = skills.values_list('skill_id', 'skill_name')
+  skills = skills.values_list('id', 'name')
   skills =  [{ "id": x[0], "name": x[1]} for x in skills]
   
   return http.HttpResponse( simplejson.dumps(skills) )
@@ -101,7 +101,7 @@ def hunch_tags(request, hunch_id):
   tag_connections = tag_connections.values_list('tag', flat=True)
   
   tags = models.Tag.objects.filter(tag_id__in=tag_connections)
-  tags = tags.values_list('tag_id', 'tag_name')
+  tags = tags.values_list('id', 'name')
   tags =  [{ "id": x[0], "name": x[1]} for x in tags]
   
   return http.HttpResponse( simplejson.dumps(tags) )

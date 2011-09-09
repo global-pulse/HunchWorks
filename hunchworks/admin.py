@@ -10,8 +10,8 @@ from django.contrib import admin
 # admin.site.register(Author, AuthorAdmin)
 
 
+admin.site.register(models.UserProfile)
 admin.site.register(models.Hunch)
-admin.site.register(models.User)
 admin.site.register(models.Tag)
 admin.site.register(models.Skill)
 admin.site.register(models.SkillConnections)
