@@ -21,21 +21,19 @@ class Attachment(models.Model):
   """Class representing an attachment for a hunch"""
   attachment_type = models.IntegerField()
   file_location = models.CharField(max_length=100)
-  albums = models.ManyToManyField('Album', through='AlbumAttachment')
+  albums = models.ManyToManyField('Album')
 
 
-class AlbumAttachment(models.Model):
-  """Many to Many model joining Album and attachments"""
-  album = models.ForeignKey(Album)
-  attachment = models.ForeignKey(Attachment)
+class Course(models.Model):
+  """
+  An more informal educational course which does not fit neatly into the
+  Education model. (E.g. "Diploma from NYC underwater welding club".)
+  """
 
-
-class Class(models.Model):
-  """Class representing a educational class taken that may or may not have
-  been at a college"""
   name = models.CharField(max_length=45)
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
+  user_profiles = models.ManyToManyField('UserProfile')
 
   class Meta:
     verbose_name_plural = "classes"
@@ -47,6 +45,7 @@ class Education(models.Model):
   qualification = models.CharField(max_length=100)
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
+  user_profiles = models.ManyToManyField('UserProfile')
 
 
 class Language(models.Model):
@@ -93,48 +92,27 @@ class Location(models.Model):
 class UserProfile(models.Model):
   user = models.ForeignKey(User, unique=True)
 
-  """Class representing a hunchworks user."""
-  title = models.IntegerField(
-    choices=hunchworks_enums.UserTitle.GetChoices(), default=0)
+  title = models.IntegerField(choices=hunchworks_enums.UserTitle.GetChoices(), default=0)
   show_profile_reminder = models.IntegerField(default=0)
-  privacy = models.IntegerField(
-    choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
+  privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
   bio_text = models.TextField(blank=True)
   phone = models.CharField(max_length=20, blank=True)
   skype_name = models.CharField(max_length=30, blank=True)
   website = models.CharField(max_length=100, blank=True)
   profile_picture = models.CharField(max_length=100, blank=True)
   screen_name = models.CharField(max_length=45, blank=True)
-  messenger_service = models.IntegerField(null=True, blank=True,
-    choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
+  messenger_service = models.IntegerField(null=True, blank=True, choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
   default_language = models.ForeignKey(Language, default=0)
-  
-  # Removed for now, since these should be:
-  #  (a) linekd to the django auth user
-  #  (b) implicit via symmetry
-  #
-  #skills = models.ManyToManyField('Skill', through='SkillConnection', blank=True)
-  #education = models.ManyToManyField(
-  #  'Education', through='EducationConnection')
-  #classes = models.ManyToManyField('Class', through='EducationConnection')
-  #location_interests = models.ManyToManyField(
-  #  'Location', through='LocationInterest')
-  #roles = models.ManyToManyField('Role', through='UserRole')
-  #hunches = models.ManyToManyField('Hunch', through='HunchConnection')
-  #groups = models.ManyToManyField('Group', through='GroupConnection', blank=True)
-  #collaborators = models.ManyToManyField('self', through='UserConnection', blank=True, symmetrical=False)
 
+  invitation = models.ForeignKey('Invitation', unique=True, null=True, blank=True)
 
-class EducationConnection(models.Model):
-  """Many to Many model representing a user's education and/or classes"""
-  user = models.ForeignKey(User)
-  education = models.ForeignKey(Education, null=True, blank=True)
-  class_field = models.ForeignKey(Class, null=True, blank=True)
+  connections = models.ManyToManyField('self', blank=True)
+  location_interests = models.ManyToManyField('Location', blank=True)
+  skills = models.ManyToManyField('Skill', through='UserProfileSkill', blank=True)
 
 
 class Hunch(models.Model):
-  """Class representing a Hunch."""
-  creator = models.ForeignKey(User, related_name='%(class)s_creator_id' )
+  creator = models.ForeignKey(User)
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
@@ -144,10 +122,10 @@ class Hunch(models.Model):
   language = models.ForeignKey(Language)
   location = models.ForeignKey(Location, null=True, blank=True)
   description = models.TextField()
-  skills = models.ManyToManyField('Skill', through='SkillConnection')
-  hunch_tags = models.ManyToManyField('Tag', through='TagConnection', blank=True)
-  invited_users = models.ManyToManyField(
-    'InvitedUser', through='HunchConnection')
+  skills = models.ManyToManyField('Skill', through='HunchSkill', blank=True)
+  tags = models.ManyToManyField('Tag', blank=True)
+
+  user_profiles = models.ManyToManyField('UserProfile')
 
   class Meta:
     verbose_name_plural = "hunches"
@@ -189,10 +167,9 @@ class Evidence(models.Model):
   evidence_description = models.TextField(blank=True)
   hunch = models.ForeignKey(Hunch)
   creator = models.ForeignKey(User)
-  albums = models.ManyToManyField('Album', through='EvidenceAlbum')
-  attachments = models.ManyToManyField(
-    'Attachment', through='EvidenceAttachment')
-  evidence_tags = models.ManyToManyField('Tag', through='TagConnection')
+  albums = models.ManyToManyField('Album')
+  attachments = models.ManyToManyField('Attachment')
+  tags = models.ManyToManyField('Tag', blank=True)
 
   def save(self, *args, **kwargs):
     now = datetime.datetime.today()
@@ -203,18 +180,6 @@ class Evidence(models.Model):
 
     self.time_modified = now
     super(Evidence, self).save(*args, **kwargs)
-
-
-class EvidenceAlbum(models.Model):
-  """Many to Many model joining Evidence and Album together"""
-  album = models.ForeignKey(Album)
-  evidence = models.ForeignKey(Evidence)
-
-
-class EvidenceAttachment(models.Model):
-  """Many to Many model joining evidence and attachments."""
-  attachment = models.ForeignKey(Attachment)
-  evidence = models.ForeignKey(Evidence)
 
 
 class Group(models.Model):
@@ -241,29 +206,10 @@ class GroupConnection(models.Model):
   group = models.ForeignKey(Group)
 
 
-class InvitedUser(models.Model):
-  """Class representing a master list of all users ever invited to the system
-  and their respective user id's if they created an account."""
-  email = models.CharField(max_length=45)
-  status = models.IntegerField()
-  created_user = models.ForeignKey(User, related_name='created_user_id',
-    blank=True)
-  invited_by = models.ForeignKey(User, related_name='invited_by_id')
-
-
-class HunchConnection(models.Model):
-  """Many to Many model joining Hunch and User,Group,InvitedUser together"""
-  status = models.IntegerField()
-  hunch = models.ForeignKey(Hunch)
-  user = models.ForeignKey(User, null=True, blank=True)
-  invited_email = models.ForeignKey(InvitedUser, null=True, blank=True)
-
-
-class LocationInterest(models.Model):
-  """Many to Many model joining User and Location together for their list
-  of locations they are interested in"""
-  user = models.ForeignKey(User)
-  location = models.ForeignKey(Location)
+class Invitation(models.Model):
+  email = models.CharField(max_length=100)
+  invited_by = models.ForeignKey('UserProfile', related_name="invitations")
+  hunch = models.ForeignKey('Hunch', null=True, blank=True)
 
 
 class Organization(models.Model):
@@ -293,17 +239,16 @@ class Skill(models.Model):
     return self.name
 
 
-class SkillConnection(models.Model):
-  """Many to Many model joining hunches, user and skills.
-
-  This model represents the skill-set required to progress a hunch and the
-  skill level needed for each skill. It also has the skillset of a user, and
-  the level for each skill.
-  """
+class UserProfileSkill(models.Model):
+  user_profile = models.ForeignKey(UserProfile)
   skill = models.ForeignKey(Skill)
   level = models.IntegerField()
-  hunch = models.ForeignKey(Hunch, null=True, blank=True)
-  user = models.ForeignKey(User, null=True, blank=True)
+
+
+class HunchSkill(models.Model):
+  hunch = models.ForeignKey(Hunch)
+  skill = models.ForeignKey(Skill)
+  level = models.IntegerField()
 
 
 class UserRole(models.Model):
@@ -316,20 +261,6 @@ class Tag(models.Model):
   """Class representing tags you can add to Evidence and Hunches for searching
   easability"""
   name = models.CharField(max_length=40)
-
-
-class TagConnection(models.Model):
-  """Many to Many connector for Hunch, Evidence, and Tag classes"""
-  tag = models.ForeignKey(Tag)
-  hunch = models.ForeignKey(Hunch, blank=True, null=True)
-  evidence = models.ForeignKey(Evidence, blank=True, null=True)
-
-
-class UserConnection(models.Model):
-  """Class representing a many to many relationship between users"""
-  status = models.IntegerField()
-  user = models.ForeignKey(User, related_name='conn_user_id')
-  other_user = models.ForeignKey(User, related_name='other_user_id')
 
 
 def create_user(sender, instance, created, **kwargs):

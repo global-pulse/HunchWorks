@@ -76,7 +76,7 @@ class InvitePeople(forms.Form):
     #TODO( Chris: 8-15-2011): figure out how ot introspect invited_emails object instead
     # of using email_input
     for email_input in self.cleaned_data['invited_emails']:
-      invited_email = models.InvitedUser( email=email_input )
+      invited_email = models.Invitation( email=email_input )
       invited_user = models.UserInvites( invited_email=invited_email, user=created_user, status=0)
       invited_user.save()
     
