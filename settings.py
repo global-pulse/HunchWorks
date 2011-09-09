@@ -205,4 +205,4 @@ LOGGING = {
   }
 }
 
-AUTH_PROFILE_MODULE = 'hunchworks.HwUser'
+AUTH_PROFILE_MODULE = 'hunchworks.UserProfile'

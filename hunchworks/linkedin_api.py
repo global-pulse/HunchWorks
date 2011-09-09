@@ -52,7 +52,7 @@ def GetLinkedInCredentials(user):
       consumer_key, consumer_secret, user_token, user_secret)
 
 
-def GetUserConnections(user):
+def GetUserConnection(user):
   """Returns details of the connections for a given user.
 
   This is retrieved via the REST API to avoid any potential data security issues

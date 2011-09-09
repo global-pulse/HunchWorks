@@ -13,7 +13,7 @@ def index(request):
 @login_required
 def home(request):
   user_id = request.user.pk
-  recent_hunches = models.HwHunch.objects.filter(privacy=hunchworks_enums.PrivacyLevel.OPEN).order_by("-time_modified")[:5]
+  recent_hunches = models.Hunch.objects.filter(privacy=hunchworks_enums.PrivacyLevel.OPEN).order_by("-time_modified")[:5]
   context = RequestContext(request)
   context.update({'recent_hunches': recent_hunches })
   return render_to_response('home.html', context)
