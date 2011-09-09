@@ -70,7 +70,7 @@ def signup(request):
       languages = request.POST['languages']
       languages = languages.split(',')
       for skill_id in languages:
-        skill_connection = models.SkillConnections.objects.create(
+        skill_connection = models.SkillConnection.objects.create(
           skill=models.Skill.objects.get(pk=skill_id),
           user=models.User.objects.get(pk=user.pk),
           level=1)
@@ -78,7 +78,7 @@ def signup(request):
       skills = request.POST['skills']
       skills = skills.split(',')
       for skill_id in skills:
-        skill_connection = models.SkillConnections.objects.create(
+        skill_connection = models.SkillConnection.objects.create(
           skill=models.Skill.objects.get(pk=skill_id),
           user=models.User.objects.get(pk=user.pk),
           level=1)

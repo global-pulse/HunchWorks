@@ -50,18 +50,18 @@ def edit(req, group_id):
       group_collaborators = group_collaborators.split(',')
       group_collaborators.append( req.user.pk )
       for user_id in group_collaborators:
-        group_connection = models.GroupConnections.objects.get_or_create(
+        group_connection = models.GroupConnection.objects.get_or_create(
           user=models.User.objects.get(pk=user_id),
           group=group,
           access_level=0,
           status=0)
 
       #remove unneeded collaborators from this hunch
-      group_connections = models.GroupConnections.objects.filter(group=group_id)
+      group_connections = models.GroupConnection.objects.filter(group=group_id)
 
       for group_connection in group_connections:
         if str(group_connection.user_id) not in group_collaborators:
-          models.GroupConnections.objects.get(pk=group_connection.pk).delete()
+          models.GroupConnection.objects.get(pk=group_connection.pk).delete()
 
       return redirect(group)
   else:
@@ -86,7 +86,7 @@ def create(req):
       group_collaborators = group_collaborators.split(',')
       group_collaborators.append( req.user.pk )
       for user_id in group_collaborators:
-        group_connection = models.GroupConnections.objects.create(
+        group_connection = models.GroupConnection.objects.create(
           user=models.User.objects.get(pk=user_id),
           group=hw_group,
           access_level=0,

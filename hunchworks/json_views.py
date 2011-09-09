@@ -31,7 +31,7 @@ def tags(request):
 
 
 def user_collaborators(request, user_id):
-  user_connections = models.UserConnections.objects.filter(user=user_id)
+  user_connections = models.UserConnection.objects.filter(user=user_id)
   user_connections = user_connections.values_list('other_user', flat=True)
   
   collaborators = models.User.objects.filter(id__in=user_connections)
@@ -42,7 +42,7 @@ def user_collaborators(request, user_id):
 
 
 def user_languages(request, user_id):
-  skill_connections = models.SkillConnections.objects.filter(user=user_id)
+  skill_connections = models.SkillConnection.objects.filter(user=user_id)
   skill_connections = skill_connections.values_list('skill', flat=True)
   
   languages = models.Skill.objects.filter(is_language=True, skill_id__in=skill_connections)
@@ -53,7 +53,7 @@ def user_languages(request, user_id):
   
   
 def user_skills(request, user_id):
-  skill_connections = models.SkillConnections.objects.filter(user=user_id)
+  skill_connections = models.SkillConnection.objects.filter(user=user_id)
   skill_connections = skill_connections.values_list('skill', flat=True)
   
   skills = models.Skill.objects.filter(is_language=False, skill_id__in=skill_connections)
@@ -64,7 +64,7 @@ def user_skills(request, user_id):
   
 
 def hunch_collaborators(request, hunch_id):
-  hunch_connections = models.HunchConnections.objects.filter(hunch=hunch_id)
+  hunch_connections = models.HunchConnection.objects.filter(hunch=hunch_id)
   hunch_connections = hunch_connections.values_list('user', flat=True)
   
   collaborators = models.User.objects.filter(id__in=hunch_connections)
@@ -75,7 +75,7 @@ def hunch_collaborators(request, hunch_id):
 
 
 def hunch_languages(request, hunch_id):
-  skill_connections = models.SkillConnections.objects.filter(hunch=hunch_id)
+  skill_connections = models.SkillConnection.objects.filter(hunch=hunch_id)
   skill_connections = skill_connections.values_list('skill', flat=True)
   
   languages = models.Skill.objects.filter(is_language=True, skill_id__in=skill_connections)
@@ -86,7 +86,7 @@ def hunch_languages(request, hunch_id):
 
   
 def hunch_skills(request, hunch_id):
-  skill_connections = models.SkillConnections.objects.filter(hunch=hunch_id)
+  skill_connections = models.SkillConnection.objects.filter(hunch=hunch_id)
   skill_connections = skill_connections.values_list('skill', flat=True)
   
   skills = models.Skill.objects.filter(is_language=False, skill_id__in=skill_connections)
@@ -97,7 +97,7 @@ def hunch_skills(request, hunch_id):
 
   
 def hunch_tags(request, hunch_id):
-  tag_connections = models.TagConnections.objects.filter(hunch=hunch_id)
+  tag_connections = models.TagConnection.objects.filter(hunch=hunch_id)
   tag_connections = tag_connections.values_list('tag', flat=True)
   
   tags = models.Tag.objects.filter(tag_id__in=tag_connections)
@@ -108,7 +108,7 @@ def hunch_tags(request, hunch_id):
 
 
 def group_collaborators(request, group_id):
-  group_connections = models.GroupConnections.objects.filter(group=group_id)
+  group_connections = models.GroupConnection.objects.filter(group=group_id)
   group_connections = group_connections.values_list('user', flat=True)
   
   collaborators = models.User.objects.filter(id__in=group_connections)
