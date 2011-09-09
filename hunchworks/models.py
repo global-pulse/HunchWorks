@@ -1,21 +1,15 @@
 #!/usr/bin/env python
 
-__author__ = ('Chris',)
-__license__ = 'GPLv3'
-
-GENDER_CHOICES = (
-    ('M', 'Male'),
-    ('F', 'Female'),
-)
-
 import datetime
-
-# Enums used throughout Hunchworks.
 import hunchworks_enums
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+
+GENDER_CHOICES = (
+  ('M', 'Male'),
+  ('F', 'Female'),
+)
 
 class HwAlbum(models.Model):
   """Class representing a collection of pictures in an album"""
@@ -23,7 +17,8 @@ class HwAlbum(models.Model):
   name = models.CharField(max_length=45)
   class Meta:
     db_table = u'hw_album'
-    
+
+
 class HwAttachment(models.Model):
   """Class representing an attachment for a hunch"""
   attachment_id = models.AutoField(primary_key=True)
@@ -32,7 +27,8 @@ class HwAttachment(models.Model):
   albums = models.ManyToManyField('HwAlbum', through='HwAlbumAttachments')
   class Meta:
     db_table = u'hw_attachment'
-    
+
+
 class HwAlbumAttachments(models.Model):
   """Many to Many model joining Album and attachments"""
   album_attachment_id = models.AutoField(primary_key=True)
@@ -40,6 +36,7 @@ class HwAlbumAttachments(models.Model):
   attachment = models.ForeignKey(HwAttachment)
   class Meta:
     db_table = u'hw_album_attachments'
+
 
 class HwClass(models.Model):
   """Class representing a educational class taken that may or may not have
@@ -50,7 +47,8 @@ class HwClass(models.Model):
   end_date = models.DateField(null=True, blank=True)
   class Meta:
     db_table = u'hw_class'
-    
+
+
 class HwEducation(models.Model):
   """Class representing a degree or qualification obtained by a user."""
   education_id = models.AutoField(primary_key=True)
@@ -60,7 +58,8 @@ class HwEducation(models.Model):
   end_date = models.DateField(null=True, blank=True)
   class Meta:
     db_table = u'hw_education'
-    
+
+
 class HwLanguage(models.Model):
   """Class representing a language supported by the application.
 
@@ -103,10 +102,11 @@ class HwLocation(models.Model):
   location_name = models.CharField(unique=True, max_length=45)
   class Meta:
     db_table = u'hw_location'
-    
+
   def __unicode__(self):
     return self.location_name
-    
+
+
 class HwUser(models.Model):
   """Extend HwUser from User"""
   user = models.ForeignKey(User, unique=True, primary_key=True)
@@ -122,15 +122,15 @@ class HwUser(models.Model):
   website = models.CharField(max_length=100, blank=True)
   profile_picture = models.CharField(max_length=100, blank=True)
   screen_name = models.CharField(max_length=45, blank=True)
-  messenger_service = models.IntegerField(null=True, blank=True, 
+  messenger_service = models.IntegerField(null=True, blank=True,
     choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
   default_language = models.ForeignKey(HwLanguage, default=0)
   skills = models.ManyToManyField('HwSkill', through='HwSkillConnections', blank=True)
   education = models.ManyToManyField(
-  	'HwEducation', through='HwEducationConnections')
+    'HwEducation', through='HwEducationConnections')
   classes = models.ManyToManyField('HwClass', through='HwEducationConnections')
   location_interests = models.ManyToManyField(
-  	'HwLocation', through='HwLocationInterests')
+    'HwLocation', through='HwLocationInterests')
   roles = models.ManyToManyField('HwRole', through='HwUserRoles')
   hunches = models.ManyToManyField('HwHunch', through='HwHunchConnections')
   groups = models.ManyToManyField('HwGroup', through='HwGroupConnections', blank=True)
@@ -138,8 +138,6 @@ class HwUser(models.Model):
   class Meta:
     db_table = u'hw_user'
 
-  #def __unicode__(self):
-  #  return self.username
 
 class HwEducationConnections(models.Model):
   """Many to Many model representing a user's education and/or classes"""
@@ -200,6 +198,7 @@ class HwHunch(models.Model):
     """Return True if this Hunch is hidden."""
     return (self.privacy == hunchworks_enums.PrivacyLevel.HIDDEN)
 
+
 class HwEvidence(models.Model):
   """Class representing a response to the hunch"""
   evidence_id = models.AutoField(primary_key=True)
@@ -215,7 +214,7 @@ class HwEvidence(models.Model):
   evidence_tags = models.ManyToManyField('HwTag', through='HwTagConnections')
   class Meta:
     db_table = u'hw_evidence'
-    
+
   def save(self, *args, **kwargs):
     now = datetime.datetime.today()
 
@@ -226,6 +225,7 @@ class HwEvidence(models.Model):
     self.time_modified = now
     super(HwEvidence, self).save(*args, **kwargs)
 
+
 class HwEvidenceAlbums(models.Model):
   """Many to Many model joining Evidence and Album together"""
   evidence_album_id = models.AutoField(primary_key=True)
@@ -233,6 +233,7 @@ class HwEvidenceAlbums(models.Model):
   evidence = models.ForeignKey(HwEvidence)
   class Meta:
     db_table = u'hw_evidence_albums'
+
 
 class HwEvidenceAttachments(models.Model):
   """Many to Many model joining evidence and attachments."""
@@ -273,6 +274,7 @@ class HwGroupConnections(models.Model):
   class Meta:
     db_table = u'hw_group_connections'
 
+
 class HwInvitedUser(models.Model):
   """Class representing a master list of all users ever invited to the system
   and their respective user id's if they created an account."""
@@ -282,9 +284,10 @@ class HwInvitedUser(models.Model):
   created_user = models.ForeignKey(HwUser, related_name='created_user_id',
     blank=True)
   invited_by = models.ForeignKey(HwUser, related_name='invited_by_id')
-    
+
   class Meta:
     db_table = u'hw_invited_user'
+
 
 class HwHunchConnections(models.Model):
   """Many to Many model joining Hunch and User,Group,InvitedUser together"""
@@ -296,6 +299,7 @@ class HwHunchConnections(models.Model):
   class Meta:
     db_table = u'hw_hunch_connections'
 
+
 class HwLocationInterests(models.Model):
   """Many to Many model joining User and Location together for their list
   of locations they are interested in"""
@@ -304,6 +308,7 @@ class HwLocationInterests(models.Model):
   location = models.ForeignKey(HwLocation)
   class Meta:
     db_table = u'hw_location_interests'
+
 
 class HwOrganization(models.Model):
   """Class representing an external organization (UNDP etc.)."""
@@ -315,6 +320,7 @@ class HwOrganization(models.Model):
   class Meta:
     db_table = u'hw_organization'
 
+
 class HwRole(models.Model):
   """Class representing a role held by a given user."""
   role_id = models.AutoField(primary_key=True)
@@ -325,6 +331,7 @@ class HwRole(models.Model):
   description = models.TextField(blank=True)
   class Meta:
     db_table = u'hw_role'
+
 
 class HwSkill(models.Model):
   """Class representing a skill possessed by a user, e.g. HTML."""
@@ -339,12 +346,13 @@ class HwSkill(models.Model):
   def __unicode__(self):
     return self.skill_name
 
+
 class HwSkillConnections(models.Model):
   """Many to Many model joining hunches, user and skills.
 
-  This model represents the skill-set required to progress a hunch and the 
-  skill level needed for each skill. It also has the skillset of a user, and 
-  the level for each skill. 
+  This model represents the skill-set required to progress a hunch and the
+  skill level needed for each skill. It also has the skillset of a user, and
+  the level for each skill.
   """
   skill_connection_id = models.AutoField(primary_key=True)
   skill = models.ForeignKey(HwSkill)
@@ -354,8 +362,6 @@ class HwSkillConnections(models.Model):
   class Meta:
     db_table = u'hw_skill_connections'
 
-  #def __unicode__(self):
-  #  return str(self.skill.skill_id)
 
 class HwUserRoles(models.Model):
   """Many To many model representing a user's roles or positions."""
@@ -365,6 +371,7 @@ class HwUserRoles(models.Model):
   class Meta:
     db_table = u'hw_user_roles'
 
+
 class HwTag(models.Model):
   """Class representing tags you can add to Evidence and Hunches for searching
   easability"""
@@ -372,6 +379,7 @@ class HwTag(models.Model):
   tag_name = models.CharField(max_length=40)
   class Meta:
     db_table = u'hw_tag'
+
 
 class HwTagConnections(models.Model):
   """Many to Many connector for Hunch, Evidence, and Tag classes"""
@@ -382,6 +390,7 @@ class HwTagConnections(models.Model):
   class Meta:
     db_table = u'hw_tag_connections'
 
+
 class HwUserConnections(models.Model):
   """Class representing a many to many relationship between users"""
   user_connection_id = models.AutoField(primary_key=True)
@@ -390,18 +399,7 @@ class HwUserConnections(models.Model):
   other_user = models.ForeignKey(HwUser, related_name='other_user_id')
   class Meta:
     db_table = u'hw_user_connections'
-  
 
-# Getters for setting the default values for ForeignKeys on other models.
-def GetDefaultLanguage():
-  return Language.objects.get(pk='en')
-
-
-def GetHunchGroup():
-  # TODO(leah): Set this up to auto-create a new group, taking names, owners
-  #       etc. from the hunch. Need to figure out how to pass that stuff
-  #       in.
-  pass
 
 def create_hw_user(sender, instance, created, **kwargs):
     if created:
