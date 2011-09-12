@@ -1,3 +1,4 @@
-db/*.sqlite3
+database/*.sqlite3
+database/*.mwb.bak
 *.pyc
 *.mwb.bak

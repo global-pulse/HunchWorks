@@ -18,8 +18,9 @@ MANAGERS = ADMINS
 
 DATABASES = {
   "default": {
-    "ENGINE": "django.db.backends.sqlite3",
-    "NAME": "db/development.sqlite3"
+    "ENGINE":    "django.db.backends.sqlite3",
+    "NAME":      "database/development.sqlite3",
+    "TEST_NAME": "database/test.sqlite3"
   }
 }
 
@@ -142,6 +143,7 @@ INSTALLED_APPS = (
   'django.contrib.admin',
   # Uncomment the next line to enable admin documentation:
   # 'django.contrib.admindocs',
+  "django_nose"
 )
 
 # A sample logging configuration. The only tangible logging
@@ -167,4 +169,10 @@ LOGGING = {
   }
 }
 
-AUTH_PROFILE_MODULE = 'hunchworks.UserProfile'
+AUTH_PROFILE_MODULE = 'hunchworks.HwUser'
+
+TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
+
+LIVE_SERVER_ADDRESS = "0.0.0.0"
+LIVE_SERVER_PORT = 8000
+LIVE_SERVER_STATIC = True
