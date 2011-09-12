@@ -7,6 +7,17 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
 
+PRIVACY_CHOICES = (
+  (0, "Hidden"),
+  (1, "Closed"),
+  (2, "Open"))
+
+PRIVACY_HELP_TEXT = "<br>".join([
+  "<strong>Hidden</strong>: only visible to invited members.",
+  "<strong>Closed</strong>: visible to everyone, but only invited members can participate.",
+  "<strong>Open</strong>: available to any HunchWorks member."])
+
+
 class UserProfile(models.Model):
   user = models.ForeignKey(User, unique=True)
   title = models.IntegerField(choices=hunchworks_enums.UserTitle.GetChoices(), default=0)
@@ -50,7 +61,7 @@ class Hunch(models.Model):
   time_modified = models.DateTimeField()
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
   title = models.CharField(max_length=100)
-  privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
+  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
   language = models.ForeignKey('Language')
   location = models.ForeignKey('Location', null=True, blank=True)
   description = models.TextField()
@@ -123,10 +134,7 @@ class Group(models.Model):
   name = models.CharField(max_length=100, unique=True)
   abbreviation = models.CharField(max_length=10, null=True, blank=True)
   group_type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
-  privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0,
-    help_text="<strong>Hidden</strong>: only visible to invited members.<br>" +
-              "<strong>Closed</strong>: visible to everyone, but only invited members can participate.<br>" +
-              "<strong>Open</strong>: available to any HunchWorks member.")
+  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
   logo = models.CharField(max_length=100, blank=True)
   location = models.ForeignKey('Location', null=True, blank=True)
   members = models.ManyToManyField('UserProfile', through='UserProfileGroup', null=True, blank=True)
