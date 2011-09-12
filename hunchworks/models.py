@@ -149,7 +149,7 @@ class Evidence(models.Model):
 class Group(models.Model):
   name = models.CharField(max_length=100, unique=True)
   abbreviation = models.CharField(max_length=10, null=True, blank=True)
-  group_type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
+  type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
   location = models.ForeignKey('Location', null=True, blank=True)
   members = models.ManyToManyField('UserProfile', through='UserProfileGroup', null=True, blank=True)
@@ -173,7 +173,7 @@ class UserProfileGroup(models.Model):
 
 
 class Attachment(models.Model):
-  attachment_type = models.IntegerField()
+  type = models.IntegerField()
   file_location = models.CharField(max_length=100)
 
   def __unicode__(self):
