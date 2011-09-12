@@ -4,7 +4,7 @@ from hunchworks import models, forms
 from hunchworks.utils.pagination import paginated
 from django.template import RequestContext
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
 
@@ -62,6 +62,7 @@ def create(req):
   return _render(req, "create", {
     "form": form
   })
+
 
 
 

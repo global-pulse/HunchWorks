@@ -1,28 +1,51 @@
 #!/usr/bin/env python
 
-import models
-import custom_fields
-
+import json
+from hunchworks import models, custom_fields
 from django import forms
 from django.forms import ModelForm
 from django.forms.widgets import PasswordInput
+from django.utils.datastructures import MultiValueDict, MergeDict
+
+
+class TagsWidget(forms.TextInput):
+  def render(self, name, value, attrs=None):
+    flat_value = ",".join(map(unicode, value))
+
+    attrs["data-prepopulate"] = json.dumps([
+      {"id": pk, "name": unicode(self.choices.queryset.get(pk=pk))}
+      for pk in value
+    ])
+
+    attrs["data-search-url"] = "/hunchworks/tags"
+    attrs["class"] = "tags"
+
+    return super(TagsWidget, self).render(name, flat_value, attrs)
+
+  def value_from_datadict(self, data, files, name):
+    return [pk for pk in data.get(name).split(",") if pk.isdigit()]
+
+
+class TagsField(forms.ModelMultipleChoiceField):
+  widget = TagsWidget
+
+  def __init__(self, *args, **kwargs):
+    super(TagsField, self).__init__(
+      models.Tag.objects.all(),
+      *args, **kwargs)
 
 
 class HunchForm(ModelForm):
-  skills_required = forms.CharField()
-  languages_required = forms.CharField()
-  tags = forms.CharField()
-  hunch_collaborators = forms.CharField()
+  tags = TagsField(required=False)
 
   class Meta:
     model = models.Hunch
     exclude = (
-    'hunch_id', 'skills', 'groups', 'users', 'invited_users', 'hunch_tags',
-    'time_created', 'time_modified', 'hunch_strength',
+      "creator", "time_created", "time_modified", "status", "user_profiles"
     )
-    
+
+
 class EvidenceForm(ModelForm):
-    
   class Meta:
     model = models.Evidence
     exclude = (

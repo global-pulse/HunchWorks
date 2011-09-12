@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 
+{% block css %}
+  <link rel="stylesheet" href="/static/token-input-facebook.css" type="text/css" />
+  <link rel="stylesheet" href="/static/token-input.css" type="text/css" />
+{% endblock %}
+
+{% block js %}
+  <script src='/static/editHunch.js'></script>
+{% endblock %}
+
 {% block content %}
-  <h1>
+  <h1 id='hunchId' hunch='{{ hunch.id }}' user='{{ user_id }}'>
     <a href="{% url hunches %}">Hunches</a> &raquo;
     <a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a> &raquo;
     Edit

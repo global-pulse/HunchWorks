@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import models
-
+from django.shortcuts import get_object_or_404
 from django import http
 from django.utils import simplejson
 
@@ -26,7 +26,6 @@ def tags(request):
   tags = models.Tag.objects.all()
   tags = tags.values_list('id', 'name')
   tags =  [{ "id": x[0], "name": x[1]} for x in tags]
-
   return http.HttpResponse( simplejson.dumps(tags) )
 
 
@@ -97,11 +96,8 @@ def hunch_skills(request, hunch_id):
 
   
 def hunch_tags(request, hunch_id):
-  tag_connections = models.TagConnection.objects.filter(hunch=hunch_id)
-  tag_connections = tag_connections.values_list('tag', flat=True)
-  
-  tags = models.Tag.objects.filter(tag_id__in=tag_connections)
-  tags = tags.values_list('id', 'name')
+  hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+  tags = hunch.tags.values_list('id', 'name')
   tags =  [{ "id": x[0], "name": x[1]} for x in tags]
   
   return http.HttpResponse( simplejson.dumps(tags) )

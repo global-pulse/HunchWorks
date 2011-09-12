@@ -31,19 +31,10 @@ function init()
 		$("#id_languages_required").tokenInput("/hunchworks/skills/languages",
 			{ prePopulate: prePopArray, preventDuplicates: true });
 	});
-	
-	//code for diplsaying tags assigned to the hunch
-	var hunchTags = $.getJSON(tag_url, function(data)
-	{
-		prePopArray = new Array();
-		for(var tag = 0; tag < data.length; tag++)
-		{
-			prePopArray[tag] = { id: data[tag].id, name: data[tag].name }
-		}
-		$("#id_tags").tokenInput("/hunchworks/tags", 
-			{ theme: 'facebook', prePopulate: prePopArray, preventDuplicates: true});
-	});
-	
+
+	$("#id_tags").tokenInput($("#id_tags").data("search-url"),
+		{ theme: 'facebook', prePopulate: $("#id_tags").data("prepopulate"), preventDuplicates: true});
+
 
 	//code for diplsaying users assigned to the hunch
 	var collaborators = $.getJSON(hunchCollaborators, function(data)
