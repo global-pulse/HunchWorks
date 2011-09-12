@@ -42,6 +42,9 @@ class UserProfile(models.Model):
   qualifications = models.ManyToManyField('Education', blank=True)
   courses = models.ManyToManyField('Course', blank=True)
 
+  def __unicode__(self):
+    return self.user.username
+
 
 def create_user(sender, instance, created, **kwargs):
   if created: UserProfile.objects.create(user=instance)
@@ -53,6 +56,9 @@ class Connection(models.Model):
   user_profile       = models.ForeignKey('UserProfile', related_name="outgoing_connections")
   other_user_profile = models.ForeignKey('UserProfile', related_name="incoming_connections")
   status             = models.IntegerField(default=0)
+
+  def __unicode__(self):
+    return "%s -> %s" % (self.user_profile, self.other_user_profile)
 
 
 class Hunch(models.Model):
@@ -72,11 +78,18 @@ class Hunch(models.Model):
   class Meta:
     verbose_name_plural = "hunches"
 
+  def __unicode__(self):
+    return self.title
+
+  @models.permalink
+  def get_absolute_url(self):
+    return ("hunch", [self.pk])
+
   def save(self, *args, **kwargs):
     now = datetime.datetime.today()
 
     # for new records.
-    if not self.hunch_id:
+    if not self.id:
       self.time_created = now
 
     self.time_modified = now
@@ -119,6 +132,9 @@ class Evidence(models.Model):
   attachments = models.ManyToManyField('Attachment')
   tags = models.ManyToManyField('Tag', blank=True)
 
+  def __unicode__(self):
+    return "<Evidence:%d>" % self.pk
+
   def save(self, *args, **kwargs):
     now = datetime.datetime.today()
 
@@ -153,15 +169,24 @@ class UserProfileGroup(models.Model):
   access_level = models.IntegerField()
   status = models.IntegerField()
 
+  def __unicode__(self):
+    return "<UserProfileGroup:%d>" % self.pk
+
 
 class Attachment(models.Model):
   attachment_type = models.IntegerField()
   file_location = models.CharField(max_length=100)
 
+  def __unicode__(self):
+    return "<Attachment:%d>" % self.pk
+
 
 class Album(models.Model):
   name = models.CharField(max_length=45)
   attachments = models.ManyToManyField('Attachment')
+
+  def __unicode__(self):
+    return self.name
 
 
 class Education(models.Model):
@@ -169,6 +194,9 @@ class Education(models.Model):
   qualification = models.CharField(max_length=100)
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
+
+  def __unicode__(self):
+    return "<Education:%d>" % self.pk
 
 
 class Course(models.Model):
@@ -183,6 +211,9 @@ class Course(models.Model):
 
   class Meta:
     verbose_name_plural = "classes"
+
+  def __unicode__(self):
+    return "<Course:%d>" % self.pk
 
 
 class Language(models.Model):
@@ -202,6 +233,9 @@ class Location(models.Model):
 class Tag(models.Model):
   name = models.CharField(max_length=40)
 
+  def __unicode__(self):
+    return self.name
+
 
 class Role(models.Model):
   group = models.ForeignKey('Group')
@@ -209,6 +243,9 @@ class Role(models.Model):
   start_date = models.DateField()
   end_date = models.DateField(null=True, blank=True)
   description = models.TextField(blank=True)
+
+  def __unicode__(self):
+    return self.title
 
 
 class Skill(models.Model):
@@ -224,3 +261,6 @@ class Invitation(models.Model):
   email = models.CharField(max_length=100)
   invited_by = models.ForeignKey('UserProfile', related_name="invitations")
   hunch = models.ForeignKey('Hunch', null=True, blank=True)
+
+  def __unicode__(self):
+    return "%s to %s" % (self.email, self.hunch)
