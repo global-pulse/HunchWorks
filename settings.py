@@ -120,8 +120,7 @@ MIDDLEWARE_CLASSES = (
   'django.contrib.sessions.middleware.SessionMiddleware',
   'django.middleware.csrf.CsrfViewMiddleware',
   'django.contrib.auth.middleware.AuthenticationMiddleware',
-  'django.contrib.messages.middleware.MessageMiddleware',
-  'django.middleware.csrf.CsrfResponseMiddleware',
+  'django.contrib.messages.middleware.MessageMiddleware'
 )
 
 ROOT_URLCONF = '%s.urls' % BASE_DIR.split('/')[-1]
