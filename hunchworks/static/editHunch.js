@@ -32,9 +32,6 @@ function init()
 			{ prePopulate: prePopArray, preventDuplicates: true });
 	});
 
-	$("#id_tags").tokenInput($("#id_tags").data("search-url"),
-		{ theme: 'facebook', prePopulate: $("#id_tags").data("prepopulate"), preventDuplicates: true});
-
 
 	//code for diplsaying users assigned to the hunch
 	var collaborators = $.getJSON(hunchCollaborators, function(data)
