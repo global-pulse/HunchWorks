@@ -43,6 +43,7 @@ def edit(req, hunch_id):
     return redirect(hunch)
 
   return _render(req, "edit", {
+    "hunch": hunch,
     "form": form
   })
 
