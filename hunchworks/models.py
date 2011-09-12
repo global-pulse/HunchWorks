@@ -73,7 +73,7 @@ class Hunch(models.Model):
   description = models.TextField()
   skills = models.ManyToManyField('Skill', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
-  users = models.ManyToManyField('UserProfile', through='HunchUser')
+  user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
 
   class Meta:
     verbose_name_plural = "hunches"
@@ -151,7 +151,6 @@ class Group(models.Model):
   abbreviation = models.CharField(max_length=10, null=True, blank=True)
   group_type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
-  logo = models.CharField(max_length=100, blank=True)
   location = models.ForeignKey('Location', null=True, blank=True)
   members = models.ManyToManyField('UserProfile', through='UserProfileGroup', null=True, blank=True)
 
