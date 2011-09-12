@@ -15,4 +15,13 @@ def profile(request, user_id=None):
   invite_form = forms.InvitePeople()
   context = RequestContext(request)
   context.update({ "user": user, "invite_form": invite_form })
-  return render_to_response('profile.html', context)
+  return render_to_response('users/profile.html', context)
+
+@login_required
+def edit(request, user_id=None):
+  if not user_id:
+    user_id = request.user.pk
+  user = get_object_or_404(models.User, pk=user_id)
+  context = RequestContext(request)
+  context.update({ "user": user})
+  return render_to_response('users/edit.html', context)
