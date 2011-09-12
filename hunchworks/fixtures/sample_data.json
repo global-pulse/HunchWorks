@@ -1,34 +1,34 @@
 [
     {
         "pk": 1,
-        "model": "hunchworks.hwlocation",
+        "model": "hunchworks.location",
         "fields": 
         {
-            "location_name": "New York City, NY"
+            "name": "New York City, NY"
         }
     },
     {
         "pk": 2,
-        "model": "hunchworks.hwlocation",
+        "model": "hunchworks.location",
         "fields": 
         {
-            "location_name": "San Francisco, CA"
+            "name": "San Francisco, CA"
         }
     },
     {
         "pk": 3,
-        "model": "hunchworks.hwlocation",
+        "model": "hunchworks.location",
         "fields": 
         {
-            "location_name": "Miami, FL"
+            "name": "Miami, FL"
         }
     },
     {
         "pk": 4,
-        "model": "hunchworks.hwlocation",
+        "model": "hunchworks.location",
         "fields": 
         {
-            "location_name": "San Antonio, TX"
+            "name": "San Antonio, TX"
         }
     },
     
@@ -36,80 +36,80 @@
     
     {
     	"pk": 1,
-        "model": "hunchworks.hwskill",
+        "model": "hunchworks.skill",
         "fields": 
         {
-            "skill_name": "English",
+            "name": "English",
             "is_language": "1",
             "is_technical": "0"
         }
     },
     {
     	"pk": 2,
-        "model": "hunchworks.hwskill",
+        "model": "hunchworks.skill",
         "fields": 
         {
-            "skill_name": "French",
+            "name": "French",
             "is_language": "1",
             "is_technical": "0"
         }
     },
     {
     	"pk": 3,
-        "model": "hunchworks.hwskill",
+        "model": "hunchworks.skill",
         "fields": 
         {
-            "skill_name": "Spanish",
+            "name": "Spanish",
             "is_language": "1",
             "is_technical": "0"
         }
     },
     {
     	"pk": 4,
-        "model": "hunchworks.hwskill",
+        "model": "hunchworks.skill",
         "fields": 
         {
-            "skill_name": "German",
+            "name": "German",
             "is_language": "1",
             "is_technical": "0"
         }
     },
     {
     	"pk": 5,
-        "model": "hunchworks.hwskill",
+        "model": "hunchworks.skill",
         "fields": 
         {
-            "skill_name": "Visualization",
+            "name": "Visualization",
             "is_language": "0",
             "is_technical": "0"
         }
     },
     {
     	"pk": 6,
-        "model": "hunchworks.hwskill",
+        "model": "hunchworks.skill",
         "fields": 
         {
-            "skill_name": "Rapid development",
+            "name": "Rapid development",
             "is_language": "0",
             "is_technical": "0"
         }
     },
     {
     	"pk": 7,
-        "model": "hunchworks.hwskill",
+        "model": "hunchworks.skill",
         "fields": 
         {
-            "skill_name": "Bomb dissarming",
+            "name": "Bomb dissarming",
             "is_language": "0",
             "is_technical": "0"
         }
     },
     {
     	"pk": 8,
-        "model": "hunchworks.hwskill",
+        "model": "hunchworks.skill",
         "fields": 
         {
-            "skill_name": "Flying license",
+            "name": "Flying license",
             "is_language": "0",
             "is_technical": "0"
         }
@@ -118,87 +118,87 @@
     
     {
         "pk": 1,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.userprofileskill",
         "fields": 
         {
             "skill": 1,
             "level": 1,
-            "user": 1
+            "user_profile": 1
         }
     },
     {
         "pk": 2,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.userprofileskill",
         "fields": 
         {
             "skill": 2,
 			"level": 0,
-			"user": 1
+			"user_profile": 1
         }
     },
     {
         "pk": 3,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.userprofileskill",
         "fields": 
         {
             "skill": 3,
             "level": 1,
-        	"user": 1
+        	"user_profile": 1
         }
     },
     {
         "pk": 4,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.userprofileskill",
         "fields": 
         {
             "skill": 4,
             "level": 0,
-            "user": 1
+            "user_profile": 1
         }
     },
     {
         "pk": 5,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.userprofileskill",
         "fields": 
         {
             "skill": 5,
             "level": 1,
-            "user": 1
+            "user_profile": 1
         }
     },
     {
         "pk": 6,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.userprofileskill",
         "fields": 
         {
             "skill": 6,
 			"level": 0,
-			"user": 1
+			"user_profile": 1
         }
     },
     {
         "pk": 7,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.userprofileskill",
         "fields": 
         {
             "skill": 7,
             "level": 1,
-        	"user": 1
+        	"user_profile": 1
         }
     },
     {
         "pk": 8,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.userprofileskill",
         "fields": 
         {
             "skill": 8,
             "level": 0,
-            "user": 1
+            "user_profile": 1
         }
     },
     {
         "pk": 9,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.hunchskill",
         "fields": 
         {
             "skill": 1,
@@ -208,7 +208,7 @@
     },
     {
         "pk": 10,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.hunchskill",
         "fields": 
         {
             "skill": 5,
@@ -218,7 +218,7 @@
     },
     {
         "pk": 11,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.hunchskill",
         "fields": 
         {
             "skill": 2,
@@ -228,7 +228,7 @@
     },
     {
         "pk": 12,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.hunchskill",
         "fields": 
         {
             "skill": 6,
@@ -238,7 +238,7 @@
     },
     {
         "pk": 13,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.hunchskill",
         "fields": 
         {
             "skill": 3,
@@ -248,7 +248,7 @@
     },
     {
         "pk": 14,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.hunchskill",
         "fields": 
         {
             "skill": 7,
@@ -258,7 +258,7 @@
     },
     {
         "pk": 15,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.hunchskill",
         "fields": 
         {
             "skill": 4,
@@ -268,7 +268,7 @@
     },
     {
         "pk": 16,
-        "model": "hunchworks.hwskillconnections",
+        "model": "hunchworks.hunchskill",
         "fields": 
         {
             "skill": 8,
@@ -352,61 +352,61 @@
     
     {
         "pk": 1,
-        "model": "hunchworks.hwuserconnections",
+        "model": "hunchworks.connection",
         "fields": 
         {
-            "user": 1,
-            "other_user": 2,
+            "user_profile": 1,
+            "other_user_profile": 2,
             "status": 0
         }
     },
     {
         "pk": 2,
-        "model": "hunchworks.hwuserconnections",
+        "model": "hunchworks.connection",
         "fields": 
         {
-            "user": 1,
-            "other_user": 3,
+            "user_profile": 1,
+            "other_user_profile": 3,
             "status": 0
         }
     },
     {
         "pk": 3,
-        "model": "hunchworks.hwuserconnections",
+        "model": "hunchworks.connection",
         "fields": 
         {
-            "user": 1,
-            "other_user": 4,
+            "user_profile": 1,
+            "other_user_profile": 4,
             "status": 0
         }
     },
     {
         "pk": 4,
-        "model": "hunchworks.hwuserconnections",
+        "model": "hunchworks.connection",
         "fields": 
         {
-            "user": 2,
-            "other_user": 3,
+            "user_profile": 2,
+            "other_user_profile": 3,
             "status": 0
         }
     },
     {
         "pk": 5,
-        "model": "hunchworks.hwuserconnections",
+        "model": "hunchworks.connection",
         "fields": 
         {
-            "user": 2,
-            "other_user": 4,
+            "user_profile": 2,
+            "other_user_profile": 4,
             "status": 0
         }
     },
     {
         "pk": 6,
-        "model": "hunchworks.hwuserconnections",
+        "model": "hunchworks.connection",
         "fields": 
         {
-            "user": 3,
-            "other_user": 4,
+            "user_profile": 3,
+            "other_user_profile": 4,
             "status": 0
         }
     },
@@ -415,80 +415,41 @@
     
     {
         "pk": 1,
-        "model": "hunchworks.hwtag",
+        "model": "hunchworks.tag",
         "fields": 
         {
-            "tag_name": "Global Warming"
+            "name": "Global Warming"
         }
     },
     {
         "pk": 2,
-        "model": "hunchworks.hwtag",
+        "model": "hunchworks.tag",
         "fields": 
         {
-            "tag_name": "Drought"
+            "name": "Drought"
         }
     },
     {
         "pk": 3,
-        "model": "hunchworks.hwtag",
+        "model": "hunchworks.tag",
         "fields": 
         {
-            "tag_name": "Flood"
+            "name": "Flood"
         }
     },
     {
         "pk": 4,
-        "model": "hunchworks.hwtag",
+        "model": "hunchworks.tag",
         "fields": 
         {
-            "tag_name": "Tsunami"
-        }
-    },
-    
-    
-    
-    {
-        "pk": 1,
-        "model": "hunchworks.hwtagconnections",
-        "fields": 
-        {
-            "tag": 1,
-            "hunch": 1
-        }
-    },
-    {
-        "pk": 2,
-        "model": "hunchworks.hwtagconnections",
-        "fields": 
-        {
-            "tag": 2,
-			"hunch": 1
-        }
-    },
-    {
-        "pk": 3,
-        "model": "hunchworks.hwtagconnections",
-        "fields": 
-        {
-            "tag": 3,
-            "hunch": 2
-        }
-    },
-    {
-        "pk": 4,
-        "model": "hunchworks.hwtagconnections",
-        "fields": 
-        {
-            "tag": 4,
-            "hunch": 2
+            "name": "Tsunami"
         }
     },
     
     
     {
         "pk": 1,
-        "model": "hunchworks.hwhunch",
+        "model": "hunchworks.hunch",
         "fields": 
         {
             "creator": 1,
@@ -497,15 +458,15 @@
             "status": 0,
             "title": "Global Warming is True",
             "privacy": 2,
-            "hunch_strength": 2,
             "language": 1,
             "location": 1,
-            "hunch_description": "Proving all the non-believers wrong"
+            "description": "Proving all the non-believers wrong",
+            "tags": [1,2]
         }
     },
     {
         "pk": 2,
-        "model": "hunchworks.hwhunch",
+        "model": "hunchworks.hunch",
         "fields": 
         {
             "creator": 1,
@@ -514,15 +475,15 @@
             "status": 1,
             "title": "Global Warming is False",
             "privacy": 2,
-            "hunch_strength": 2,
             "language": 1,
             "location": 1,
-            "hunch_description": "Proving all the non-believers wrong"
+            "description": "Proving all the non-believers wrong",
+            "tags": [3,4]
         }
     },
     {
         "pk": 3,
-        "model": "hunchworks.hwhunch",
+        "model": "hunchworks.hunch",
         "fields": 
         {
             "creator": 1,
@@ -531,15 +492,14 @@
             "status": 2,
             "title": "Famine in Horn of Africa",
             "privacy": 2,
-            "hunch_strength": 2,
             "language": 1,
             "location": 1,
-            "hunch_description": "Proof that their is a famine in the horn of africa"
+            "description": "Proof that their is a famine in the horn of africa"
         }
     },
     {
         "pk": 4,
-        "model": "hunchworks.hwhunch",
+        "model": "hunchworks.hunch",
         "fields": 
         {
             "creator": 1,
@@ -548,52 +508,51 @@
             "status": 0,
             "title": "Japan nuclear plant still releasing radiation",
             "privacy": 2,
-            "hunch_strength": 2,
             "language": 1,
             "location": 1,
-            "hunch_description": "Japan crippled nuclear power plant is still releasing radiation clouds even though the Japanese government has said it isn't. Government hiding data from it's people?"
+            "description": "Japan crippled nuclear power plant is still releasing radiation clouds even though the Japanese government has said it isn't. Government hiding data from it's people?"
         }
     },
     
     
     {
         "pk": 1,
-        "model": "hunchworks.hwhunchconnections",
+        "model": "hunchworks.hunchuser",
         "fields": 
         {
             "hunch": 1,
             "status": 0,
-            "user": 1
+            "user_profile": 1
         }
     },
     {
         "pk": 2,
-        "model": "hunchworks.hwhunchconnections",
+        "model": "hunchworks.hunchuser",
         "fields": 
         {
             "hunch": 2,
 			"status": 1,
-			"user": 1
+			"user_profile": 1
         }
     },
     {
         "pk": 3,
-        "model": "hunchworks.hwhunchconnections",
+        "model": "hunchworks.hunchuser",
         "fields": 
         {
             "hunch": 3,
             "status": 1,
-            "user": 1
+            "user_profile": 1
         }
     },
     {
         "pk": 4,
-        "model": "hunchworks.hwhunchconnections",
+        "model": "hunchworks.hunchuser",
         "fields": 
         {
             "hunch": 4,
             "status": 2,
-            "user": 1
+            "user_profile": 1
         }
     }
 ]

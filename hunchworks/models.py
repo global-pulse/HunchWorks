@@ -45,18 +45,18 @@ class Connection(models.Model):
 
 
 class Hunch(models.Model):
-  creator = models.ForeignKey('UserProfile')
+  creator = models.ForeignKey('UserProfile', related_name="created_hunches")
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
   title = models.CharField(max_length=100)
   privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
-  hunch_strength = models.IntegerField(default=0)
   language = models.ForeignKey('Language')
   location = models.ForeignKey('Location', null=True, blank=True)
   description = models.TextField()
   skills = models.ManyToManyField('Skill', through='HunchSkill', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
+  users = models.ManyToManyField('UserProfile', through='HunchUser')
 
   class Meta:
     verbose_name_plural = "hunches"
@@ -90,12 +90,18 @@ class Hunch(models.Model):
     return (self.privacy == hunchworks_enums.PrivacyLevel.HIDDEN)
 
 
+class HunchUser(models.Model):
+  hunch = models.ForeignKey('Hunch')
+  user_profile = models.ForeignKey('UserProfile')
+  status = models.IntegerField()
+
+
 class Evidence(models.Model):
   """Class representing a response to the hunch"""
-  evidence_strength = models.IntegerField(default=0)
+  strength = models.IntegerField(default=0)
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
-  evidence_description = models.TextField(blank=True)
+  description = models.TextField(blank=True)
   hunch = models.ForeignKey('Hunch')
   creator = models.ForeignKey('UserProfile')
   albums = models.ManyToManyField('Album')
