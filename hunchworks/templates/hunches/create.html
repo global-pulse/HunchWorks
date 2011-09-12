@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    <a href="{% url hunches %}">Hunch</a> &raquo; New
+  </h1>
+
+  <form action="" method="post">
+    {% include "hunches/form.html" %}
+
+    <div class="actions">
+      <input type="submit" value="Create Hunch">
+    </div>
+  </form>
+{% endblock %}

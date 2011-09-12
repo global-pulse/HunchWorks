@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load paginator_tags %}
+
+{% block content %}
+  <h1>Hunches</h1>
+
+  {% for hunch in hunches.object_list %}
+    <div class="hunch">
+      <h3><a href="{{ hunch.get_absolute_url }}">{{ hunch.name }}</a></h3>
+    </div>
+  {% endfor %}
+
+  <div class="links">
+    <ul>
+      <li><a href="{% url create_hunch %}">Add a Hunch</a></li>
+    </ul>
+
+    {% paginator hunches %}
+    <div class="clear-hack"></div>
+  </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1><a href="{% url hunches %}">Hunches</a> &raquo; {{ hunch }}</h1>
+
+  <div class="hunch">
+    <h3><a href="{{ hunch.get_absolute_url }}">{{ hunch.name }}</a></h3>
+  </div>
+
+  <div class="links">
+    <ul>
+      <li><a href="{% url edit_hunch hunch.pk %}">Edit this Hunch</a></li>
+    </ul>
+    <div class="clear-hack"></div>
+  </div>
+{% endblock %}

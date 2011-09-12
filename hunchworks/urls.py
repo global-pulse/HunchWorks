@@ -23,16 +23,17 @@ urlpatterns = patterns(
   url(r'^profile/(?P<user_id>\d+)$', users.profile, name='profile'),
   url(r'^profile$', users.profile, name='profile'),
 
-  #groups
-  url(r'^groups$',                        groups.index, name="groups"),
-  url(r'^groups/(?P<group_id>\d+)$',      groups.show,  name="group"),
-  url(r'^groups/(?P<group_id>\d+)/edit$', groups.edit,  name="edit_group"),
-  url(r'^groups/create',                  groups.create,   name="create_group"),
+  # groups
+  url(r'^groups$',                        groups.index,  name="groups"),
+  url(r'^groups/(?P<group_id>\d+)$',      groups.show,   name="group"),
+  url(r'^groups/(?P<group_id>\d+)/edit$', groups.edit,   name="edit_group"),
+  url(r'^groups/create',                  groups.create, name="create_group"),
 
   # hunches
-  url(r'^hunches/(?P<hunch_id>\d+)$', hunches.showHunch, name="showHunch"),
-  url(r'^hunches/create', hunches.createHunch),
-  url(r'^hunches/edit/(?P<hunch_id>\d+)$', hunches.editHunch, name="editHunch"),
+  url(r'^hunches$',                        hunches.index,  name="hunches"),
+  url(r'^hunches/(?P<hunch_id>\d+)$',      hunches.show,   name="hunch"),
+  url(r'^hunches/(?P<hunch_id>\d+)/edit$', hunches.edit,   name="edit_hunch"),
+  url(r'^hunches/create$',                 hunches.create, name="create_hunch")
 )
 
 

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    <a href="{% url hunches %}">Hunches</a> &raquo;
+    <a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a> &raquo;
+    Edit
+  </h1>
+
+  <form action="" method="post">
+    {% include "hunches/form.html" %}
+
+    <div class="actions">
+      <input type="submit" value="Edit Hunch">
+    </div>
+  </form>
+{% endblock %}
