@@ -37,7 +37,7 @@ class UserProfile(models.Model):
 
   roles = models.ManyToManyField("Role", blank=True)
   location_interests = models.ManyToManyField('Location', blank=True)
-  skills = models.ManyToManyField('Skill', through='UserProfileSkill', blank=True)
+  skills = models.ManyToManyField('Skill', blank=True)
 
   qualifications = models.ManyToManyField('Education', blank=True)
   courses = models.ManyToManyField('Course', blank=True)
@@ -65,7 +65,7 @@ class Hunch(models.Model):
   language = models.ForeignKey('Language')
   location = models.ForeignKey('Location', null=True, blank=True)
   description = models.TextField()
-  skills = models.ManyToManyField('Skill', through='HunchSkill', blank=True)
+  skills = models.ManyToManyField('Skill', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   users = models.ManyToManyField('UserProfile', through='HunchUser')
 
@@ -218,18 +218,6 @@ class Skill(models.Model):
 
   def __unicode__(self):
     return self.name
-
-
-class UserProfileSkill(models.Model):
-  user_profile = models.ForeignKey('UserProfile')
-  skill = models.ForeignKey('Skill')
-  level = models.IntegerField()
-
-
-class HunchSkill(models.Model):
-  hunch = models.ForeignKey('Hunch')
-  skill = models.ForeignKey('Skill')
-  level = models.IntegerField()
 
 
 class Invitation(models.Model):

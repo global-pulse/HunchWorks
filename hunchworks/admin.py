@@ -18,8 +18,6 @@ admin.site.register(Location)
 admin.site.register(Tag)
 admin.site.register(Role)
 admin.site.register(Skill)
-admin.site.register(UserProfileSkill)
-admin.site.register(HunchSkill)
 admin.site.register(Invitation)
 
 
