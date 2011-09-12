@@ -25,7 +25,7 @@ def index(req):
 
 
 @login_required
-def show(req, group_id):
+def show(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
 
   return _render(req, "show", {
@@ -34,7 +34,7 @@ def show(req, group_id):
 
 
 @login_required
-def edit(req, group_id):
+def edit(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
   form = forms.HunchForm(req.POST or None, instance=hunch)
 
