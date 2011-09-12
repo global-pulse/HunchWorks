@@ -6,7 +6,7 @@
 
   {% for hunch in hunches.object_list %}
     <div class="hunch">
-      <h3><a href="{{ hunch.get_absolute_url }}">{{ hunch.name }}</a></h3>
+      <h3><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h3>
     </div>
   {% endfor %}
 
