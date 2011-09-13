@@ -28,6 +28,7 @@ urlpatterns = patterns(
   url(r'^groups/(?P<group_id>\d+)$',      groups.show,   name="group"),
   url(r'^groups/(?P<group_id>\d+)/edit$', groups.edit,   name="edit_group"),
   url(r'^groups/create',                  groups.create, name="create_group"),
+  url(r'^groups/(?P<group_id>\d+)/join$', groups.join,   name="join_group"),
 
   # hunches
   url(r'^hunches$',                        hunches.index,  name="hunches"),

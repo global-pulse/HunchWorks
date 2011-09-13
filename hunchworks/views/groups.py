@@ -72,6 +72,17 @@ def edit(req, group_id):
   return _render(req, "edit", { 'form':form, 'group':group,
     'user_id': req.user.pk })
 
+@login_required
+def join(req, group_id):
+  group = get_object_or_404(models.Group, pk=group_id)
+
+  group_connection = models.UserProfileGroup.objects.get_or_create(
+    user_profile = models.UserProfile.objects.get(pk=req.user.pk),
+	group = group,
+	access_level=0,
+	status=0)
+
+  return _render(req, "show", { 'group': group })
 
 @login_required
 def create(req):
