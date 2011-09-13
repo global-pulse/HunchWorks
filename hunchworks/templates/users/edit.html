@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Edit Your Profile{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="/static/profile.css" type="text/css"/>
+{% endblock %}
+{% block content %}
+<h1>Edit your profile</h1>
+<div id="edit">
+  <form method="post" enctype="multipart/form-data" method="post"
+    action="/hunchworks/profile/edit">{% csrf_token %}
+
+    {{ profile_form }}
+
+    <input type='submit' value='Submit changes'/>
+  
+  </form>
+</div>
+{% endblock %}
