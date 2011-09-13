@@ -128,8 +128,8 @@ class Evidence(models.Model):
   description = models.TextField(blank=True)
   hunch = models.ForeignKey('Hunch')
   creator = models.ForeignKey('UserProfile')
-  albums = models.ManyToManyField('Album')
-  attachments = models.ManyToManyField('Attachment')
+  albums = models.ManyToManyField('Album', blank=True)
+  attachments = models.ManyToManyField('Attachment', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
@@ -174,7 +174,7 @@ class UserProfileGroup(models.Model):
 
 class Attachment(models.Model):
   type = models.IntegerField()
-  file_location = models.CharField(max_length=100)
+  file_location = models.CharField(max_length=100) # TODO filefield
 
   def __unicode__(self):
     return "<Attachment:%d>" % self.pk
@@ -263,3 +263,4 @@ class Invitation(models.Model):
 
   def __unicode__(self):
     return "%s to %s" % (self.email, self.hunch)
+
