@@ -3,10 +3,10 @@
 
 		   {% for hunch in recent_hunches %}
 		  <div class='title'>
-			<a href='/hunchworks/hunches/{{hunch.hunch_id}}'>{{ hunch.title }}</a>
+			<a href='/hunches/{{hunch.hunch_id}}'>{{ hunch.title }}</a>
 		  </div>
 		  <div class='info'>
-			by <a href='/hunchworks/profile/{{ hunch.creator.user.id }}'>{{ hunch.creator.user.first_name }}</a> and <a href='collaboratorsLink'>
+			by <a href='/profile/{{ hunch.creator.user.id }}'>{{ hunch.creator.user.first_name }}</a> and <a href='collaboratorsLink'>
 			# of Collaborators</a><a href='hunchAttachments'># of attachments</a>
 		  </div>
 		  {% endfor %}

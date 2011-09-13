@@ -19,7 +19,7 @@ MANAGERS = ADMINS
 DATABASES = {
   "default": {
     "ENGINE": "django.db.backends.sqlite3",
-    "NAME": "db/development.sqlite3"
+    "NAME": "HunchWorks/db/development.sqlite3"
   }
 }
 

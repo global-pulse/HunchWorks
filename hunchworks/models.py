@@ -30,7 +30,7 @@ class UserProfile(models.Model):
   profile_picture = models.ImageField(upload_to="/profile_images/", blank=True)
   screen_name = models.CharField(max_length=45, blank=True)
   messenger_service = models.IntegerField(null=True, blank=True, choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
-  default_language = models.ForeignKey('Language', default=0)
+  default_language = models.ForeignKey('TranslationLanguage', default=0)
 
   invitation = models.ForeignKey('Invitation', unique=True, null=True, blank=True)
   connections = models.ManyToManyField('self', through='Connection', symmetrical=False, blank=True)
@@ -38,6 +38,7 @@ class UserProfile(models.Model):
   roles = models.ManyToManyField("Role", blank=True)
   location_interests = models.ManyToManyField('Location', blank=True)
   skills = models.ManyToManyField('Skill', blank=True)
+  languages = models.ManyToManyField('Language', blank=True)
 
   qualifications = models.ManyToManyField('Education', blank=True)
   courses = models.ManyToManyField('Course', blank=True)
@@ -68,10 +69,12 @@ class Hunch(models.Model):
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
   title = models.CharField(max_length=100)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
-  language = models.ForeignKey('Language')
+  language = models.ForeignKey('TranslationLanguage')
   location = models.ForeignKey('Location', null=True, blank=True)
   description = models.TextField()
+  
   skills = models.ManyToManyField('Skill', blank=True)
+  languages = models.ManyToManyField('Language', blank=True)
   evidence = models.ManyToManyField('Evidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
@@ -216,7 +219,7 @@ class Course(models.Model):
     return "<Course:%d>" % self.pk
 
 
-class Language(models.Model):
+class TranslationLanguage(models.Model):
   name = models.CharField(unique=True, max_length=45)
 
   def __unicode__(self):
@@ -250,9 +253,14 @@ class Role(models.Model):
 
 class Skill(models.Model):
   name = models.CharField(unique=True, max_length=100)
-  is_language = models.IntegerField()
-  is_technical = models.IntegerField()
 
+  def __unicode__(self):
+    return self.name
+
+
+class Language(models.Model):
+  name = models.CharField(unique=True, max_length=100)
+  
   def __unicode__(self):
     return self.name
 

@@ -36,12 +36,42 @@
     
     {
     	"pk": 1,
+        "model": "hunchworks.language",
+        "fields": 
+        {
+            "name": "English"
+        }
+    },
+    {
+    	"pk": 2,
+        "model": "hunchworks.language",
+        "fields": 
+        {
+            "name": "French"
+        }
+    },
+    {
+    	"pk": 3,
+        "model": "hunchworks.language",
+        "fields": 
+        {
+            "name": "Spanish"
+        }
+    },
+    {
+    	"pk": 4,
+        "model": "hunchworks.language",
+        "fields": 
+        {
+            "name": "German"
+        }
+    },
+    {
+    	"pk": 1,
         "model": "hunchworks.skill",
         "fields": 
         {
-            "name": "English",
-            "is_language": "1",
-            "is_technical": "0"
+            "name": "Visualization"
         }
     },
     {
@@ -49,9 +79,7 @@
         "model": "hunchworks.skill",
         "fields": 
         {
-            "name": "French",
-            "is_language": "1",
-            "is_technical": "0"
+            "name": "Rapid development"
         }
     },
     {
@@ -59,9 +87,7 @@
         "model": "hunchworks.skill",
         "fields": 
         {
-            "name": "Spanish",
-            "is_language": "1",
-            "is_technical": "0"
+            "name": "Bomb dissarming"
         }
     },
     {
@@ -69,49 +95,7 @@
         "model": "hunchworks.skill",
         "fields": 
         {
-            "name": "German",
-            "is_language": "1",
-            "is_technical": "0"
-        }
-    },
-    {
-    	"pk": 5,
-        "model": "hunchworks.skill",
-        "fields": 
-        {
-            "name": "Visualization",
-            "is_language": "0",
-            "is_technical": "0"
-        }
-    },
-    {
-    	"pk": 6,
-        "model": "hunchworks.skill",
-        "fields": 
-        {
-            "name": "Rapid development",
-            "is_language": "0",
-            "is_technical": "0"
-        }
-    },
-    {
-    	"pk": 7,
-        "model": "hunchworks.skill",
-        "fields": 
-        {
-            "name": "Bomb dissarming",
-            "is_language": "0",
-            "is_technical": "0"
-        }
-    },
-    {
-    	"pk": 8,
-        "model": "hunchworks.skill",
-        "fields": 
-        {
-            "name": "Flying license",
-            "is_language": "0",
-            "is_technical": "0"
+            "name": "Flying license"
         }
     },
 
@@ -299,7 +283,9 @@
             "location": 1,
             "description": "Proving all the non-believers wrong",
             "evidence": [1,2],
-            "tags": [1,2]
+            "tags": [1,2],
+            "skills": [1,2,3,4],
+            "languages": [1]
         }
     },
     {
@@ -317,7 +303,9 @@
             "location": 1,
             "description": "Proving all the non-believers wrong",
             "evidence": [1,2],
-            "tags": [3,4]
+            "tags": [3,4],
+            "skills": [3,4],
+            "languages": [2]
         }
     },
     {
@@ -333,7 +321,9 @@
             "privacy": 2,
             "language": 1,
             "location": 1,
-            "description": "Proof that their is a famine in the horn of africa"
+            "description": "Proof that their is a famine in the horn of africa",
+            "skills": [1,4],
+            "languages": [3]
         }
     },
     {
@@ -349,7 +339,9 @@
             "privacy": 2,
             "language": 1,
             "location": 1,
-            "description": "Japan crippled nuclear power plant is still releasing radiation clouds even though the Japanese government has said it isn't. Government hiding data from it's people?"
+            "description": "Japan crippled nuclear power plant is still releasing radiation clouds even though the Japanese government has said it isn't. Government hiding data from it's people?",
+            "skills": [2,4],
+            "languages": [4]
         }
     },
     

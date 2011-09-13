@@ -7,15 +7,15 @@ from django.utils import simplejson
 
 
 def languages(request):
-  skills = models.Skill.objects.filter(is_language=True)
-  skills = skills.values_list('id', 'name')
-  skills =  [{ "id": x[0], "name": x[1]} for x in skills]
+  languages = models.LanguageSkill.objects.all()
+  languages = languages.values_list('id', 'name')
+  languages =  [{ "id": x[0], "name": x[1]} for x in languages]
 
-  return http.HttpResponse( simplejson.dumps(skills) )
+  return http.HttpResponse( simplejson.dumps(languages) )
 
 
 def skills(request):
-  skills = models.Skill.objects.filter(is_language=False)
+  skills = models.Skill.objects.filter()
   skills = skills.values_list('id', 'name')
   skills =  [{ "id": x[0], "name": x[1]} for x in skills]
   

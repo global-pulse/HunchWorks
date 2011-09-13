@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{% get_static_prefix %}css/pagination.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/utils.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/groups.css">
+    <link rel="stylesheet" href="/static/token-input.css" type="text/css" />
+    <link rel="stylesheet" href="/static/token-input-facebook.css" type="text/css" />
     {% block css %}{% endblock %}
 
     <!--[if lt IE 9]>
@@ -32,15 +34,15 @@
         <nav>
           <ul>
             {% if user.is_authenticated %}
-            <li><a href='/hunchworks/home'>Home</a></li>
-            <li><a href='/hunchworks/profile'>Profile</a></li>
-            <li><a href='/hunchworks/hunches'>Hunches</a></li>
-            <li><a href='/hunchworks/messages'>Messages</a></li>
-            <li><a href='/hunchworks/groups'>Groups</a></li>
-            <li><a href='/hunchworks/logout'>Logout</a></li>
+            <li><a href='/home'>Home</a></li>
+            <li><a href='/profile'>Profile</a></li>
+            <li><a href='/hunches'>Hunches</a></li>
+            <li><a href='/messages'>Messages</a></li>
+            <li><a href='/groups'>Groups</a></li>
+            <li><a href='/logout'>Logout</a></li>
             {% else %}
-            <li><a href='/hunchworks/signup'>Signup</a></li>
-            <li><a href='/hunchworks/login'>Login</a></li>
+            <li><a href='/signup'>Signup</a></li>
+            <li><a href='/login'>Login</a></li>
             {% endif %}
           </ul>
         </nav>

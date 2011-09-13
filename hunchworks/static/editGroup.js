@@ -2,8 +2,8 @@ function init()
 {
 	var groupId = document.getElementById('groupId').getAttribute('group');
 	var userId = document.getElementById('groupId').getAttribute('user');
-	var groupCollaborators = '/hunchworks/group/' + groupId + '/collaborators';
-	var userCollaborators = '/hunchworks/user/' + userId + '/collaborators';
+	var groupCollaborators = '/group/' + groupId + '/collaborators';
+	var userCollaborators = '/user/' + userId + '/collaborators';
 
 	//code for diplsaying users assigned to the hunch
 	var collaborators = $.getJSON(groupCollaborators, function(data)

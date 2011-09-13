@@ -20,7 +20,7 @@ class TagsWidget(forms.TextInput):
       for pk in value
     ])
 
-    attrs["data-search-url"] = "/hunchworks/tags"
+    attrs["data-search-url"] = "/tags"
     attrs["class"] = "tags"
 
     return super(TagsWidget, self).render(name, flat_value, attrs)
@@ -38,8 +38,70 @@ class TagsField(forms.ModelMultipleChoiceField):
       *args, **kwargs)
 
 
+class SkillsWidget(forms.TextInput):
+  def render(self, name, value, attrs=None):
+    if value == None:
+		value = []
+	
+    flat_value = ",".join(map(unicode, value))
+
+    attrs["data-prepopulate"] = json.dumps([
+      {"id": pk, "name": unicode(self.choices.queryset.get(pk=pk))}
+      for pk in value
+    ])
+
+    attrs["data-search-url"] = "/skills"
+    attrs["class"] = "skills"
+
+    return super(SkillsWidget, self).render(name, flat_value, attrs)
+
+  def value_from_datadict(self, data, files, name):
+    return [pk for pk in data.get(name).split(",") if pk.isdigit()]
+
+
+class SkillsField(forms.ModelMultipleChoiceField):
+  widget = SkillsWidget
+
+  def __init__(self, *args, **kwargs):
+    super(SkillsField, self).__init__(
+      models.Skill.objects.all(),
+      *args, **kwargs)
+      
+
+class LanguagesWidget(forms.TextInput):
+  def render(self, name, value, attrs=None):
+    if value == None:
+		value = []
+	
+    flat_value = ",".join(map(unicode, value))
+
+    attrs["data-prepopulate"] = json.dumps([
+      {"id": pk, "name": unicode(self.choices.queryset.get(pk=pk))}
+      for pk in value
+    ])
+
+    attrs["data-search-url"] = "/languageSkills"
+    attrs["class"] = "languages"
+
+    return super(LanguagesWidget, self).render(name, flat_value, attrs)
+
+  def value_from_datadict(self, data, files, name):
+    return [pk for pk in data.get(name).split(",") if pk.isdigit()]
+
+
+class LanguagesField(forms.ModelMultipleChoiceField):
+  widget = LanguagesWidget
+
+  def __init__(self, *args, **kwargs):
+    super(LanguagesField, self).__init__(
+      models.Language.objects.all(),
+      *args, **kwargs)
+
+
 class HunchForm(ModelForm):
   tags = TagsField(required=False)
+  skills = SkillsField(required=False)
+  languages = LanguagesField(required=False)
 
   class Meta:
     model = models.Hunch
