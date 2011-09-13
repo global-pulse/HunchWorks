@@ -10,6 +10,9 @@ from django.utils.datastructures import MultiValueDict, MergeDict
 
 class TagsWidget(forms.TextInput):
   def render(self, name, value, attrs=None):
+    if value == None:
+		value = []
+	
     flat_value = ",".join(map(unicode, value))
 
     attrs["data-prepopulate"] = json.dumps([
