@@ -73,6 +73,9 @@ class HomepageForm(ModelForm):
   class Meta:
     model = models.User
 
+class UserForm(ModelForm):
+  class Meta:
+    model= models.UserProfile
 
 class InvitePeople(forms.Form):
   invited_emails = custom_fields.MultiEmailField(widget=forms.Textarea(
