@@ -1,0 +1,26 @@
+[
+  {
+    "pk": 1,
+      "model": "hunchworks.group",
+      "fields": {
+        "name": "Alpha",
+        "abbreviation": "A"
+      }
+  },
+  {
+    "pk": 2,
+      "model": "hunchworks.group",
+      "fields": {
+        "name": "Beta",
+        "abbreviation": "B"
+      }
+  },
+  {
+    "pk": 3,
+      "model": "hunchworks.group",
+      "fields": {
+        "name": "Gamma",
+        "abbreviation": "G"
+      }
+  }
+]

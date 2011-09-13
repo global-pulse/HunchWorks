@@ -7,6 +7,8 @@ from django.test import TestCase
 
 
 class GroupViewsTest(TestCase):
+  fixtures = ["test_groups"]
+
   def _get(self, path):
     self._resp = self.client.get(path)
     self._pyquery = PyQuery(self._resp.content)
@@ -26,19 +28,17 @@ class GroupViewsTest(TestCase):
 
 
   def test_get_index(self):
-    Group.objects.create(name="Alpha")
-    Group.objects.create(name="Beta")
-
     self._get("/hunchworks/groups")
-    self.assertCss("div.group", 2)
+    self.assertCss("div.group", 3)
 
   def test_get_show(self):
-    group = Group.objects.create(name="Test Group")
-    self._get("/hunchworks/groups/%d" % group.pk)
+    self._get("/hunchworks/groups/1")
+    self.assertCss("div.group")
 
   def test_get_edit(self):
-    group = Group.objects.create(name="Test Group")
-    self._get("/hunchworks/groups/%d/edit" % group.pk)
+    self._get("/hunchworks/groups/1/edit")
+    self.assertCss("form.group")
 
   def test_get_new(self):
     self._get("/hunchworks/groups/create")
+    self.assertCss("form.group")
