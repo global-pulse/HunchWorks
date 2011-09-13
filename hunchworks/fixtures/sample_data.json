@@ -298,6 +298,7 @@
             "language": 1,
             "location": 1,
             "description": "Proving all the non-believers wrong",
+            "evidence": [1,2],
             "tags": [1,2]
         }
     },
@@ -315,6 +316,7 @@
             "language": 1,
             "location": 1,
             "description": "Proving all the non-believers wrong",
+            "evidence": [1,2],
             "tags": [3,4]
         }
     },
@@ -401,7 +403,21 @@
             "time_created": "2011-08-21 11:14:19.244634",
             "time_modified":  "2011-08-21 11:14:19.244634",
             "description": "Who needs a hypothesis when you have evidence!?",
-            "hunch": 1,
+            "creator": 1,
+            "albums": [1],
+            "attachments": [1],
+            "tags": [1, 2, 3]
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.evidence",
+        "fields": 
+        {
+            "strength":1,
+            "time_created": "2011-08-21 11:14:19.244634",
+            "time_modified":  "2011-08-21 11:14:19.244634",
+            "description": "Nobody has anything to say",
             "creator": 1,
             "albums": [1],
             "attachments": [1],

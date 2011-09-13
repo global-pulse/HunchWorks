@@ -72,6 +72,7 @@ class Hunch(models.Model):
   location = models.ForeignKey('Location', null=True, blank=True)
   description = models.TextField()
   skills = models.ManyToManyField('Skill', blank=True)
+  evidence = models.ManyToManyField('Evidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
 
@@ -122,18 +123,18 @@ class HunchUser(models.Model):
 
 class Evidence(models.Model):
   """Class representing a response to the hunch"""
+  title = models.CharField(max_length=100, blank=True)
   strength = models.IntegerField(default=0)
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   description = models.TextField(blank=True)
-  hunch = models.ForeignKey('Hunch')
   creator = models.ForeignKey('UserProfile')
   albums = models.ManyToManyField('Album', blank=True)
   attachments = models.ManyToManyField('Attachment', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
-    return "<Evidence:%d>" % self.pk
+    return "%s" % (self.title or (self.description[:25] + '...'))
 
   def save(self, *args, **kwargs):
     now = datetime.datetime.today()
