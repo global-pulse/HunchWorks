@@ -391,5 +391,39 @@
             "status": 2,
             "user_profile": 1
         }
+    },
+    {
+        "pk": 1,
+        "model": "hunchworks.evidence",
+        "fields": 
+        {
+            "strength":1,
+            "time_created": "2011-08-21 11:14:19.244634",
+            "time_modified":  "2011-08-21 11:14:19.244634",
+            "description": "Who needs a hypothesis when you have evidence!?",
+            "hunch": 1,
+            "creator": 1,
+            "albums": [1],
+            "attachments": [1],
+            "tags": [1, 2, 3]
+        }
+    },
+    {
+        "pk": 1,
+        "model": "hunchworks.attachment",
+        "fields": 
+        {
+            "type": 1,
+            "file_location": "/this/is/a/filepath"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "hunchworks.album",
+        "fields": 
+        {
+            "name": "An Album of attachments",
+            "attachments": [1]
+            }
     }
 ]
