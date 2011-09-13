@@ -19,7 +19,7 @@ def _render(req, template, more_context):
 @login_required
 def index(req):
   all_groups = models.Group.objects.all()
-  groups = paginated(req, all_groups, 4)
+  groups = paginated(req, all_groups, 20)
 
   return _render(req, "index", {
     "groups": groups
@@ -39,7 +39,7 @@ def show(req, group_id):
 def edit(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
 
-  context = RequestContext(req)
+  #context = RequestContext(req)
   if req.method == "POST":
     form = forms.GroupForm(req.POST, instance=group)
     if form.is_valid():
@@ -69,20 +69,29 @@ def edit(req, group_id):
   else:
     form = forms.GroupForm(instance=group)
 
-  context.update({ 'form':form, 'group':group,
+  return _render(req, "edit", { 'form':form, 'group':group,
     'user_id': req.user.pk })
-  return _render(req, "edit", context)
 
+@login_required
+def join(req, group_id):
+  group = get_object_or_404(models.Group, pk=group_id)
+
+  group_connection = models.UserProfileGroup.objects.get_or_create(
+    user_profile = models.UserProfile.objects.get(pk=req.user.pk),
+	group = group,
+	access_level=0,
+	status=0)
+
+  return _render(req, "show", { 'group': group })
 
 @login_required
 def create(req):
-  context = RequestContext(req)
 
   if req.method == 'POST':
     form = forms.GroupForm(req.POST)
     
     if form.is_valid():
-      hw_group = form.save()
+      group = form.save()
       
       group_collaborators = req.POST['group_collaborators']
       group_collaborators = group_collaborators.split(',')
@@ -92,15 +101,14 @@ def create(req):
         if user_id.isdigit():
           group_connection = models.UserProfileGroup.objects.create(
             user_profile=models.UserProfile.objects.get(pk=user_id),
-            group=hw_group,
+            group=group,
             access_level=0,
             status=0)
 
-      return redirect(hw_group)
+      return redirect(group)
     else:
       form = forms.GroupForm(req.POST)
   else:
     form = forms.GroupForm()
 
-  context.update({ 'form':form, 'user_id': req.user.pk })
-  return _render(req, "create", context)
+  return _render(req, "create", { 'form':form, 'user_id': req.user.pk })

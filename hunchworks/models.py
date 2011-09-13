@@ -27,7 +27,7 @@ class UserProfile(models.Model):
   phone = models.CharField(max_length=20, blank=True)
   skype_name = models.CharField(max_length=30, blank=True)
   website = models.CharField(max_length=100, blank=True)
-  profile_picture = models.CharField(max_length=100, blank=True)
+  profile_picture = models.ImageField(upload_to="/profile_images/", blank=True)
   screen_name = models.CharField(max_length=45, blank=True)
   messenger_service = models.IntegerField(null=True, blank=True, choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
   default_language = models.ForeignKey('Language', default=0)
@@ -264,4 +264,3 @@ class Invitation(models.Model):
 
   def __unicode__(self):
     return "%s to %s" % (self.email, self.hunch)
-

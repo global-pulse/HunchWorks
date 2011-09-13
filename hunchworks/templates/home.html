@@ -83,63 +83,9 @@
 		  <img src='googleMap' alt='googleMap' height='200px' width='200px'/>
 		</div>
 	  </div>
-	  <div id='communities'>
-		<h3> Communities you might like to join: </h3>
-		<div id='community1' class='connections'>
-		  <img src='communityPicture' alt='communityPicture' height='50px'/>
-		  <div class='title'>
-			<a href='communityLink1'>Community Name 1</a>
-		  </div>
-		  <div class='info'>
-			Location of community
-		  </div>
-		</div>
-		<div class='time'>
-		  <button type='button'>Join</button>
-		  <!-- If the user can join this community, then they do become part of the
-			community, Else if the community is invite only, the user is prompted 
-			with a message dialogue to the group, which will be recieved by the 
-			admin's and moderators of the group.
-		  -->
-		</div>
-		<div id='community2' class='connections'>
-		  <img src='communityPicture' alt='communityPicture' height='50px'/>
-		  <div class='title'>
-			<a href='communityLink2'>Community Name 2</a>
-		  </div>
-		  <div class='info'>
-			Location of community
-		  </div>
-		</div>
-		<div class='time'>
-		  <button type='button'>Join</button>
-		  <!-- If the user can join this community, then they do become part of the
-			community, Else if the community is invite only, the user is prompted 
-			with a message dialogue to the group, which will be recieved by the 
-			admin's and moderators of the group.
-		  -->
-		</div>
-		<div id='community3' class='connections'>
-		  <img src='communityPicture' alt='communityPicture' height='50px'/>
-		  <div class='title'>
-			<a href='communityLink3'>Community Name 3</a>
-		  </div>
-		  <div class='info'>
-			Location of community
-		  </div>
-		</div>
-		<div class='time'>
-		  <button type='button'>Join</button>
-		  <!-- If the user can join this community, then they do become part of 
-			the community, Else if the community is invite only, the user is 
-			prompted with a message dialogue to the group, which will be recieved
-			by the admin's and moderators of the group.
-		  -->
-		</div>
-		<div class='viewMore'>
-		  <a href='listOfMoreHunches'>View More</a>
-		</div>
-	  </div>
+	  
+	 {% include "suggestedGroups.html" %}
+
 	  <div id='people'>
 		<h3> People you might like to connect with: </h3>
 		<div id='person1' class='connections'>

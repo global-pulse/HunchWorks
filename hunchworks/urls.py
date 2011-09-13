@@ -21,13 +21,16 @@ urlpatterns = patterns(
 
   # users
   url(r'^profile/(?P<user_id>\d+)$', users.profile, name='profile'),
+  url(r'^profile/(?P<user_id>\d+)/edit$', users.edit, name='edit_profile'),
   url(r'^profile$', users.profile, name='profile'),
+  url(r'^profile/edit$', users.edit, name='edit_profile'),
 
   # groups
   url(r'^groups$',                        groups.index,  name="groups"),
   url(r'^groups/(?P<group_id>\d+)$',      groups.show,   name="group"),
   url(r'^groups/(?P<group_id>\d+)/edit$', groups.edit,   name="edit_group"),
   url(r'^groups/create',                  groups.create, name="create_group"),
+  url(r'^groups/(?P<group_id>\d+)/join$', groups.join,   name="join_group"),
 
   # hunches
   url(r'^hunches$',                        hunches.index,  name="hunches"),
