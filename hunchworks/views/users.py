@@ -27,6 +27,7 @@ def edit(request, user_id=None):
   if request.method == 'POST': #If the form has been submitted
     form = forms.UserForm(request.POST)
     if form.is_valid():
+      # do something with image here one day
       form.save()
       context.update({ "user": user })
       return render_to_response('/users/profile.html', context)
