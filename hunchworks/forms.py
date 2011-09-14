@@ -97,16 +97,45 @@ class LanguagesField(forms.ModelMultipleChoiceField):
       models.Language.objects.all(),
       *args, **kwargs)
 
+class UserProfilesWidget(forms.TextInput):
+  def render(self, name, value, attrs=None):
+    if value == None:
+		value = []
+	
+    flat_value = ",".join(map(unicode, value))
+
+    attrs["data-prepopulate"] = json.dumps([
+      {"id": pk, "name": unicode(self.choices.queryset.get(pk=pk))}
+      for pk in value
+    ])
+
+    attrs["data-search-url"] = "/user/1/collaborators"
+    attrs["class"] = "userProfiles"
+
+    return super(UserProfilesWidget, self).render(name, flat_value, attrs)
+
+  def value_from_datadict(self, data, files, name):
+    return [pk for pk in data.get(name).split(",") if pk.isdigit()]
+
+
+class UserProfilesField(forms.ModelMultipleChoiceField):
+  widget = UserProfilesWidget
+
+  def __init__(self, *args, **kwargs):
+    super(UserProfilesField, self).__init__(
+      models.UserProfile.objects.all(),
+      *args, **kwargs)
 
 class HunchForm(ModelForm):
   tags = TagsField(required=False)
   skills = SkillsField(required=False)
   languages = LanguagesField(required=False)
+  user_profiles = UserProfilesField(required=False)
 
   class Meta:
     model = models.Hunch
     exclude = (
-      "creator", "time_created", "time_modified", "status", "user_profiles"
+      "creator", "time_created", "time_modified", "status",
     )
 
 
@@ -120,13 +149,13 @@ class EvidenceForm(ModelForm):
 
 
 class GroupForm(ModelForm):
-  group_collaborators = forms.CharField(required=False,
+  members = UserProfilesField(required=False,
     help_text="The HunchWorks members you wish to invite to this group.<br>" +
               "You can only invite members who you are connected with.")
 
   class Meta:
     model = models.Group
-    exclude = ("members", "logo")
+    exclude = ("logo")
     widgets = {
       'name': forms.TextInput(attrs={ 'size': 50 }),
       'abbreviation': forms.TextInput(attrs={ 'size': 15 })

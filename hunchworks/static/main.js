@@ -18,6 +18,7 @@ $(function()
   init_token_input("tags", "facebook");
   init_token_input("skills", "");
   init_token_input("languages", "");
+  init_token_input("userProfiles", "facebook");
 });
 
 

@@ -7,7 +7,7 @@ from django.utils import simplejson
 
 
 def languages(request):
-  languages = models.LanguageSkill.objects.all()
+  languages = models.Language.objects.all()
   languages = languages.values_list('id', 'name')
   languages =  [{ "id": x[0], "name": x[1]} for x in languages]
 
@@ -30,8 +30,8 @@ def tags(request):
 
 
 def user_collaborators(request, user_id):
-  user_connections = models.UserConnection.objects.filter(user=user_id)
-  user_connections = user_connections.values_list('other_user', flat=True)
+  user_connections = models.Connection.objects.filter(user_profile=user_id)
+  user_connections = user_connections.values_list('other_user_profile', flat=True)
   
   collaborators = models.User.objects.filter(id__in=user_connections)
   collaborators = collaborators.values_list('id', 'first_name', 'last_name')
@@ -63,7 +63,7 @@ def user_skills(request, user_id):
   
 
 def hunch_collaborators(request, hunch_id):
-  hunch_connections = models.HunchConnection.objects.filter(hunch=hunch_id)
+  hunch_connections = models.HunchUser.objects.filter(hunch=hunch_id)
   hunch_connections = hunch_connections.values_list('user', flat=True)
   
   collaborators = models.User.objects.filter(id__in=hunch_connections)
