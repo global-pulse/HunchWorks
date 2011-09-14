@@ -170,7 +170,48 @@
     },
     
     
-    
+    {
+    	"pk": 1,
+    	"model": "hunchworks.userprofile",
+    	"fields":
+    	{
+    		"user": 1,
+    		"name": "first1 last1",
+    		"email": "test@test.com"
+    	}
+    },
+    {
+    	"pk": 2,
+    	"model": "hunchworks.userprofile",
+    	"fields":
+    	{
+    		"user": 2,
+    		"name": "first2 last2",
+    		"email": "test2@test2.com"
+    	}
+    },
+    {
+    	"pk": 3,
+    	"model": "hunchworks.userprofile",
+    	"fields":
+    	{
+    		"user": 3,
+    		"name": "first3 last3",
+    		"email": "test3@test3.com"
+    	}
+    },
+    {
+    	"pk": 4,
+    	"model": "hunchworks.userprofile",
+    	"fields":
+    	{
+    		"user": 4,
+    		"name": "first4 last4",
+    		"email": "test4@test4.com"
+    	}
+    },
+
+
     {
         "pk": 1,
         "model": "hunchworks.connection",
@@ -323,7 +364,7 @@
             "location": 1,
             "description": "Proof that their is a famine in the horn of africa",
             "skills": [1,4],
-            "languages": [3]
+            "languages": [3]  
         }
     },
     {
@@ -398,7 +439,7 @@
             "creator": 1,
             "albums": [1],
             "attachments": [1],
-            "tags": [1, 2, 3]
+            "tags": [1,2,3]
         }
     },
     {
@@ -413,7 +454,7 @@
             "creator": 1,
             "albums": [1],
             "attachments": [1],
-            "tags": [1, 2, 3]
+            "tags": [1,2,3]
         }
     },
     {

@@ -30,12 +30,9 @@ def tags(request):
 
 
 def user_collaborators(request, user_id):
-  user_connections = models.Connection.objects.filter(user_profile=user_id)
-  user_connections = user_connections.values_list('other_user_profile', flat=True)
-  
-  collaborators = models.User.objects.filter(id__in=user_connections)
-  collaborators = collaborators.values_list('id', 'first_name', 'last_name')
-  collaborators =  [{ "id": x[0], "name": x[1]+" " +x[2]} for x in collaborators]
+  user = get_object_or_404(models.UserProfile, pk=user_id)
+  collaborators = user.connections.values_list('id', 'name')
+  collaborators =  [{ "id": x[0], "name": x[1]} for x in collaborators]
   
   return http.HttpResponse( simplejson.dumps(collaborators) )
 
@@ -63,33 +60,24 @@ def user_skills(request, user_id):
   
 
 def hunch_collaborators(request, hunch_id):
-  hunch_connections = models.HunchUser.objects.filter(hunch=hunch_id)
-  hunch_connections = hunch_connections.values_list('user', flat=True)
-  
-  collaborators = models.User.objects.filter(id__in=hunch_connections)
-  collaborators = collaborators.values_list('id', 'first_name', 'last_name')
-  collaborators =  [{ "id": x[0], "name": x[1] + ' ' + x[2]} for x in collaborators]
+  hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+  collaborators = hunch.user_profiles.values_list('id', 'name')
+  collaborators =  [{ "id": x[0], "name": x[1]} for x in collaborators]
   
   return http.HttpResponse( simplejson.dumps(collaborators) )
 
 
 def hunch_languages(request, hunch_id):
-  skill_connections = models.SkillConnection.objects.filter(hunch=hunch_id)
-  skill_connections = skill_connections.values_list('skill', flat=True)
-  
-  languages = models.Skill.objects.filter(is_language=True, skill_id__in=skill_connections)
-  languages = languages.values_list('id', 'name')
+  hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+  languages = hunch.languages.values_list('id', 'name')
   languages =  [{ "id": x[0], "name": x[1]} for x in languages]
   
   return http.HttpResponse( simplejson.dumps(languages) )
 
   
 def hunch_skills(request, hunch_id):
-  skill_connections = models.SkillConnection.objects.filter(hunch=hunch_id)
-  skill_connections = skill_connections.values_list('skill', flat=True)
-  
-  skills = models.Skill.objects.filter(is_language=False, skill_id__in=skill_connections)
-  skills = skills.values_list('id', 'name')
+  hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+  skills = hunch.skills.values_list('id', 'name')
   skills =  [{ "id": x[0], "name": x[1]} for x in skills]
   
   return http.HttpResponse( simplejson.dumps(skills) )

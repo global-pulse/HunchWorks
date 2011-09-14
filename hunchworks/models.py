@@ -21,6 +21,8 @@ PRIVACY_HELP_TEXT = "<br>".join([
 class UserProfile(models.Model):
   user = models.ForeignKey(User, unique=True)
   title = models.IntegerField(choices=hunchworks_enums.UserTitle.GetChoices(), default=0)
+  name = models.CharField(max_length=100)
+  email = models.EmailField(max_length=75)
   show_profile_reminder = models.IntegerField(default=0)
   privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
   bio_text = models.TextField(blank=True)
