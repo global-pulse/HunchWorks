@@ -31,9 +31,8 @@
             "name": "San Antonio, TX"
         }
     },
-    
-    
-    
+
+
     {
     	"pk": 1,
         "model": "hunchworks.language",
@@ -66,6 +65,8 @@
             "name": "German"
         }
     },
+
+
     {
     	"pk": 1,
         "model": "hunchworks.skill",
@@ -168,8 +169,8 @@
     		"date_joined": "2011-08-21 11:14:19.244634"
     	}
     },
-    
-    
+
+
     {
     	"pk": 1,
     	"model": "hunchworks.userprofile",
@@ -208,6 +209,163 @@
     		"user": 4,
     		"name": "first4 last4",
     		"email": "test4@test4.com"
+    	}
+    },
+
+
+    {
+    	"pk": 1,
+    	"model": "hunchworks.group",
+    	"fields":
+    	{
+    		"name": "Created Group1"
+    	}
+    },
+    {
+    	"pk": 2,
+    	"model": "hunchworks.group",
+    	"fields":
+    	{
+    		"name": "Created Group2"
+    	}
+    },
+    {
+    	"pk": 3,
+    	"model": "hunchworks.group",
+    	"fields":
+    	{
+    		"name": "Created Group3"
+    	}
+    },
+    {
+    	"pk": 4,
+    	"model": "hunchworks.group",
+    	"fields":
+    	{
+    		"name": "Created Group4"
+    	}
+    },
+
+
+    {
+    	"pk": 1,
+    	"model": "hunchworks.userprofilegroup",
+    	"fields":
+    	{
+    		"user_profile": 1,
+    		"group": 1,
+    		"status": 0,
+    		"access_level": 1
+    	}
+    },
+    {
+    	"pk": 2,
+    	"model": "hunchworks.userprofilegroup",
+    	"fields":
+    	{
+    		"user_profile": 2,
+    		"group": 1,
+    		"status": 1,
+    		"access_level": 1
+    	}
+    },
+    {
+    	"pk": 3,
+    	"model": "hunchworks.userprofilegroup",
+    	"fields":
+    	{
+    		"user_profile": 3,
+    		"group": 1,
+    		"status": 2,
+    		"access_level": 2
+    	}
+    },
+    {
+    	"pk": 4,
+    	"model": "hunchworks.userprofilegroup",
+    	"fields":
+    	{
+    		"user_profile": 4,
+    		"group": 1,
+    		"status": 1,
+    		"access_level": 0
+    	}
+    },
+    {
+    	"pk": 5,
+    	"model": "hunchworks.userprofilegroup",
+    	"fields":
+    	{
+    		"user_profile": 1,
+    		"group": 2,
+    		"status": 0,
+    		"access_level": 1
+    	}
+    },
+    {
+    	"pk": 6,
+    	"model": "hunchworks.userprofilegroup",
+    	"fields":
+    	{
+    		"user_profile": 2,
+    		"group": 2,
+    		"status": 1,
+    		"access_level": 2
+    	}
+    },
+    {
+    	"pk": 7,
+    	"model": "hunchworks.userprofilegroup",
+    	"fields":
+    	{
+    		"user_profile": 3,
+    		"group": 2,
+    		"status": 2,
+    		"access_level": 0
+    	}
+    },
+    {
+    	"pk": 8,
+    	"model": "hunchworks.userprofilegroup",
+    	"fields":
+    	{
+    		"user_profile": 1,
+    		"group": 3,
+    		"status": 1,
+    		"access_level": 0
+    	}
+    },
+    {
+    	"pk": 9,
+    	"model": "hunchworks.userprofilegroup",
+    	"fields":
+    	{
+    		"user_profile": 4,
+    		"group": 3,
+    		"status": 1,
+    		"access_level": 2
+    	}
+    },
+    {
+    	"pk": 10,
+    	"model": "hunchworks.userprofilegroup",
+    	"fields":
+    	{
+    		"user_profile": 2,
+    		"group": 4,
+    		"status": 1,
+    		"access_level": 0
+    	}
+    },
+    {
+    	"pk": 11,
+    	"model": "hunchworks.userprofilegroup",
+    	"fields":
+    	{
+    		"user_profile": 3,
+    		"group": 4,
+    		"status": 2,
+    		"access_level": 2
     	}
     },
 
@@ -272,8 +430,7 @@
             "status": 0
         }
     },
-    
-    
+
     
     {
         "pk": 1,
@@ -428,6 +585,88 @@
         }
     },
     {
+        "pk": 5,
+        "model": "hunchworks.hunchuser",
+        "fields": 
+        {
+            "hunch": 1,
+            "status": 0,
+            "user_profile": 2
+        }
+    },
+    {
+        "pk": 6,
+        "model": "hunchworks.hunchuser",
+        "fields": 
+        {
+            "hunch": 1,
+			"status": 1,
+			"user_profile": 3
+        }
+    },
+    {
+        "pk": 7,
+        "model": "hunchworks.hunchuser",
+        "fields": 
+        {
+            "hunch": 1,
+            "status": 2,
+            "user_profile": 4
+        }
+    },
+    {
+        "pk": 8,
+        "model": "hunchworks.hunchuser",
+        "fields": 
+        {
+            "hunch": 2,
+            "status": 1,
+            "user_profile": 2
+        }
+    },
+    {
+        "pk": 9,
+        "model": "hunchworks.hunchuser",
+        "fields": 
+        {
+            "hunch": 2,
+            "status": 0,
+            "user_profile": 3
+        }
+    },
+    {
+        "pk": 10,
+        "model": "hunchworks.hunchuser",
+        "fields": 
+        {
+            "hunch": 2,
+			"status": 1,
+			"user_profile": 4
+        }
+    },
+    {
+        "pk": 11,
+        "model": "hunchworks.hunchuser",
+        "fields": 
+        {
+            "hunch": 3,
+            "status": 1,
+            "user_profile": 2
+        }
+    },
+    {
+        "pk": 12,
+        "model": "hunchworks.hunchuser",
+        "fields": 
+        {
+            "hunch": 3,
+            "status": 2,
+            "user_profile": 3
+        }
+    },
+    
+    
+    {
         "pk": 1,
         "model": "hunchworks.evidence",
         "fields": 
@@ -473,6 +712,6 @@
         {
             "name": "An Album of attachments",
             "attachments": [1]
-            }
+        }
     }
 ]
