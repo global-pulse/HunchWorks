@@ -497,8 +497,8 @@
             "status": 1,
             "title": "Global Warming is False",
             "privacy": 2,
-            "language": 1,
-            "location": 1,
+            "language": 2,
+            "location": 3,
             "description": "Proving all the non-believers wrong",
             "evidence": [1,2],
             "tags": [3,4],
@@ -517,8 +517,8 @@
             "status": 2,
             "title": "Famine in Horn of Africa",
             "privacy": 2,
-            "language": 1,
-            "location": 1,
+            "language": 4,
+            "location": 2,
             "description": "Proof that their is a famine in the horn of africa",
             "skills": [1,4],
             "languages": [3]  
@@ -532,12 +532,160 @@
             "creator": 1,
             "time_created": "2011-08-21 11:14:19.244634",
             "time_modified": "2011-08-21 11:14:19.244634",
-            "status": 0,
+            "status": 2,
             "title": "Japan nuclear plant still releasing radiation",
             "privacy": 2,
-            "language": 1,
+            "language": 3,
             "location": 1,
             "description": "Japan crippled nuclear power plant is still releasing radiation clouds even though the Japanese government has said it isn't. Government hiding data from it's people?",
+            "skills": [2,4],
+            "languages": [4]
+        }
+    },
+    {
+        "pk": 5,
+        "model": "hunchworks.hunch",
+        "fields": 
+        {
+            "creator": 2,
+            "time_created": "2011-08-22 11:14:19.244634",
+            "time_modified": "2011-08-22 11:14:19.244634",
+            "status": 2,
+            "title": "FEMA poorly mishandled Hurricane Katrina",
+            "privacy": 1,
+            "language": 1,
+            "location": 4,
+            "description": "Government organizations are useless",
+            "tags": [1,2],
+            "skills": [1,2,3,4],
+            "languages": [1]
+        }
+    },
+    {
+        "pk": 6,
+        "model": "hunchworks.hunch",
+        "fields": 
+        {
+            "creator": 2,
+            "time_created": "2011-08-23 11:14:19.244634",
+            "time_modified": "2011-08-23 11:14:19.244634",
+            "status": 2,
+            "title": "Drought going on in Africa",
+            "privacy": 2,
+            "language": 2,
+            "location": 2,
+            "description": "A drought has caused destabilization in Africa and food prices to skyrocket",
+            "tags": [3,4],
+            "skills": [3,4],
+            "languages": [2]
+        }
+    },
+    {
+        "pk": 7,
+        "model": "hunchworks.hunch",
+        "fields": 
+        {
+            "creator": 2,
+            "time_created": "2011-08-24 11:14:19.244634",
+            "time_modified": "2011-08-24 11:14:19.244634",
+            "status": 2,
+            "title": "Famine in Horn of Africa",
+            "privacy": 2,
+            "language": 3,
+            "location": 3,
+            "description": "Proof that their is a famine in the horn of africa",
+            "skills": [1,4],
+            "languages": [3]  
+        }
+    },
+    {
+        "pk": 8,
+        "model": "hunchworks.hunch",
+        "fields": 
+        {
+            "creator": 3,
+            "time_created": "2011-08-25 11:14:19.244634",
+            "time_modified": "2011-08-25 11:14:19.244634",
+            "status": 0,
+            "title": "9/11 really caused by the US government",
+            "privacy": 2,
+            "language": 2,
+            "location": 2,
+            "description": "The US government purposedly planned the planes ramming into the Twin Towers to starts wars for oil!",
+            "skills": [2,4],
+            "languages": [4]
+        }
+    },
+    {
+        "pk": 9,
+        "model": "hunchworks.hunch",
+        "fields": 
+        {
+            "creator": 3,
+            "time_created": "2011-08-26 11:14:19.244634",
+            "time_modified": "2011-08-26 11:14:19.244634",
+            "status": 1,
+            "title": "The Sun is affecting our World's weather",
+            "privacy": 2,
+            "language": 1,
+            "location": 3,
+            "description": "Whenever their is a solar burst directed at Earth, natural disasters increase.",
+            "tags": [1,2],
+            "skills": [1,2,3,4],
+            "languages": [1]
+        }
+    },
+    {
+        "pk": 10,
+        "model": "hunchworks.hunch",
+        "fields": 
+        {
+            "creator": 3,
+            "time_created": "2011-08-27 11:14:19.244634",
+            "time_modified": "2011-08-27 11:14:19.244634",
+            "status": 2,
+            "title": "Earth Magnetic Field is decreasing",
+            "privacy": 2,
+            "language": 3,
+            "location": 1,
+            "description": "Earth Magnetic field is decreasing by 5% a decade and is affecting everything on Earth!",
+            "tags": [3,4],
+            "skills": [3,4],
+            "languages": [2]
+        }
+    },
+    {
+        "pk": 11,
+        "model": "hunchworks.hunch",
+        "fields": 
+        {
+            "creator": 4,
+            "time_created": "2011-08-28 11:14:19.244634",
+            "time_modified": "2011-08-28 11:14:19.244634",
+            "status": 2,
+            "title": "North Pole Ice is decreasing",
+            "privacy": 2,
+            "language": 4,
+            "location": 4,
+            "description": "Pictures proving the north pole had decreased by 13% in the last 30 years.",
+            "skills": [1,4],
+            "languages": [3]  
+        }
+    },
+    {
+        "pk": 12,
+        "model": "hunchworks.hunch",
+        "fields": 
+        {
+            "creator": 4,
+            "time_created": "2011-08-29 11:14:19.244634",
+            "time_modified": "2011-08-29 11:14:19.244634",
+            "status": 1,
+            "title": "South Pole Ice is increasing",
+            "privacy": 2,
+            "language": 1,
+            "location": 2,
+            "description": "Pictures proving the south pole has increased by 27% in the last 30 years.",
             "skills": [2,4],
             "languages": [4]
         }

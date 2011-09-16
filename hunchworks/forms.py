@@ -80,7 +80,7 @@ class LanguagesWidget(forms.TextInput):
       for pk in value
     ])
 
-    attrs["data-search-url"] = "/languageSkills"
+    attrs["data-search-url"] = "/languages"
     attrs["class"] = "languages"
 
     return super(LanguagesWidget, self).render(name, flat_value, attrs)
@@ -98,6 +98,8 @@ class LanguagesField(forms.ModelMultipleChoiceField):
       *args, **kwargs)
 
 class UserProfilesWidget(forms.TextInput):
+  search_url = "/user/1/collaborators"
+  
   def render(self, name, value, attrs=None):
     if value == None:
 		value = []
@@ -109,17 +111,23 @@ class UserProfilesWidget(forms.TextInput):
       for pk in value
     ])
 
-    attrs["data-search-url"] = "/user/1/collaborators"
+    attrs["data-search-url"] = self.search_url
     attrs["class"] = "userProfiles"
 
     return super(UserProfilesWidget, self).render(name, flat_value, attrs)
 
   def value_from_datadict(self, data, files, name):
     return [pk for pk in data.get(name).split(",") if pk.isdigit()]
+    
+  def set_search_url(url):
+    search_url = url
 
 
 class UserProfilesField(forms.ModelMultipleChoiceField):
   widget = UserProfilesWidget
+  
+  def set_search_url(url):
+    self.widget.set_search_url(url)
 
   def __init__(self, *args, **kwargs):
     super(UserProfilesField, self).__init__(
@@ -131,6 +139,7 @@ class HunchForm(ModelForm):
   skills = SkillsField(required=False)
   languages = LanguagesField(required=False)
   user_profiles = UserProfilesField(required=False)
+  #user_profiles.set_search_url()
 
   class Meta:
     model = models.Hunch

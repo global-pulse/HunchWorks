@@ -69,7 +69,7 @@ class Hunch(models.Model):
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
-  title = models.CharField(max_length=100)
+  title = models.CharField(max_length=100, unique=True)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
   language = models.ForeignKey('TranslationLanguage')
   location = models.ForeignKey('Location', null=True, blank=True)

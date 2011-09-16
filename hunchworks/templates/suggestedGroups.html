@@ -3,7 +3,7 @@
   {% for group in suggested_groups %}
   <div class='connections'> 
     <div class='title'>
-      <a href='/hunchworks/groups/{{group.id}}'>{{ group.name }}</a>
+      <a href='/groups/{{group.id}}'>{{ group.name }}</a>
     </div>
     <div class='info'> 
 	{% if group.location %}
@@ -11,7 +11,7 @@
 	{% endif %}
     </div> 
 	<div class='time'>
-	<a href='/hunchworks/groups/{{group.id}}/join'>Join</a>
+	<a href='/groups/{{group.id}}/join'>Join</a>
 	</div>
   </div>
   {% endfor %}
