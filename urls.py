@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
+from hunchworks import urls as hw_urls
 from django.conf.urls.defaults import patterns, url, include
 from django.conf import settings
 
-urlpatterns = patterns('',
-  (r'^hunchworks/', include('hunchworks.urls')))
+# Use the HunchWorks app URLs as the root, with no prefix.
+urlpatterns = hw_urls.urlpatterns
 
 
 # In DEBUG, also serve static files and Django admin.
