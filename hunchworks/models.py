@@ -17,6 +17,11 @@ PRIVACY_HELP_TEXT = "<br>".join([
   "<strong>Closed</strong>: visible to everyone, but only invited members can participate.",
   "<strong>Open</strong>: available to any HunchWorks member."])
 
+GROUP_STATUS_CHOICES = (
+  (0, "Invited"),
+  (1, "Accepted"),
+  (2, "Blocked"))
+
 
 class UserProfile(models.Model):
   user = models.ForeignKey(User, unique=True)
@@ -172,7 +177,7 @@ class Group(models.Model):
 class UserProfileGroup(models.Model):
   user_profile = models.ForeignKey('UserProfile')
   group = models.ForeignKey('Group')
-  status = models.IntegerField()
+  status = models.IntegerField(choices=GROUP_STATUS_CHOICES, default=0)
 
   def __unicode__(self):
     return "<UserProfileGroup:%d>" % self.pk

@@ -39,28 +39,9 @@ def show(req, group_id):
 def edit(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
   form = forms.GroupForm(req.POST or None, instance=group)
-  if form.is_valid():
-    group = form.save(commit=False)
-      
-    #create new collaborators for this group
-    group_collaborators = req.POST["members"] + "," + str(req.user.pk)
-    group_collaborators = group_collaborators.split(",")
-    for user_id in group_collaborators:
-      group_profile_group = models.UserProfileGroup.objects.get_or_create(
-        user_profile=models.UserProfile.objects.get(pk=user_id),
-        group=group,
-        status=0,
-        access_level=0
-        )
-    
-      #remove unneeded collaborators from this hunch
-      group_user_profiles = models.UserProfileGroup.objects.filter(group=group_id)
 
-      for group_user_profile in group_user_profiles:
-        if str(group_user_profile.user_profile_id) not in group_collaborators:
-          models.UserProfileGroup.objects.get(pk=group_user_profile.pk).delete()
-    
-    group.save()
+  if form.is_valid():
+    group = form.save()
     return redirect(group)
 
   return _render(req, "edit", { 'form':form, 'group':group,
@@ -83,19 +64,7 @@ def create(req):
   form = forms.GroupForm(req.POST or None)
     
   if form.is_valid():
-    group = form.save(commit=False)
-    group.save()
-      
-    group_collaborators = req.POST["members"] + "," + str(req.user.pk)
-    group_collaborators = group_collaborators.split(",")
-    for user_id in group_collaborators:
-      group_profile_group = models.UserProfileGroup.objects.create(
-        user_profile=models.UserProfile.objects.get(pk=user_id),
-        group=group,
-        status=0,
-        access_level=0
-        )
-
+    group = form.save()
     return redirect(group)
 
   return _render(req, "create", { 'form':form, 'user_id': req.user.pk })
