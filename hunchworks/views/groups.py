@@ -54,7 +54,6 @@ def join(req, group_id):
   group_connection = models.UserProfileGroup.objects.get_or_create(
     user_profile = models.UserProfile.objects.get(pk=req.user.pk),
 	group = group,
-	access_level=0,
 	status=0)
 
   return _render(req, "show", { 'group': group })
