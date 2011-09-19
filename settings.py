@@ -55,7 +55,7 @@ USE_I18N = True
 USE_L10N = True
 
 # By default redirect to login page if user not authenticated
-LOGIN_URL="/hunchworks/login"
+LOGIN_URL="/login"
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
