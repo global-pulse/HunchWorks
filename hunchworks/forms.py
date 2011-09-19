@@ -26,7 +26,7 @@ class TagsWidget(forms.TextInput):
     return super(TagsWidget, self).render(name, flat_value, attrs)
 
   def value_from_datadict(self, data, files, name):
-    return [pk for pk in data.get(name).split(",") if pk.isdigit()]
+    return [pk for pk in data.get(name, "").split(",") if pk.isdigit()]
 
 
 class TagsField(forms.ModelMultipleChoiceField):
@@ -56,7 +56,7 @@ class SkillsWidget(forms.TextInput):
     return super(SkillsWidget, self).render(name, flat_value, attrs)
 
   def value_from_datadict(self, data, files, name):
-    return [pk for pk in data.get(name).split(",") if pk.isdigit()]
+    return [pk for pk in data.get(name, "").split(",") if pk.isdigit()]
 
 
 class SkillsField(forms.ModelMultipleChoiceField):
@@ -86,7 +86,7 @@ class LanguagesWidget(forms.TextInput):
     return super(LanguagesWidget, self).render(name, flat_value, attrs)
 
   def value_from_datadict(self, data, files, name):
-    return [pk for pk in data.get(name).split(",") if pk.isdigit()]
+    return [pk for pk in data.get(name, "").split(",") if pk.isdigit()]
 
 
 class LanguagesField(forms.ModelMultipleChoiceField):
@@ -117,7 +117,7 @@ class UserProfilesWidget(forms.TextInput):
     return super(UserProfilesWidget, self).render(name, flat_value, attrs)
 
   def value_from_datadict(self, data, files, name):
-    return [pk for pk in data.get(name).split(",") if pk.isdigit()]
+    return [pk for pk in data.get(name, "").split(",") if pk.isdigit()]
     
   def set_search_url(url):
     search_url = url
