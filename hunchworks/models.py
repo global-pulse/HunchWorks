@@ -172,7 +172,6 @@ class Group(models.Model):
 class UserProfileGroup(models.Model):
   user_profile = models.ForeignKey('UserProfile')
   group = models.ForeignKey('Group')
-  access_level = models.IntegerField()
   status = models.IntegerField()
 
   def __unicode__(self):
