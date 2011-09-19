@@ -1,0 +1,91 @@
+ul.token-input-list-hunchworks {
+  display: inline-block;
+  border: 2px solid #999;
+  padding: 0.5em;
+  width: 30em;
+}
+
+  /* Hidden input */
+  ul.token-input-list-hunchworks li input {
+    border: none;
+    padding: 0;
+  }
+
+li.token-input-input-token-hunchworks {
+  display: inline-block;
+  overflow: hidden;
+}
+
+li.token-input-token-hunchworks {
+  display: inline-block;
+  margin-right: 0.5em;
+  padding: 2px 0 2px 5px;
+  background-color: #eee;
+  color: #666;
+  cursor: default;
+  border: 1px solid #ccc;
+  white-space: nowrap;
+  border-radius: 3px;
+}
+
+  li.token-input-token-hunchworks p {
+    display: inline-block;
+  }
+  
+  /* Added to .token-input-token when selected */
+  li.token-input-selected-token-hunchworks {
+    background-color: #ddf;
+    border: 1px solid #bbe;
+    color: #448;
+  }
+
+  /* The cross to remove a token */
+  li.token-input-token-hunchworks span {
+    color: #999;
+    padding: 0 3px;
+    cursor: pointer;
+  }
+
+/* The dropdown containing search results. */
+div.token-input-dropdown-hunchworks {
+  background-color: #eee;
+  border: 2px solid #ccc;
+  border-top: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+  /* Individual search results */
+  div.token-input-dropdown-hunchworks li {
+    list-style-type: none;
+    border-top: 1px dotted #ccc;
+    padding: 0.5em;
+    cursor: pointer;
+  }
+
+    div.token-input-dropdown-hunchworks li:first-child {
+      border-top: none;
+    }
+
+    /* Highlighed search terms within a result */
+    div.token-input-dropdown-hunchworks li b {
+        font-weight: normal;
+        background-color: #ff8;
+    }
+
+  /* Selected search results */
+  div.token-input-dropdown-hunchworks li.token-input-selected-dropdown-item-hunchworks {
+    background-color: #ddf;
+  }
+
+    div.token-input-dropdown-hunchworks li.token-input-selected-dropdown-item-hunchworks b {
+      background-color: none;
+    }
+
+  /* Non-result messages within the dropdown */
+  div.token-input-dropdown-hunchworks p {
+    text-align: center;
+    font-style: italic;
+    padding: 0.5em;
+    color: #999;
+  }
