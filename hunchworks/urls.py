@@ -14,7 +14,7 @@ urlpatterns = patterns(
   url(r'^signup$', auth.signup, name='signup'),
   url(r'^login$', auth.login, name='login'),
   url(r'^logout$', auth.logout_view),
-  url(r'^invitePeople', auth.invitePeople),
+  url(r'^invitePeople', auth.invitePeople, name='invitePeople'),
   url(r'^importTeamWorks', auth.importTeamWorks),
   url(r'^importLinkedIn', auth.importLinkedIn),
   url(r'^importFacebook', auth.importFacebook),

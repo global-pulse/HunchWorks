@@ -207,13 +207,17 @@ class InvitePeople(forms.Form):
   invited_emails = custom_fields.MultiEmailField(widget=forms.Textarea(
     attrs={'cols': 30, 'rows': 10}))
   
-  def save(self, *args, **kwargs):
-    created_user = models.User.objects.get(pk=1)
+  def save(self, user_id, hunch=None, *args, **kwargs):
+    user = models.UserProfile.objects.get(pk=user_id)
+    #hunch = models.Hunch.objects.get(pk=hunch_id)
     print self.cleaned_data
     #TODO( Chris: 8-15-2011): figure out how ot introspect invited_emails object instead
     # of using email_input
     for email_input in self.cleaned_data['invited_emails']:
-      invited_email = models.Invitation( email=email_input )
-      invited_user = models.UserInvites( invited_email=invited_email, user=created_user, status=0)
-      invited_user.save()
+      invitation = models.Invitation(
+      invited_by = user,
+      email = email_input,
+      #hunch = hunch,
+      )
+      invitation.save()
     

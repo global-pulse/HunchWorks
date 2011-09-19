@@ -31,8 +31,7 @@ def login(req):
 
 
 def signup(req):
-  form = auth_forms.UserCreationForm(
-    req.POST or None)
+  form = auth_forms.UserCreationForm(req.POST or None)
 
   if form.is_valid():
     user = form.save()
@@ -56,17 +55,15 @@ def logout_view(req):
   return redirect("index")
 
 
-
-
 @login_required
-def invitePeople(request):
-  if request.method == 'POST': # If the form has been submitted...
-    form = forms.InvitePeople(request.POST)
-    if form.is_valid(): # All validation rules pass
-      form.save()
-    else:
-      return HttpResponseRedirect('profile.html') # Redirect after POST
-  return render_to_response('profile.html', RequestContext(request))
+def invitePeople(req):
+  form = forms.InvitePeople(req.POST or None)
+    
+  if form.is_valid(): # All validation rules pass
+    form.save(req.user.pk)
+  print form.errors
+
+  return redirect("profile")
 
 
 def importFacebook(request):
