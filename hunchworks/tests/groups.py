@@ -28,17 +28,17 @@ class GroupViewsTest(TestCase):
 
 
   def test_get_index(self):
-    self._get("/hunchworks/groups")
+    self._get("/groups")
     self.assertCss("div.group", 3)
 
   def test_get_show(self):
-    self._get("/hunchworks/groups/1")
+    self._get("/groups/1")
     self.assertCss("div.group")
 
   def test_get_edit(self):
-    self._get("/hunchworks/groups/1/edit")
+    self._get("/groups/1/edit")
     self.assertCss("form.group")
 
   def test_get_new(self):
-    self._get("/hunchworks/groups/create")
+    self._get("/groups/create")
     self.assertCss("form.group")
