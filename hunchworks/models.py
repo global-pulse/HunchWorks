@@ -32,7 +32,7 @@ class UserProfile(models.Model):
   profile_picture = models.ImageField(upload_to="/profile_images/", blank=True)
   screen_name = models.CharField(max_length=45, blank=True)
   messenger_service = models.IntegerField(null=True, blank=True, choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
-  default_language = models.ForeignKey('TranslationLanguage', default=0)
+  translation_language = models.ForeignKey('TranslationLanguage', default=0)
 
   invitation = models.ForeignKey('Invitation', unique=True, null=True, blank=True)
   connections = models.ManyToManyField('self', through='Connection', symmetrical=False, blank=True)
@@ -71,7 +71,7 @@ class Hunch(models.Model):
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
   title = models.CharField(max_length=100, unique=True)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
-  language = models.ForeignKey('TranslationLanguage')
+  translation_language = models.ForeignKey('TranslationLanguage')
   location = models.ForeignKey('Location', null=True, blank=True)
   description = models.TextField()
   
@@ -155,6 +155,7 @@ class Evidence(models.Model):
 class Group(models.Model):
   name = models.CharField(max_length=100, unique=True)
   abbreviation = models.CharField(max_length=10, null=True, blank=True)
+  logo = models.CharField(max_length=100) # TODO filefield
   type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
   location = models.ForeignKey('Location', null=True, blank=True)
