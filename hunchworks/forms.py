@@ -173,7 +173,7 @@ class GroupForm(ModelForm):
 
   def save(self):
     with transaction.commit_on_success():
-      old_m = set(self.instance.members.all())
+      old_m = set(self.instance.members.all() if self.instance.pk else [])
       new_m = set(self.cleaned_data["members"])
 
       # Save the Group without saving the many-to-many members field. This is a

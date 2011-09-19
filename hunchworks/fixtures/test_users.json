@@ -1,0 +1,55 @@
+[
+  {
+    "pk": 1,
+    "model": "auth.user",
+    "fields": {
+      "username": "one",
+      "password": ""
+    }
+  },
+  {
+    "pk": 1,
+    "model": "hunchworks.userprofile",
+    "fields": {
+      "user": 1,
+      "name": "Test One",
+      "email": "one@example.com"
+    }
+  },
+
+  {
+    "pk": 2,
+    "model": "auth.user",
+    "fields": {
+      "username": "two",
+      "password": ""
+    }
+  },
+  {
+    "pk": 2,
+    "model": "hunchworks.userprofile",
+    "fields": {
+      "user": 2,
+      "name": "Test Two",
+      "email": "two@example.com"
+    }
+  },
+
+  {
+    "pk": 3,
+    "model": "auth.user",
+    "fields": {
+      "username": "three",
+      "password": ""
+    }
+  },
+  {
+    "pk": 3,
+    "model": "hunchworks.userprofile",
+    "fields": {
+      "user": 3,
+      "name": "Test Three",
+      "email": "three@example.com"
+    }
+  }
+]

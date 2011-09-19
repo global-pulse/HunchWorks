@@ -1,26 +1,35 @@
 [
   {
     "pk": 1,
-      "model": "hunchworks.group",
-      "fields": {
-        "name": "Alpha",
-        "abbreviation": "A"
-      }
+    "model": "hunchworks.group",
+    "fields": {
+      "name": "Alpha",
+      "abbreviation": "A"
+    }
   },
   {
     "pk": 2,
-      "model": "hunchworks.group",
-      "fields": {
-        "name": "Beta",
-        "abbreviation": "B"
-      }
+    "model": "hunchworks.group",
+    "fields": {
+      "name": "Beta",
+      "abbreviation": "B"
+    }
   },
   {
     "pk": 3,
-      "model": "hunchworks.group",
-      "fields": {
-        "name": "Gamma",
-        "abbreviation": "G"
-      }
+    "model": "hunchworks.group",
+    "fields": {
+      "name": "Gamma",
+      "abbreviation": "G"
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "hunchworks.userprofilegroup",
+    "fields": {
+      "user_profile": 1,
+      "group": 1
+    }
   }
 ]
