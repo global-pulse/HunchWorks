@@ -3,6 +3,7 @@
 import json
 from hunchworks import models, custom_fields
 from django import forms
+from django.db import transaction
 from django.forms import ModelForm
 from django.forms.widgets import PasswordInput
 from django.utils.datastructures import MultiValueDict, MergeDict
@@ -169,6 +170,28 @@ class GroupForm(ModelForm):
       'name': forms.TextInput(attrs={ 'size': 50 }),
       'abbreviation': forms.TextInput(attrs={ 'size': 15 })
     }
+
+  def save(self):
+    with transaction.commit_on_success():
+      old_m = set(self.instance.members.all())
+      new_m = set(self.cleaned_data["members"])
+
+      # Save the Group without saving the many-to-many members field. This is a
+      # hack, but is preferable to reimplementing the ModelForm.save method.
+      group = super(GroupForm, self).save(commit=False)
+      group.save()
+
+      for user_profile in (new_m-old_m):
+        models.UserProfileGroup.objects.get_or_create(
+          user_profile=user_profile,
+          group=group)
+
+      models.UserProfileGroup.objects.filter(
+        user_profile__in=(old_m-new_m)).delete()
+
+    return group
+
+
 
 
 
