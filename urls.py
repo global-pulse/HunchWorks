@@ -1,25 +1,19 @@
 #!/usr/bin/env python
 
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.conf.urls.defaults import *
-
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
-admin.autodiscover()
+from django.conf.urls.defaults import patterns, url, include
+from django.conf import settings
 
 urlpatterns = patterns('',
-  (r'^hunchworks/', include('hunchworks.urls')),
+  (r'^hunchworks/', include('hunchworks.urls')))
 
-  # Examples:
-  # url(r'^$', 'hunchWorks.views.home', name='home'),
-  # url(r'^hunchWorks/', include('hunchWorks.foo.urls')),
 
-  # Uncomment the admin/doc line below to enable admin documentation:
-  # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+# In DEBUG, also serve static files and Django admin.
+if settings.DEBUG:
 
-  # Uncomment the next line to enable the admin:
-  url(r'^admin/', include(admin.site.urls)),
-)
+  from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+  urlpatterns += staticfiles_urlpatterns()
 
-# Serve static files in development mode.
-urlpatterns += staticfiles_urlpatterns()
+  from django.contrib import admin
+  admin.autodiscover()
+  urlpatterns += patterns('',
+    url(r'^admin/', include(admin.site.urls)))

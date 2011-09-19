@@ -129,19 +129,18 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-  'django.contrib.auth',
   'django.contrib.contenttypes',
-  'django.contrib.sessions',
-  'django.contrib.sites',
-  'django.contrib.messages',
-  'django.contrib.staticfiles',
-  #'django_extensions',
-  'hunchworks',
-  # Uncomment the next line to enable the admin:
-  'django.contrib.admin',
-  # Uncomment the next line to enable admin documentation:
-  # 'django.contrib.admindocs',
-)
+  'django.contrib.auth',
+  'hunchworks')
+
+# In DEBUG, also serve static files and Django admin.
+if DEBUG:
+  INSTALLED_APPS += (
+    'django.contrib.staticfiles',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.admin')
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
