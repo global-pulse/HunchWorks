@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
 import os
-import platform
 
-# Grab the path for settings.py. This is done so that the cloned git repo
-# doesn't have to site under a standard TLD.
-BASE_DIR = os.getcwd()
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+PROJECT_NAME = os.path.basename(PROJECT_ROOT)
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -19,7 +18,7 @@ MANAGERS = ADMINS
 DATABASES = {
   "default": {
     "ENGINE": "django.db.backends.sqlite3",
-    "NAME": "HunchWorks/db/development.sqlite3"
+    "NAME": PROJECT_ROOT + "/db/development.sqlite3"
   }
 }
 
@@ -71,7 +70,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '%s/static' % BASE_DIR
+STATIC_ROOT = '%s/static' % PROJECT_ROOT
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -123,10 +122,10 @@ MIDDLEWARE_CLASSES = (
   'django.contrib.messages.middleware.MessageMiddleware'
 )
 
-ROOT_URLCONF = '%s.urls' % BASE_DIR.split('/')[-1]
+ROOT_URLCONF = '%s.urls' % PROJECT_NAME
 
 TEMPLATE_DIRS = (
-  '%s/hunchworks/templates' % BASE_DIR,
+  '%s/hunchworks/templates' % PROJECT_ROOT,
 )
 
 INSTALLED_APPS = (
