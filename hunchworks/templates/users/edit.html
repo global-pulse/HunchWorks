@@ -6,9 +6,16 @@
 {% block content %}
 <h1>Edit your profile</h1>
 <div id="edit">
+  {% if profile_form.subject.errors %}
+      <ol>
+      {% for error in profile_form.subject.errors %}
+          <li><strong>{{ error|escape }}</strong></li>
+      {% endfor %}
+      </ol>
+  {% endif %}
   <form method="post" enctype="multipart/form-data" method="post"
-    action="/hunchworks/profile/edit">{% csrf_token %}
-
+    action="/profile/edit">{% csrf_token %}
+    
     {{ profile_form }}
 
     <input type='submit' value='Submit changes'/>
