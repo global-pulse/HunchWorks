@@ -10,6 +10,14 @@
 	  <div id='profile'>
 		<h3>Your Profile:</h3>
 		<div class='field'>
+		  <b>Profile Picture:</b> 
+		  {% if user.profile_picture.url %}
+            {{ user.profile_picture.url }}
+          {% else %}
+            No profile picture selected
+		  {% endif %}
+		</div>
+		<div class='field'>
 		  <b>First Name:</b> 
 		  {{ user.first_name }}
 		</div>
@@ -19,7 +27,9 @@
 		</div>
 		<div class='field'>
 		  <b>Email:</b> 
-		  {{ user.email }}
+		  {% if user.email %}
+            {{ user.email }}
+		  {% endif %}
 		</div>
 		<div class='field'>
 		  <b>Occupation:</b> 
