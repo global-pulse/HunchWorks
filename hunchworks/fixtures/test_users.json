@@ -14,6 +14,8 @@
       "user": 1,
       "name": "Test One",
       "email": "one@example.com"
+      "skills": [1,2],
+      "languages": [2]
     }
   },
 
@@ -32,6 +34,8 @@
       "user": 2,
       "name": "Test Two",
       "email": "two@example.com"
+      "skills": [2,3],
+      "languages": [3]
     }
   },
 
@@ -50,6 +54,8 @@
       "user": 3,
       "name": "Test Three",
       "email": "three@example.com"
+      "skills": [3,4],
+      "languages": [1]
     }
   }
 ]
