@@ -17,7 +17,7 @@ def _render(req, template, more_context):
 @login_required
 def index(req):
   all_hunches = models.Hunch.objects.all()
-  hunches = paginated(req, all_hunches, 4)
+  hunches = paginated(req, all_hunches, 10)
 
   return _render(req, "index", {
     "hunches": hunches
