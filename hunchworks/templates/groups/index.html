@@ -10,9 +10,11 @@
         <img src="{{ group.logo_url }}" height="100" class="logo">
         <h3><a href="{{ group.get_absolute_url }}">{{ group }}</a></h3>
 
-        <div class="desc">
-          {{ group.description|truncatewords:60|safe }}
-        </div>
+        {% if group.description %}
+          <div class="desc">
+            {{ group.description|truncatewords:60|safe }}
+          </div>
+        {% endif %}
 
         <ul class="stats">
           <li>{{ group.member_count }} members</li>
