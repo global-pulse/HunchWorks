@@ -100,26 +100,29 @@ class LanguagesField(forms.ModelMultipleChoiceField):
 
 class UserProfilesWidget(forms.TextInput):
   search_url = "/user/1/collaborators"
-  
-  def render(self, name, value, attrs=None):
-    if value == None:
-		value = []
-	
-    flat_value = ",".join(map(unicode, value))
 
-    attrs["data-prepopulate"] = json.dumps([
-      {"id": pk, "name": unicode(self.choices.queryset.get(pk=pk))}
-      for pk in value
-    ])
+  def render(self, name, value, attrs=None):
+    flat_value = ",".join(map(unicode, value or []))
 
     attrs["data-search-url"] = self.search_url
     attrs["class"] = "userProfiles"
 
-    return super(UserProfilesWidget, self).render(name, flat_value, attrs)
+    if value is not None:
+      attrs["data-prepopulate"] = json.dumps([
+        {"id": pk, "name": unicode(self.choices.queryset.get(pk=pk))}
+        for pk in value
+      ])
+
+    return super(UserProfilesWidget, self).render(
+      name, flat_value, attrs)
 
   def value_from_datadict(self, data, files, name):
-    return [pk for pk in data.get(name, "").split(",") if pk.isdigit()]
-    
+    values = data.get(name, "").split(",")
+    return self.clean_keys(values)
+
+  def clean_keys(self, values):
+    return [int(x) for x in values if x.strip().isdigit()]
+
   def set_search_url(url):
     search_url = url
 
