@@ -14,3 +14,8 @@ form.hunch { }
     box-sizing: border-box;
     padding-left: 2em;
   }
+
+  form.hunch #id_title {
+    font-size: 125%;
+    padding: 0.8em;
+  }
