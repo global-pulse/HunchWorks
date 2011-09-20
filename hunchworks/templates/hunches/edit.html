@@ -1,14 +1,5 @@
 {% extends "base.html" %}
-
-{% block css %}
-  <link rel="stylesheet" href="/static/token-input-facebook.css" type="text/css" />
-  <link rel="stylesheet" href="/static/token-input.css" type="text/css" />
-{% endblock %}
-
-{% block js %}
-  <script src='/static/editHunch.js'></script>
-{% endblock %}
-
+{% block title %}Edit a Hunch{% endblock %}
 {% block content %}
   <h1 id='hunchId' hunch='{{ hunch.id }}' user='{{ user_id }}'>
     <a href="{% url hunches %}">Hunches</a> &raquo;
@@ -16,7 +7,7 @@
     Edit
   </h1>
 
-  <form action="" method="post">
+  <form action="" method="post" class="edit hunch">
     {% include "hunches/form.html" %}
 
     <div class="actions">
