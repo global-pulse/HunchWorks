@@ -32,7 +32,7 @@ form { }
       width: auto;
     }
 
-    input {
+    input, textarea {
       font: inherit;
       border: 2px solid #999;
       background: #fff;
