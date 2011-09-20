@@ -2,9 +2,18 @@
 
 from pyquery import PyQuery
 from django.test import TestCase
+from django.contrib.auth.models import User
 
 
 class FunctionalTest(TestCase):
+  def setUp(self):
+    self._user = User.objects.create_user("user", "user@example.com", "pass")
+    self.client.login(username="user", password="pass")
+
+  def tearDown(self):
+    self.client.logout()
+    self._user.delete()
+
   def GET(self, path):
     self._resp = self.client.get(path)
     self._pyquery = PyQuery(self._resp.content)

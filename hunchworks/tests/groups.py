@@ -1,21 +1,11 @@
 #!/usr/bin/env python
 
 from hunchworks.models import Group
-from django.contrib.auth.models import User
 from hunchworks.utils.tests import FunctionalTest
 
 
 class GroupViewsTest(FunctionalTest):
   fixtures = ["test_users", "test_groups"]
-
-  def setUp(self):
-    self._user = User.objects.create_user("user", "a@b.com", "pass")
-    self.client.login(username="user", password="pass")
-
-  def tearDown(self):
-    self.client.logout()
-    self._user.delete()
-
 
   def test_get_index(self):
     self.GET("/groups")
