@@ -194,16 +194,10 @@
 	  <div id='matchingHunches'>
 		<h3>Hunches matching your expertise</h3>
 		<ol id='matchingHunchesList'>
-		  <li><a id='linkToMatchingHunch1' href='linkToHunch1'>
-			Title of Matching Hunch 1</a></li>
-		  <li><a id='linkToMatchingHunch2' href='linkToHunch2'>
-			Title of Matching Hunch 2</a></li>
-		  <li><a id='linkToMatchingHunch3' href='linkToHunch3'>
-			Title of Matching Hunch 3</a></li>
-		  <li><a id='linkToMatchingHunch4' href='linkToHunch4'>
-			Title of Matching Hunch 4</a></li>
-		  <li><a id='linkToMatchingHunch5' href='linkToHunch5'>
-			Title of Matching Hunch 5</a></li>
+        {% for hunch in hunches %} 
+            <li><a id='linkToMatchingHunch{{forloop.counter}}' href='/hunches/{{hunch.id}}'>
+	       {{hunch.title}}</a></li>
+        {% endfor %}
 		</ol>
 	  </div> <!-- end matchingHunches div -->
 	</div> <!-- end column2 div -->

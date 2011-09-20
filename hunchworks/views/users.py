@@ -13,9 +13,16 @@ def profile(request, user_id=None):
   if not user_id:
     user_id = request.user.pk
   user = get_object_or_404(models.User, pk=user_id)
+
+  #Get hunches that contain user's skill set
+  skills = models.UserProfile.objects.get(pk=user_id).skills.all()
+  hunches = models.Hunch.objects.filter(id__in=skills)
+
   invite_form = forms.InvitePeople()
   context = RequestContext(request)
-  context.update({ "user": user, "invite_form": invite_form })
+  context.update({ "user": user,
+      "invite_form": invite_form,
+      "hunches": hunches})
   return render_to_response('users/profile.html', context)
 
 @login_required
