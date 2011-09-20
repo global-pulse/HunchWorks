@@ -1,0 +1,34 @@
+[
+   {
+        "pk": 1,
+        "model": "hunchworks.tag",
+        "fields": 
+        {
+            "name": "test1"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.tag",
+        "fields": 
+        {
+            "name": "test2"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "hunchworks.tag",
+        "fields": 
+        {
+            "name": "test3"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "hunchworks.tag",
+        "fields": 
+        {
+            "name": "test4"
+        }
+    }
+]
