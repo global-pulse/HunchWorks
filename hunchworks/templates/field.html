@@ -1,0 +1,20 @@
+<div class="field text {% if field.field.required %}required{% else %}optional{% endif %}{% if field.errors %} errors{% endif %}">
+  <div class="label">
+    {{ field.label_tag }}
+
+    {% if field.field.required %}
+      <span class="required">(required)</span>
+    {% else %}
+      <span class="optional">(optional)</span>
+    {% endif %}
+  </div>
+
+  {{ field.errors }}
+  {{ field }}
+
+  {% if field.help_text %}
+    <p class="help">
+      {{ field.help_text|safe }}
+    </p>
+  {% endif %}
+</div>

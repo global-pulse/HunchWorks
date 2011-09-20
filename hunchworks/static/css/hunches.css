@@ -1,0 +1,16 @@
+form.hunch { }
+
+  form.hunch > div.left,
+  form.hunch > div.right {
+    float: left;
+  }
+
+  form.hunch > div.left {
+    width: 60%;
+  }
+
+  form.hunch > div.right {
+    width: 40%;
+    box-sizing: border-box;
+    padding-left: 2em;
+  }

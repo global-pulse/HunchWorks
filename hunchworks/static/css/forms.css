@@ -1,13 +1,13 @@
 form { }
 
-  form ul.errorlist {
+  form > ul.errorlist {
     border: 2px solid #e05b52;
     border-radius: 5px;
     background: #fee;
     margin-bottom: 1em;
   }
 
-    form ul.errorlist li {
+    form > ul.errorlist > li {
       list-style: none;
       padding: 1em;
     }
@@ -15,42 +15,56 @@ form { }
   form div.field,
   form div.actions {
     margin-bottom: 1em;
-    float: left;
-    clear: left;
   }
 
   form div.field { }
 
-    label {
-      display: block;
+    div.label {
       margin-bottom: 0.5em;
-      font-weight: bold;
+      float: left;
     }
 
-    form div.field ul.errorlist {
-      margin-bottom: 0.5em;
-      width: auto;
-    }
+      div.label label {
+        font-weight: bold;
+      }
 
-    input, textarea {
+      form div.field div.label span {
+        font-size: 80%;
+        color: #999;
+      }
+
+    input, textarea, select, ul.token-input-list-hunchworks {
       font: inherit;
+      clear: both;
+      width: 100%;
+      box-sizing: border-box;
       border: 2px solid #999;
       background: #fff;
-      padding: 0.5em;
+      border-radius: 1px;
+      padding: 1em;
       color: #666;
     }
 
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        background-color: #ffe;
+        border-color: #666;
+        color: #333;
+      }
+      
+      textarea {
+        resize: vertical;
+      }
+
     input[type=submit],
     input[type=button] {
+      width: auto;
       border-radius: 5px;
       font-weight: bold;
       background: #999;
       color: #fff;
-    }
-
-    form div.field span.optional {
-      font-size: 80%;
-      color: #ccc;
     }
 
     form div.field p.help {
@@ -63,6 +77,29 @@ form { }
       color: #999;
     }
 
+  form div.field.errors { }
+
+    form div.field.errors ul.errorlist {
+      float: right;
+      margin: 0 0 0.5em 0;
+      color: #f44;
+    }
+
+      form div.field.errors ul.errorlist li {
+        font-weight: normal;
+        list-style: none;
+      }
+
+    form div.field.errors input,
+    form div.field.errors textarea,
+    form div.field.errors select,
+    form div.field.errors ul.token-input-list-hunchworks {
+      background-color: #fee;
+      border-color: #c66;
+      color: #000;
+    }
+
   form div.actions {
+    text-align: right;
     margin-bottom: 0;
   }

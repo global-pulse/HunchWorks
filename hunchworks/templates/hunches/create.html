@@ -1,14 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>
-    <a href="{% url hunches %}">Hunch</a> &raquo; New
-  </h1>
+  <h1>Create a new hunch</h1>
 
-  <form action="" method="post">
-    {% include "hunches/form.html" %}
+  <form action="" method="post" class="create hunch">
+    {{ form.non_field_errors }}
+    {% csrf_token %}
+
+    <div class="left">
+      {% include "field.html" with field=form.title %}
+      {% include "field.html" with field=form.description %}
+      {% include "field.html" with field=form.tags %}
+      {% include "field.html" with field=form.location %}
+      {% include "field.html" with field=form.evidence %}
+      {% include "field.html" with field=form.privacy %}
+    </div>
+    <div class="right">
+      {% include "field.html" with field=form.skills %}
+      {% include "field.html" with field=form.languages %}
+    </div>
+    <div class="clear-hack"></div>
 
     <div class="actions">
+      <input type="button" value="Cancel">
+      <input type="button" value="Save as Draft" disabled>
       <input type="submit" value="Create Hunch">
     </div>
   </form>
