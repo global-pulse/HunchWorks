@@ -7,33 +7,45 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
+def _render(req, template, more_context):
+  return render_to_response(
+    "users/" + template +".html",
+    RequestContext(req, more_context))
 
 @login_required
-def profile(request, user_id=None):
+def profile(req, user_id=None):
   if not user_id:
-    user_id = request.user.pk
+    user_id = req.user.pk
   user = get_object_or_404(models.User, pk=user_id)
   invite_form = forms.InvitePeople()
-  context = RequestContext(request)
+  context = RequestContext(req)
   context.update({ "user": user, "invite_form": invite_form })
-  return render_to_response('users/profile.html', context)
+  return _render(req, "profile", context)
 
 @login_required
-def edit(request, user_id=None):
+def edit(req, user_id=None):
   if not user_id:
-    user_id = request.user.pk
+    user_id = req.user.pk
   user = get_object_or_404(models.User, pk=user_id)
-  context = RequestContext(request)
-  if request.method == 'POST': #If the form has been submitted
-    form = forms.UserForm(request.POST)
+  context = RequestContext(req)
+  if req.method == 'POST': #If the form has been submitted
+    form = forms.UserForm(req.POST)
     if form.is_valid():
       # do something with image here one day
       form.save()
       context.update({ "user": user })
-      return render_to_response('/users/profile.html', context)
+      return _render(req, "profile", context)
     else:
-      return HttpResponseRedirect('/hunchworks/profile/edit') # Redirect after POST
+      return _render(req, "edit", context) # Redirect after POST
   else:
     profile_form = forms.UserForm()
     context.update({ "user": user, "profile_form": profile_form })
-    return render_to_response('users/edit.html', context)
+    return _render(req, "edit", context)
+
+@login_required
+def connections(req, user_id=None):
+  if not user_id:
+    user_id = req.user.pk
+  user = get_object_or_404(models.User, pk=user_id)
+  context = RequestContext(req)
+  return _render(req, "profile", context)
