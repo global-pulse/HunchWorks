@@ -1,6 +1,58 @@
-div.group {
-  background: #f8f8f8;
-  border: 1px solid #ddd;
-  margin-top: 0.5em;
-  padding: 1em;
+div.groups {
+  margin: -0.5em;
 }
+
+  div.group {
+    float: left;
+    width: 50%;
+  }
+
+    div.group > div {
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+      margin-top: 1em;
+      padding: 0.5em;
+      margin: 0.5em;
+    }
+
+      div.group img.logo {
+        border: 1px solid #ddd;
+        margin-right: 0.5em;
+        float: left;
+      }
+
+      div.group h3 {
+        font-size: 160%;
+        margin-bottom: 0.3125em;
+      }
+
+        div.group h3 a {
+          text-decoration: none;
+        }
+
+      div.group div.desc {
+        line-height: 1.25;
+        font-size: 80%;
+        height: 3.75em;
+        overflow: hidden;
+      }
+
+      div.group ul.stats {
+        margin-top: 0.625em;
+        font-size: 80%;
+      }
+
+        div.group ul.stats li {
+          display: block;
+          float: left;
+          border-right: 1px solid #ccc;
+          padding-right: 0.5em;
+          margin-right: 0.5em;
+          color: #666;
+        }
+
+          div.group ul.stats li:last-child {
+            border-right: none;
+            padding-right: 0;
+            margin-right: 0;
+          }

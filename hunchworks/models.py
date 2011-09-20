@@ -173,6 +173,15 @@ class Group(models.Model):
   def get_absolute_url(self):
     return ("group", [self.pk])
 
+  def logo_url(self):
+    return "http://i.imgur.com/BYf54.jpg"
+
+  def member_count(self):
+    return self.members.all().count()
+
+  def hunch_count(self):
+    return 0
+
 
 class UserProfileGroup(models.Model):
   user_profile = models.ForeignKey('UserProfile')
