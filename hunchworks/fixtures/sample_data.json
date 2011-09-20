@@ -178,7 +178,8 @@
     	{
     		"user": 1,
     		"name": "first1 last1",
-    		"email": "test@test.com"
+    		"email": "test@test.com",
+    		"skills": [1,3]
     	}
     },
     {
@@ -188,7 +189,8 @@
     	{
     		"user": 2,
     		"name": "first2 last2",
-    		"email": "test2@test2.com"
+    		"email": "test2@test2.com",
+    		"skills": [2]
     	}
     },
     {
@@ -198,7 +200,8 @@
     	{
     		"user": 3,
     		"name": "first3 last3",
-    		"email": "test3@test3.com"
+    		"email": "test3@test3.com",
+    		"skills": [3]
     	}
     },
     {
@@ -208,7 +211,8 @@
     	{
     		"user": 4,
     		"name": "first4 last4",
-    		"email": "test4@test4.com"
+    		"email": "test4@test4.com",
+    		"skills": [2,4]
     	}
     },
 
