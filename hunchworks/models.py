@@ -160,6 +160,7 @@ class Evidence(models.Model):
 class Group(models.Model):
   name = models.CharField(max_length=100, unique=True)
   abbreviation = models.CharField(max_length=10, null=True, blank=True)
+  description = models.TextField(blank=True, help_text="You can use HTML here.")
   logo = models.CharField(max_length=100) # TODO filefield
   type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
