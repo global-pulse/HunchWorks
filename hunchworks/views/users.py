@@ -23,17 +23,20 @@ def edit(request, user_id=None):
   if not user_id:
     user_id = request.user.pk
   user = get_object_or_404(models.User, pk=user_id)
+  profile = get_object_or_404(models.UserProfile, user = user)
   context = RequestContext(request)
   if request.method == 'POST': #If the form has been submitted
-    form = forms.UserForm(request.POST)
+    form = forms.UserForm(request.POST, request.FILES, instance=profile)
     if form.is_valid():
       # do something with image here one day
-      form.save()
+      update = form.save(commit=False)
+      update.user = models.User.objects.get(id = user_id)
+      update.save()
       context.update({ "user": user })
-      return render_to_response('/users/profile.html', context)
+      return render_to_response('users/profile.html', context)
     else:
-      return HttpResponseRedirect('/hunchworks/profile/edit') # Redirect after POST
+      return HttpResponseRedirect('/profile/edit') # Redirect after POST
   else:
-    profile_form = forms.UserForm()
+    profile_form = forms.UserForm(instance=profile)
     context.update({ "user": user, "profile_form": profile_form })
     return render_to_response('users/edit.html', context)

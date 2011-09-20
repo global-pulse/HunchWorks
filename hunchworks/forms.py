@@ -202,6 +202,7 @@ class HomepageForm(ModelForm):
 class UserForm(ModelForm):
   class Meta:
     model= models.UserProfile
+    exclude = ("user")
 
 class InvitePeople(forms.Form):
   invited_emails = custom_fields.MultiEmailField(widget=forms.Textarea(
