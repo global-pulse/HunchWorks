@@ -1,7 +1,6 @@
-		<h3>Recent Hunch updates:</h3>
-
-		{% for hunch in recent_hunches %}
-        <div id='recentHunch{{forloop.counter}}' class='recentHunch'>
+        <h3>Recent Confirmed Hunches</h3>
+		{% for hunch in confirmed_hunches %}
+        <div id='recentConfirmed{{forloop.counter}}' class='recentHunch'>
 		  <div class='title'>
 			<a href='/hunches/{{hunch.id}}'>{{ hunch.title }}</a>
 		  </div>
@@ -9,11 +8,10 @@
 			by <a href='/profile/{{ hunch.creator.user.id }}'>{{ hunch.creator.user.first_name }}</a> and <a href='collaboratorsLink'>
 			# of Collaborators</a><a href='hunchAttachments'># of attachments</a>
 		  </div>
-          <div class='time'> 
-              {{ hunch.time_modified|timesince }}
-          </div>
 		</div>
-		{% endfor %}
+        <div class='time'> {{ hunch.time_modified|timesince }}
+        </div>
+	    {% endfor %}
 		<div class='viewMore'>
 		  <a href='listOfMoreHunches'>View More</a>
 		</div>
