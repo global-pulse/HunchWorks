@@ -151,20 +151,21 @@ class HunchForm(ModelForm):
       "creator", "time_created", "time_modified", "status",
     )
     
-  def save(self):
+  def save(self, creator=None):
     with transaction.commit_on_success():
-      print "here"
       old_up = set(self.instance.user_profiles.all() if self.instance.pk else [])
       new_up = set(self.cleaned_data["user_profiles"])
 
-      # Save the Hunch without saving the many-to-many members field. This is a
-      # hack, but is preferable to reimplementing the ModelForm.save method.
       hunch = super(HunchForm, self).save(commit=False)
+      if creator is not None:
+        hunch.creator = creator
+
+      hunch.save()
       
       hunch.tags = self.cleaned_data['tags']
       hunch.languages = self.cleaned_data['languages']
       hunch.skills = self.cleaned_data['skills']
-      hunch.save()
+      
 
       for user_profile in (new_up-old_up):
         models.HunchUser.objects.get_or_create(

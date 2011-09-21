@@ -53,9 +53,10 @@ def create(req):
   form = forms.HunchForm(req.POST or None)
 
   if form.is_valid():
-    hunch = form.save()
+    hunch = form.save(creator = req.user.get_profile())
     return redirect(hunch)
 
+  print form.errors
   return _render(req, "create", {
     "form": form
   })

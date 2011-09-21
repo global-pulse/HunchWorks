@@ -11,10 +11,12 @@
     <div class="left">
       {% include "field.html" with field=form.title %}
       {% include "field.html" with field=form.description %}
+      {% include "field.html" with field=form.translation_language %}
       {% include "field.html" with field=form.tags %}
       {% include "field.html" with field=form.location %}
       {% include "field.html" with field=form.evidence %}
       {% include "field.html" with field=form.privacy %}
+      {% include "field.html" with field=form.user_profiles %}
     </div>
     <div class="right">
       {% include "field.html" with field=form.skills %}

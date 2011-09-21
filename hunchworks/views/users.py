@@ -19,8 +19,7 @@ def profile(req, user_id=None):
   user = get_object_or_404(models.User, pk=user_id)
 
   #Get hunches that contain user's skill set
-  skills = models.UserProfile.objects.get(pk=user_id).skills.all()
-  hunches = models.Hunch.objects.filter(id__in=skills)
+  hunches = models.Hunch.objects.filter(id__in=user.skills)
 
   invite_form = forms.InvitePeople()
   context = RequestContext(req)
