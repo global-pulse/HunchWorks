@@ -9,103 +9,15 @@ from django.forms.widgets import PasswordInput
 from django.utils.datastructures import MultiValueDict, MergeDict
 
 
-class TagsWidget(forms.TextInput):
-  def render(self, name, value, attrs=None):
-    if value == None:
-		value = []
-	
-    flat_value = ",".join(map(unicode, value))
-
-    attrs["data-prepopulate"] = json.dumps([
-      {"id": pk, "name": unicode(self.choices.queryset.get(pk=pk))}
-      for pk in value
-    ])
-
-    attrs["data-search-url"] = "/tags"
-    attrs["class"] = "tags"
-
-    return super(TagsWidget, self).render(name, flat_value, attrs)
-
-  def value_from_datadict(self, data, files, name):
-    return [pk for pk in data.get(name, "").split(",") if pk.isdigit()]
-
-
-class TagsField(forms.ModelMultipleChoiceField):
-  widget = TagsWidget
-
-  def __init__(self, *args, **kwargs):
-    super(TagsField, self).__init__(
-      models.Tag.objects.all(),
-      *args, **kwargs)
-
-
-class SkillsWidget(forms.TextInput):
-  def render(self, name, value, attrs=None):
-    if value == None:
-		value = []
-	
-    flat_value = ",".join(map(unicode, value))
-
-    attrs["data-prepopulate"] = json.dumps([
-      {"id": pk, "name": unicode(self.choices.queryset.get(pk=pk))}
-      for pk in value
-    ])
-
-    attrs["data-search-url"] = "/skills"
-    attrs["class"] = "skills"
-
-    return super(SkillsWidget, self).render(name, flat_value, attrs)
-
-  def value_from_datadict(self, data, files, name):
-    return [pk for pk in data.get(name, "").split(",") if pk.isdigit()]
-
-
-class SkillsField(forms.ModelMultipleChoiceField):
-  widget = SkillsWidget
-
-  def __init__(self, *args, **kwargs):
-    super(SkillsField, self).__init__(
-      models.Skill.objects.all(),
-      *args, **kwargs)
-      
-
-class LanguagesWidget(forms.TextInput):
-  def render(self, name, value, attrs=None):
-    if value == None:
-		value = []
-	
-    flat_value = ",".join(map(unicode, value))
-
-    attrs["data-prepopulate"] = json.dumps([
-      {"id": pk, "name": unicode(self.choices.queryset.get(pk=pk))}
-      for pk in value
-    ])
-
-    attrs["data-search-url"] = "/languages"
-    attrs["class"] = "languages"
-
-    return super(LanguagesWidget, self).render(name, flat_value, attrs)
-
-  def value_from_datadict(self, data, files, name):
-    return [pk for pk in data.get(name, "").split(",") if pk.isdigit()]
-
-
-class LanguagesField(forms.ModelMultipleChoiceField):
-  widget = LanguagesWidget
-
-  def __init__(self, *args, **kwargs):
-    super(LanguagesField, self).__init__(
-      models.Language.objects.all(),
-      *args, **kwargs)
-
-class UserProfilesWidget(forms.TextInput):
-  search_url = "/user/1/collaborators"
+class TokenWidget(forms.TextInput):
+  search_url = ""
+  class_name = "error"
 
   def render(self, name, value, attrs=None):
     flat_value = ",".join(map(unicode, value or []))
 
     attrs["data-search-url"] = self.search_url
-    attrs["class"] = "userProfiles"
+    attrs["class"] = self.class_name
 
     if value is not None:
       attrs["data-prepopulate"] = json.dumps([
@@ -113,7 +25,7 @@ class UserProfilesWidget(forms.TextInput):
         for pk in value
       ])
 
-    return super(UserProfilesWidget, self).render(
+    return super(TokenWidget, self).render(
       name, flat_value, attrs)
 
   def value_from_datadict(self, data, files, name):
@@ -123,27 +35,49 @@ class UserProfilesWidget(forms.TextInput):
   def clean_keys(self, values):
     return [int(x) for x in values if x.strip().isdigit()]
 
-  def set_search_url(url):
-    search_url = url
+  def set_search_url(self, url):
+    self.search_url = url
+    
+  def set_class_name(self, name):
+    self.class_name = name
 
 
-class UserProfilesField(forms.ModelMultipleChoiceField):
-  widget = UserProfilesWidget
+class TokenField(forms.ModelMultipleChoiceField):
+  widget = TokenWidget
+  query_set = models.Hunch.objects.all()
   
-  def set_search_url(url):
+  def set_search_url(self, url):
     self.widget.set_search_url(url)
+    
+  def set_class_name(self, name):
+    self.widget.set_class_name(name)
+    
+  def set_query_set(self, set):
+    self.query_set = set
 
   def __init__(self, *args, **kwargs):
-    super(UserProfilesField, self).__init__(
-      models.UserProfile.objects.all(),
+    super(TokenField, self).__init__(
+      self.query_set,
       *args, **kwargs)
 
+
 class HunchForm(ModelForm):
-  tags = TagsField(required=False)
-  skills = SkillsField(required=False)
-  languages = LanguagesField(required=False)
-  user_profiles = UserProfilesField(required=False)
-  #user_profiles.set_search_url()
+  tags = TokenField(required=False)
+  tags.set_search_url("/tags")
+  tags.set_class_name("tags")
+  tags.set_query_set(models.Tag.objects.all())
+  skills = TokenField(required=False)
+  skills.set_search_url("/skills")
+  skills.set_class_name("skills")
+  skills.set_query_set(models.Skill.objects.all())
+  languages = TokenField(required=False)
+  languages.set_search_url("/languages")
+  languages.set_class_name("languages")
+  languages.set_query_set(models.Language.objects.all())
+  user_profiles = TokenField(required=False)
+  user_profiles.set_search_url("user/4/collaborators")
+  user_profiles.set_class_name("userProfiles")
+  user_profiles.set_query_set(models.UserProfile.objects.all())
 
   class Meta:
     model = models.Hunch
@@ -188,9 +122,12 @@ class EvidenceForm(ModelForm):
 
 
 class GroupForm(ModelForm):
-  members = UserProfilesField(required=False,
+  members = TokenField(required=False,
     help_text="The HunchWorks members you wish to invite to this group.<br>" +
               "You can only invite members who you are connected with.")
+  members.set_search_url("user/4/collaborators")
+  members.set_class_name("members")
+  members.set_query_set(models.UserProfile.objects.all())
 
   class Meta:
     model = models.Group
