@@ -51,33 +51,24 @@ class TokenField(forms.ModelMultipleChoiceField):
     
   def set_class_name(self, name):
     self.widget.set_class_name(name)
-    
-  def set_query_set(self, set):
-    self.query_set = set
 
-  def __init__(self, *args, **kwargs):
-    super(TokenField, self).__init__(
-      self.query_set,
-      *args, **kwargs)
+  def __init__(self, query_set, *args, **kwargs):
+    super(TokenField, self).__init__(query_set, *args, **kwargs)
 
 
 class HunchForm(ModelForm):
-  tags = TokenField(required=False)
+  tags = TokenField(models.Tag.objects.all(), required=False)
   tags.set_search_url("/tags")
   tags.set_class_name("tags")
-  tags.set_query_set(models.Tag.objects.all())
-  skills = TokenField(required=False)
+  skills = TokenField(models.Skill.objects.all(), required=False)
   skills.set_search_url("/skills")
   skills.set_class_name("skills")
-  skills.set_query_set(models.Skill.objects.all())
-  languages = TokenField(required=False)
+  languages = TokenField(models.Language.objects.all(), required=False)
   languages.set_search_url("/languages")
   languages.set_class_name("languages")
-  languages.set_query_set(models.Language.objects.all())
-  user_profiles = TokenField(required=False)
-  user_profiles.set_search_url("user/4/collaborators")
+  user_profiles = TokenField(models.UserProfile.objects.all(), required=False)
+  user_profiles.set_search_url("user/1/collaborators")
   user_profiles.set_class_name("userProfiles")
-  user_profiles.set_query_set(models.UserProfile.objects.all())
 
   class Meta:
     model = models.Hunch
@@ -99,7 +90,6 @@ class HunchForm(ModelForm):
       hunch.tags = self.cleaned_data['tags']
       hunch.languages = self.cleaned_data['languages']
       hunch.skills = self.cleaned_data['skills']
-      
 
       for user_profile in (new_up-old_up):
         models.HunchUser.objects.get_or_create(
@@ -122,12 +112,11 @@ class EvidenceForm(ModelForm):
 
 
 class GroupForm(ModelForm):
-  members = TokenField(required=False,
+  members = TokenField(models.UserProfile.objects.all(), required=False,
     help_text="The HunchWorks members you wish to invite to this group.<br>" +
               "You can only invite members who you are connected with.")
   members.set_search_url("user/4/collaborators")
   members.set_class_name("members")
-  members.set_query_set(models.UserProfile.objects.all())
 
   class Meta:
     model = models.Group
