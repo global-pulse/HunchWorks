@@ -19,7 +19,7 @@ def profile(req, user_id=None):
   user = get_object_or_404(models.User, pk=user_id)
 
   #Get hunches that contain user's skill set
-  hunches = models.Hunch.objects.filter(id__in=user.skills)
+  hunches = models.Hunch.objects.filter(id__in=user.get_profile().skills.all())
 
   invite_form = forms.InvitePeople()
   context = RequestContext(req)
@@ -33,10 +33,9 @@ def edit(req, user_id=None):
   if not user_id:
     user_id = req.user.pk
   user = get_object_or_404(models.User, pk=user_id)
-  profile = get_object_or_404(models.UserProfile, user = user)
   context = RequestContext(req)
-  if request.method == 'POST': #If the form has been submitted
-    form = forms.UserForm(req.POST, req.FILES, instance=profile)
+  if req.method == 'POST': #If the form has been submitted
+    form = forms.UserForm(req.POST, req.FILES, instance=user.get_profile())
     if form.is_valid():
       # do something with image here one day
       update = form.save(commit=False)
@@ -47,7 +46,7 @@ def edit(req, user_id=None):
     else:
       return _render(req, "edit", context) # Redirect after POST
   else:
-    profile_form = forms.UserForm(instance=profile)
+    profile_form = forms.UserForm(instance=user.get_profile())
     context.update({ "user": user, "profile_form": profile_form })
     return _render(req, "edit", context)
 
