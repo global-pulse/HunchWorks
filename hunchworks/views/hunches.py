@@ -39,29 +39,7 @@ def edit(req, hunch_id):
   form = forms.HunchForm(req.POST or None, instance=hunch)
 
   if form.is_valid():
-    hunch = form.save(commit=False)
-    
-    hunch.tags = req.POST["tags"].split(",")
-    hunch.skills = req.POST["skills"].split(",")
-    hunch.languages = req.POST["languages"].split(",")
-    
-    #create new collaborators for this hunch
-    hunch_collaborators = req.POST["user_profiles"] + "," + str(req.user.pk)
-    hunch_collaborators = hunch_collaborators.split(",")
-    for user_id in hunch_collaborators:
-      hunch_user = models.HunchUser.objects.get_or_create(
-        user_profile=models.UserProfile.objects.get(pk=user_id),
-        hunch=hunch,
-        status=0)
-
-    #remove unneeded collaborators from this hunch
-    hunch_users = models.HunchUser.objects.filter(hunch=hunch_id)
-
-    for hunch_user in hunch_users:
-      if str(hunch_user.user_profile_id) not in hunch_collaborators:
-        models.HunchUser.objects.get(pk=hunch_user.pk).delete()
-
-    hunch.save()
+    hunch = form.save()
     return redirect(hunch)
 
   return _render(req, "edit", {
@@ -75,22 +53,7 @@ def create(req):
   form = forms.HunchForm(req.POST or None)
 
   if form.is_valid():
-    hunch = form.save(commit=False)
-    hunch.creator = req.user.get_profile()
-    hunch.save()
-
-    hunch.tags = req.POST["tags"].split(",")
-    hunch.skills = req.POST["skills"].split(",")
-    hunch.languages = req.POST["languages"].split(",")
-
-    hunch_collaborators = req.POST["user_profiles"] + "," + str(req.user.pk)
-    hunch_collaborators = hunch_collaborators.split(",")
-    for user_id in hunch_collaborators:
-      hunch_user = models.HunchUser.objects.create(
-        user_profile=models.UserProfile.objects.get(pk=user_id),
-        hunch=hunch,
-        status=0)
-
+    hunch = form.save()
     return redirect(hunch)
 
   return _render(req, "create", {

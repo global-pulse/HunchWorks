@@ -150,6 +150,31 @@ class HunchForm(ModelForm):
     exclude = (
       "creator", "time_created", "time_modified", "status",
     )
+    
+  def save(self):
+    with transaction.commit_on_success():
+      print "here"
+      old_up = set(self.instance.user_profiles.all() if self.instance.pk else [])
+      new_up = set(self.cleaned_data["user_profiles"])
+
+      # Save the Hunch without saving the many-to-many members field. This is a
+      # hack, but is preferable to reimplementing the ModelForm.save method.
+      hunch = super(HunchForm, self).save(commit=False)
+      
+      hunch.tags = self.cleaned_data['tags']
+      hunch.languages = self.cleaned_data['languages']
+      hunch.skills = self.cleaned_data['skills']
+      hunch.save()
+
+      for user_profile in (new_up-old_up):
+        models.HunchUser.objects.get_or_create(
+          user_profile=user_profile,
+          hunch=hunch)
+
+      models.HunchUser.objects.filter(
+        user_profile__in=(old_up-new_up)).delete()
+
+    return hunch
 
 
 class EvidenceForm(ModelForm):
@@ -193,9 +218,6 @@ class GroupForm(ModelForm):
         user_profile__in=(old_m-new_m)).delete()
 
     return group
-
-
-
 
 
 class HomepageForm(ModelForm):

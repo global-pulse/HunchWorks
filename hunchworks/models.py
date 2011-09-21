@@ -128,7 +128,7 @@ class Hunch(models.Model):
 class HunchUser(models.Model):
   hunch = models.ForeignKey('Hunch')
   user_profile = models.ForeignKey('UserProfile')
-  status = models.IntegerField()
+  status = models.IntegerField(default=0)
 
 
 class Evidence(models.Model):
