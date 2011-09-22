@@ -22,7 +22,8 @@ def profile(req, user_id=None):
   #Get hunches that contain user's skill set
   hunches = models.Hunch.objects.filter(
     Q(skills__in=user.get_profile().skills.all()) |
-    Q(languages__in=user.get_profile().languages.all())).distinct()
+    Q(languages__in=user.get_profile().languages.all())
+    ).distinct()
 
   invite_form = forms.InvitePeople()
   context = RequestContext(req)

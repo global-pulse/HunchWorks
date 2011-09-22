@@ -481,7 +481,6 @@
             "translation_language": 1,
             "location": 1,
             "description": "Proving all the non-believers wrong",
-            "evidence": [1,2],
             "tags": [1,2],
             "skills": [1,2,3,4],
             "languages": [1]
@@ -501,7 +500,6 @@
             "translation_language": 2,
             "location": 3,
             "description": "Proving all the non-believers wrong",
-            "evidence": [1,2],
             "tags": [3,4],
             "skills": [3,4],
             "languages": [2]
@@ -845,6 +843,55 @@
             "tags": [1,2,3]
         }
     },
+    
+    
+    {
+        "pk": 1,
+        "model": "hunchworks.hunchevidence",
+        "fields": 
+        {
+            "hunch": 1,
+            "evidence": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.hunchevidence",
+        "fields": 
+        {
+            "hunch": 1,
+            "evidence": 2
+        }
+    },
+    {
+        "pk": 3,
+        "model": "hunchworks.hunchevidence",
+        "fields": 
+        {
+            "hunch": 2,
+			"evidence": 1
+        }
+    },
+    {
+        "pk": 4,
+        "model": "hunchworks.hunchevidence",
+        "fields": 
+        {
+            "hunch": 2,
+            "evidence": 2
+        }
+    },
+    {
+        "pk": 5,
+        "model": "hunchworks.hunchevidence",
+        "fields": 
+        {
+            "hunch": 3,
+            "evidence": 1
+        }
+    },
+    
+    
     {
         "pk": 1,
         "model": "hunchworks.attachment",

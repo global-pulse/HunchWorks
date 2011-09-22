@@ -82,7 +82,7 @@ class Hunch(models.Model):
   
   skills = models.ManyToManyField('Skill', blank=True)
   languages = models.ManyToManyField('Language', blank=True)
-  evidence = models.ManyToManyField('Evidence', blank=True)
+  evidence = models.ManyToManyField('Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
 
@@ -297,3 +297,16 @@ class Invitation(models.Model):
 
   def __unicode__(self):
     return "%s to %s" % (self.email, self.hunch)
+    
+class Comment(models.Model):
+  text = models.TextField()
+  time_created = models.DateField()
+  time_modified = models.DateField(null=True, blank=True)
+  creator = models.ForeignKey('UserProfile')
+  hunch = models.ForeignKey('Hunch', null=True, blank=True)
+  evidence = models.ForeignKey('Evidence', null=True, blank=True)
+  
+  
+class HunchEvidence(models.Model):
+  hunch = models.ForeignKey('Hunch')
+  evidence = models.ForeignKey('Evidence')
