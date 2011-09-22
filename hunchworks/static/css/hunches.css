@@ -1,21 +1,64 @@
-form.hunch { }
+div.hunches {
+  margin: -0.5em;
+}
 
-  form.hunch > div.left,
-  form.hunch > div.right {
+  div.hunch {
     float: left;
+    width: 50%;
   }
 
-  form.hunch > div.left {
-    width: 60%;
-  }
+    div.hunch > div {
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+      margin-top: 1em;
+      padding: 0.5em;
+      margin: 0.5em;
+    }
 
-  form.hunch > div.right {
-    width: 40%;
-    box-sizing: border-box;
-    padding-left: 2em;
-  }
+      div.hunch img.logo {
+        border: 1px solid #ddd;
+        margin-right: 0.5em;
+        float: left;
+      }
 
-  form.hunch #id_title {
-    font-size: 125%;
-    padding: 0.8em;
-  }
+      div.hunch h3 {
+        font-size: 160%;
+        margin-bottom: 0.3125em;
+      }
+
+        div.hunch h3 a {
+          text-decoration: none;
+        }
+
+      div.hunch div.desc {
+        line-height: 1.25;
+        font-size: 80%;
+        height: 3.75em;
+        overflow: hidden;
+      }
+
+      div.hunch ul.stats {
+        margin-top: 0.625em;
+        font-size: 80%;
+      }
+
+        div.hunch ul.stats li {
+          display: block;
+          float: left;
+          border-right: 1px solid #ccc;
+          padding-right: 0.5em;
+          margin-right: 0.5em;
+          color: #666;
+        }
+
+          div.hunch ul.stats li:last-child {
+            border-right: none;
+            padding-right: 0;
+            margin-right: 0;
+          }
+  
+		div.hunch ul.stats li:last-child {
+		  border-right: none;
+		  padding-right: 0;
+		  margin-right: 0;
+		}

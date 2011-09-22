@@ -123,6 +123,12 @@ class Hunch(models.Model):
   def _is_hidden(self):
     """Return True if this Hunch is hidden."""
     return (self.privacy == hunchworks_enums.PrivacyLevel.HIDDEN)
+    
+  def member_count(self):
+    return self.user_profiles.all().count()
+
+  def evidence_count(self):
+    return self.evidence.all().count()
 
 
 class HunchUser(models.Model):

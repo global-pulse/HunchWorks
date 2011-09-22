@@ -20,6 +20,7 @@ $(function()
   init_token_input("skills", "hunchworks");
   init_token_input("languages", "hunchworks");
   init_token_input("userProfiles", "hunchworks");
+  init_token_input("members", "hunchworks");
 });
 
 
