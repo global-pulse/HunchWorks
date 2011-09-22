@@ -23,6 +23,9 @@ $ sudo yum install git
 $ git clone git://github.com/global-pulse/HunchWorks.git src
 $ cd src
 
+# Install PIL build dependencies.
+$ sudo yum install gcc libxml2-devel libxslt-devel libjpeg-devel
+
 # Install dependencies with Pip.
 $ pip install -r requirements.txt
 $ pip install gunicorn
