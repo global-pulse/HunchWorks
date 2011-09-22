@@ -1,0 +1,73 @@
+.loc-widget { }
+
+  .loc-widget ul.type {
+    float: right;
+  }
+
+    .loc-widget ul.type li {
+      display: block;
+      float: left;
+      color: #999;
+      font-weight: bold;
+      border-left: 1px dotted #ccc;
+      margin-left: 0.5em;
+      padding-left: 0.5em;
+      cursor: pointer;
+    }
+
+      .loc-widget ul.type li.active {
+        color: #000;
+      }
+
+      .loc-widget ul.type li:first-child {
+        border-left: none;
+        margin-left: 0;
+        padding-left: 0;
+      }
+
+  .loc-widget .hidden {
+    display: none;
+  }
+
+  .loc-widget .latlng,
+  .loc-widget .map {
+    border: 2px solid #eee;
+    border-radius: 2px;
+    clear: both;
+  }
+
+    .loc-widget .latlng {
+      padding: 1em;
+    }
+
+    .loc-widget .latlng { }
+
+      .loc-widget .latlng .widgets {
+        padding-left: 1em;
+      }
+
+        .loc-widget .latlng input,
+        .loc-widget .latlng label {
+          display: block;
+          float: left;
+          clear: none;
+          width: 50%;
+        }
+
+          .loc-widget .latlng label {
+            text-align: center;
+            padding-top: 0.5em;
+            color: #999;
+          }
+
+          /* yank the first widget and label (latitude) to the left (over the
+          |* padding-left of the parent div) to allow the lat+lng columns to be
+          |* of equal width, with a 1em gap separating them. */
+          .loc-widget .latlng .lat {
+            margin-left: -1em;
+            margin-right: 1em;
+          }
+
+    .loc-widget .map {
+      height: 300px;
+    }

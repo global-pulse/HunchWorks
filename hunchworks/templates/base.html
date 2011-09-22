@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% get_static_prefix %}css/utils.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/groups.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/hunches.css">
+    <link rel="stylesheet" href="{% get_static_prefix %}css/location-widget.css">
     <link rel="stylesheet" href="/static/token-input.css" type="text/css" />
     <link rel="stylesheet" href="/static/token-input-facebook.css" type="text/css" />
     <link rel="stylesheet" href="{% get_static_prefix %}css/token-input.css">
@@ -23,8 +24,13 @@
     <![endif]-->
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+
     <script src="/static/main.js"></script>
     <script src='/static/jquery.tokeninput.js'></script>
+
+    <!-- temporary! use widget media -->
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="/static/js/location-widget.js"></script>
     {% block js %}{% endblock %}
   </head>
   <body>

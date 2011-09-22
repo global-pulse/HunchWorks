@@ -98,6 +98,7 @@ class LanguagesField(forms.ModelMultipleChoiceField):
       models.Language.objects.all(),
       *args, **kwargs)
 
+
 class UserProfilesWidget(forms.TextInput):
   search_url = "/user/1/collaborators"
 
@@ -138,8 +139,79 @@ class UserProfilesField(forms.ModelMultipleChoiceField):
       models.UserProfile.objects.all(),
       *args, **kwargs)
 
+
+class LocationWidget(forms.MultiWidget):
+  def __init__(self, attrs=None):
+    widgets = (
+      forms.TextInput(attrs={"class": "lat"}),
+      forms.TextInput(attrs={"class": "lng"}),
+      forms.TextInput(attrs={"class": "name"}))
+    super(LocationWidget, self).__init__(widgets, attrs)
+
+  def decompress(self, value):
+    if value is not None:
+      return [value.latitude, value.longitude, value.name]
+    return [None, None, None]
+
+  def render(self, name, value, attrs=None):
+
+    # take note of the name before calling super, so we can access it from
+    # format_output without reimplementing the whole of MultiWidget.render.
+    self._name = name
+
+    return super(LocationWidget, self).render(
+      name, value, attrs)
+
+  def format_output(self, rendered_widgets):
+    lat, lng, name = rendered_widgets
+    lat_id = "id_%s_0" % self._name
+    lng_id = "id_%s_1" % self._name
+
+    return """
+      <div class="loc-widget">
+        <ul class="type">
+          <li class="active" data-type="latlng">GIS Coordinates</li>
+          <li data-type="map">Pin on Map</li>
+          <li data-type="name">Location Name</li>
+        </ul>
+        <div class="latlng">
+          <div class="widgets">
+            %s
+            %s
+            <div class="clear-hack"></div>
+          </div>
+          <div class="labels">
+            <label class="lat" for="%s">Latitude</label>
+            <label class="lng" for="%s">Longitude</label>
+            <div class="clear-hack"></div>
+          </div>
+        </div>
+        <div class="map hidden"></div>
+        <div class="name hidden">%s</div>
+      </div>
+    """ % (lat, lng, lat_id, lng_id, name)
+
+
+class LocationField(forms.MultiValueField):
+  widget = LocationWidget
+
+  def __init__(self, *args, **kwargs):
+    fields = (forms.DecimalField(), forms.DecimalField(), forms.CharField())
+    super(LocationField, self).__init__(fields, *args, **kwargs)
+
+  def compress(self, data_list):
+    if data_list:
+      return models.Location.objects.create(
+        latitude  = data_list[0],
+        longitude = data_list[1],
+        name      = data_list[2])
+
+
+
+
 class HunchForm(ModelForm):
   tags = TagsField(required=False)
+  location = LocationField(required=False)
   skills = SkillsField(required=False)
   languages = LanguagesField(required=False)
   user_profiles = UserProfilesField(required=False)
@@ -148,7 +220,7 @@ class HunchForm(ModelForm):
   class Meta:
     model = models.Hunch
     exclude = (
-      "creator", "time_created", "time_modified", "status",
+      "creator", "time_created", "time_modified", "status"
     )
     
   def save(self, creator=None):
@@ -165,7 +237,6 @@ class HunchForm(ModelForm):
       hunch.tags = self.cleaned_data['tags']
       hunch.languages = self.cleaned_data['languages']
       hunch.skills = self.cleaned_data['skills']
-      
 
       for user_profile in (new_up-old_up):
         models.HunchUser.objects.get_or_create(
@@ -225,10 +296,12 @@ class HomepageForm(ModelForm):
   class Meta:
     model = models.User
 
+
 class UserForm(ModelForm):
   class Meta:
     model= models.UserProfile
     exclude = ("user")
+
 
 class InvitePeople(forms.Form):
   invited_emails = custom_fields.MultiEmailField(widget=forms.Textarea(
@@ -247,4 +320,3 @@ class InvitePeople(forms.Form):
       #hunch = hunch,
       )
       invitation.save()
-    
