@@ -21,6 +21,14 @@ $(function()
   init_token_input("languages", "hunchworks");
   init_token_input("userProfiles", "hunchworks");
   init_token_input("members", "hunchworks");
+  
+  //This sets the data for the plugin to your specific username
+  url = document.getElementById("id_user_profiles").getAttribute("data-search-url");
+  urlArray = url.split("/")
+  urlArray[1] = document.getElementById("hunchId").getAttribute("user");
+  url = urlArray[0].concat("/", urlArray[1], "/", urlArray[2]);
+  document.getElementById("id_user_profiles").setAttribute("data-search-url", url)
+  
 });
 
 

@@ -2,7 +2,7 @@
 {% block title %}Create a new hunch{% endblock %}
 
 {% block content %}
-  <h1>Create a new hunch</h1>
+  <h1 id='hunchId' user='{{ user.id }}'>Create a new hunch</h1>
 
   <form action="" method="post" class="create hunch">
     {{ form.non_field_errors }}

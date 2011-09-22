@@ -43,7 +43,7 @@ def edit(req, hunch_id):
     return redirect(hunch)
 
   return _render(req, "edit", {
-    "hunch": hunch,
+    "hunch": hunch, "user": req.user,
     "form": form
   })
 
@@ -57,17 +57,17 @@ def create(req):
     return redirect(hunch)
 
   return _render(req, "create", {
-    "form": form
+    "form": form, "user": req.user.get_profile()
   })
 
 
-def showHunch(request, hunch_id):
+def showHunch(req, hunch_id):
   """Show a Hunch."""
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
 
-  if not hunch.is_viewable_by(request.user):
+  if not hunch.is_viewable_by(req.user):
     raise PermissionDenied
 
-  context = RequestContext(request)
+  context = RequestContext(req)
   context.update({ "hunch": hunch })
   return render_to_response('showHunch.html', context)
