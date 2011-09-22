@@ -4,7 +4,9 @@
         "model": "hunchworks.location",
         "fields": 
         {
-            "name": "New York City, NY"
+            "name": "New York City, NY",
+            "latitude": "40.716667",
+            "longitude": "-74"
         }
     },
     {
@@ -12,7 +14,9 @@
         "model": "hunchworks.location",
         "fields": 
         {
-            "name": "San Francisco, CA"
+            "name": "San Francisco, CA",
+            "latitude": "37.7793",
+            "longitude": "-122.4192"
         }
     },
     {
@@ -20,7 +24,9 @@
         "model": "hunchworks.location",
         "fields": 
         {
-            "name": "Miami, FL"
+            "name": "Miami, FL",
+            "latitude": "25.787778",
+            "longitude": "-80.224167"
         }
     },
     {
@@ -28,7 +34,9 @@
         "model": "hunchworks.location",
         "fields": 
         {
-            "name": "San Antonio, TX"
+            "name": "San Antonio, TX",
+            "latitude": "29.416667",
+            "longitude": "-98.5"
         }
     },
 

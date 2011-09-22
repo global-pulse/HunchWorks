@@ -244,10 +244,12 @@ class TranslationLanguage(models.Model):
 
 
 class Location(models.Model):
-  name = models.CharField(unique=True, max_length=45)
+  latitude = models.DecimalField(max_digits=9, decimal_places=6)
+  longitude = models.DecimalField(max_digits=9, decimal_places=6)
+  name = models.CharField(max_length=200, blank=True)
 
   def __unicode__(self):
-    return self.name
+    return self.name or "<Location:%d>" % self.pk
 
 
 class Tag(models.Model):
