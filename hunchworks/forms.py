@@ -66,8 +66,12 @@ class LocationWidget(forms.MultiWidget):
     super(LocationWidget, self).__init__(widgets, attrs)
 
   def decompress(self, value):
+    if isinstance(value, int):
+      value = models.Location.objects.get(pk=value)
+
     if value is not None:
       return [value.latitude, value.longitude, value.name]
+
     return [None, None, None]
 
   def render(self, name, value, attrs=None):
