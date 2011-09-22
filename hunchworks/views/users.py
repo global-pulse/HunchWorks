@@ -6,6 +6,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 def _render(req, template, more_context):
   return render_to_response(
@@ -19,7 +20,9 @@ def profile(req, user_id=None):
   user = get_object_or_404(models.User, pk=user_id)
 
   #Get hunches that contain user's skill set
-  hunches = models.Hunch.objects.filter(id__in=user.get_profile().skills.all())
+  hunches = models.Hunch.objects.filter(
+    Q(skills__in=user.get_profile().skills.all()) |
+    Q(languages__in=user.get_profile().languages.all())).distinct()
 
   invite_form = forms.InvitePeople()
   context = RequestContext(req)
