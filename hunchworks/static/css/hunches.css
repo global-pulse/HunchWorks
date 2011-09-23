@@ -56,12 +56,295 @@ div.hunches {
             padding-right: 0;
             margin-right: 0;
           }
-  
+
 		div.hunch ul.stats li:last-child {
 		  border-right: none;
 		  padding-right: 0;
 		  margin-right: 0;
 		}
+
+
+
+
+#hunch-show { }
+
+  #hunch-show h2 {
+    font-size: 125%;
+  }
+
+  #hunch-show> .left,
+  #hunch-show > .right {
+    float: left;
+  }
+
+    #hunch-show> .left {
+      width: 60%;
+    }
+
+      #hunch-show> .left > div { }
+
+        #hunch-show> .left > div > h2 {
+          margin: 1.6em 0 0.4em 0;
+        }
+
+        #hunch-show> .left > div > p {
+          margin-top: 0.5em;
+          line-height: 1.4;
+        }
+
+      #hunch-show> .left > div.privacy {
+        background: #eee;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin: 2em 0;
+        padding: 1em;
+      }
+
+        #hunch-show> .left > div.privacy h2 {
+          display: none;
+        }
+
+        #hunch-show> .left > div.privacy h3 {
+          font-size: 200%;
+          line-height: 1.25em;
+          border-right: 1px dotted #ccc;
+          padding-right: 0.5em;
+          margin-right: 0.5em;
+          color: #999;
+          float: left;
+        }
+
+        #hunch-show> .left > div.privacy > p {
+          line-height: 1;
+        }
+
+          #hunch-show> .left > div.privacy > p.summary {
+            margin-top: 0;
+          }
+
+      #hunch-show> .left > div.evidence {
+        margin-top: 2em;
+      }
+
+        #hunch-show> .left > div.evidence > ul { }
+
+          #hunch-show> .left > div.evidence > ul > li {
+            display: block;
+            padding-left: 7em;
+            padding-top: 1em;
+            margin-top: 1em;
+            border-top: 1px dotted #ccc;
+          }
+
+            #hunch-show> .left > div.evidence > ul > li:first-child {
+              border-top: none;
+              padding-top: 0;
+            }
+
+            #hunch-show> .left > div.evidence > ul > li > div.left {
+              text-align: center;
+              float: left;
+              width: 6em;
+              margin-left: -7em;
+            }
+
+              #hunch-show> .left > div.evidence > ul > li > div.left > .support,
+              #hunch-show> .left > div.evidence > ul > li > div.left > .confidence {
+                border: 1px solid #ddd;
+                background: #eee;
+                padding: 0.5em 0;
+              }
+
+              #hunch-show> .left > div.evidence > ul > li > div.left > .support {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+              }
+
+              #hunch-show> .left > div.evidence > ul > li > div.left > .confidence {
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+                border-top: none;
+              }
+
+                #hunch-show> .left > div.evidence > ul > li > div.left > div > div {
+                  font-size: 200%;
+                  font-weight: bold;
+                  color: #fff;
+                  text-shadow: 0 0 5px #999;
+                }
+
+                #hunch-show> .left > div.evidence > ul > li > div.left > div > span {
+                  display: block;
+                  margin-top: 0.3125em;
+                  font-size: 80%;
+                  color: #999;
+                }
+
+            #hunch-show> .left > div.evidence > ul > li > div.right {
+              float: left;
+            }
+
+              #hunch-show> .left > div.evidence > ul > li > div.right > h3 {
+                font-size: 125%;
+                margin-bottom: 0.4em;
+              }
+
+              #hunch-show> .left > div.evidence > ul > li > div.right > div.preview {
+                line-height: 1.2em;
+                max-height: 3.6em;
+                overflow: hidden;
+                border-left: 0.5em solid #eee;
+                padding-left: 0.5em;
+                color: #666;
+              }
+
+              #hunch-show> .left > div.evidence > ul > li > div.right > ul.meta > li {
+                font-size: 80%;
+                display: inline-block;
+                margin-top: 0.625em;
+                padding: 0.3125em;
+                background: #eee;
+                color: #999;
+              }
+
+                #hunch-show> .left > div.evidence > ul > li > div.right > ul.meta > li > a {
+                  color: inherit;
+                }
+
+
+    #hunch-show > .right {
+      box-sizing: border-box;
+      padding-left: 2em;
+      width: 40%;
+    }
+
+      #hunch-show > .right > div {
+        background: #eee;
+        padding: 1em;
+        margin-bottom: 1em;
+      }
+
+        #hunch-show > .right > div > h2 { }
+
+          #hunch-show > .right > div > p {
+            font-size: 80%;
+            margin: 0.625em 0;
+            line-height: 1.2;
+          }
+
+          #hunch-show > .right > div > ul.type {
+            margin-bottom: 0.5em;
+            margin-top: 1em;
+            padding-left: 2em;
+            overflow: hidden;
+          }
+
+            #hunch-show > .right > div > ul.type > li {
+              display: block;
+              float: left;
+              background: #ccc;
+              box-sizing: border-box;
+              text-align: center;
+              padding: 0.5em;
+              margin-left: 1em;
+              width: 33.33%;
+            }
+
+              #hunch-show > .right > div > ul.type > li:first-child {
+                margin-left: -2em;
+              }
+
+          #hunch-show > .right > div > ul.hunches {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 0 1em;
+          }
+
+            #hunch-show > .right > div > ul.hunches > li {
+              border-bottom: 1px dotted #ccc;
+              list-style: none;
+              padding: 1em 0;
+            }
+
+              #hunch-show > .right > div > ul.hunches > li > h3 {
+                font-weight: bold;
+                margin-top: -0.1em;
+                line-height: 1.2;
+              }
+
+              #hunch-show > .right > div > ul.hunches > li > ul.meta {
+                margin-left: 1.5em;
+                margin-top: 0.3em;
+                color: #666;
+              }
+
+                #hunch-show > .right > div > ul.hunches > li > ul.meta > li {
+                  font-size: 80%;
+                  margin-top: 0.3125em;
+                  list-style-type: disc;
+                }
+
+                  #hunch-show > .right > div > ul.hunches > li > ul.meta > li > a {
+                    color: inherit;
+                  }
+
+            #hunch-show > .right > div > ul.hunches > li:last-child {
+              border-bottom: none;
+            }
+
+
+      #hunch-show > .right > div.location {
+        background: none;
+        padding: 0;
+      }
+
+        #hunch-show > .right > div.location > h2 {
+          display: none;
+        }
+
+        #hunch-show > .right > div.location > div.map {
+          border: 2px solid #eee;
+          border-bottom: 0;
+          height: 100px;
+        }
+
+        #hunch-show > .right > div.location > div.expand {
+          background: #eee;
+          font-size: 80%;
+          padding: 0.625em;
+          text-align: center;
+        }
+
+          #hunch-show > .right > div.location > div.expand > a {
+            text-decoration: none;
+            color: #999;
+          }
+
+
+      #hunch-show > .right > div.tags { }
+
+        #hunch-show > .right > div.tags > h2 {
+          margin-bottom: 0.4em;
+        }
+
+        #hunch-show > .right > div.tags > ul { }
+
+          #hunch-show > .right > div.tags > ul > li {
+            display: inline-block;
+            font-size: 80%;
+            background: #ccc;
+            margin-top: 0.625em;
+            padding-right: 0.625em;
+            margin-right: 0.625em;
+            border: 0.5em solid #ccc;
+            border-radius: 3px 1.25em 1.25em 3px;
+          }
+
+            #hunch-show > .right > div.tags > ul > li > a {
+              text-decoration: none;
+            }
+
+
 
 
 form.hunch { }

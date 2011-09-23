@@ -1,16 +1,192 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1><a href="{% url hunches %}">Hunches</a> &raquo; {{ hunch }}</h1>
+  <div id="hunch-show">
+    <div class="left">
+      <h1><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h1>
 
-  <div class="hunch">
-    <h3><a href="{{ hunch.get_absolute_url }}">{{ hunch.name }}</a></h3>
-  </div>
+      <div class="privacy open">
+        <h2>Privacy</h2>
+        <h3>Open</h3>
 
-  <div class="links">
-    <ul>
-      <li><a href="{% url edit_hunch hunch.pk %}">Edit this Hunch</a></li>
-    </ul>
+        <p class="summary">
+          Anyone may view, add evidence, and comment.
+        </p>
+
+        <p class="shared-with">
+          Shared with
+          <a href="">Adam Mckaig</a>,
+          <a href="">Chris Blumberg</a>
+          and <a href="">5 others</a>
+        </p>
+      </div>
+
+      <div class="desc">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In justo ligula, elementum id sodales pellentesque, pellentesque quis nisl. Donec sit amet nibh ipsum, id pulvinar velit. Donec at elit lorem, eu sollicitudin elit. Nam convallis fringilla feugiat. Cras vel risus sed nisi pretium volutpat. Morbi mauris turpis, tristique quis blandit nec, dapibus at neque. Suspendisse vehicula, felis sed adipiscing lobortis, massa orci porta libero, sed scelerisque nulla urna quis sem. Cras accumsan felis ante.</p>
+        <p>Aenean placerat libero sit amet nibh ultricies adipiscing. Curabitur et nulla eu nunc dictum tempus bibendum ut dolor. Duis sit amet nibh tellus. Cras rutrum est eget est imperdiet rhoncus cursus nisl sagittis. Fusce quis augue aliquam mauris consequat lacinia. Aenean vehicula pretium tristique. Integer vel purus at mauris condimentum scelerisque ac vitae nibh. In quis nisi leo. Nunc dictum tincidunt scelerisque. Praesent ultrices sapien ut mi feugiat quis pulvinar magna malesuada.</p>
+        <p>Sed eleifend venenatis neque vel facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer in lectus neque. Suspendisse venenatis bibendum nisi, in ornare eros pellentesque nec. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi a augue risus. Suspendisse eu eros ante, ac commodo felis. Nullam a consectetur justo.</p>
+      </div>
+
+      <div class="evidence">
+        <ul>
+          <li class="tweet">
+            <div class="left">
+              <div class="support">
+                <div>+2</div>
+                <span>Strongly Supports</span>
+              </div>
+              <div class="confidence">
+                <div>40%</div>
+                <span>Confidence</span>
+              </div>
+            </div>
+            <div class="right">
+              <h3>&quot;I hate when I'm on a flight and I wake up with a water bottle next to me like oh great now I gotta be responsible for this water bottle.&quot;</h3>
+              <ul class="meta">
+                <li class="type">Tweet</li>
+                <li class="source"><a href="">http://twitter.com/kanyewest</a></li>
+                <li class="date">13 June 1984</li>
+              </ul>
+            </div>
+            <div class="clear-hack"></div>
+          </li>
+          <li class="dataset">
+            <div class="left">
+              <div class="support">
+                <div>-2</div>
+                <span>Strongly Refutes</span>
+              </div>
+              <div class="confidence">
+                <div>60%</div>
+                <span>Confidence</span>
+              </div>
+            </div>
+            <div class="right">
+              <h3>Average Baby Penis Length, Jan 1990 &ndash; Dec 1999</h3>
+              <ul class="meta">
+                <li class="type">Dataset</li>
+                <li class="source"><a href="">http://example.com/ohnoes</a></li>
+                <li class="date">13 June 1984</li>
+              </ul>
+            </div>
+            <div class="clear-hack"></div>
+          </li>
+          <li class="link">
+            <div class="left">
+              <div class="support">
+                <div>+1</div>
+                <span>Supports</span>
+              </div>
+              <div class="confidence">
+                <div>20%</div>
+                <span>Confidence</span>
+              </div>
+            </div>
+            <div class="right">
+              <h3>Something Happens in Africa and it's Really Bad</h3>
+              <div class="preview">
+                <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer in lectus neque. Suspendisse venenatis bibendum nisi, in ornare eros pellentesque nec. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi a augue risus. Suspendisse eu eros ante, ac commodo felis. Nullam a consectetur justo.</p>
+              </div>
+              <ul class="meta">
+                <li class="type">Link</li>
+                <li class="source"><a href="">http://example.com/ohnoes</a></li>
+                <li class="date">13 June 1984</li>
+              </ul>
+            </div>
+            <div class="clear-hack"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="right">
+      <div>
+        <h2>Related Hunches</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In justo ligula, elementum id sodales pellentesque, pellentesque quis nisl. Donec sit amet nibh ipsum, id pulvinar velit.</p>
+
+        <ul class="type">
+          <li>By Keywords</li>
+          <li>By Location</li>
+          <li>By Evidence</li>
+        </ul>
+
+        <ul class="hunches">
+          <li>
+            <h3>Something Related</h3>
+            <ul class="meta">
+              <li>by <a href="">Adam Mckaig</a> and 10 others</li>
+              <li>10 pieces of evidence</li>
+              <li>25 comments</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Another Related Thing With a Much Longer Title Than the First</h3>
+            <ul class="meta">
+              <li>by <a href="">Adam Mckaig</a> and 10 others</li>
+              <li>10 pieces of evidence</li>
+              <li>25 comments</li>
+            </ul>
+          </li>
+          <li>
+            <h3>The Final Related Thing</h3>
+            <ul class="meta">
+              <li>by <a href="">Adam Mckaig</a> and 10 others</li>
+              <li>10 pieces of evidence</li>
+              <li>25 comments</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="location">
+        <h2>Location</h2>
+        <div class="map"></div>
+        <div class="expand">
+          <a href="">Expand</a>
+        </div>
+      </div>
+
+      <script>
+        $(function() {
+          $("div.map").each(function() {
+            var nyc = new google.maps.LatLng(
+              40.716667, -74);
+
+            var map = new google.maps.Map(this, {
+              "disableDefaultUI": true,
+              "mapTypeId": google.maps.MapTypeId.TERRAIN,
+              "center": nyc,
+              "zoom": 13
+            });
+
+            new google.maps.Marker({
+              "position": nyc,
+              "map": map
+            });
+          });
+        });
+      </script>
+
+      <div class="tags">
+        <h2>Tags</h2>
+        <ul>
+          {% for tag in tags %}
+            <li>{{ tag }}</li>
+          {% endfor %}
+          <li><a href="">Lorem Ipsum</a></li>
+          <li><a href="">Dolor Sit Amet</a></li>
+          <li><a href="">Consectetur</a></li>
+          <li><a href="">Adipiscing Elit</a></li>
+        </ul>
+      </div>
+    </div>
     <div class="clear-hack"></div>
+
+    <div class="links">
+      <ul>
+        <li><a href="{% url edit_hunch hunch.pk %}">Edit this Hunch</a></li>
+      </ul>
+      <div class="clear-hack"></div>
+    </div>
   </div>
 {% endblock %}
