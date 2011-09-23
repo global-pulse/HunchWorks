@@ -1,32 +1,30 @@
 #!/usr/bin/env python
 
+import json
 import models
 from django.shortcuts import get_object_or_404
 from django import http
 from django.utils import simplejson
 
 
-def languages(request):
-  languages = models.Language.objects.all()
-  languages = languages.values_list('id', 'name')
-  languages =  [{ "id": x[0], "name": x[1]} for x in languages]
+def _tokens(query_set, keys=("id", "name")):
+  return map(
+    lambda v: dict(zip(keys, v)),
+    query_set.values_list(*keys))
 
-  return http.HttpResponse( simplejson.dumps(languages) )
-
-
-def skills(request):
-  skills = models.Skill.objects.filter()
-  skills = skills.values_list('id', 'name')
-  skills =  [{ "id": x[0], "name": x[1]} for x in skills]
-  
-  return http.HttpResponse( simplejson.dumps(skills) )
+def _search(req, model):
+  query_set = model.search(req.GET["q"], req.user.get_profile())
+  return http.HttpResponse(json.dumps(_tokens(query_set)))
 
 
-def tags(request):
-  tags = models.Tag.objects.all()
-  tags = tags.values_list('id', 'name')
-  tags =  [{ "id": x[0], "name": x[1]} for x in tags]
-  return http.HttpResponse( simplejson.dumps(tags) )
+def languages(req):
+  return _search(req, models.Language)
+
+def skills(req):
+  return _search(req, models.Skill)
+
+def tags(req):
+  return _search(req, models.Tag)
 
 
 def user_collaborators(request, user_id):

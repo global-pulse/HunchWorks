@@ -264,6 +264,10 @@ class Tag(models.Model):
   def __unicode__(self):
     return self.name
 
+  @classmethod
+  def search(cls, term, user_profile=None):
+    return cls.objects.filter(name__icontains=term)
+
 
 class Role(models.Model):
   group = models.ForeignKey('Group')
@@ -282,12 +286,20 @@ class Skill(models.Model):
   def __unicode__(self):
     return self.name
 
+  @classmethod
+  def search(cls, term, user_profile=None):
+    return cls.objects.filter(name__icontains=term)
+
 
 class Language(models.Model):
   name = models.CharField(unique=True, max_length=100)
   
   def __unicode__(self):
     return self.name
+
+  @classmethod
+  def search(cls, term, user_profile=None):
+    return cls.objects.filter(name__icontains=term)
 
 
 class Invitation(models.Model):
@@ -297,7 +309,8 @@ class Invitation(models.Model):
 
   def __unicode__(self):
     return "%s to %s" % (self.email, self.hunch)
-    
+
+
 class Comment(models.Model):
   text = models.TextField()
   time_created = models.DateField()
