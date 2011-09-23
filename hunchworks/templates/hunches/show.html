@@ -4,6 +4,15 @@
   <div id="hunch-show">
     <div class="left">
       <h1><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h1>
+      <ul class="tags">
+        {% for tag in tags %}
+          <li>{{ tag }}</li>
+        {% endfor %}
+        <li><a href="">Lorem Ipsum</a></li>
+        <li><a href="">Dolor Sit Amet</a></li>
+        <li><a href="">Consectetur</a></li>
+        <li><a href="">Adipiscing Elit</a></li>
+      </ul>
 
       <div class="privacy open">
         <h2>Privacy</h2>
@@ -166,19 +175,6 @@
           });
         });
       </script>
-
-      <div class="tags">
-        <h2>Tags</h2>
-        <ul>
-          {% for tag in tags %}
-            <li>{{ tag }}</li>
-          {% endfor %}
-          <li><a href="">Lorem Ipsum</a></li>
-          <li><a href="">Dolor Sit Amet</a></li>
-          <li><a href="">Consectetur</a></li>
-          <li><a href="">Adipiscing Elit</a></li>
-        </ul>
-      </div>
     </div>
     <div class="clear-hack"></div>
 

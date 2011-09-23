@@ -81,11 +81,30 @@ div.hunches {
       width: 60%;
     }
 
-      #hunch-show> .left > div { }
+      #hunch-show> .left > h1 {
+        margin-bottom: 0.25em;
+      }
 
-        #hunch-show> .left > div > h2 {
-          margin: 1.6em 0 0.4em 0;
+      #hunch-show > .left > ul.tags { }
+
+        #hunch-show > .left > ul.tags > li {
+          display: inline-block;
+          border: 1px solid #ddd;
+          border-radius: 1px 0.8125em 0.8125em 1px;
+          font-size: 80%;
+          background: #eee url("../icons/tag.png") no-repeat 2px 50%;
+          line-height: 19px;
+          padding-left: 19px;
+          padding-right: 0.625em;
+          margin-right: 0.625em;
         }
+
+          #hunch-show > .left > ul.tags > li > a {
+            text-decoration: none;
+            padding-left: 0.3125em;
+          }
+
+      #hunch-show> .left > div { }
 
         #hunch-show> .left > div > p {
           margin-top: 0.5em;
@@ -319,30 +338,6 @@ div.hunches {
             text-decoration: none;
             color: #999;
           }
-
-
-      #hunch-show > .right > div.tags { }
-
-        #hunch-show > .right > div.tags > h2 {
-          margin-bottom: 0.4em;
-        }
-
-        #hunch-show > .right > div.tags > ul { }
-
-          #hunch-show > .right > div.tags > ul > li {
-            display: inline-block;
-            font-size: 80%;
-            background: #ccc;
-            margin-top: 0.625em;
-            padding-right: 0.625em;
-            margin-right: 0.625em;
-            border: 0.5em solid #ccc;
-            border-radius: 3px 1.25em 1.25em 3px;
-          }
-
-            #hunch-show > .right > div.tags > ul > li > a {
-              text-decoration: none;
-            }
 
 
 
