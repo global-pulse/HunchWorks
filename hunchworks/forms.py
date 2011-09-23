@@ -1,23 +1,24 @@
 #!/usr/bin/env python
 
 import json
-from hunchworks import models, custom_fields
+from hunchworks import models, custom_fields, json_views
 from django import forms
 from django.db import transaction
+from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from django.forms.widgets import PasswordInput
 from django.utils.datastructures import MultiValueDict, MergeDict
 
 
 class TokenWidget(forms.TextInput):
-  search_url = ""
-  class_name = "error"
-
   def render(self, name, value, attrs=None):
     flat_value = ",".join(map(unicode, value or []))
 
-    attrs["data-search-url"] = self.search_url
-    attrs["class"] = self.class_name
+    if hasattr(self, "search_view"):
+      attrs["data-search-url"] = reverse(self.search_view)
+
+    attrs["class"] = self._class_name(
+      attrs.get("class"), "token-input")
 
     if value is not None:
       attrs["data-prepopulate"] = json.dumps([
@@ -28,6 +29,10 @@ class TokenWidget(forms.TextInput):
     return super(TokenWidget, self).render(
       name, flat_value, attrs)
 
+  @staticmethod
+  def _class_name(class_name=None, extra=None):
+    return " ".join(filter(None, [class_name, extra]))
+
   def value_from_datadict(self, data, files, name):
     values = data.get(name, "").split(",")
     return self.clean_keys(values)
@@ -35,26 +40,18 @@ class TokenWidget(forms.TextInput):
   def clean_keys(self, values):
     return [int(x) for x in values if x.strip().isdigit()]
 
-  def set_search_url(self, url):
-    self.search_url = url
-    
-  def set_class_name(self, name):
-    self.class_name = name
-
 
 class TokenField(forms.ModelMultipleChoiceField):
   widget = TokenWidget
-  query_set = models.Hunch.objects.all()
-  
-  def set_search_url(self, url):
-    self.widget.set_search_url(url)
-    
-  def set_class_name(self, name):
-    self.widget.set_class_name(name)
 
-  def __init__(self, query_set, *args, **kwargs):
-    super(TokenField, self).__init__(query_set, *args, **kwargs)
+  @staticmethod
+  def _class_name(value):
+    return value.replace(" ", "-")
 
+  def __init__(self, model, search_view, *args, **kwargs):
+    super(TokenField, self).__init__(model.objects.all(), *args, **kwargs)
+    self.widget.class_name = self._class_name(model._meta.verbose_name_plural)
+    self.widget.search_view = search_view
 
 
 class LocationWidget(forms.MultiWidget):
@@ -131,19 +128,10 @@ class LocationField(forms.MultiValueField):
 
 
 class HunchForm(ModelForm):
-  tags = TokenField(models.Tag.objects.all(), required=False)
-  tags.set_search_url("/tags")
-  tags.set_class_name("tags")
+  tags = TokenField(models.Tag, json_views.tags, required=False)
+  skills = TokenField(models.Skill, json_views.skills, required=False)
+  user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False)
   location = LocationField(required=False)
-  skills = TokenField(models.Skill.objects.all(), required=False)
-  skills.set_search_url("/skills")
-  skills.set_class_name("skills")
-  languages = TokenField(models.Language.objects.all(), required=False)
-  languages.set_search_url("/languages")
-  languages.set_class_name("languages")
-  user_profiles = TokenField(models.UserProfile.objects.all(), required=False)
-  user_profiles.set_search_url("user/1/collaborators")
-  user_profiles.set_class_name("userProfiles")
 
   class Meta:
     model = models.Hunch
@@ -187,11 +175,9 @@ class EvidenceForm(ModelForm):
 
 
 class GroupForm(ModelForm):
-  members = TokenField(models.UserProfile.objects.all(), required=False,
+  members = TokenField(models.UserProfile, json_views.collaborators, required=False,
     help_text="The HunchWorks members you wish to invite to this group.<br>" +
               "You can only invite members who you are connected with.")
-  members.set_search_url("user/4/collaborators")
-  members.set_class_name("members")
 
   class Meta:
     model = models.Group

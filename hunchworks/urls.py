@@ -51,7 +51,8 @@ urlpatterns += patterns(
   (r'^hunch/(?P<hunch_id>\d+)/languages$', 'hunch_languages'),
   (r'^hunch/(?P<hunch_id>\d+)/skills$', 'hunch_skills'),
   (r'^hunch/(?P<hunch_id>\d+)/tags$', 'hunch_tags'),
-  (r'^skills', 'skills'),
-  (r'^languages', 'languages'),
-  (r'^tags', 'tags'),
+  (r'^skills$', 'skills'),
+  (r'^languages$', 'languages'),
+  (r'^tags$', 'tags'),
+  (r'^collaborators$', 'collaborators'),
 )

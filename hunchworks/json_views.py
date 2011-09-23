@@ -26,6 +26,9 @@ def skills(req):
 def tags(req):
   return _search(req, models.Tag)
 
+# stub
+def collaborators(req):
+  return http.HttpResponse(json.dumps([]))
 
 def user_collaborators(request, user_id):
   user = get_object_or_404(models.UserProfile, pk=user_id)
