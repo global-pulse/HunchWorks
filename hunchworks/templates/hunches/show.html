@@ -14,21 +14,58 @@
         <li><a href="">Adipiscing Elit</a></li>
       </ul>
 
-      <div class="privacy open">
-        <h2>Privacy</h2>
-        <h3>Open</h3>
 
-        <p class="summary">
-          Anyone may view, add evidence, and comment.
-        </p>
+      {% if hunch.privacy == 2 %}
+        <div class="privacy open">
+          <h2>Privacy</h2>
+          <h3>Open</h3>
 
-        <p class="shared-with">
-          Shared with
-          <a href="">Adam Mckaig</a>,
-          <a href="">Chris Blumberg</a>
-          and <a href="">5 others</a>
-        </p>
-      </div>
+          <p class="summary">
+            Anyone may view and contribute to this hunch.
+          </p>
+
+          <p class="shared-with">
+            Shared with
+            <a href="">Adam Mckaig</a>,
+            <a href="">Chris Blumberg</a>
+            and <a href="">5 others</a>
+          </p>
+        </div>
+      {% endif %}
+      {% if hunch.privacy == 1 %}
+        <div class="privacy closed">
+          <h2>Privacy</h2>
+          <h3>Closed</h3>
+
+          <p class="summary">
+            Anyone may view, but only invited users can contribute.
+          </p>
+
+          <p class="shared-with">
+            Shared with
+            <a href="">Adam Mckaig</a>,
+            <a href="">Chris Blumberg</a>
+            and <a href="">5 others</a>
+          </p>
+        </div>
+      {% endif %}
+      {% if hunch.privacy == 0 %}
+        <div class="privacy hidden">
+          <h2>Privacy</h2>
+          <h3>Hidden</h3>
+
+          <p class="summary">
+            This hunch is private. Only invited users can view it.
+          </p>
+
+          <p class="shared-with">
+            Shared with
+            <a href="">Adam Mckaig</a>,
+            <a href="">Chris Blumberg</a>
+            and <a href="">5 others</a>
+          </p>
+        </div>
+      {% endif %}
 
       <div class="desc">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In justo ligula, elementum id sodales pellentesque, pellentesque quis nisl. Donec sit amet nibh ipsum, id pulvinar velit. Donec at elit lorem, eu sollicitudin elit. Nam convallis fringilla feugiat. Cras vel risus sed nisi pretium volutpat. Morbi mauris turpis, tristique quis blandit nec, dapibus at neque. Suspendisse vehicula, felis sed adipiscing lobortis, massa orci porta libero, sed scelerisque nulla urna quis sem. Cras accumsan felis ante.</p>

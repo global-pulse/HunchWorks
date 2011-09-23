@@ -119,11 +119,26 @@ div.hunches {
         padding: 1em;
       }
 
+        #hunch-show > .left > div.privacy.open {
+          background-color: #efe;
+          border-color: #ded;
+        }
+
+        #hunch-show > .left > div.privacy.closed {
+          background-color: #ffe;
+          border-color: #eed;
+        }
+
+        #hunch-show > .left > div.privacy.hidden {
+          background-color: #fee;
+          border-color: #edd;
+        }
+
         #hunch-show> .left > div.privacy h2 {
           display: none;
         }
 
-        #hunch-show> .left > div.privacy h3 {
+        #hunch-show> .left > div.privacy > h3 {
           font-size: 200%;
           line-height: 1.25em;
           border-right: 1px dotted #ccc;
@@ -132,6 +147,10 @@ div.hunches {
           color: #999;
           float: left;
         }
+
+          #hunch-show > .left > div.privacy.open   > h3 { color: #6c6; }
+          #hunch-show > .left > div.privacy.closed > h3 { color: #cc6; }
+          #hunch-show > .left > div.privacy.hidden > h3 { color: #c66; }
 
         #hunch-show> .left > div.privacy > p {
           line-height: 1;
