@@ -33,7 +33,7 @@ form { }
         color: #999;
       }
 
-    input, textarea, select, ul.token-input-list-hunchworks {
+    input, textarea, select, ul.token-input-list {
       font: inherit;
       clear: both;
       width: 100%;
@@ -93,7 +93,7 @@ form { }
     form div.field.errors input,
     form div.field.errors textarea,
     form div.field.errors select,
-    form div.field.errors ul.token-input-list-hunchworks {
+    form div.field.errors ul.token-input-list {
       background-color: #fee;
       border-color: #c66;
       color: #000;

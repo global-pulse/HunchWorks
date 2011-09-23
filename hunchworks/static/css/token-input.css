@@ -1,17 +1,17 @@
-ul.token-input-list-hunchworks { }
+ul.token-input-list { }
 
   /* Hidden input */
-  ul.token-input-list-hunchworks li input {
+  ul.token-input-list li input {
     border: none;
     padding: 0;
   }
 
-li.token-input-input-token-hunchworks {
+li.token-input-input-token {
   display: inline-block;
   overflow: hidden;
 }
 
-li.token-input-token-hunchworks {
+li.token-input-token {
   display: inline-block;
   margin-right: 0.5em;
   padding: 2px 0 2px 5px;
@@ -23,26 +23,26 @@ li.token-input-token-hunchworks {
   border-radius: 3px;
 }
 
-  li.token-input-token-hunchworks p {
+  li.token-input-token p {
     display: inline-block;
   }
   
   /* Added to .token-input-token when selected */
-  li.token-input-selected-token-hunchworks {
+  li.token-input-selected-token {
     background-color: #ddf;
     border: 1px solid #bbe;
     color: #448;
   }
 
   /* The cross to remove a token */
-  li.token-input-token-hunchworks span {
+  li.token-input-token span {
     color: #999;
     padding: 0 3px;
     cursor: pointer;
   }
 
 /* The dropdown containing search results. */
-div.token-input-dropdown-hunchworks {
+div.token-input-dropdown {
   background-color: #eee;
   border: 2px solid #ccc;
   border-top: none;
@@ -51,34 +51,34 @@ div.token-input-dropdown-hunchworks {
 }
 
   /* Individual search results */
-  div.token-input-dropdown-hunchworks li {
+  div.token-input-dropdown li {
     list-style-type: none;
     border-top: 1px dotted #ccc;
     padding: 0.5em;
     cursor: pointer;
   }
 
-    div.token-input-dropdown-hunchworks li:first-child {
+    div.token-input-dropdown li:first-child {
       border-top: none;
     }
 
     /* Highlighed search terms within a result */
-    div.token-input-dropdown-hunchworks li b {
+    div.token-input-dropdown li b {
         font-weight: normal;
         background-color: #ff8;
     }
 
   /* Selected search results */
-  div.token-input-dropdown-hunchworks li.token-input-selected-dropdown-item-hunchworks {
+  div.token-input-dropdown li.token-input-selected-dropdown-item {
     background-color: #ddf;
   }
 
-    div.token-input-dropdown-hunchworks li.token-input-selected-dropdown-item-hunchworks b {
+    div.token-input-dropdown li.token-input-selected-dropdown-item b {
       background-color: none;
     }
 
   /* Non-result messages within the dropdown */
-  div.token-input-dropdown-hunchworks p {
+  div.token-input-dropdown p {
     text-align: center;
     font-style: italic;
     padding: 0.5em;
