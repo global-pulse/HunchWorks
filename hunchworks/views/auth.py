@@ -52,7 +52,7 @@ def signup(req):
 
 def logout(req):
   auth.logout(req)
-  return redirect("index")
+  return redirect("login")
 
 
 @login_required

@@ -38,6 +38,7 @@ a {
 
     header nav {
       float: right;
+      margin-left: 1em;
     }
 
       header nav li {

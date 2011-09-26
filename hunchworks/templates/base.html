@@ -36,24 +36,23 @@
     <div id="wrapper">
 
       <header>
-        <h1><a href="{% url home %}">HunchWorks</a></h1>
+        <h1><a href="{% url dashboard %}">HunchWorks</a></h1>
 
-        <nav>
-          <ul>
-            {% if user.is_authenticated %}
-            <li><a href='/home'>Home</a></li>
-            <li><a href='/profile'>Profile</a></li>
-            <li><a href='/hunches'>Hunches</a></li>
-            <!--<li><a href='/connections'>Connections</a></li>-->
-            <!--<li><a href='/messages'>Messages</a></li>-->
-            <li><a href='/groups'>Groups</a></li>
-            <li><a href='/logout'>Logout</a></li>
-            {% else %}
-            <li><a href='/signup'>Signup</a></li>
-            <li><a href='/login'>Login</a></li>
-            {% endif %}
-          </ul>
-        </nav>
+        {% if user.is_authenticated %}
+          <nav>
+            <ul>
+              <li><a href="{% url profile %}">{{ user }}</a></li>
+              <li><a href="{% url logout %}">Log out</a></li>
+            </ul>
+          </nav>
+          <nav>
+            <ul>
+              <li><a href="{% url hunches %}">Hunches</a></li>
+              <li><a href="{% url groups %}">Groups</a></li>
+              <li><a href="{% url profile %}">Profile</a></li>
+            </ul>
+          </nav>
+        {% endif %}
 
         <div class="clear-hack"></div>
       </header>
