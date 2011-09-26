@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div id="contents">
+  <div id="auth-login">
+    <h2>Log in to HunchWorks</h2>
+    <p>
+      Don't have a user account?
+      <a href="{% url signup %}">Sign up!</a>
+    </p>
+
     <form action="" method="post">
       {{ form.non_field_errors }}
       {% csrf_token %}
@@ -11,7 +17,7 @@
       {% endfor %}
 
       <div class="actions">
-        <input type="submit" value="Sign In"/>
+        <input type="submit" value="Log in"/>
       </div>
     </form>
   </div>

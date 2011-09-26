@@ -6,14 +6,13 @@ from views import auth, dashboard, groups, hunches, users
 urlpatterns = patterns(
   'hunchworks.views',
 
-  # dashboard
-  url(r'^$', dashboard.index, name='index'),
-  url(r'^home$', dashboard.home, name='home'),
+  # dashboard/home/index
+  url(r'^$', dashboard.dashboard, name='dashboard'),
 
   # auth
-  url(r'^signup$', auth.signup, name='signup'),
-  url(r'^login$', auth.login, name='login'),
-  url(r'^logout$', auth.logout_view),
+  url(r'^login$',       auth.login,        name='login'),
+  url(r'^logout$',      auth.logout,       name="logout"),
+  url(r'^signup$',      auth.signup,       name='signup'),
   url(r'^invitePeople', auth.invitePeople, name='invitePeople'),
 
   # users

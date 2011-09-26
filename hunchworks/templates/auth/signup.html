@@ -2,7 +2,13 @@
 {% block title %}Signup{% endblock %}
 
 {% block content %}
-  <div id="contents">
+  <div id="auth-signup">
+    <h2>Sign up to HunchWorks</h2>
+    <p class="signup">
+      Already have a user account?
+      <a href="{% url login %}">Log in!</a>
+    </p>
+
     <form action="" method="post">
       {{ form.non_field_errors }}
       {% csrf_token %}
@@ -12,7 +18,7 @@
       {% endfor %}
 
       <div class="actions">
-        <input type="submit" value="Sign In"/>
+        <input type="submit" value="Sign up"/>
       </div>
     </form>
   </div>

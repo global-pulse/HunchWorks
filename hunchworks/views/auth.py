@@ -22,7 +22,7 @@ def login(req):
 
   if form.is_valid():
     auth.login(req, form.get_user())
-    return redirect("home")
+    return redirect("dashboard")
 
   return _render(req, "login", {
     "form": form
@@ -43,7 +43,7 @@ def signup(req):
 
     if user is not None and user.is_active:
       auth.login(req, user)
-      return redirect("home")
+      return redirect("dashboard")
 
   return _render(req, "signup", {
     "form": form
