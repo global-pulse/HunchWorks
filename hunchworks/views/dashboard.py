@@ -26,4 +26,4 @@ def home(request):
   context.update({'recent_hunches': recent_hunches,
       'confirmed_hunches': confirmed_hunches,
       'suggested_groups': suggested_groups })
-  return render_to_response('home.html', context)
+  return render_to_response('dashboard/home.html', context)
