@@ -1,10 +1,5 @@
 $(function() {
 
-  var map_opts = {
-    "mapTypeId": google.maps.MapTypeId.TERRAIN,
-    "center": new google.maps.LatLng(30, 0),
-    "zoom": 3 };
-
   $("div.loc-widget").each(function() {
     var $widget = $(this);
     var map = null;
@@ -27,20 +22,35 @@ $(function() {
       |* (To avoid doing it during startup if it's not used.) */
       if(type_name == "map" && map === null) {
         $widget.find("div.map").each(function() {
-          map = new google.maps.Map(this, map_opts);
-          var marker = new google.maps.Marker();
+          if(window.google) {
 
-          /* Update the latitude and longitude when the map is clicked. */
-          google.maps.event.addListener(map, "click", function(event) {
-            $widget.find("input.lat").val(event.latLng.lat());
-            $widget.find("input.lng").val(event.latLng.lng());
-
-            marker.setOptions({
-              "animation": google.maps.Animation.DROP,
-              "position": event.latLng,
-              "map": map
+            map = new google.maps.Map(this, {
+              "mapTypeId": google.maps.MapTypeId.TERRAIN,
+              "center": new google.maps.LatLng(30, 0),
+              "zoom": 3
             });
-          });
+
+            var marker = new google.maps.Marker();
+
+            /* Update the latitude and longitude when the map is clicked. */
+            google.maps.event.addListener(map, "click", function(event) {
+              $widget.find("input.lat").val(event.latLng.lat());
+              $widget.find("input.lng").val(event.latLng.lng());
+
+              marker.setOptions({
+                "animation": google.maps.Animation.DROP,
+                "position": event.latLng,
+                "map": map
+              });
+            });
+
+          /* if Google Maps isn't available (e.g. we're running offline), show
+          |* an error rather than a map. */
+          } else {
+            $(this).addClass("error").html(
+              "<div>Google Maps is not available.</div>"
+            );
+          }
         });
       }
     });

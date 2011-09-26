@@ -71,3 +71,14 @@
     .loc-widget .map {
       height: 300px;
     }
+
+      .loc-widget .map.error {
+        text-align: center;
+        background: #f8f8f8;
+        color: #999;
+      }
+
+        .loc-widget .map.error > div {
+          padding-top: 150px;
+          margin-top: -0.5em;
+        }
