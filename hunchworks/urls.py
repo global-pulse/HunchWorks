@@ -15,9 +15,6 @@ urlpatterns = patterns(
   url(r'^login$', auth.login, name='login'),
   url(r'^logout$', auth.logout_view),
   url(r'^invitePeople', auth.invitePeople, name='invitePeople'),
-  url(r'^importTeamWorks', auth.importTeamWorks),
-  url(r'^importLinkedIn', auth.importLinkedIn),
-  url(r'^importFacebook', auth.importFacebook),
 
   # users
   url(r'^profile/(?P<user_id>\d+)$', users.profile, name='profile'),
