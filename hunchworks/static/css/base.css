@@ -6,7 +6,7 @@ body {
 
 a {
   text-decoration: underline;
-  color: #000;
+  color: inherit;
 }
 
 #wrapper {
@@ -21,7 +21,6 @@ a {
 
     header a {
       text-decoration: none;
-      color: inherit;
     }
 
       header a:hover {

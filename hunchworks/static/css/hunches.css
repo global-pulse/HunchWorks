@@ -245,10 +245,6 @@ div.hunches {
                 color: #999;
               }
 
-                #hunch-show> .left > div.evidence > ul > li > div.right > ul.meta > li > a {
-                  color: inherit;
-                }
-
 
     #hunch-show > .right {
       box-sizing: border-box;
@@ -321,10 +317,6 @@ div.hunches {
                   margin-top: 0.3125em;
                   list-style-type: disc;
                 }
-
-                  #hunch-show > .right > div > ul.hunches > li > ul.meta > li > a {
-                    color: inherit;
-                  }
 
             #hunch-show > .right > div > ul.hunches > li:last-child {
               border-bottom: none;
