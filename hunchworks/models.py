@@ -82,7 +82,7 @@ class Hunch(models.Model):
   
   skills = models.ManyToManyField('Skill', blank=True)
   languages = models.ManyToManyField('Language', blank=True)
-  evidence = models.ManyToManyField('Evidence', through='HunchEvidence', blank=True)
+  evidences = models.ManyToManyField('Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
 
@@ -128,7 +128,7 @@ class Hunch(models.Model):
     return self.user_profiles.all().count()
 
   def evidence_count(self):
-    return self.evidence.all().count()
+    return self.evidences.all().count()
 
 
 class HunchUser(models.Model):
