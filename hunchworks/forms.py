@@ -139,37 +139,39 @@ class HunchForm(ModelForm):
       "creator", "time_created", "time_modified", "status"
     )
 
+  def __init__(self, *args, **kwargs):
+    self._stash = {}
+    super(HunchForm, self).__init__(*args, **kwargs)
 
-  def stash_user_profiles(self):
-    self._old_up = set(self.instance.user_profiles.all() if self.instance.pk else [])
-    self._new_up = set(self.cleaned_data["user_profiles"])
+  def stash(self, field_name):
+    if self.instance.pk:
+      attr = getattr(self.instance, field_name)
+      self._stash[field_name] = attr.all()
 
-  def apply_user_profiles(self, hunch):
-    for user_profile in (self._new_up-self._old_up):
-      models.HunchUser.objects.get_or_create(
-        user_profile=user_profile,
-        hunch=hunch)
+  def apply(self, field_name):
+    old = set(self._stash.pop(field_name, []))
+    new = set(self.cleaned_data[field_name])
 
-    models.HunchUser.objects.filter(
-      user_profile__in=(self._old_up-self._new_up)).delete()
+    field = self._meta.model._meta.get_field_by_name(field_name)[0]
+    objects = field.rel.through.objects
 
-  def stash_evidences(self):
-    self._old_ev = set(self.instance.evidences.all() if self.instance.pk else [])
-    self._new_ev = set(self.cleaned_data["evidences"])
+    # Create links to just-added objects.
+    for new_object in (new-old):
+      objects.get_or_create(**{
+        field.m2m_field_name(): self.instance,
+        field.m2m_reverse_field_name(): new_object
+      })
 
-  def apply_evidences(self, hunch):
-    for evidence in (self._new_ev-self._old_ev):
-      models.HunchEvidence.objects.get_or_create(
-        evidence=evidence,
-        hunch=hunch)
+    # Destroy links to just-removed objects.
+    objects.filter(**{
+      "%s__in" % field.m2m_field_name(): (old-new)
+    }).delete()
 
-    models.HunchEvidence.objects.filter(
-      evidence__in=(self._old_ev-self._new_ev)).delete()
 
   def save(self, creator=None):
     with transaction.commit_on_success():
-      self.stash_user_profiles()
-      self.stash_evidences()
+      self.stash("user_profiles")
+      self.stash("evidences")
 
       hunch = super(HunchForm, self).save(commit=False)
       if creator is not None:
@@ -181,8 +183,8 @@ class HunchForm(ModelForm):
       hunch.languages = self.cleaned_data['languages']
       hunch.skills = self.cleaned_data['skills']
 
-      self.apply_user_profiles(hunch)
-      self.apply_evidences(hunch)
+      self.apply("user_profiles")
+      self.apply("evidences")
 
     return hunch
 
