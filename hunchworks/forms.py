@@ -138,29 +138,36 @@ class HunchForm(ModelForm):
     exclude = (
       "creator", "time_created", "time_modified", "status"
     )
+
+  def stash_user_profiles(self):
+    self._old_up = set(self.instance.user_profiles.all() if self.instance.pk else [])
+    self._new_up = set(self.cleaned_data["user_profiles"])
+
+  def apply_user_profiles(self, hunch):
+    for user_profile in (self._new_up-self._old_up):
+      models.HunchUser.objects.get_or_create(
+        user_profile=user_profile,
+        hunch=hunch)
+
+    models.HunchUser.objects.filter(
+      user_profile__in=(self._old_up-self._new_up)).delete()
     
+
   def save(self, creator=None):
     with transaction.commit_on_success():
-      old_up = set(self.instance.user_profiles.all() if self.instance.pk else [])
-      new_up = set(self.cleaned_data["user_profiles"])
+      self.stash_user_profiles()
 
       hunch = super(HunchForm, self).save(commit=False)
       if creator is not None:
         hunch.creator = creator
 
       hunch.save()
-      
+
       hunch.tags = self.cleaned_data['tags']
       hunch.languages = self.cleaned_data['languages']
       hunch.skills = self.cleaned_data['skills']
 
-      for user_profile in (new_up-old_up):
-        models.HunchUser.objects.get_or_create(
-          user_profile=user_profile,
-          hunch=hunch)
-
-      models.HunchUser.objects.filter(
-        user_profile__in=(old_up-new_up)).delete()
+      self.apply_user_profiles(hunch)
 
     return hunch
 
