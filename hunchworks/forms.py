@@ -191,8 +191,8 @@ class EvidenceForm(ModelForm):
   class Meta:
     model = models.Evidence
     exclude = (
-    'hunch_id', 'creator_id', 'evidence_strength', 'time_created',
-    'time_modified', 'attachments', 'albums', 'hunch', 'evidence_tags'
+      'hunch_id', 'creator_id', 'time_created', 'time_modified',
+      'attachments', 'albums', 'hunch', 'evidence_tags'
     )
 
 

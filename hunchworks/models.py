@@ -138,9 +138,7 @@ class HunchUser(models.Model):
 
 
 class Evidence(models.Model):
-  """Class representing a response to the hunch"""
   title = models.CharField(max_length=100, blank=True)
-  strength = models.IntegerField(default=0)
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   description = models.TextField(blank=True)
@@ -150,13 +148,19 @@ class Evidence(models.Model):
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
-    return "%s" % (self.title or (self.description[:25] + '...'))
+    return "%s" % (self.title or (self.description[:50] + '...'))
+
+  def type(self):
+    return "Link"
+
+  def link(self):
+    return "http://example.com/a/b"
 
   def save(self, *args, **kwargs):
     now = datetime.datetime.today()
 
     # for new records.
-    if not self.evidence_id:
+    if not self.id:
       self.time_created = now
 
     self.time_modified = now
@@ -319,7 +323,7 @@ class Comment(models.Model):
   hunch = models.ForeignKey('Hunch', null=True, blank=True)
   evidence = models.ForeignKey('Evidence', null=True, blank=True)
   
-  
+
 class HunchEvidence(models.Model):
   hunch = models.ForeignKey('Hunch')
   evidence = models.ForeignKey('Evidence')
