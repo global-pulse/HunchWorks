@@ -1,0 +1,17 @@
+<div class="evidence">
+  <h3>{{ evidence }}</h3>
+  <div class="preview">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin velit sapien,
+    varius in vestibulum porttitor, sagittis ac metus. Vivamus ac mauris enim.
+    Morbi scelerisque neque eu diam luctus hendrerit. Suspendisse potenti.
+    Vestibulum scelerisque semper nisi sed fringilla. Donec enim lorem,
+    convallis ut pharetra sed, porta sed tortor. Mauris ut ipsum ac risus
+    malesuada ullamcorper.
+  </div>
+
+  <ul class="meta">
+    <li class="type">{{ evidence.type }}</li>
+    <li class="source"><a href="{{ evidence.link }}">{{ evidence.link }}</a></li>
+    <li class="date">{{ evidence.time_created|date:"j F Y" }}</li>
+  </ul>
+</div>

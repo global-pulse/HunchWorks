@@ -1,0 +1,43 @@
+.evidence-widget {
+  border: 2px solid #eee;
+  border-radius: 3px;
+  clear: both;
+  padding: 1em;
+}
+
+  .evidence-widget > div.previews > .evidence {
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 1em;
+    margin-top: 1em;
+  }
+
+    .evidence-widget > div.previews > .evidence > h3 {
+      font-size: 125%;
+      margin-bottom: 0.4em;
+    }
+
+      .evidence-widget > div.previews > .evidence > div.preview {
+        line-height: 1.2em;
+        max-height: 3.6em;
+        overflow: hidden;
+        border-left: 0.5em solid #eee;
+        padding-left: 0.5em;
+        color: #666;
+      }
+      
+        .evidence-widget > div.previews > .evidence > ul.meta { }
+
+          .evidence-widget > div.previews > .evidence > ul.meta > li {
+            font-size: 80%;
+            display: inline-block;
+            margin-top: 0.625em;
+            padding: 0.3125em;
+            background: #eee;
+            color: #999;
+          }
+
+  .evidence-widget > div.previews > .evidence:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+     

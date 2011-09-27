@@ -1,0 +1,11 @@
+<div class="evidence-widget">
+  <div class="widget">
+    {{ flat_widget }}
+    <p class="help">{{ help_text }}</p>
+  </div>
+  <div class="previews">
+    {% for preview in previews %}
+      {{ preview }}
+    {% endfor %}
+  </div>
+</div>
