@@ -14,7 +14,7 @@ $(function() {
       });
 
       /* Show the clicked type widget, and hide the others. */
-      $(this).closest("div.loc-widget").children("div").each(function() {
+      $widget.children("div").each(function() {
         $(this).toggleClass("hidden", !$(this).hasClass(type_name));
       });
 
