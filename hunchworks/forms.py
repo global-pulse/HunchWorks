@@ -139,6 +139,7 @@ class HunchForm(ModelForm):
       "creator", "time_created", "time_modified", "status"
     )
 
+
   def stash_user_profiles(self):
     self._old_up = set(self.instance.user_profiles.all() if self.instance.pk else [])
     self._new_up = set(self.cleaned_data["user_profiles"])
@@ -151,11 +152,24 @@ class HunchForm(ModelForm):
 
     models.HunchUser.objects.filter(
       user_profile__in=(self._old_up-self._new_up)).delete()
-    
+
+  def stash_evidences(self):
+    self._old_ev = set(self.instance.evidences.all() if self.instance.pk else [])
+    self._new_ev = set(self.cleaned_data["evidences"])
+
+  def apply_evidences(self, hunch):
+    for evidence in (self._new_ev-self._old_ev):
+      models.HunchEvidence.objects.get_or_create(
+        evidence=evidence,
+        hunch=hunch)
+
+    models.HunchEvidence.objects.filter(
+      evidence__in=(self._old_ev-self._new_ev)).delete()
 
   def save(self, creator=None):
     with transaction.commit_on_success():
       self.stash_user_profiles()
+      self.stash_evidences()
 
       hunch = super(HunchForm, self).save(commit=False)
       if creator is not None:
@@ -168,6 +182,7 @@ class HunchForm(ModelForm):
       hunch.skills = self.cleaned_data['skills']
 
       self.apply_user_profiles(hunch)
+      self.apply_evidences(hunch)
 
     return hunch
 
