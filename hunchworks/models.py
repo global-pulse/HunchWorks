@@ -166,6 +166,10 @@ class Evidence(models.Model):
     self.time_modified = now
     super(Evidence, self).save(*args, **kwargs)
 
+  @classmethod
+  def search(cls, term, user_profile=None):
+    return cls.objects.filter(description__icontains=term)
+
 
 class Group(models.Model):
   name = models.CharField(max_length=100, unique=True)
