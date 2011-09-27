@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% include "hunches/navigation.html" %}
+  <h1>
+    <a href="{% url hunches %}">Hunches</a> &raquo;
+    All
+  </h1>
+  {% include "hunches/hunches.html" %}
+{% endblock %}

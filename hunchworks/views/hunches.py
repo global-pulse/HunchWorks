@@ -16,10 +16,27 @@ def _render(req, template, more_context):
 
 @login_required
 def index(req):
+  print  models.Hunch.objects.filter(creator=req.user.pk)
+  if( len(models.Hunch.objects.filter(creator=req.user.pk)) > 0):
+    return redirect( my )
+  else:
+    return redirect( all )
+  
+@login_required
+def my(req):
+  my_hunches = models.Hunch.objects.filter(creator=req.user.pk)
+  hunches = paginated(req, my_hunches, 10)
+
+  return _render(req, "my", {
+    "hunches": hunches
+  })
+  
+@login_required
+def all(req):
   all_hunches = models.Hunch.objects.all()
   hunches = paginated(req, all_hunches, 10)
 
-  return _render(req, "index", {
+  return _render(req, "all", {
     "hunches": hunches
   })
 

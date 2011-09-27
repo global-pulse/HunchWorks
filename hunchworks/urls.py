@@ -31,6 +31,8 @@ urlpatterns = patterns(
 
   # hunches
   url(r'^hunches$',                        hunches.index,  name="hunches"),
+  url(r'^hunches/my$',                     hunches.my,  name="my_hunches"),
+  url(r'^hunches/all$',                    hunches.all,  name="all_hunches"),
   url(r'^hunches/(?P<hunch_id>\d+)$',      hunches.show,   name="hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/edit$', hunches.edit,   name="edit_hunch"),
   url(r'^hunches/create$',                 hunches.create, name="create_hunch")
