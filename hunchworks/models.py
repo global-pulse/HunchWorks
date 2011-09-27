@@ -313,11 +313,11 @@ class Invitation(models.Model):
 
 class Comment(models.Model):
   text = models.TextField()
-  time_created = models.DateField()
-  time_modified = models.DateField(null=True, blank=True)
+  time_created = models.DateTimeField()
+  time_modified = models.DateTimeField(null=True, blank=True)
   creator = models.ForeignKey('UserProfile')
   hunch = models.ForeignKey('Hunch', null=True, blank=True)
-  evidence = models.ForeignKey('Evidence', null=True, blank=True)
+  hunch_evidence = models.ForeignKey('HunchEvidence', null=True, blank=True)
   
   
 class HunchEvidence(models.Model):

@@ -909,5 +909,67 @@
             "name": "An Album of attachments",
             "attachments": [1]
         }
+    },
+    
+    
+    {
+        "pk": 1,
+        "model": "hunchworks.comment",
+        "fields": 
+        {
+            "text": "This evidence without a doubt proves this true",
+            "time_created": "2011-09-20 11:14:19.244634",
+            "time_modified": "2011-09-20 11:14:19.244634",
+            "creator": 1,
+            "hunch_evidence": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.comment",
+        "fields": 
+        {
+            "text": "This hunch proves absolutely nothing, its useless",
+            "time_created": "2011-09-20 11:14:19.244634",
+            "time_modified": "2011-09-20 11:14:19.244634",
+            "creator": 1,
+            "hunch": 1
+        }
+    },
+    {
+        "pk": 3,
+        "model": "hunchworks.comment",
+        "fields": 
+        {
+            "text": "This hunch has to be true, I see it everywhere!",
+            "time_created": "2011-09-20 11:14:19.244634",
+            "time_modified": "2011-09-20 11:14:19.244634",
+            "creator": 2,
+            "hunch": 1
+        }
+    },
+    {
+        "pk": 4,
+        "model": "hunchworks.comment",
+        "fields": 
+        {
+            "text": "This evidence needs to be removed its useless!",
+            "time_created": "2011-09-20 11:14:19.244634",
+            "time_modified": "2011-09-20 11:14:19.244634",
+            "creator": 2,
+            "hunch_evidence": 2
+        }
+    },
+    {
+        "pk": 5,
+        "model": "hunchworks.comment",
+        "fields": 
+        {
+            "text": "This evidence is absolutely correct, amazing!",
+            "time_created": "2011-09-20 11:14:19.244634",
+            "time_modified": "2011-09-20 11:14:19.244634",
+            "creator": 2,
+            "hunch_evidence": 1
+        }
     }
 ]
