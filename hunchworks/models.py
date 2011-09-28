@@ -52,6 +52,10 @@ class UserProfile(models.Model):
 
   def __unicode__(self):
     return self.user.username
+    
+  @models.permalink
+  def get_absolute_url(self):
+    return ("profile", [self.pk])
 
 
 def create_user(sender, instance, created, **kwargs):

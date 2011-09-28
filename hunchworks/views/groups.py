@@ -63,7 +63,7 @@ def edit(req, group_id):
 def join(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
 
-  group_connection = models.UserProfileGroup.objects.get_or_create(
+  user_profile_group = models.UserProfileGroup.objects.get_or_create(
     user_profile = models.UserProfile.objects.get(pk=req.user.pk),
 	group = group,
 	status=0)

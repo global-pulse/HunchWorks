@@ -3,15 +3,15 @@
   {% for group in suggested_groups %}
   <div class='connections'> 
     <div class='title'>
-      <a href='/groups/{{group.id}}'>{{ group.name }}</a>
+      <a href='{{ group.get_absolute_url }}'>{{ group.name }}</a>
     </div>
     <div class='info'> 
-	{% if group.location %}
-    {{ group.location }}
-	{% endif %}
+	  {% if group.location %}
+        {{ group.location }}
+	  {% endif %}
     </div> 
 	<div class='time'>
-	<a href='/groups/{{group.id}}/join'>Join</a>
+	  <a href='{{ group.get_absolute_url }}/join'>Join</a>
 	</div>
   </div>
   {% endfor %}

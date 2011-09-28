@@ -28,10 +28,10 @@
 		</button>
 	  </div> <!-- end createHunch -->
 	  <div id='recentHunches'>
-	    {% include "recentHunches.html" %}
+	    {% include "dashboard/recentHunches.html" %}
 	  </div> <!-- end recentHunches div -->
 	  <div id='recentConfirmedHunches'>
-          {% include "recentConfirmedHunches.html" %}
+        {% include "dashboard/recentConfirmedHunches.html" %}
 	  </div> <!-- end recentConfirmedHunches div -->
 	</div> <!-- end column1 div -->
 	<div id='column2'>
@@ -45,65 +45,8 @@
 		</div>
 	  </div>
 	  
-	 {% include "suggestedGroups.html" %}
-
-	  <div id='people'>
-		<h3> People you might like to connect with: </h3>
-		<div id='person1' class='connections'>
-		  <img src='personPicture' alt='personPicture' height='50px'/>
-		  <div class='title'>
-			<a href='personLink1'>Person name 1</a>
-		  </div>
-		  <div class='info'>
-			Location of person
-		  <!-- If the user can connect with this user2, then they do become 
-			connected, Else if the user2 is invite only, the user is prompted 
-			with a message  dialogue to the user, which will be recieved by the 
-			user2.
-		  -->
-		  </div>
-		</div>
-		<div class='time'>
-		  <button type='button'>Connect</button>
-		</div>
-		<div id='person2' class='connections'>
-		  <img src='personPicture' alt='personPicture' height='50px'/>
-		  <div class='title'>
-			<a href='personLink2'>Person name 2</a>
-		  </div>
-		  <div class='info'>
-			Location of person
-		  </div>
-		</div>
-		<div class='time'>
-		  <button type='button'>Connect</button>
-		  <!-- If the user can connect with this user2, then they do become 
-			connected, Else if the user2 is invite only, the user is prompted 
-			with a message  dialogue to the user, which will be recieved by the 
-			user2.
-		  -->
-		</div>
-		<div id='person3' class='connections'>
-		  <img src='personPicture' alt='personPicture' height='50px'/>
-		  <div class='title'>
-			<a href='personLink3'>Person name 3</a>
-		  </div>
-		  <div class='info'>
-			Location of person
-		  </div>
-		</div>
-		<div class='time'>
-		  <button type='button'>Connect</button>
-		  <!-- If the user can connect with this user2, then they do become 
-			connected, Else if the user2 is invite only, the user is prompted 
-			with a message  dialogue to the user, which will be recieved by the 
-			user2.
-		  -->
-		</div>
-		<div class='viewMore'>
-		  <a href='listOfMoreHunches'>View More</a>
-		</div>
-	  </div>
+	 {% include "dashboard/suggestedGroups.html" %}
+     {% include "dashboard/suggestedPeople.html" %}
 	</div> <!-- end column2 div -->
   </div> <!-- end contents div -->
 {% endblock %}
