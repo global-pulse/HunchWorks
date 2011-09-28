@@ -270,9 +270,9 @@
         "model": "hunchworks.hunchuser",
         "fields": 
         {
-            "hunch": 1,
+            "hunch": 2,
             "status": 2,
-            "user_profile": 4
+            "user_profile": 3
         }
     }
 ]

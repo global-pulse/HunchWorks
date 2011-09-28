@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from hunchworks.models import Hunch, TranslationLanguage
+from hunchworks.models import Hunch, HunchUser, TranslationLanguage
 from django.contrib.auth.models import User
 from hunchworks.utils.tests import FunctionalTest
 
@@ -28,7 +28,8 @@ class HunchViewsTest(FunctionalTest):
   def test_get_my(self):
     self.GET("/hunches/my")
     self.assertCss("div.hunch", 0)
-    Hunch.objects.create(creator=self._user.get_profile(), title="blah", translation_language=TranslationLanguage.objects.get(pk=1), description="desc")
+    hunch = Hunch.objects.create(creator=self._user.get_profile(), title="blah", translation_language=TranslationLanguage.objects.get(pk=1), description="desc")
+    HunchUser.objects.create(user_profile=self._user.get_profile(), hunch=hunch)
     self.GET("/hunches/my")
     self.assertCss("div.hunch", 1)
 

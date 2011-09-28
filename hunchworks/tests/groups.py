@@ -1,15 +1,36 @@
 #!/usr/bin/env python
 
-from hunchworks.models import Group
+from hunchworks.models import Group, UserProfileGroup
+from django.contrib.auth.models import User
 from hunchworks.utils.tests import FunctionalTest
 
 
 class GroupViewsTest(FunctionalTest):
   fixtures = ["test_users", "test_groups"]
 
+  def setUp(self):
+    self._user = User.objects.create_user("user", "a@b.com", "pass")
+    self.client.login(username="user", password="pass")
+
+  def tearDown(self):
+    self.client.logout()
+    self._user.delete()
+
   def test_get_index(self):
-    self.GET("/groups")
+    resp = self.client.get("/groups")
+    self.assertEqual( resp.status_code, 302)
+    
+  def test_get_all(self):
+    self.GET("/groups/all")
     self.assertCss("div.group", 3)
+    
+  def test_get_my(self):
+    self.GET("/groups/my")
+    self.assertCss("div.group", 0)
+    group = Group.objects.create(name="new")
+    UserProfileGroup.objects.create(user_profile=self._user.get_profile(), group=group)
+    self.GET("/groups/my")
+    self.assertCss("div.group", 1)
 
   def test_get_show(self):
     self.GET("/groups/1")
