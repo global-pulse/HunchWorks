@@ -76,7 +76,7 @@ class Hunch(models.Model):
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
   title = models.CharField(max_length=100, unique=True)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
-  translation_language = models.ForeignKey('TranslationLanguage')
+  translation_language = models.ForeignKey('TranslationLanguage', default=0)
   location = models.ForeignKey('Location', null=True, blank=True)
   description = models.TextField()
   

@@ -174,7 +174,7 @@
         "model": "hunchworks.hunch",
         "fields": 
         {
-            "creator": 4,
+            "creator": 1,
             "time_created": "2011-08-28 11:14:19.244634",
             "time_modified": "2011-08-28 11:14:19.244634",
             "status": 2,
@@ -191,7 +191,7 @@
         "model": "hunchworks.hunch",
         "fields": 
         {
-            "creator": 4,
+            "creator": 2,
             "time_created": "2011-08-29 11:14:19.244634",
             "time_modified": "2011-08-29 11:14:19.244634",
             "status": 1,
