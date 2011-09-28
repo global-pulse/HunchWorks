@@ -1,4 +1,5 @@
 $(function() {
+  var SEARCH_HELP = "Add evidences to this hunch by searching for them.";
 
   $("div.evidence-widget").each(function() {
     var $widget = $(this);
@@ -7,9 +8,12 @@ $(function() {
     var $results_inner = $("<div />", { "class": "evidences" }).appendTo($results_outer);
     var $results_title = $("<h3 />").prependTo($results_outer);
 
-    var $search   = $('<input type="text" class="search">').appendTo($widget);
-    var $value    = $("> div.widget > input", $widget);
-    var $previews = $("> div.evidences", $widget);
+    var $search_container = $("<div />", { "class": "widget search" }).appendTo($widget);
+    var $search           = $('<input />', {  "type": "text", "class": "search" }).appendTo($search_container);
+    var $search_help      = $("<p>", { "class": "help" }).html(SEARCH_HELP).appendTo($search_container);
+
+    var $value            = $("> div.widget > input", $widget);
+    var $previews         = $("> div.evidences", $widget);
 
 
     var to_int = function(x) {
@@ -98,6 +102,6 @@ $(function() {
       event.stopPropagation();
     });
 
-    $("> div.widget", $widget).hide();
+    $("> div.widget.csv", $widget).hide();
   });
 });

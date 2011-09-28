@@ -2,7 +2,6 @@
   border: 2px solid #eee;
   border-radius: 3px;
   clear: both;
-  padding: 1em;
 }
 
   .evidence-widget > div.search-results {
@@ -33,6 +32,10 @@
         background: #4B92DB;
         color: #fff;
       }
+
+  .evidence-widget > div.widget {
+    padding: 1em;
+  }
 
 
 .evidences { }
@@ -66,7 +69,3 @@
           background: #eee;
           color: #999;
         }
-
-    .evidences > .evidence:last-child {
-      border-bottom: none;
-    }
