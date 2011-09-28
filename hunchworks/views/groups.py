@@ -15,13 +15,26 @@ def _render(req, template, more_context):
     "groups/" + template +".html",
     RequestContext(req, more_context))
 
-
 @login_required
 def index(req):
-  all_groups = models.Group.objects.all()
-  groups = paginated(req, all_groups, 20)
+  if( len(req.user.get_profile().group_set.all()) > 0):
+    return redirect( my )
+  else:
+    return redirect( all )
+  
+@login_required
+def my(req):
+  groups = paginated(req, req.user.get_profile().group_set.all(), 10)
 
-  return _render(req, "index", {
+  return _render(req, "my", {
+    "groups": groups
+  })
+  
+@login_required
+def all(req):
+  groups = paginated(req, models.Group.objects.all(), 10)
+
+  return _render(req, "all", {
     "groups": groups
   })
 
@@ -33,7 +46,6 @@ def show(req, group_id):
   return _render(req, "show", {
     "group": group
   })
-
 
 @login_required
 def edit(req, group_id):

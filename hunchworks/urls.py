@@ -24,6 +24,8 @@ urlpatterns = patterns(
 
   # groups
   url(r'^groups$',                        groups.index,  name="groups"),
+  url(r'^groups/my$',                     groups.my,     name="my_groups"),
+  url(r'^groups/all$',                    groups.all,    name="all_groups"),
   url(r'^groups/(?P<group_id>\d+)$',      groups.show,   name="group"),
   url(r'^groups/(?P<group_id>\d+)/edit$', groups.edit,   name="edit_group"),
   url(r'^groups/create',                  groups.create, name="create_group"),
@@ -31,8 +33,8 @@ urlpatterns = patterns(
 
   # hunches
   url(r'^hunches$',                        hunches.index,  name="hunches"),
-  url(r'^hunches/my$',                     hunches.my,  name="my_hunches"),
-  url(r'^hunches/all$',                    hunches.all,  name="all_hunches"),
+  url(r'^hunches/my$',                     hunches.my,     name="my_hunches"),
+  url(r'^hunches/all$',                    hunches.all,    name="all_hunches"),
   url(r'^hunches/(?P<hunch_id>\d+)$',      hunches.show,   name="hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/edit$', hunches.edit,   name="edit_hunch"),
   url(r'^hunches/create$',                 hunches.create, name="create_hunch")

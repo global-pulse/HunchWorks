@@ -1,9 +1,4 @@
-{% extends "base.html" %}
-{% load paginator_tags %}
-
-{% block content %}
-  <h1>Groups</h1>
-
+{% load paginator_tags %}  
   <div class="groups">
     {% for group in groups.object_list %}
       <div class="group"><div>
@@ -35,4 +30,3 @@
     {% paginator groups %}
     <div class="clear-hack"></div>
   </div>
-{% endblock %}
