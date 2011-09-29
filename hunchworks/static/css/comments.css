@@ -28,9 +28,19 @@
 
   .comment > .text {
     float: left;
+    position: relative;
     border: 2px solid #ccc;
     background: #f8f8f8;
     box-shadow: 2px 2px 5px #eee;
     border-radius: 5px;
     padding: 1em;
+  }
+
+  .comment > .text > .bubble-arrow {
+    background: url("../img/bubble-arrow.png") no-repeat;
+    position: absolute;
+    width: 8px;
+    height: 14px;
+    top: 1em;
+    left: -8px;
   }
