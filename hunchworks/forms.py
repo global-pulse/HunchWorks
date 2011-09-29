@@ -129,6 +129,7 @@ class LocationField(forms.MultiValueField):
 
 class HunchForm(ModelForm):
   tags = TokenField(models.Tag, json_views.tags, required=False)
+  languages = TokenField(models.Language, json_views.languages, required=False)
   skills = TokenField(models.Skill, json_views.skills, required=False)
   user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False)
   location = LocationField(required=False)
