@@ -10,7 +10,6 @@
         {% endfor %}
       </ul>
 
-
       {% if hunch.privacy == 2 %}
         <div class="privacy open">
           <h2>Privacy</h2>
@@ -72,24 +71,24 @@
           {% for evidence in hunch.evidence.all %}
             <li class="tweet">
               <div class="left">
-				<div class="support">
-				  <div>+{{ evidence.strength }}</div>
-				  <span>Strongly Supports</span>
-				</div>
-				<div class="confidence">
-				  <div>40%</div>
-				  <span>Confidence</span>
-				</div>
-			  </div>
-			  <div class="right">
-				<h3>&quot;{{ evidence }}&quot;</h3>
-				<ul class="meta">
-				  <li class="type">Tweet</li>
-				  <li class="source"><a href="">http://twitter.com/kanyewest</a></li>
-				  <li class="date">13 June 1984</li>
-				</ul>
-			  </div>
-			  <div class="clear-hack"></div>
+                <div class="support">
+                  <div>+{{ evidence.strength }}</div>
+                  <span>Strongly Supports</span>
+                </div>
+                <div class="confidence">
+                  <div>40%</div>
+                  <span>Confidence</span>
+                </div>
+              </div>
+              <div class="right">
+                <h3>&quot;{{ evidence }}&quot;</h3>
+                <ul class="meta">
+                  <li class="type">Tweet</li>
+                  <li class="source"><a href="">http://twitter.com/kanyewest</a></li>
+                  <li class="date">13 June 1984</li>
+                </ul>
+              </div>
+              <div class="clear-hack"></div>
             </li>
           {% endfor %}
         </ul>
