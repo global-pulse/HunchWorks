@@ -4,6 +4,26 @@
   clear: both;
 }
 
+    .evidence-widget > .evidences { }
+
+      .evidence-widget > .evidences > .evidence {
+        position: relative;
+        padding-right: 2em;
+      }
+
+        .evidence-widget > .evidences > .evidence > div.delete {
+          position: absolute;
+          top: 1em;
+          bottom: 1em;
+          width: 1em;
+          right: -2px;
+          padding: 0.25em;
+          text-align: center;
+          background: #eee;
+          cursor: pointer;
+          color: #999;
+        }
+
   .evidence-widget > div.search-results {
     background: rgba(255, 255, 255, 0.95);
     box-sizing: border-box;
@@ -33,6 +53,10 @@
         color: #fff;
       }
 
+      .evidence-widget > div.search-results > .evidences > .evidence:last-child {
+        border-bottom: none;
+      }
+
   .evidence-widget > div.widget {
     padding: 1em;
   }
@@ -45,10 +69,10 @@
     padding: 1em;
   }
 
-  .evidences > .evidence > h3 {
-    font-size: 125%;
-    margin-bottom: 0.4em;
-  }
+    .evidences > .evidence > h3 {
+      font-size: 125%;
+      margin-bottom: 0.4em;
+    }
 
     .evidences > .evidence > div.preview {
       line-height: 1.2em;

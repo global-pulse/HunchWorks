@@ -12,8 +12,8 @@ $(function() {
     var $search           = $('<input />', {  "type": "text", "class": "search" }).appendTo($search_container);
     var $search_help      = $("<p>", { "class": "help" }).html(SEARCH_HELP).appendTo($search_container);
 
-    var $value            = $("> div.widget > input", $widget);
-    var $previews         = $("> div.evidences", $widget);
+    var $value    = $("> .widget > input", $widget);
+    var $previews = $("> .evidences", $widget);
 
 
     var to_int = function(x) {
@@ -48,6 +48,12 @@ $(function() {
       });
     };
 
+    var add_delete_link = function($previews) {
+      _.each($previews, function(preview) {
+        $("<div>", { "class": "delete", }).html("&times;").prependTo(preview);
+      });
+    };
+
     var last_search = "";
 
     var perform_search = function() {
@@ -75,7 +81,6 @@ $(function() {
           $results_outer.show();
         }
       });
-
     };
 
     $search.bind(
@@ -87,10 +92,16 @@ $(function() {
       var $evidence = $(event.target).closest("div.evidence");
 
       add_preview($evidence);
+      add_delete_link($evidence);
       update_values();
       $search.val("");
 
       $(document.body).click();
+    });
+
+    $previews.delegate(".delete", "click", function() {
+      $(this).closest(".evidence").remove();
+      update_values();
     });
 
     $(document.body).click(function(event) {
@@ -102,6 +113,7 @@ $(function() {
       event.stopPropagation();
     });
 
-    $("> div.widget.csv", $widget).hide();
+    add_delete_link($("> .evidence", $previews));
+    $("> .widget.csv", $widget).hide();
   });
 });
