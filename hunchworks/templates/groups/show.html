@@ -1,10 +1,31 @@
 {% extends "base.html" %}
+{% load paginator_tags %} 
 
 {% block content %}
   <h1><a href="{% url groups %}">Groups</a> &raquo; {{ group }}</h1>
 
   <div class="group">
-    <h3><a href="{{ group.get_absolute_url }}">{{ group.name }}</a></h3>
+    <div id="info">
+      <div id="group-picture">
+        <img src="{{ group.logo_url }}" height="100" class="logo">
+      </div>
+      <div>
+        <h3>Abbreviation: ({{ group.abbreviation }})</h3>
+        <h3>Type: {{ group.type }}</h3>
+        <h3>Location: {{ group.location }}</h3>
+        <h3># of members: {{ group.members.count }}</h3> 
+      </div>
+    </div>
+    
+    <div id="members">
+	  {% for member in group.members.all %}
+		<div class="member">
+		  <h4><a href="{{ member.get_absolute_url }}">{{ member }}</a></h4>
+		  <img src="{{ member.profile_picture_url }}" height="150">
+		</div>
+	  {% endfor %}
+	  {% paginator group_members %}
+    </div>
   </div>
 
   <div class="links">

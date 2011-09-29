@@ -56,6 +56,9 @@ class UserProfile(models.Model):
   @models.permalink
   def get_absolute_url(self):
     return ("profile", [self.pk])
+    
+  def profile_picture_url(self):
+    return "http://icanhascheezburger.files.wordpress.com/2011/09/funny-pictures-oh-like-you-trying-to-squeeze-your-fat-ass-into-a-leopard-print-thong-is-any-different.jpg"
 
 
 def create_user(sender, instance, created, **kwargs):

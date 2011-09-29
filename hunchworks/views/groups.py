@@ -42,9 +42,10 @@ def all(req):
 @login_required
 def show(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
+  members = paginated(req, group.members.all(), 10)
 
   return _render(req, "show", {
-    "group": group
+    "group": group, "group_members": members
   })
 
 @login_required
