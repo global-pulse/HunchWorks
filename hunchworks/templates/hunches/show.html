@@ -93,6 +93,15 @@
           {% endfor %}
         </ul>
       </div>
+
+      <div class="comments">
+        <h2>Comments</h2>
+        <p>
+          These comments are about the hunch.
+          Not the evidence!
+        </p>
+        {% include "comments/comments.html" with comments=hunch.comment_set.all %}
+      </div>
     </div>
 
     <div class="right">

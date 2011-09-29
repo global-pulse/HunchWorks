@@ -245,6 +245,18 @@ div.hunches {
                 color: #999;
               }
 
+      #hunch-show> .left > div.comments {
+        margin-top: 2em;
+      }
+
+        #hunch-show> .left > div.comments > h2 { }
+
+        #hunch-show> .left > div.comments > p {
+          font-size: 80%;
+          line-height: 1.2;
+          margin: 0.625em 0;
+        }
+
 
     #hunch-show > .right {
       box-sizing: border-box;

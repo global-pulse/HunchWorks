@@ -1,0 +1,36 @@
+.comments { }
+
+  .comments > li {
+    display: block;
+  }
+
+.comment {
+  margin-top: 1em;
+}
+
+  .comment > .creator {
+    float: left;
+    width: 54px;
+    text-align: center;
+    margin-right: 0.5em;
+  }
+
+    .comment > .creator > a {
+      text-decoration: none;
+    }
+
+      .comment > .creator > a > img {
+        display: block;
+        border-radius: 5px;
+        box-shadow: 0 0 5px #aaa;
+        margin-bottom: 0.25em;
+      }
+
+  .comment > .text {
+    float: left;
+    border: 2px solid #ccc;
+    background: #f8f8f8;
+    box-shadow: 2px 2px 5px #eee;
+    border-radius: 5px;
+    padding: 1em;
+  }
