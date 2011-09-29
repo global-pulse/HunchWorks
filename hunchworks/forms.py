@@ -7,7 +7,9 @@ from django.db import transaction
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from django.forms.widgets import PasswordInput
+from django.template.loader import render_to_string
 from django.utils.datastructures import MultiValueDict, MergeDict
+from django.utils.safestring import mark_safe
 
 
 class TokenWidget(forms.TextInput):
@@ -125,6 +127,54 @@ class LocationField(forms.MultiValueField):
         name      = data_list[2])
 
 
+class EvidenceWidget(forms.TextInput):
+  def render(self, name, value, attrs=None):
+    flat_widget = super(EvidenceWidget, self).render(
+      name, self._flat_value(value), attrs)
+
+    previews = map(
+      self.render_one,
+      self._value_objects(value))
+
+    return render_to_string("evidences/widget.html", {
+      "flat_widget": flat_widget,
+      "help_text": self._help(),
+      "previews": previews
+    })
+
+  def value_from_datadict(self, data, files, name):
+    keys = map(unicode.strip, data.get(name, "").split(","))
+    return [int(key) for key in keys if key.isdigit()]
+
+  def render_one(self, evidence):
+    return render_to_string(
+      "evidences/short.html",
+      { "evidence": evidence })
+
+  def _help(self):
+    return "If JavaScript is disabled, enter evidence IDs separated by commas."
+
+  def _value(self, value):
+    return value or []
+
+  def _flat_value(self, value):
+    return ", ".join(map(unicode, self._value(value)))
+
+  def _value_objects(self, value):
+    return self.choices.queryset.filter(
+      pk__in=self._value(value))
+
+
+class EvidenceField(forms.ModelMultipleChoiceField):
+  widget = EvidenceWidget
+
+  @classmethod
+  def query_set(cls):
+    return models.Evidence.objects.all()
+
+  def __init__(self, *args, **kwargs):
+    super(EvidenceField, self).__init__(
+      self.query_set(), *args, **kwargs)
 
 
 class HunchForm(ModelForm):
@@ -133,35 +183,59 @@ class HunchForm(ModelForm):
   skills = TokenField(models.Skill, json_views.skills, required=False)
   user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False)
   location = LocationField(required=False)
+  evidences = EvidenceField(required=False)
 
   class Meta:
     model = models.Hunch
     exclude = (
       "creator", "time_created", "time_modified", "status"
     )
-    
+
+  def __init__(self, *args, **kwargs):
+    self._stash = {}
+    super(HunchForm, self).__init__(*args, **kwargs)
+
+  def stash(self, field_name):
+    if self.instance.pk:
+      attr = getattr(self.instance, field_name)
+      self._stash[field_name] = attr.all()
+
+  def apply(self, field_name):
+    old = set(self._stash.pop(field_name, []))
+    new = set(self.cleaned_data[field_name])
+
+    field = self._meta.model._meta.get_field_by_name(field_name)[0]
+    objects = field.rel.through.objects
+
+    # Create links to just-added objects.
+    for new_object in (new-old):
+      objects.get_or_create(**{
+        field.m2m_field_name(): self.instance,
+        field.m2m_reverse_field_name(): new_object
+      })
+
+    # Destroy links to just-removed objects.
+    objects.filter(**{
+      "%s__in" % field.m2m_reverse_field_name(): (old-new)
+    }).delete()
+
   def save(self, creator=None):
     with transaction.commit_on_success():
-      old_up = set(self.instance.user_profiles.all() if self.instance.pk else [])
-      new_up = set(self.cleaned_data["user_profiles"])
+      self.stash("user_profiles")
+      self.stash("evidences")
 
       hunch = super(HunchForm, self).save(commit=False)
       if creator is not None:
         hunch.creator = creator
 
       hunch.save()
-      
+
       hunch.tags = self.cleaned_data['tags']
       hunch.languages = self.cleaned_data['languages']
       hunch.skills = self.cleaned_data['skills']
 
-      for user_profile in (new_up-old_up):
-        models.HunchUser.objects.get_or_create(
-          user_profile=user_profile,
-          hunch=hunch)
-
-      models.HunchUser.objects.filter(
-        user_profile__in=(old_up-new_up)).delete()
+      self.apply("user_profiles")
+      self.apply("evidences")
 
     return hunch
 
@@ -170,8 +244,8 @@ class EvidenceForm(ModelForm):
   class Meta:
     model = models.Evidence
     exclude = (
-    'hunch_id', 'creator_id', 'evidence_strength', 'time_created',
-    'time_modified', 'attachments', 'albums', 'hunch', 'evidence_tags'
+      'hunch_id', 'creator_id', 'time_created', 'time_modified',
+      'attachments', 'albums', 'hunch', 'evidence_tags'
     )
 
 
@@ -223,7 +297,7 @@ class UserForm(ModelForm):
 class InvitePeople(forms.Form):
   invited_emails = custom_fields.MultiEmailField(widget=forms.Textarea(
     attrs={'cols': 30, 'rows': 10}))
-  
+
   def save(self, user_id, hunch=None, *args, **kwargs):
     user = models.UserProfile.objects.get(pk=user_id)
     #hunch = models.Hunch.objects.get(pk=hunch_id)

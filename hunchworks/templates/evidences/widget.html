@@ -1,0 +1,11 @@
+<div class="evidence-widget" data-search-url="{% url search_evidence %}">
+  <div class="widget csv">
+    {{ flat_widget }}
+    <p class="help">{{ help_text }}</p>
+  </div>
+  <div class="evidences">
+    {% for preview in previews %}
+      {{ preview }}
+    {% endfor %}
+  </div>
+</div>

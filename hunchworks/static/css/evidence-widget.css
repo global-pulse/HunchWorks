@@ -1,0 +1,95 @@
+.evidence-widget {
+  border: 2px solid #eee;
+  border-radius: 3px;
+  clear: both;
+}
+
+    .evidence-widget > .evidences { }
+
+      .evidence-widget > .evidences > .evidence {
+        position: relative;
+        padding-right: 2em;
+      }
+
+        .evidence-widget > .evidences > .evidence > div.delete {
+          position: absolute;
+          top: 1em;
+          bottom: 1em;
+          width: 1em;
+          right: -2px;
+          padding: 0.25em;
+          text-align: center;
+          background: #eee;
+          cursor: pointer;
+          color: #999;
+        }
+
+  .evidence-widget > div.search-results {
+    background: rgba(255, 255, 255, 0.95);
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 5px #aaa;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-top: 1px;
+  }
+
+    .evidence-widget > div.search-results > h3 {
+      background: #eee;
+      color: #999;
+      font-size: 80%;
+      text-align: center;
+      padding: 0.625em;
+    }
+
+    .evidence-widget > div.search-results > .evidences { }
+
+      .evidence-widget > div.search-results > .evidences > .evidence {
+        cursor: pointer;
+      }
+
+      .evidence-widget > div.search-results > .evidences > .evidence:hover {
+        background: #4B92DB;
+        color: #fff;
+      }
+
+      .evidence-widget > div.search-results > .evidences > .evidence:last-child {
+        border-bottom: none;
+      }
+
+  .evidence-widget > div.widget {
+    padding: 1em;
+  }
+
+
+.evidences { }
+
+  .evidences > .evidence {
+    border-bottom: 1px dotted #ccc;
+    padding: 1em;
+  }
+
+    .evidences > .evidence > h3 {
+      font-size: 125%;
+      margin-bottom: 0.4em;
+    }
+
+    .evidences > .evidence > div.preview {
+      line-height: 1.2em;
+      max-height: 3.6em;
+      overflow: hidden;
+      border-left: 0.5em solid #eee;
+      padding-left: 0.5em;
+      color: #666;
+    }
+
+      .evidences > .evidence > ul.meta { }
+
+        .evidences > .evidence > ul.meta > li {
+          font-size: 80%;
+          display: inline-block;
+          margin-top: 0.625em;
+          padding: 0.3125em;
+          background: #eee;
+          color: #999;
+        }

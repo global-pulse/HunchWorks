@@ -32,7 +32,7 @@
   .loc-widget .latlng,
   .loc-widget .map {
     border: 2px solid #eee;
-    border-radius: 2px;
+    border-radius: 3px;
     clear: both;
   }
 

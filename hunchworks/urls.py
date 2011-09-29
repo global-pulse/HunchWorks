@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from django.conf.urls.defaults import *
-from views import auth, dashboard, groups, hunches, users
+from views import auth, dashboard, evidences, groups, hunches, users
 
 urlpatterns = patterns(
   'hunchworks.views',
@@ -38,7 +38,10 @@ urlpatterns = patterns(
   url(r'^hunches/all$',                    hunches.all,    name="all_hunches"),
   url(r'^hunches/(?P<hunch_id>\d+)$',      hunches.show,   name="hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/edit$', hunches.edit,   name="edit_hunch"),
-  url(r'^hunches/create$',                 hunches.create, name="create_hunch")
+  url(r'^hunches/create$',                 hunches.create, name="create_hunch"),
+
+  # evidences
+  url(r'evidences/search.json', evidences.search, name="search_evidence")
 )
 
 

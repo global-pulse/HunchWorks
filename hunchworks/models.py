@@ -86,7 +86,7 @@ class Hunch(models.Model):
   
   skills = models.ManyToManyField('Skill', blank=True)
   languages = models.ManyToManyField('Language', blank=True)
-  evidence = models.ManyToManyField('Evidence', through='HunchEvidence', blank=True)
+  evidences = models.ManyToManyField('Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
 
@@ -132,7 +132,7 @@ class Hunch(models.Model):
     return self.user_profiles.all().count()
 
   def evidence_count(self):
-    return self.evidence.all().count()
+    return self.evidences.all().count()
 
 
 class HunchUser(models.Model):
@@ -142,9 +142,7 @@ class HunchUser(models.Model):
 
 
 class Evidence(models.Model):
-  """Class representing a response to the hunch"""
   title = models.CharField(max_length=100, blank=True)
-  strength = models.IntegerField(default=0)
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   description = models.TextField(blank=True)
@@ -154,17 +152,27 @@ class Evidence(models.Model):
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
-    return "%s" % (self.title or (self.description[:25] + '...'))
+    return "%s" % (self.title or (self.description[:50] + '...'))
+
+  def type(self):
+    return "Link"
+
+  def link(self):
+    return "http://example.com/a/b"
 
   def save(self, *args, **kwargs):
     now = datetime.datetime.today()
 
     # for new records.
-    if not self.evidence_id:
+    if not self.id:
       self.time_created = now
 
     self.time_modified = now
     super(Evidence, self).save(*args, **kwargs)
+
+  @classmethod
+  def search(cls, term, user_profile=None):
+    return cls.objects.filter(description__icontains=term)
 
 
 class Group(models.Model):
@@ -323,7 +331,7 @@ class Comment(models.Model):
   hunch = models.ForeignKey('Hunch', null=True, blank=True)
   hunch_evidence = models.ForeignKey('HunchEvidence', null=True, blank=True)
   
-  
+
 class HunchEvidence(models.Model):
   hunch = models.ForeignKey('Hunch')
   evidence = models.ForeignKey('Evidence')
