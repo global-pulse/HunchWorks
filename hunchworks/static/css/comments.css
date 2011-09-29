@@ -36,11 +36,27 @@
     padding: 1em;
   }
 
-  .comment > .text > .bubble-arrow {
-    background: url("../img/bubble-arrow.png") no-repeat;
-    position: absolute;
-    width: 8px;
-    height: 14px;
-    top: 1em;
-    left: -8px;
-  }
+    .comment > .text > .bubble-arrow {
+      background: url("../img/bubble-arrow.png") no-repeat;
+      position: absolute;
+      width: 8px;
+      height: 14px;
+      top: 1em;
+      left: -8px;
+    }
+
+  .comment.create { }
+
+    .comment.create > .text { }
+
+      .comment.create > .text > textarea {
+        display: block;
+        width: 30em;
+      }
+
+      .comment.create > .text > input[type=submit] {
+        display: block;
+        float: right;
+        padding: 0.5em;
+        margin-top: 0.5em;
+      }
