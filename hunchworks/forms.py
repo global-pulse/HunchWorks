@@ -215,7 +215,7 @@ class HunchForm(ModelForm):
 
     # Destroy links to just-removed objects.
     objects.filter(**{
-      "%s__in" % field.m2m_field_name(): (old-new)
+      "%s__in" % field.m2m_reverse_field_name(): (old-new)
     }).delete()
 
   def save(self, creator=None):
