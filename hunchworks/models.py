@@ -324,13 +324,24 @@ class Invitation(models.Model):
 
 
 class Comment(models.Model):
-  text = models.TextField()
-  time_created = models.DateTimeField()
-  time_modified = models.DateTimeField(null=True, blank=True)
-  creator = models.ForeignKey('UserProfile')
-  hunch = models.ForeignKey('Hunch', null=True, blank=True)
+  creator        = models.ForeignKey('UserProfile')
+  posted_at      = models.DateTimeField()
+  text           = models.TextField()
+  hunch          = models.ForeignKey('Hunch', null=True, blank=True)
   hunch_evidence = models.ForeignKey('HunchEvidence', null=True, blank=True)
-  
+
+  @models.permalink
+  def get_absolute_base_url(self):
+    if self.hunch:
+      return ("hunch", [self.hunch.pk])
+
+  def get_absolute_url(self):
+    return self.get_absolute_base_url() + ("#c%d" % self.pk)
+
+  def save(self, *args, **kwargs):
+    self.posted_at = datetime.datetime.today()
+    super(Comment, self).save(*args, **kwargs)
+
 
 class HunchEvidence(models.Model):
   hunch = models.ForeignKey('Hunch')
