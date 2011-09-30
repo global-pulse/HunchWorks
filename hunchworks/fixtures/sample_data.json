@@ -14,9 +14,9 @@
         "model": "hunchworks.location",
         "fields": 
         {
-            "name": "San Francisco, CA",
-            "latitude": "37.7793",
-            "longitude": "-122.4192"
+            "name": "Kampala, UG",
+            "latitude": "0.313611",
+            "longitude": "32.581111"
         }
     },
     {
@@ -80,7 +80,7 @@
         "model": "hunchworks.skill",
         "fields": 
         {
-            "name": "Visualization"
+            "name": "Programming"
         }
     },
     {
@@ -88,7 +88,7 @@
         "model": "hunchworks.skill",
         "fields": 
         {
-            "name": "Rapid development"
+            "name": "Welding"
         }
     },
     {
@@ -114,9 +114,6 @@
     	"model": "auth.user",
     	"fields":
     	{
-    		"first_name": "test",
-    		"last_name": "test",
-    		"email": "test@test.com",
     		"username": "test",
     		"password": "sha1$485c2$9b04c450941be70bbad00283ff8897e7bb03bf9c",
     		"is_active": "True",
@@ -131,11 +128,8 @@
     	"model": "auth.user",
     	"fields":
     	{
-    		"first_name": "test2",
-    		"last_name": "test2",
-    		"email": "test2@test2.com",
-    		"username": "test2",
-    		"password": "sha1$7668f$d8e32fd7241ba5e19ccaea6eee69452e64ccc9ca",
+    		"username": "Sean",
+    		"password": "",
     		"is_active": "True",
     		"is_staff": "False",
     		"is_superuser": "False",
@@ -148,11 +142,8 @@
     	"model": "auth.user",
     	"fields":
     	{
-    		"first_name": "test3",
-    		"last_name": "test3",
-    		"email": "test3@test3.com",
-    		"username": "test3",
-    		"password": "sha1$bd339$4e5cbd2c04d4125222c05e8cf5bc4c757533d202",
+    		"username": "Mark",
+    		"password": "",
     		"is_active": "True",
     		"is_staff": "False",
     		"is_superuser": "False",
@@ -165,16 +156,55 @@
     	"model": "auth.user",
     	"fields":
     	{
-    		"first_name": "test4",
-    		"last_name": "test4",
-    		"email": "test4@test4.com",
-    		"username": "test4",
-    		"password": "sha1$6b45c$0c5611d85d551dde8bbc486dc36b9d521f4966a2",
+    		"username": "Helena",
+    		"password": "",
     		"is_active": "True",
     		"is_staff": "False",
     		"is_superuser": "False",
     		"last_login": "2011-08-21 11:14:19.244634",
     		"date_joined": "2011-08-21 11:14:19.244634"
+    	}
+    },
+    {
+    	"pk": 5,
+    	"model": "auth.user",
+    	"fields":
+    	{
+    		"username": "Betty",
+    		"password": "",
+    		"is_active": "True",
+    		"is_staff": "False",
+    		"is_superuser": "False",
+    		"last_login": "2011-08-22 11:14:19.244634",
+    		"date_joined": "2011-08-22 11:14:19.244634"
+    	}
+    },
+    {
+    	"pk": 6,
+    	"model": "auth.user",
+    	"fields":
+    	{
+    		"username": "Margunn",
+    		"password": "",
+    		"is_active": "True",
+    		"is_staff": "False",
+    		"is_superuser": "False",
+    		"last_login": "2011-08-23 11:14:19.244634",
+    		"date_joined": "2011-08-23 11:14:19.244634"
+    	}
+    },
+    {
+    	"pk": 7,
+    	"model": "auth.user",
+    	"fields":
+    	{
+    		"username": "Jen",
+    		"password": "",
+    		"is_active": "True",
+    		"is_staff": "False",
+    		"is_superuser": "False",
+    		"last_login": "2011-08-24 11:14:19.244634",
+    		"date_joined": "2011-08-24 11:14:19.244634"
     	}
     },
 
@@ -185,8 +215,8 @@
     	"fields":
     	{
     		"user": 1,
-    		"name": "first1 last1",
-    		"email": "test@test.com",
+    		"name": "Admin",
+    		"email": "admin@hunchworks.com",
     		"skills": [1,3]
     	}
     },
@@ -196,8 +226,8 @@
     	"fields":
     	{
     		"user": 2,
-    		"name": "first2 last2",
-    		"email": "test2@test2.com",
+    		"name": "Sean Rivello",
+    		"email": "sean@unicef.org",
     		"skills": [2]
     	}
     },
@@ -207,8 +237,8 @@
     	"fields":
     	{
     		"user": 3,
-    		"name": "first3 last3",
-    		"email": "test3@test3.com",
+    		"name": "Mark Spiegelman",
+    		"email": "mark@internews.com",
     		"skills": [3]
     	}
     },
@@ -218,8 +248,41 @@
     	"fields":
     	{
     		"user": 4,
-    		"name": "first4 last4",
-    		"email": "test4@test4.com",
+    		"name": "Helena Cabag",
+    		"email": "helen@undp.org",
+    		"skills": [2,4]
+    	}
+    },
+    {
+    	"pk": 5,
+    	"model": "hunchworks.userprofile",
+    	"fields":
+    	{
+    		"user": 5,
+    		"name": "Betty Heral",
+    		"email": "betty@crisismappers.com",
+    		"skills": [2,4]
+    	}
+    },
+    {
+    	"pk": 6,
+    	"model": "hunchworks.userprofile",
+    	"fields":
+    	{
+    		"user": 6,
+    		"name": "Margunn Grabow",
+    		"email": "margunn@undp.org",
+    		"skills": [2,4]
+    	}
+    },
+    {
+    	"pk": 7,
+    	"model": "hunchworks.userprofile",
+    	"fields":
+    	{
+    		"user": 7,
+    		"name": "Jen Maura",
+    		"email": "jen@nyu.edu",
     		"skills": [2,4]
     	}
     },
@@ -230,7 +293,8 @@
     	"model": "hunchworks.group",
     	"fields":
     	{
-    		"name": "Created Group1"
+    		"name": "United Nations Children's Fund",
+    		"abbreviation": "UNICEF"
     	}
     },
     {
@@ -238,7 +302,7 @@
     	"model": "hunchworks.group",
     	"fields":
     	{
-    		"name": "Created Group2"
+    		"name": "Internews Agency"
     	}
     },
     {
@@ -246,7 +310,8 @@
     	"model": "hunchworks.group",
     	"fields":
     	{
-    		"name": "Created Group3"
+    		"name": "United Nations Development Programme",
+    		"abbreviation": "UNDP"
     	}
     },
     {
@@ -254,7 +319,25 @@
     	"model": "hunchworks.group",
     	"fields":
     	{
-    		"name": "Created Group4"
+    		"name": "Crisis mappers"
+    	}
+    },
+    {
+    	"pk": 5,
+    	"model": "hunchworks.group",
+    	"fields":
+    	{
+    		"name": "New York University",
+    		"abbreviation": "NYU"
+    	}
+    },
+    {
+    	"pk": 6,
+    	"model": "hunchworks.group",
+    	"fields":
+    	{
+    		"name": "United Nations",
+    		"abbreviation": "UN"
     	}
     },
 
@@ -264,7 +347,7 @@
     	"model": "hunchworks.userprofilegroup",
     	"fields":
     	{
-    		"user_profile": 1,
+    		"user_profile": 2,
     		"group": 1,
             "status": 0
     	}
@@ -274,8 +357,8 @@
     	"model": "hunchworks.userprofilegroup",
     	"fields":
     	{
-    		"user_profile": 2,
-    		"group": 1,
+    		"user_profile": 3,
+    		"group": 2,
             "status": 1
     	}
     },
@@ -284,8 +367,8 @@
     	"model": "hunchworks.userprofilegroup",
     	"fields":
     	{
-    		"user_profile": 3,
-    		"group": 1,
+    		"user_profile": 4,
+    		"group": 3,
             "status": 2
     	}
     },
@@ -294,8 +377,8 @@
     	"model": "hunchworks.userprofilegroup",
     	"fields":
     	{
-    		"user_profile": 4,
-    		"group": 1,
+    		"user_profile": 5,
+    		"group": 4,
             "status": 1
     	}
     },
@@ -304,8 +387,8 @@
     	"model": "hunchworks.userprofilegroup",
     	"fields":
     	{
-    		"user_profile": 1,
-    		"group": 2,
+    		"user_profile": 6,
+    		"group": 3,
             "status": 0
     	}
     },
@@ -314,8 +397,8 @@
     	"model": "hunchworks.userprofilegroup",
     	"fields":
     	{
-    		"user_profile": 2,
-    		"group": 2,
+    		"user_profile": 7,
+    		"group": 5,
             "status": 1
     	}
     },
@@ -324,8 +407,8 @@
     	"model": "hunchworks.userprofilegroup",
     	"fields":
     	{
-    		"user_profile": 3,
-    		"group": 2,
+    		"user_profile": 2,
+    		"group": 6,
             "status": 2
     	}
     },
@@ -334,8 +417,8 @@
     	"model": "hunchworks.userprofilegroup",
     	"fields":
     	{
-    		"user_profile": 1,
-    		"group": 3,
+    		"user_profile": 4,
+    		"group": 6,
             "status": 1
     	}
     },
@@ -344,29 +427,9 @@
     	"model": "hunchworks.userprofilegroup",
     	"fields":
     	{
-    		"user_profile": 4,
-    		"group": 3,
+    		"user_profile": 6,
+    		"group": 6,
             "status": 1
-    	}
-    },
-    {
-    	"pk": 10,
-    	"model": "hunchworks.userprofilegroup",
-    	"fields":
-    	{
-    		"user_profile": 2,
-    		"group": 4,
-            "status": 1
-    	}
-    },
-    {
-    	"pk": 11,
-    	"model": "hunchworks.userprofilegroup",
-    	"fields":
-    	{
-    		"user_profile": 3,
-    		"group": 4,
-            "status": 2
     	}
     },
 
@@ -376,8 +439,8 @@
         "model": "hunchworks.connection",
         "fields": 
         {
-            "user_profile": 1,
-            "other_user_profile": 2,
+            "user_profile": 2,
+            "other_user_profile": 3,
             "status": 0
         }
     },
@@ -386,8 +449,8 @@
         "model": "hunchworks.connection",
         "fields": 
         {
-            "user_profile": 1,
-            "other_user_profile": 3,
+            "user_profile": 4,
+            "other_user_profile": 6,
             "status": 0
         }
     },
@@ -396,8 +459,8 @@
         "model": "hunchworks.connection",
         "fields": 
         {
-            "user_profile": 1,
-            "other_user_profile": 4,
+            "user_profile": 3,
+            "other_user_profile": 2,
             "status": 0
         }
     },
@@ -406,8 +469,8 @@
         "model": "hunchworks.connection",
         "fields": 
         {
-            "user_profile": 2,
-            "other_user_profile": 3,
+            "user_profile": 6,
+            "other_user_profile": 4,
             "status": 0
         }
     },
@@ -427,6 +490,66 @@
         "fields": 
         {
             "user_profile": 3,
+            "other_user_profile": 5,
+            "status": 0
+        }
+    },
+    {
+        "pk": 7,
+        "model": "hunchworks.connection",
+        "fields": 
+        {
+            "user_profile": 5,
+            "other_user_profile": 3,
+            "status": 0
+        }
+    },
+    {
+        "pk": 8,
+        "model": "hunchworks.connection",
+        "fields": 
+        {
+            "user_profile": 4,
+            "other_user_profile": 2,
+            "status": 0
+        }
+    },
+    {
+        "pk": 9,
+        "model": "hunchworks.connection",
+        "fields": 
+        {
+            "user_profile": 2,
+            "other_user_profile": 5,
+            "status": 0
+        }
+    },
+    {
+        "pk": 10,
+        "model": "hunchworks.connection",
+        "fields": 
+        {
+            "user_profile": 5,
+            "other_user_profile": 2,
+            "status": 0
+        }
+    },
+    {
+        "pk": 11,
+        "model": "hunchworks.connection",
+        "fields": 
+        {
+            "user_profile": 4,
+            "other_user_profile": 5,
+            "status": 0
+        }
+    },
+    {
+        "pk": 12,
+        "model": "hunchworks.connection",
+        "fields": 
+        {
+            "user_profile": 5,
             "other_user_profile": 4,
             "status": 0
         }
