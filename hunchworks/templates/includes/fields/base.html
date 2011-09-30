@@ -1,4 +1,4 @@
-<div class="field text {% if field.field.required %}required{% else %}optional{% endif %}{% if field.errors %} errors{% endif %}">
+<div class="field {{ field.name }} {% if field.field.required %}required{% else %}optional{% endif %}{% if field.errors %} errors{% endif %}">
   <div class="label">
     {{ field.label_tag }}
 

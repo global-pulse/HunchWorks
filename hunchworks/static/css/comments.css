@@ -49,14 +49,18 @@
 
     .comment.create > .text { }
 
-      .comment.create > .text > textarea {
-        display: block;
-        width: 30em;
-      }
+      .comment.create > .text > form { }
 
-      .comment.create > .text > input[type=submit] {
-        display: block;
-        float: right;
-        padding: 0.5em;
-        margin-top: 0.5em;
-      }
+        .comment.create > .text > form > div.field.text {
+          margin-bottom: 0.5em;
+        }
+
+          .comment.create > .text > form > div.field.text > div.label {
+            display: none;
+          }
+
+        .comment.create > .text > form > .actions { }
+
+          .comment.create > .text > form > .actions > input[type=submit] {
+            padding: 0.5em;
+          }

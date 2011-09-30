@@ -41,9 +41,18 @@ def all(req):
 @login_required
 def show(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+  comment_form = forms.HunchCommentForm(data=req.POST or None)
+
+  if comment_form.is_valid():
+    comment = comment_form.save(commit=False)
+    comment.creator = req.user.get_profile()
+    comment.hunch = hunch
+    comment.save()
+    return redirect(comment)
 
   return _render(req, "show", {
-    "hunch": hunch
+    "hunch": hunch,
+    "comment_form": comment_form
   })
 
 

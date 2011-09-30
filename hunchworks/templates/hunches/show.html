@@ -112,8 +112,23 @@
         </div>
         <div class="text">
           <div class="bubble-arrow"></div>
-          <textarea></textarea>
-          <input type="submit" value="Post comment">
+
+          <form action="" method="post">
+            {{ comment_form.non_field_errors }}
+
+            {% for field in comment_form.hidden_fields %}
+              {{ field }}
+            {% endfor %}
+            {% csrf_token %}
+
+            {% for field in comment_form.visible_fields %}
+              {% include "includes/fields/base.html" %}
+            {% endfor %}
+
+            <div class="actions">
+              <input type="submit" value="Post Comment">
+            </div>
+          </form>
         </div>
         <div class="clear-hack"></div>
       </div>

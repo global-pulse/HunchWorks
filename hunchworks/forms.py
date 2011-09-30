@@ -283,6 +283,12 @@ class GroupForm(ModelForm):
     return group
 
 
+class HunchCommentForm(forms.ModelForm):
+  class Meta:
+    model = models.Comment
+    fields = ("text",)
+
+
 class HomepageForm(ModelForm):
   class Meta:
     model = models.User
