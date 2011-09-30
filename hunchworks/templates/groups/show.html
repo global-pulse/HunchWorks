@@ -1,37 +1,57 @@
 {% extends "base.html" %}
-{% load paginator_tags %} 
+{% load paginator_tags %}
 
 {% block content %}
-  <h1><a href="{% url groups %}">Groups</a> &raquo; {{ group }}</h1>
+  <div id="group-show">
+    <div class="group">
+      <div class="info">
+        <img src="{{ group.logo_url }}" width="400">
 
-  <div class="group">
-    <div id="info">
-      <div id="group-picture">
-        <img src="{{ group.logo_url }}" height="100" class="logo">
-      </div>
-      <div>
-        <h3>Abbreviation: ({{ group.abbreviation }})</h3>
-        <h3>Type: {{ group.type }}</h3>
-        <h3>Location: {{ group.location }}</h3>
-        <h3># of members: {{ group.members.count }}</h3> 
-      </div>
-    </div>
-    
-    <div id="members">
-	  {% for member in group.members.all %}
-		<div class="member">
-		  <h4><a href="{{ member.get_absolute_url }}">{{ member }}</a></h4>
-		  <img src="{{ member.profile_picture_url }}" height="150">
-		</div>
-	  {% endfor %}
-	  {% paginator group_members %}
-    </div>
-  </div>
+        <h1><a href="{% url groups %}">
+          {{ group }}
 
-  <div class="links">
-    <ul>
-      <li><a href="{% url edit_group group.pk %}">Edit this Group</a></li>
-    </ul>
-    <div class="clear-hack"></div>
+          {% if group.abbreviation %}
+            <span>(<abbr>{{ group.abbreviation }}</abbr>)</span>
+          {% endif %}
+        </a></h1>
+        <ul class="tags">
+          <li>Alpha</li>
+          <li>Beta</li>
+          <li>Gamma</li>
+
+          {% for tag in group.tags.all %}
+            <li>{{ tag }}</li>
+          {% endfor %}
+        </ul>
+
+        {% if group.description %}
+          <div class="desc">
+            {{ group.description|safe }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="clear-hack"></div>
+
+      <h2>Members of {{ group }}</h2>
+      <div class="members">
+        {% for member in group.members.all %}
+          <div class="member">
+            <a href="{{ member.get_absolute_url }}">
+              <img src="{{ member.profile_picture_url }}" width="172">
+              <span>{{ member }}</span>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="clear-hack"></div>
+    </div>
+
+    <div class="links">
+      <ul>
+        <li><a href="{% url edit_group group.pk %}">Edit this Group</a></li>
+      </ul>
+      {% paginator group_members %}
+      <div class="clear-hack"></div>
+    </div>
   </div>
 {% endblock %}

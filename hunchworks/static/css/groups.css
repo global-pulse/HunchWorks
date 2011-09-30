@@ -1,13 +1,13 @@
-div.groups {
+#groups-index div.groups {
   margin: -0.5em;
 }
 
-  div.group {
+  #groups-index div.group {
     float: left;
     width: 50%;
   }
 
-    div.group > div {
+    #groups-index div.group > div {
       background: #f8f8f8;
       border: 1px solid #ddd;
       margin-top: 1em;
@@ -15,34 +15,34 @@ div.groups {
       margin: 0.5em;
     }
 
-      div.group img.logo {
+      #groups-index div.group img.logo {
         border: 1px solid #ddd;
         margin-right: 0.5em;
         float: left;
       }
 
-      div.group h3 {
+      #groups-index div.group h3 {
         font-size: 160%;
         margin-bottom: 0.3125em;
       }
 
-        div.group h3 a {
+        #groups-index div.group h3 a {
           text-decoration: none;
         }
 
-      div.group div.desc {
+      #groups-index div.group div.desc {
         line-height: 1.25;
         font-size: 80%;
         height: 3.75em;
         overflow: hidden;
       }
 
-      div.group ul.stats {
+      #groups-index div.group ul.stats {
         margin-top: 0.625em;
         font-size: 80%;
       }
 
-        div.group ul.stats li {
+        #groups-index div.group ul.stats li {
           display: block;
           float: left;
           border-right: 1px solid #ccc;
@@ -51,8 +51,100 @@ div.groups {
           color: #666;
         }
 
-          div.group ul.stats li:last-child {
+          #groups-index div.group ul.stats li:last-child {
             border-right: none;
             padding-right: 0;
             margin-right: 0;
           }
+
+#group-show { }
+
+  #group-show > div.group { }
+
+    #group-show > div.group > div.info { }
+
+      #group-show > div.group > div.info > img {
+        display: block;
+        margin-left: 1em;
+        float: right;
+      }
+
+      #group-show > div.group > div.info > h1 {
+        margin-bottom: 0.25em;
+      }
+
+        #group-show > div.group > div.info > h1 > a { }
+
+          #group-show > div.group > div.info > h1 > a > span {
+            color: #ccc;
+          }
+
+      #group-show > div.group > div.info > ul.tags { }
+
+        #group-show > div.group > div.info > ul.tags > li {
+          display: inline-block;
+          border: 1px solid #ddd;
+          border-radius: 1px 0.8125em 0.8125em 1px;
+          font-size: 80%;
+          background: #eee url("../icons/tag.png") no-repeat 2px 50%;
+          line-height: 19px;
+          padding-left: 19px;
+          padding-right: 0.625em;
+          margin-right: 0.625em;
+        }
+
+          #group-show > div.group > div.info > ul.tags > li > a {
+            text-decoration: none;
+            padding-left: 0.3125em;
+          }
+
+      #group-show > div.group > div.info > div.desc { }
+
+        #group-show > div.group > div.info > div.desc > p {
+          line-height: 1.4;
+          margin-top: 1em;
+        }
+
+    #group-show > div.group > h2 {
+      font-size: 160%;
+      margin: 0.625em 0;
+      border-top: 1px solid #eee;
+      padding-top: 0.625em;
+    }
+
+    #group-show > div.group > div.members {
+      padding-left: 4em;
+      margin-top: 1em;
+    }
+
+      #group-show > div.group > div.members > div.member {
+        float: left;
+        width: 20%;
+        margin-right: 1em;
+        text-align: center;
+      }
+
+        #group-show > div.group > div.members > div.member:first-child {
+          margin-left: -4em;
+        }
+
+      #group-show > div.group > div.members > div.member > a {
+        display: block;
+        background: #333;
+        box-shadow: 0 0 5px #999;
+        text-decoration: none;
+        border-radius: 5px;
+        padding: 2px;
+      }
+
+        #group-show > div.group > div.members > div.member > a > img {
+          display: block;
+          margin-bottom: 2px;
+          border-radius: 3px 3px 0 0;
+        }
+
+        #group-show > div.group > div.members > div.member > a > span {
+          display: block;
+          padding: 0.5em;
+          color: #fff;
+        }

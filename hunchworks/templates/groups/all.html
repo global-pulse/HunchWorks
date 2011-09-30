@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% include "groups/navigation.html" %}
-  <h1>
-    <a href="{% url groups %}">Groups</a> &raquo;
-    All
-  </h1>
-  {% include "groups/groups.html" %}
+  <div id="groups-index">
+    {% include "groups/navigation.html" %}
+
+    <h1>
+      <a href="{% url groups %}">Groups</a> &raquo;
+      All
+    </h1>
+
+    {% include "groups/groups.html" %}
+  </div>
 {% endblock %}
