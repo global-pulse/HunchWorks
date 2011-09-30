@@ -1,0 +1,13 @@
+<div class="comment" id="c{{ comment.pk }}">
+  <div class="creator">
+    <a href="{{ comment.creator.get_absolute_url }}">
+      <img class="avatar" src="http://i.imgur.com/yvPKY.jpg" width="50" height="50">
+      <span>{{ comment.creator }}</span>
+    </a>
+  </div>
+  <div class="text">
+    <div class="bubble-arrow"></div>
+    {{ comment.text }}
+  </div>
+  <div class="clear-hack"></div>
+</div>

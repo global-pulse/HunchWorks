@@ -93,6 +93,45 @@
           {% endfor %}
         </ul>
       </div>
+
+      <div class="comments">
+        <h2>Comments</h2>
+        <p>
+          These comments are about the hunch.
+          Not the evidence!
+        </p>
+        {% include "comments/comments.html" with comments=hunch.comment_set.all %}
+      </div>
+
+      <div class="comment create mine">
+        <div class="creator">
+          <a href="{{ user.get_profile.get_absolute_url }}">
+            <img class="avatar" src="http://i.imgur.com/yvPKY.jpg" width="50" height="50">
+            <span>{{ user.get_profile }}</span>
+          </a>
+        </div>
+        <div class="text">
+          <div class="bubble-arrow"></div>
+
+          <form action="" method="post">
+            {{ comment_form.non_field_errors }}
+
+            {% for field in comment_form.hidden_fields %}
+              {{ field }}
+            {% endfor %}
+            {% csrf_token %}
+
+            {% for field in comment_form.visible_fields %}
+              {% include "includes/fields/base.html" %}
+            {% endfor %}
+
+            <div class="actions">
+              <input type="submit" value="Post Comment">
+            </div>
+          </form>
+        </div>
+        <div class="clear-hack"></div>
+      </div>
     </div>
 
     <div class="right">
