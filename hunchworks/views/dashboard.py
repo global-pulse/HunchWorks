@@ -22,8 +22,8 @@ def dashboard(req):
   context = RequestContext(req)
   context.update({'recent_hunches': recent_hunches,
       'confirmed_hunches': confirmed_hunches,
-      'suggested_groups': suggested_groups,
-      'suggested_people': suggested_people })
+      'suggested_groups': suggested_groups[:5],
+      'suggested_people': suggested_people[:5] })
   return render_to_response('dashboard/home.html', context)
 
 @login_required
