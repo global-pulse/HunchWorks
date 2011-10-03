@@ -328,7 +328,7 @@ class Invitation(models.Model):
 
 class Comment(models.Model):
   creator        = models.ForeignKey('UserProfile')
-  posted_at      = models.DateTimeField()
+  time_posted    = models.DateTimeField()
   text           = models.TextField()
   hunch          = models.ForeignKey('Hunch', null=True, blank=True)
   hunch_evidence = models.ForeignKey('HunchEvidence', null=True, blank=True)

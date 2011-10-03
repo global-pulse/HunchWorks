@@ -1039,7 +1039,7 @@
         "fields": 
         {
             "text": "This evidence without a doubt proves this true",
-            "posted_at": "2011-09-20 11:14:19.244634",
+            "time_posted": "2011-09-20 11:14:19.244634",
             "creator": 1,
             "hunch_evidence": 1
         }
@@ -1050,7 +1050,7 @@
         "fields": 
         {
             "text": "This hunch proves absolutely nothing, its useless",
-            "posted_at": "2011-09-20 11:14:19.244634",
+            "time_posted": "2011-09-20 11:14:19.244634",
             "creator": 1,
             "hunch": 1
         }
@@ -1061,7 +1061,7 @@
         "fields": 
         {
             "text": "This hunch has to be true, I see it everywhere!",
-            "posted_at": "2011-09-20 11:14:19.244634",
+            "time_posted": "2011-09-20 11:14:19.244634",
             "creator": 2,
             "hunch": 1
         }
@@ -1072,7 +1072,7 @@
         "fields": 
         {
             "text": "This evidence needs to be removed its useless!",
-            "posted_at": "2011-09-20 11:14:19.244634",
+            "time_posted": "2011-09-20 11:14:19.244634",
             "creator": 2,
             "hunch_evidence": 2
         }
@@ -1083,7 +1083,7 @@
         "fields": 
         {
             "text": "This evidence is absolutely correct, amazing!",
-            "posted_at": "2011-09-20 11:14:19.244634",
+            "time_posted": "2011-09-20 11:14:19.244634",
             "creator": 2,
             "hunch_evidence": 1
         }
