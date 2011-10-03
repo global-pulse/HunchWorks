@@ -7,7 +7,7 @@ class EvidencesFeed(Feed):
   description = "Recently updated evidence on HunchWorks"
 
   def items(self):
-    return Evidence.objects.order_by('-time_created')[:10]
+    return Evidence.objects.order_by('-time_modified')[:20]
 
   def item_title(self, item):
     return item.title
