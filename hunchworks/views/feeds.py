@@ -14,3 +14,6 @@ class EvidencesFeed(Feed):
 
   def item_description(self, item):
     return item.description
+
+  def item_link(self, item):
+    return "/evidences/"
