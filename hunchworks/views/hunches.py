@@ -42,6 +42,14 @@ def all(req):
 def show(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
   comment_form = forms.HunchCommentForm(data=req.POST or None)
+  
+  if len(hunch.user_profiles.filter(pk=req.user.get_profile().pk)) > 0:
+    following = True
+  else:
+    following = False
+    
+  if not hunch.is_viewable_by(req.user):
+    raise PermissionDenied
 
   if comment_form.is_valid():
     comment = comment_form.save(commit=False)
@@ -51,6 +59,7 @@ def show(req, hunch_id):
     return redirect(comment)
 
   return _render(req, "show", {
+    "following" : following,
     "hunch": hunch,
     "comment_form": comment_form
   })
@@ -84,13 +93,14 @@ def create(req):
   })
 
 
-def showHunch(req, hunch_id):
-  """Show a Hunch."""
+@login_required
+def follow(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+  hunch_user = models.HunchUser.objects.get_or_create(hunch=hunch, user_profile=req.user.get_profile())
+  return redirect(index)
 
-  if not hunch.is_viewable_by(req.user):
-    raise PermissionDenied
-
-  context = RequestContext(req)
-  context.update({ "hunch": hunch })
-  return render_to_response('showHunch.html', context)
+@login_required
+def unfollow(req, hunch_id):
+  hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+  hunch_user = get_object_or_404(models.HunchUser, hunch=hunch, user_profile=req.user.get_profile()).delete()
+  return redirect(index)

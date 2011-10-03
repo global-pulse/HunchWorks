@@ -136,6 +136,16 @@
 
     <div class="right">
       <div>
+        <ul>
+          {% if following %}
+            <li><a href="{% url unfollow_hunch hunch.pk %}">Unfollow</a></li>
+          {% else %}
+            <li><a href="{% url follow_hunch hunch.pk %}">Follow</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      
+      <div>
         <h2>Related Hunches</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In justo ligula, elementum id sodales pellentesque, pellentesque quis nisl. Donec sit amet nibh ipsum, id pulvinar velit.</p>
 
