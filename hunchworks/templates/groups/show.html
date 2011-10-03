@@ -23,6 +23,13 @@
             <li>{{ tag }}</li>
           {% endfor %}
         </ul>
+        <ul>
+          {% if is_member %}
+            <li><a href="{% url leave_group group.pk %}">Leave</a></li>
+          {% else %}
+            <li><a href="{% url join_group group.pk %}">Join</a></li>
+          {% endif %}
+        </ul>
 
         {% if group.description %}
           <div class="desc">

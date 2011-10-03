@@ -43,9 +43,14 @@ def all(req):
 def show(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
   members = paginated(req, group.members.all(), 10)
+  
+  if len(group.members.filter(pk=req.user.get_profile().pk)) > 0:
+    is_member = True
+  else:
+    is_member = False
 
   return _render(req, "show", {
-    "group": group, "group_members": members
+    "group": group, "group_members": members, "is_member": is_member,
   })
 
 @login_required
@@ -60,16 +65,6 @@ def edit(req, group_id):
   return _render(req, "edit", { 'form':form, 'group':group,
     'user_id': req.user.pk })
 
-@login_required
-def join(req, group_id):
-  group = get_object_or_404(models.Group, pk=group_id)
-
-  user_profile_group = models.UserProfileGroup.objects.get_or_create(
-    user_profile = models.UserProfile.objects.get(pk=req.user.pk),
-	group = group,
-	status=0)
-
-  return _render(req, "show", { 'group': group })
 
 @login_required
 def create(req):
@@ -80,3 +75,22 @@ def create(req):
     return redirect(group)
 
   return _render(req, "create", { 'form':form, 'user_id': req.user.pk })
+ 
+
+@login_required
+def join(req, group_id):
+  group = get_object_or_404(models.Group, pk=group_id)
+  user_profile_group = models.UserProfileGroup.objects.get_or_create(
+    user_profile = req.user.get_profile(),
+	group = group,
+	status=0)
+
+  return redirect("group", group_id)
+
+
+@login_required
+def leave(req, group_id):
+  group = get_object_or_404(models.Group, pk=group_id)
+  user_profile_group = get_object_or_404(models.UserProfileGroup, group=group, user_profile=req.user.get_profile()).delete()
+  
+  return redirect(index)

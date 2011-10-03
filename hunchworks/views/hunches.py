@@ -99,6 +99,7 @@ def follow(req, hunch_id):
   hunch_user = models.HunchUser.objects.get_or_create(hunch=hunch, user_profile=req.user.get_profile())
   return redirect(index)
 
+
 @login_required
 def unfollow(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
