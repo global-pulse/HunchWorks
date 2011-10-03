@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from django.conf.urls.defaults import *
-from views import dashboard, auth, users, groups, hunches, evidences
+from views import dashboard, auth, users, groups, hunches, evidences, feeds
 
 urlpatterns = patterns(
   'hunchworks.views',
@@ -44,7 +44,8 @@ urlpatterns = patterns(
   url(r'^hunches/(?P<hunch_id>\d+)/unfollow$', hunches.unfollow, name="unfollow_hunch"),
 
   # evidences
-  url(r'^evidences/search.json$', evidences.search, name="search_evidence")
+  url(r'^evidences/search.json$', evidences.search, name="search_evidence"),
+  url(r'^evidences/feed/$', feeds.EvidencesFeed())
 )
 
 
