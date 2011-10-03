@@ -33,5 +33,5 @@ class RecentHunchFeed(Feed):
     return item.description
 
   def item_link(self, item):
-    return "/hunches/" + item.id
+    return "/hunches/" + str(item.id)
 
