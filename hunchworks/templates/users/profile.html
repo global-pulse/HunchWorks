@@ -169,26 +169,12 @@
 	  <div id='complementaryDiv'>
 		<h3>People with complementary skills</h3>
 		<ul id='complementaryList'>
-		  <li id='complementaryPerson1'>
-			<a id='linkToProfile1' href='linkToProfile1'>
-			<img id='imgToProfile1'src='profile1pic' alt='imgToProfile1'/>
-			Profile 1 name</a></li>
-		  <li id='complementaryPerson2'>
-			<a id='linkToProfile2' href='linkToProfile2'>
-			<img id='imgToProfile2'src='profile2pic' alt='imgToProfile2'/>
-			Profile 2 name</a></li>
-		  <li id='complementaryPerson3'>
-			<a id='linkToProfile3' href='linkToProfile3'>
-			<img id='imgToProfile3' src='profile3pic' alt='imgToProfile3'/>
-			Profile 3 name</a></li>
-		  <li id='complementaryPerson4'>
-			<a id='linkToProfile4' href='linkToProfile4'>
-			<img id='imgToProfile4' src='profile4pic' alt='imgToProfile4'/>
-			Profile 4 name</a></li>
-		  <li id='complementaryPerson5'>
-			<a id='linkToProfile5' href='linkToProfile5'>
-			<img id='imgToProfile5' src='profile5pic' alt='imgToProfile5'/>
-			Profile 5 name</a></li>
+          {% for userprofile in connected_profiles %}
+		  <li id='complementaryPerson{{ userprofile.user_id }}'>
+          <a id='profile_{{ userprofile.user_id }}' href='profile/{{ userprofile.user_id }}'>
+              <img id='imgToProfile{{ userprofile.user_id }}' src='{{ userprofile.profile_picture_url }}' alt='imgToProfile1' style="width:150px"/>
+            {{ userprofile.user.username }} Maybe a short description about user? </a></li>
+          {% endfor %}
 		</ul>
 	  </div> <!-- end complementaryDiv div -->
 	  <div id='matchingHunches'>
