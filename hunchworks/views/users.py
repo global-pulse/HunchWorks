@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+import os
 from hunchworks import models, forms
+from django.conf import settings
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -42,6 +44,8 @@ def edit(req, user_id=None):
     form = forms.UserForm(req.POST, req.FILES, instance=user.get_profile())
     if form.is_valid():
       # do something with image here one day
+      for file in req.FILES:
+        handle_uploaded_file(req.FILES[file])
       update = form.save(commit=False)
       update.user = req.user
       update.save()
@@ -62,3 +66,13 @@ def connections(req, user_id=None):
   user = get_object_or_404(models.User, pk=user_id)
   context = RequestContext(req)
   return _render(req, "profile", context)
+
+def handle_uploaded_file(f):
+  dest_path = settings.MEDIA_ROOT + '/profile_images/'
+  if not os.path.exists(dest_path):
+    os.makedirs(dest_path)
+  destination = open(dest_path + str(f) , 'wb+')
+  for chunk in f.chunks():
+      destination.write(chunk)
+  destination.close()
+
