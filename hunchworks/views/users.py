@@ -63,8 +63,10 @@ def edit(req, user_id=None):
 def connections(req, user_id=None):
   if not user_id:
     user_id = req.user.pk
-  user = get_object_or_404(models.User, pk=user_id)
+  userprofile = get_object_or_404(models.UserProfile, pk=user_id)
+  connected_profiles = userprofile.connections.all()
   context = RequestContext(req)
+  context.update({ "connected_profiles":connected_profiles})
   return _render(req, "profile", context)
 
 def handle_uploaded_file(f):
