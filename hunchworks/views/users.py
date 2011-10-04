@@ -43,11 +43,12 @@ def edit(req, user_id=None):
     if form.is_valid():
       # do something with image here one day
       update = form.save(commit=False)
-      update.user = models.UserProfile.objects.get(id = user_id)
+      update.user = req.user
       update.save()
       context.update({ "user": user })
       return _render(req, "profile", context)
     else:
+      context.update({ "user": user, "profile_form": form })
       return _render(req, "edit", context) # Redirect after POST
   else:
     profile_form = forms.UserForm(instance=user.get_profile())
@@ -58,6 +59,8 @@ def edit(req, user_id=None):
 def connections(req, user_id=None):
   if not user_id:
     user_id = req.user.pk
-  user = get_object_or_404(models.User, pk=user_id)
+  userprofile = get_object_or_404(models.UserProfile, pk=user_id)
+  connected_profiles = userprofile.connections.all()
   context = RequestContext(req)
+  context.update({ "connected_profiles":connected_profiles})
   return _render(req, "profile", context)
