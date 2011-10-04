@@ -64,6 +64,8 @@ MEDIA_ROOT = '/tmp/hunchworks/media/'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'hunchworks/media')
 MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
