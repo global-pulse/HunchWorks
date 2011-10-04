@@ -43,11 +43,12 @@ def edit(req, user_id=None):
     if form.is_valid():
       # do something with image here one day
       update = form.save(commit=False)
-      update.user = models.UserProfile.objects.get(id = user_id)
+      update.user = req.user
       update.save()
       context.update({ "user": user })
       return _render(req, "profile", context)
     else:
+      context.update({ "user": user, "profile_form": form })
       return _render(req, "edit", context) # Redirect after POST
   else:
     profile_form = forms.UserForm(instance=user.get_profile())
