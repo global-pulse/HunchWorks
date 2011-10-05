@@ -44,7 +44,11 @@ class TestHelpers(object):
     url_parts = urlparse(response['location'])
     self.assertEqual(url_parts.path, settings.LOGIN_URL)
 
-  def assertSelector(self, response, selector, count=None, text=None):
+  def assertSelector(self, response, selector, count=None, text=None, status_code=200):
+    self.assertEqual(response.status_code, status_code,
+        msg_prefix + "Couldn't retrieve content: Response code was %d"
+        " (expected %d)" % (response.status_code, status_code))
+
     pq = self.query(response, selector)
 
     if count is not None:

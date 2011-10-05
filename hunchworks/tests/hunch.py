@@ -35,10 +35,7 @@ class HunchViewsTest(TestCase, TestHelpers):
     with self.login("one"):
       hunch = Hunch.objects.get(pk=1)
       resp = self.get("hunch", hunch_id=hunch.pk)
-
-      self.assertEqual(resp.status_code, 200)
-      self.assertSelector(resp, "#page h1", text=hunch.title)
-      self.assertSelector(resp, "#page div.desc", text=hunch.description)
+      self.assertContains(resp, hunch.title)
 
   def test_create_hunch(self):
     with self.login("one"):

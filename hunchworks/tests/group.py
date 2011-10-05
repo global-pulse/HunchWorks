@@ -12,22 +12,18 @@ class GroupViewsTest(TestCase, TestHelpers):
   def test_all_groups(self):
     with self.login("one"):
       resp = self.get("all_groups")
-      self.assertEqual(resp.status_code, 200)
       self.assertSelector(resp, "div.group", count=3)
 
   def test_my_groups(self):
     with self.login("two"):
       resp = self.get("my_groups")
-      self.assertEqual(resp.status_code, 200)
       self.assertSelector(resp, "div.group", count=1)
 
   def test_show_group(self):
     with self.login("one"):
       group = Group.objects.get(pk=1)
       resp = self.get("group", group_id=group.pk)
-
-      self.assertEqual(resp.status_code, 200)
-      self.assertSelector(resp, "#page h1", text=group.name)
+      self.assertContains(resp, group.name)
 
   def test_create_group(self):
     with self.login("one"):
