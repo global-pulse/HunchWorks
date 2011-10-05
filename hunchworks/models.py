@@ -342,7 +342,7 @@ class Comment(models.Model):
     return self.get_absolute_base_url() + ("#c%d" % self.pk)
 
   def save(self, *args, **kwargs):
-    self.posted_at = datetime.datetime.today()
+    self.time_posted = datetime.datetime.today()
     super(Comment, self).save(*args, **kwargs)
 
 

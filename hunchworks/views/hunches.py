@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from hunchworks import models, forms
+from hunchworks import models, forms, hunchworks_enums
 from hunchworks.utils.pagination import paginated
 from django.template import RequestContext
 from django.core.exceptions import PermissionDenied
@@ -38,9 +38,9 @@ def all(req):
   })
 
 @login_required
-def undetermined(req):
+def open(req):
   """Render hunches with status = undetermined"""
-  hunches_ = req.user.get_profile().hunch_set.filter(status=2)
+  hunches_ = models.Hunch.objects.filter(privacy=hunchworks_enums.PrivacyLevel.OPEN, status=2)
   hunches = paginated(req, hunches_, 10)
   return _render(req, "undetermined", {
     "hunches": hunches
@@ -49,7 +49,7 @@ def undetermined(req):
 @login_required
 def finished(req):
   """Render hunches with status = ( denied or confirmed )"""
-  hunches_ = req.user.get_profile().hunch_set.filter(status__in=(0,1))
+  hunches_ = models.Hunch.objects.filter(privacy=hunchworks_enums.PrivacyLevel.OPEN, status__in=(0,1))
   hunches = paginated(req, hunches_, 10)
   return _render(req, "finished", {
     "hunches": hunches
