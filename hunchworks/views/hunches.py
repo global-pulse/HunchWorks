@@ -20,7 +20,7 @@ def index(req):
     return redirect( my )
   else:
     return redirect( all )
-  
+
 @login_required
 def my(req):
   hunches = paginated(req, req.user.get_profile().hunch_set.all(), 10)
@@ -28,7 +28,7 @@ def my(req):
   return _render(req, "my", {
     "hunches": hunches
   })
-  
+
 @login_required
 def all(req):
   hunches = paginated(req, models.Hunch.objects.all(), 10)
@@ -37,17 +37,34 @@ def all(req):
     "hunches": hunches
   })
 
+@login_required
+def undetermined(req):
+  """Render hunches with status = undetermined"""
+  hunches_ = req.user.get_profile().hunch_set.filter(status=2)
+  hunches = paginated(req, hunches_, 10)
+  return _render(req, "undetermined", {
+    "hunches": hunches
+  })
+
+@login_required
+def finished(req):
+  """Render hunches with status = ( denied or confirmed )"""
+  hunches_ = req.user.get_profile().hunch_set.filter(status__in=(0,1))
+  hunches = paginated(req, hunches_, 10)
+  return _render(req, "finished", {
+    "hunches": hunches
+  })
 
 @login_required
 def show(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
   comment_form = forms.HunchCommentForm(data=req.POST or None)
-  
+
   if len(hunch.user_profiles.filter(pk=req.user.get_profile().pk)) > 0:
     following = True
   else:
     following = False
-    
+
   if not hunch.is_viewable_by(req.user):
     raise PermissionDenied
 
