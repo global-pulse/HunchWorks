@@ -74,6 +74,11 @@ class Connection(models.Model):
 
   def __unicode__(self):
     return "%s -> %s" % (self.user_profile, self.other_user_profile)
+  
+  @classmethod
+  def search(cls, term, user_profile=None):
+     #return cls.objects.filter(user_profile__name__icontains=term)
+    return cls.objects.filter(user_profile=user_profile, other_user_profile__user__username__icontains=term)
 
 
 class Hunch(models.Model):

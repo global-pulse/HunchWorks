@@ -16,6 +16,11 @@ def _search(req, model):
   query_set = model.search(req.GET["q"], req.user.get_profile())
   return http.HttpResponse(json.dumps(_tokens(query_set)))
 
+def _search_collab(req, model):
+  query_set = model.search(req.GET["q"], req.user.get_profile())
+  values_list = query_set.values_list( "other_user_profile__id", "other_user_profile__user__username")
+  collaborators = [{ "id": x[0], "name": x[1]} for x in values_list]
+  return http.HttpResponse(json.dumps(collaborators))
 
 def languages(req):
   return _search(req, models.Language)
@@ -28,7 +33,8 @@ def tags(req):
 
 # stub
 def collaborators(req):
-  return http.HttpResponse(json.dumps([]))
+  return _search_collab(req, models.Connection)
+
 
 def user_collaborators(request, user_id):
   user = get_object_or_404(models.UserProfile, pk=user_id)

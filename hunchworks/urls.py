@@ -54,7 +54,7 @@ urlpatterns = patterns(
 
 urlpatterns += patterns(
   'hunchworks.json_views',
-  (r'^user/(?P<user_id>\d+)/collaborators$', 'user_collaborators'),
+  (r'^user/(?P<user_id>\d+)/collaborators$', 'collaborators'),
   (r'^user/(?P<user_id>\d+)/languages$', 'user_languages'),
   (r'^user/(?P<user_id>\d+)/skills$', 'user_skills'),
   (r'^group/(?P<group_id>\d+)/collaborators$', 'group_collaborators'),
