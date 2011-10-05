@@ -12,12 +12,12 @@ class GroupViewsTest(TestCase, TestHelpers):
   def test_all_groups(self):
     with self.login("one"):
       resp = self.get("all_groups")
-      self.assertSelector(resp, "div.group", count=3)
+      self.assertQuery(resp, "div.group", count=3)
 
   def test_my_groups(self):
     with self.login("two"):
       resp = self.get("my_groups")
-      self.assertSelector(resp, "div.group", count=1)
+      self.assertQuery(resp, "div.group", count=1)
 
   def test_show_group(self):
     with self.login("one"):

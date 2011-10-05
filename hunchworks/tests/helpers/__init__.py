@@ -44,15 +44,19 @@ class TestHelpers(object):
     url_parts = urlparse(response['location'])
     self.assertEqual(url_parts.path, settings.LOGIN_URL)
 
-  def assertSelector(self, response, selector, count=None, text=None, status_code=200):
+  def assertQuery(self, response, selector, count=1, status_code=200, msg_prefix=""):
+    """
+    Assert that ``response`` indicates that the request succeeded (i.e. the HTTP
+    status code was as expected), and that querying the resulting DOM with a CSS
+    ``selector`` results in ``count`` elements.
+    """
+
+    if msg_prefix:
+        msg_prefix += ": "
+
     self.assertEqual(response.status_code, status_code,
         msg_prefix + "Couldn't retrieve content: Response code was %d"
         " (expected %d)" % (response.status_code, status_code))
 
     pq = self.query(response, selector)
-
-    if count is not None:
-      self.assertEqual(len(pq), count)
-
-    if text is not None:
-      self.assertEqual(pq.text(), text)
+    self.assertEqual(len(pq), count)

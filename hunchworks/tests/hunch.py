@@ -22,14 +22,12 @@ class HunchViewsTest(TestCase, TestHelpers):
   def test_all_hunches(self):
     with self.login("one"):
       resp = self.get("all_hunches")
-      self.assertEqual(resp.status_code, 200)
-      self.assertSelector(resp, "div.hunch", count=1)
+      self.assertQuery(resp, "div.hunch", count=1)
 
   def test_my_hunches(self):
     with self.login("two"):
       resp = self.get("my_hunches")
-      self.assertEqual(resp.status_code, 200)
-      self.assertSelector(resp, "div.hunch", count=1)
+      self.assertQuery(resp, "div.hunch", count=1)
 
   def test_show_hunch(self):
     with self.login("one"):
