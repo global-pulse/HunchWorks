@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% get_static_prefix %}css/groups.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/hunches.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/comments.css">
+    <link rel="stylesheet" href="{% get_static_prefix %}css/connections.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/location-widget.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/evidence-widget.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/token-input.css">
@@ -49,6 +50,7 @@
           </nav>
           <nav>
             <ul>
+              <li><a href="{% url connections %}">Connections</a></li>
               <li><a href="{% url hunches %}">Hunches</a></li>
               <li><a href="{% url groups %}">Groups</a></li>
               <li><a href="{% url profile %}">Profile</a></li>

@@ -21,7 +21,7 @@ urlpatterns = patterns(
   url(r'^profile/(?P<user_id>\d+)/edit$', users.edit, name="edit_profile"),
   url(r'^profile$', users.profile, name="profile"),
   url(r'^profile/edit$', users.edit, name="edit_profile"),
-  url(r'^connections$', users.connections, name="connection"),
+  url(r'^connections$', users.connections, name="connections"),
 
   # groups
   url(r'^groups$',                         groups.index,  name="groups"),

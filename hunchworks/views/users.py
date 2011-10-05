@@ -63,11 +63,11 @@ def edit(req, user_id=None):
 def connections(req, user_id=None):
   if not user_id:
     user_id = req.user.pk
-  userprofile = get_object_or_404(models.UserProfile, pk=user_id)
-  connected_profiles = userprofile.connections.all()
+  user_profile = get_object_or_404(models.UserProfile, pk=user_id)
+  connected_profiles = user_profile.connections.all()
   context = RequestContext(req)
   context.update({ "connected_profiles":connected_profiles})
-  return _render(req, "profile", context)
+  return _render(req, "connections", context)
 
 def handle_uploaded_file(f):
   dest_path = settings.MEDIA_ROOT + '/profile_images/'

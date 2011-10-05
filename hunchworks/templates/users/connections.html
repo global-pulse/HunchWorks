@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="/static/profile.css" type="text/css"/>
+{% endblock %}
+{% block content %}
+  <div id='contents'>
+    <div class="connections">
+	  {% for connection in connected_profiles %}
+		<div class="connection">
+		  <a href="{{ connection.get_absolute_url }}">
+			<img src="{{ connection.profile_picture_url }}" width="172">
+			<span>{{ connection }}</span>
+		  </a>
+		</div>
+	  {% endfor %}
+	</div>
+  </div> <!-- end contents div -->
+
+{% endblock %}
