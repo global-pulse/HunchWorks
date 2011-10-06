@@ -13,7 +13,9 @@ def _tokens(query_set, keys=("id", "name")):
     query_set.values_list(*keys))
 
 def _search(req, model):
+  print "here"
   query_set = model.search(req.GET["q"], req.user.get_profile())
+  print query_set
   return http.HttpResponse(json.dumps(_tokens(query_set)))
 
 def _search_collab(req, model):
@@ -31,17 +33,15 @@ def skills(req):
 def tags(req):
   return _search(req, models.Tag)
 
-# stub
 def collaborators(req):
+  #this we can probably refactor and include everything in _search collab in here
   return _search_collab(req, models.Connection)
 
-
-def user_collaborators(request, user_id):
-  user = get_object_or_404(models.UserProfile, pk=user_id)
-  collaborators = user.connections.values_list('id', 'name')
-  collaborators =  [{ "id": x[0], "name": x[1]} for x in collaborators]
-  
-  return http.HttpResponse( simplejson.dumps(collaborators) )
+def user_groups(req):
+  query_set = req.user.get_profile().group_set.filter(name__icontains=req.GET["q"])
+  values_list = query_set.values_list("id", "name")
+  groups = [{ "id": x[0], "name": x[1]} for x in values_list]
+  return http.HttpResponse(json.dumps(groups))
 
 
 def user_languages(request, user_id):

@@ -182,6 +182,7 @@ class HunchForm(ModelForm):
   languages = TokenField(models.Language, json_views.languages, required=False)
   skills = TokenField(models.Skill, json_views.skills, required=False)
   user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False)
+  add_groups = TokenField(models.Group, json_views.user_groups, required=False)
   location = LocationField(required=False)
   evidences = EvidenceField(required=False)
 
@@ -200,9 +201,10 @@ class HunchForm(ModelForm):
       attr = getattr(self.instance, field_name)
       self._stash[field_name] = attr.all()
 
-  def apply(self, field_name):
+  def apply(self, field_name, extra_values=[]):
     old = set(self._stash.pop(field_name, []))
     new = set(self.cleaned_data[field_name])
+    new = new.union(set(extra_values))
 
     field = self._meta.model._meta.get_field_by_name(field_name)[0]
     objects = field.rel.through.objects
@@ -233,8 +235,14 @@ class HunchForm(ModelForm):
       hunch.tags = self.cleaned_data['tags']
       hunch.languages = self.cleaned_data['languages']
       hunch.skills = self.cleaned_data['skills']
+      
+      add_groups = self.cleaned_data['add_groups']
+      print add_groups
+      group_members = []
+      for group in add_groups:
+        group_members.extend(group.members.all())
 
-      self.apply("user_profiles")
+      self.apply("user_profiles", group_members)
       self.apply("evidences")
 
     return hunch

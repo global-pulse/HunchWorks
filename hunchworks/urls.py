@@ -23,6 +23,7 @@ urlpatterns = patterns(
   url(r'^profile/edit$', users.edit, name="edit_profile"),
   url(r'^connections$', users.connections, name="connections"),
 
+
   # groups
   url(r'^groups$',                         groups.index,  name="groups"),
   url(r'^groups/my$',                      groups.my,     name="my_groups"),
@@ -66,4 +67,5 @@ urlpatterns += patterns(
   (r'^languages$', 'languages'),
   (r'^tags$', 'tags'),
   (r'^collaborators$', 'collaborators'),
+  (r'^user/groups$', 'user_groups'),
 )
