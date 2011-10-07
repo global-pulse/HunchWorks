@@ -37,26 +37,29 @@ class HunchViewsTest(TestCase, TestHelpers):
 
   def test_create_hunch(self):
     with self.login("one"):
-      form = self.get_form("create_hunch")
-      resp = self.submit_form(form, {
+      get_resp = self.get("create_hunch")
+      self.assertTemplateUsed(get_resp, "hunches/create.html")
+
+      post_resp = self.submit_form(get_resp, {
         "title": "Test Create Hunch",
         "translation_language": "1",
         "description": "I have a hunch that this test is going to pass"
       })
 
       created_hunch = Hunch.objects.get(title="Test Create Hunch")
-      self.assertRedirects(resp, created_hunch.get_absolute_url())
+      self.assertRedirects(post_resp, created_hunch.get_absolute_url())
 
   def test_edit_hunch(self):
     with self.login("one"):
       old_hunch = Hunch.objects.get(pk=1)
+      get_resp = self.get("edit_hunch", hunch_id=1)
+      self.assertTemplateUsed(get_resp, "hunches/edit.html")
 
-      form = self.get_form("edit_hunch", hunch_id=1)
-      resp = self.submit_form(form, {
+      post_resp = self.submit_form(get_resp, {
         "title": "Test Edit Hunch"
       })
 
       new_hunch = Hunch.objects.get(pk=1)
-      self.assertRedirects(resp, new_hunch.get_absolute_url())
-      self.assertEqual(old_hunch.description, new_hunch.description)
       self.assertEqual(new_hunch.title, "Test Edit Hunch")
+      self.assertEqual(old_hunch.description, new_hunch.description)
+      self.assertRedirects(post_resp, new_hunch.get_absolute_url())
