@@ -43,6 +43,10 @@ def all(req):
 def show(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
   members = paginated(req, group.members.all(), 10)
+  hunches = set()
+  for member in group.members.all():
+    hunches = hunches.union(set(member.hunch_set.all()))
+  print hunches
   
   if len(group.members.filter(pk=req.user.get_profile().pk)) > 0:
     is_member = True
@@ -50,7 +54,7 @@ def show(req, group_id):
     is_member = False
 
   return _render(req, "show", {
-    "group": group, "group_members": members, "is_member": is_member,
+    "group": group, "group_members": members, "is_member": is_member, "hunches": hunches
   })
 
 @login_required

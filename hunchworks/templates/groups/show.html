@@ -38,20 +38,44 @@
         {% endif %}
       </div>
       <div class="clear-hack"></div>
-
-      <h2>Members of {{ group }}</h2>
-      <div class="members">
-        {% for member in group.members.all %}
-          <div class="member">
-            <a href="{{ member.get_absolute_url }}">
-              <img src="{{ member.profile_picture_url }}" width="172">
-              <span>{{ member }}</span>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-      <div class="clear-hack"></div>
-    </div>
+      <div class="left">
+		<h2>Members of {{ group }}</h2>
+		<div class="members">
+		  {% for member in group.members.all %}
+			<div class="member">
+			  <a href="{{ member.get_absolute_url }}">
+				<img src="{{ member.profile_picture_url }}" width="110">
+				<span>{{ member }}</span>
+			  </a>
+			</div>
+		  {% endfor %}
+		</div>
+	  </div>
+	  <div class="right">
+	    <h2>Hunches involving members</h2>
+		<div class="hunches">
+		  {% for hunch in hunches %}
+			<div class="hunch"><div>
+			  <h3><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h3>
+	  
+			  {% if hunch.description %}
+				<div class="desc">
+				  {{ hunch.description|truncatewords:60|safe }}
+				</div>
+			  {% endif %}
+	  
+			  <ul class="stats">
+				<li>{{ hunch.member_count }} members</li>
+				<li>{{ hunch.evidence_count }} evidence</li>
+			  </ul>
+	  
+			  <div class="clear-hack"></div>
+			</div></div>
+		  {% endfor %}
+		  <div class="clear-hack"></div>
+		</div>
+	  </div>
+	</div>
 
     <div class="links">
       <ul>
