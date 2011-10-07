@@ -6,7 +6,7 @@ from hunchworks.utils.tests import FunctionalTest
 
 
 class GroupViewsTest(FunctionalTest):
-  fixtures = ["test_users", "test_groups"]
+  fixtures = ["test_users", "test_groups", "test_hunches"]
 
   def setUp(self):
     self._user = User.objects.create_user("user", "a@b.com", "pass")
@@ -35,6 +35,8 @@ class GroupViewsTest(FunctionalTest):
   def test_get_show(self):
     self.GET("/groups/1")
     self.assertCss("div.group")
+    self.assertCss("div.member", 1)
+    self.assertCss("div.hunch", 4)
 
   def test_get_edit(self):
     self.GET("/groups/1/edit")
