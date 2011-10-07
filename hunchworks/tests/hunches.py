@@ -32,6 +32,26 @@ class HunchViewsTest(FunctionalTest):
     HunchUser.objects.create(user_profile=self._user.get_profile(), hunch=hunch)
     self.GET("/hunches/my")
     self.assertCss("div.hunch", 1)
+    
+  def test_get_open(self):
+    self.GET("/hunches/open")
+    self.assertCss("div.hunch", 6)
+    hunch = Hunch.objects.create(creator=self._user.get_profile(), title="blah", translation_language=TranslationLanguage.objects.get(pk=1), description="desc", status=2, privacy=2)
+    HunchUser.objects.create(user_profile=self._user.get_profile(), hunch=hunch)
+    self.GET("/hunches/open")
+    self.assertCss("div.hunch", 7)
+    
+  def test_get_finished(self):
+    self.GET("/hunches/finished")
+    self.assertCss("div.hunch", 5)
+    hunch = Hunch.objects.create(creator=self._user.get_profile(), title="blah", translation_language=TranslationLanguage.objects.get(pk=1), description="desc", status=1, privacy=2)
+    HunchUser.objects.create(user_profile=self._user.get_profile(), hunch=hunch)
+    self.GET("/hunches/finished")
+    self.assertCss("div.hunch", 6)
+    hunch2 = Hunch.objects.create(creator=self._user.get_profile(), title="blah2", translation_language=TranslationLanguage.objects.get(pk=1), description="desc2", status=0, privacy=2)
+    HunchUser.objects.create(user_profile=self._user.get_profile(), hunch=hunch2)
+    self.GET("/hunches/finished")
+    self.assertCss("div.hunch", 7)
 
   def test_get_show(self):
     self.GET("/hunches/1")
