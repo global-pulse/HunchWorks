@@ -101,7 +101,7 @@
         $(function() {
           $("div.evidence div.embed a").each(function() {
             $(this).embedly({
-              "key": "b0383ffaf0ff11e0a68e4040d3dc5c07",
+              "key": window.hunchworks.embedly_key,
               "maxWidth": $(this).parent().width()
             });
           });

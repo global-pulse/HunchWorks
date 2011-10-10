@@ -1,6 +1,4 @@
 $(function() {
-  var EMBEDLY_KEY = "b0383ffaf0ff11e0a68e4040d3dc5c07";
-
   $(".embed-widget").each(function() {
     var $widget = $(this);
     var $search = $widget.find("input");
@@ -28,7 +26,7 @@ $(function() {
         loading(true);
 
         $.embedly(url(), {
-          "key": EMBEDLY_KEY,
+          "key": window.hunchworks.embedly_key,
           "maxWidth": $search.outerWidth(),
           "success": function(oembed, dict) {
 
