@@ -86,7 +86,7 @@
                   <a href="{{ evidence.link }}">{{ evidence.link }}</a>
                 </div>
                 <ul class="meta">
-                  <li class="source"><span>Source</span> <a href="{{ evidence.link }}">{{ evidence.link }}</a></li>
+                  <li class="source"><span>Source</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
                   <li class="date"><span>Posted</span> {{ evidence.time_created|date:"j F Y" }}</li>
                   <li class="creator"><span>By</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
                 </ul>

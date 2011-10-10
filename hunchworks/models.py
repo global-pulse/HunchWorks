@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import datetime
+from urlparse import urlparse
 import hunchworks_enums
 from django.db import models
 from django.contrib.auth.models import User
@@ -163,6 +164,9 @@ class Evidence(models.Model):
 
   def type(self):
     return "Link"
+
+  def short_link(self, max_length=32):
+    return urlparse(self.link).hostname
 
   def save(self, *args, **kwargs):
     now = datetime.datetime.today()
