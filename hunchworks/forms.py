@@ -248,13 +248,47 @@ class HunchForm(ModelForm):
     return hunch
 
 
+
+
+class EmbedWidget(forms.TextInput):
+  def render(self, name, value, attrs=None):
+    widget = super(EmbedWidget, self).render(
+      name, value, attrs)
+
+    return mark_safe(u"""
+      <div class="embed-widget">
+        %s
+      </div>
+    """ % (widget))
+
+
+class EmbedField(forms.CharField):
+  widget = EmbedWidget
+
+
 class EvidenceForm(ModelForm):
+  tags = TokenField(models.Tag, json_views.tags, required=False)
+  link = EmbedField(
+    help_text='Enter an URL to be embedded. You can find a list of supported ' +
+              'providers at <a href="http://embed.ly/providers">Embedly</a>.')
+
   class Meta:
     model = models.Evidence
-    exclude = (
-      'hunch_id', 'creator_id', 'time_created', 'time_modified',
-      'attachments', 'albums', 'hunch', 'evidence_tags'
+    fields = (
+      "title", "description", "link", "tags"
     )
+
+  def save(self, creator=None):
+    with transaction.commit_on_success():
+      evidence = super(EvidenceForm, self).save(commit=False)
+
+      if creator is not None:
+        evidence.creator = creator
+
+      evidence.save()
+      return evidence
+
+
 
 
 class GroupForm(ModelForm):

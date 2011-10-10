@@ -1,0 +1,23 @@
+[
+  {
+    "pk": 1,
+    "model": "hunchworks.evidence",
+    "fields": {
+      "title": "Test Evidence One",
+      "description": "This is a Nyan Cat.",
+      "creator": 2,
+      "time_created": "2000-01-01 00:00:00",
+      "time_modified": "2000-01-01 00:00:00",
+      "link": "http://www.youtube.com/watch?v=QH2-TGUlwu4"
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "hunchworks.hunchevidence",
+    "fields": {
+      "evidence": 1,
+      "hunch": 1
+    }
+  }
+]

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load paginator_tags %}
+
+{% block content %}
+  <div id="evidences-list">
+    <h1>
+      <a href="{% url evidences %}">All Evidences</a>
+    </h1>
+
+    <div class="evidences">
+      {% for evidence in evidences.object_list %}
+        <div class="evidence">
+          <a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="links">
+      <ul>
+        <li><a href="{% url create_evidence %}">Create an Evidence</a></li>
+      </ul>
+
+      {% paginator evidences %}
+      <div class="clear-hack"></div>
+    </div>
+  </div>
+{% endblock %}

@@ -49,6 +49,11 @@ urlpatterns = patterns(
   url(r'^hunches/feed/$', feeds.RecentHunchFeed()),
 
   # evidences
+  url(r'^evidence$',                           evidences.index,  name="evidences"),
+  url(r'^evidence/(?P<evidence_id>\d+)$',      evidences.show,   name="evidence"),
+  url(r'^evidence/(?P<evidence_id>\d+)/edit$', evidences.edit,   name="edit_evidence"),
+  url(r'^evidence/create$',                    evidences.create, name="create_evidence"),
+
   url(r'^evidences/search.json$', evidences.search, name="search_evidence"),
   url(r'^evidences/feed/$', feeds.EvidencesFeed())
 )

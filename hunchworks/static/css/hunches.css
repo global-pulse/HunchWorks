@@ -278,6 +278,10 @@ div.hunches {
                 color: #999;
               }
 
+                #hunch-show> .left > div.evidence > ul > li > div.right > ul.meta > li span {
+                  color: #bbb;
+                }
+
       #hunch-show> .left > div.comments {
         margin-top: 2em;
       }

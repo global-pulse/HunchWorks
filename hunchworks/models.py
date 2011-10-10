@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import datetime
+from urlparse import urlparse
 import hunchworks_enums
 from django.db import models
 from django.contrib.auth.models import User
@@ -154,8 +155,7 @@ class Evidence(models.Model):
   time_modified = models.DateTimeField()
   description = models.TextField(blank=True)
   creator = models.ForeignKey('UserProfile')
-  albums = models.ManyToManyField('Album', blank=True)
-  attachments = models.ManyToManyField('Attachment', blank=True)
+  link = models.CharField(max_length=255)
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
@@ -164,8 +164,8 @@ class Evidence(models.Model):
   def type(self):
     return "Link"
 
-  def link(self):
-    return "http://example.com/a/b"
+  def short_link(self, max_length=32):
+    return urlparse(self.link).hostname
 
   def save(self, *args, **kwargs):
     now = datetime.datetime.today()
@@ -176,6 +176,10 @@ class Evidence(models.Model):
 
     self.time_modified = now
     super(Evidence, self).save(*args, **kwargs)
+
+  @models.permalink
+  def get_absolute_url(self):
+    return ("evidence", [self.pk])
 
   @classmethod
   def search(cls, term, user_profile=None):

@@ -69,9 +69,6 @@ def show(req, hunch_id):
   else:
     following = False
 
-  if not hunch.is_viewable_by(req.user):
-    raise PermissionDenied
-
   if comment_form.is_valid():
     comment = comment_form.save(commit=False)
     comment.creator = req.user.get_profile()

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div id="evidence-show">
+    <div class="evidence">
+      <h1>{{ evidence }}</h1>
+    </div>
+
+    <div class="links">
+      <ul>
+        <li><a href="{% url edit_evidence evidence.pk %}">Edit this Evidence</a></li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
