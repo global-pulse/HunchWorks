@@ -61,6 +61,5 @@ def invitePeople(req):
     
   if form.is_valid(): # All validation rules pass
     form.save(req.user.pk)
-  print form.errors
 
   return redirect("profile")

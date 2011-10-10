@@ -237,8 +237,8 @@ class HunchForm(ModelForm):
       hunch.skills = self.cleaned_data['skills']
       
       add_groups = self.cleaned_data['add_groups']
-      print add_groups
       group_members = []
+
       for group in add_groups:
         group_members.extend(group.members.all())
 
@@ -349,7 +349,7 @@ class InvitePeople(forms.Form):
   def save(self, user_id, hunch=None, *args, **kwargs):
     user = models.UserProfile.objects.get(pk=user_id)
     #hunch = models.Hunch.objects.get(pk=hunch_id)
-    print self.cleaned_data
+
     #TODO( Chris: 8-15-2011): figure out how ot introspect invited_emails object instead
     # of using email_input
     for email_input in self.cleaned_data['invited_emails']:

@@ -13,9 +13,7 @@ def _tokens(query_set, keys=("id", "name")):
     query_set.values_list(*keys))
 
 def _search(req, model):
-  print "here"
   query_set = model.search(req.GET["q"], req.user.get_profile())
-  print query_set
   return http.HttpResponse(json.dumps(_tokens(query_set)))
 
 def _search_collab(req, model):
