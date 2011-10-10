@@ -174,6 +174,10 @@ class Evidence(models.Model):
     self.time_modified = now
     super(Evidence, self).save(*args, **kwargs)
 
+  @models.permalink
+  def get_absolute_url(self):
+    return ("evidence", [self.pk])
+
   @classmethod
   def search(cls, term, user_profile=None):
     return cls.objects.filter(description__icontains=term)

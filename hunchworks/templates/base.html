@@ -14,10 +14,12 @@
     <link rel="stylesheet" href="{% get_static_prefix %}css/auth.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/groups.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/hunches.css">
+    <link rel="stylesheet" href="{% get_static_prefix %}css/evidences.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/comments.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/connections.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/location-widget.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/evidence-widget.css">
+    <link rel="stylesheet" href="{% get_static_prefix %}css/embed-widget.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/token-input.css">
     {% block css %}{% endblock %}
 
@@ -31,9 +33,11 @@
     <script src="/static/main.js"></script>
 
     <!-- temporary! use widget media -->
+    <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
     <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="/static/js/location-widget.js"></script>
     <script src="/static/js/evidence-widget.js"></script>
+    <script src="/static/js/embed-widget.js"></script>
     {% block js %}{% endblock %}
   </head>
   <body>
@@ -52,6 +56,7 @@
             <ul>
               <li><a href="{% url connections %}">Connections</a></li>
               <li><a href="{% url hunches %}">Hunches</a></li>
+              <li><a href="{% url evidences %}">Evidence</a></li>
               <li><a href="{% url groups %}">Groups</a></li>
               <li><a href="{% url profile %}">Profile</a></li>
             </ul>
