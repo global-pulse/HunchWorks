@@ -43,10 +43,10 @@ def all(req):
 def show(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
   members = paginated(req, group.members.all(), 10)
-  hunches = set()
-  for member in group.members.all():
-    hunches = hunches.union(set(member.hunch_set.all()))
-  print hunches
+
+  group_members = group.members.values_list("id", flat=True)
+  hunch_users = models.HunchUser.objects.filter(user_profile__in=group_members).values_list("hunch_id", flat=True).distinct()
+  hunches = models.Hunch.objects.filter(id__in=hunch_users).order_by("-time_modified")[:3]
   
   if len(group.members.filter(pk=req.user.get_profile().pk)) > 0:
     is_member = True
@@ -98,3 +98,17 @@ def leave(req, group_id):
   user_profile_group = get_object_or_404(models.UserProfileGroup, group=group, user_profile=req.user.get_profile()).delete()
   
   return redirect(index)
+  
+@login_required
+def view_hunches(req, group_id):
+  group = get_object_or_404(models.Group, pk=group_id)
+  
+  group_members = group.members.values_list("id", flat=True)
+  hunch_users = models.HunchUser.objects.filter(user_profile__in=group_members).values_list("hunch_id", flat=True).distinct()
+  hunches = models.Hunch.objects.filter(id__in=hunch_users).order_by("-time_modified")
+  
+  hunches = paginated(req, hunches, 10)
+  
+  return _render(req, "view_hunches", {
+    "group": group, "hunches": hunches
+  })

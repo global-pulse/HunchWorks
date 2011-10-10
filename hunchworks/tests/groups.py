@@ -36,6 +36,10 @@ class GroupViewsTest(FunctionalTest):
     self.GET("/groups/1")
     self.assertCss("div.group")
     self.assertCss("div.member", 1)
+    self.assertCss("div.hunch", 3)
+    
+  def test_get_more_hunches(self):
+    self.GET("/groups/1/hunches")
     self.assertCss("div.hunch", 4)
 
   def test_get_edit(self):
