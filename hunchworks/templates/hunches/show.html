@@ -82,10 +82,13 @@
               </div>
               <div class="right">
                 <h3>&quot;{{ evidence }}&quot;</h3>
+                <div class="embed">
+                  <a href="{{ evidence.link }}">{{ evidence.link }}</a>
+                </div>
                 <ul class="meta">
-                  <li class="type">Tweet</li>
-                  <li class="source"><a href="">http://twitter.com/kanyewest</a></li>
-                  <li class="date">13 June 1984</li>
+                  <li class="source"><span>Source</span> <a href="{{ evidence.link }}">{{ evidence.link }}</a></li>
+                  <li class="date"><span>Posted</span> {{ evidence.time_created|date:"j F Y" }}</li>
+                  <li class="creator"><span>By</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
                 </ul>
               </div>
               <div class="clear-hack"></div>
@@ -93,6 +96,17 @@
           {% endfor %}
         </ul>
       </div>
+
+      <script>
+        $(function() {
+          $("div.evidence div.embed a").each(function() {
+            $(this).embedly({
+              "key": "b0383ffaf0ff11e0a68e4040d3dc5c07",
+              "maxWidth": $(this).parent().width()
+            });
+          });
+        });
+      </script>
 
       <div class="comments">
         <h2>Comments</h2>
