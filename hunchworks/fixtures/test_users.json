@@ -4,7 +4,7 @@
     "model": "auth.user",
     "fields": {
       "username": "one",
-      "password": ""
+      "password": "sha1$46418$ec45f4354f5583a22949b6bf87e756c5da58567d"
     }
   },
   {
@@ -13,9 +13,7 @@
     "fields": {
       "user": 1,
       "name": "Test One",
-      "email": "one@example.com",
-      "skills": [1,2],
-      "languages": [2]
+      "email": "one@example.com"
     }
   },
 
@@ -24,7 +22,7 @@
     "model": "auth.user",
     "fields": {
       "username": "two",
-      "password": ""
+      "password": "sha1$ae21b$9d22a517ce289278a5e9b9e28ddd04d8ea725648"
     }
   },
   {
@@ -33,9 +31,7 @@
     "fields": {
       "user": 2,
       "name": "Test Two",
-      "email": "two@example.com",
-      "skills": [2,3],
-      "languages": [3]
+      "email": "two@example.com"
     }
   },
 
@@ -44,7 +40,7 @@
     "model": "auth.user",
     "fields": {
       "username": "three",
-      "password": ""
+      "password": "sha1$f2274$6003c74bb645c292541ab19292e5bc2fd32660d2"
     }
   },
   {
@@ -53,9 +49,7 @@
     "fields": {
       "user": 3,
       "name": "Test Three",
-      "email": "three@example.com",
-      "skills": [3,4],
-      "languages": [1]
+      "email": "three@example.com"
     }
   }
 ]

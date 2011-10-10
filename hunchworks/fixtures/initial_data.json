@@ -1,34 +1,30 @@
 [
-    {
-        "pk": 1,
-        "model": "hunchworks.translationlanguage",
-        "fields": 
-        {
-            "name": "English"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "hunchworks.translationlanguage",
-        "fields": 
-        {
-            "name": "French"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "hunchworks.translationlanguage",
-        "fields": 
-        {
-            "name": "Spanish"
-        }
-    },
-    {
-        "pk": 4,
-        "model": "hunchworks.translationlanguage",
-        "fields": 
-        {
-            "name": "German"
-        }
+  {
+    "pk": 1,
+    "model": "hunchworks.translationlanguage",
+    "fields": {
+      "name": "English"
     }
+  },
+  {
+    "pk": 2,
+    "model": "hunchworks.translationlanguage",
+    "fields": {
+      "name": "French"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "hunchworks.translationlanguage",
+    "fields": {
+      "name": "Spanish"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "hunchworks.translationlanguage",
+    "fields": {
+      "name": "German"
+    }
+  }
 ]
