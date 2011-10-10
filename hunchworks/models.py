@@ -155,8 +155,7 @@ class Evidence(models.Model):
   time_modified = models.DateTimeField()
   description = models.TextField(blank=True)
   creator = models.ForeignKey('UserProfile')
-  albums = models.ManyToManyField('Album', blank=True)
-  attachments = models.ManyToManyField('Attachment', blank=True)
+  link = models.CharField(max_length=255)
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
@@ -164,9 +163,6 @@ class Evidence(models.Model):
 
   def type(self):
     return "Link"
-
-  def link(self):
-    return "http://example.com/a/b"
 
   def save(self, *args, **kwargs):
     now = datetime.datetime.today()
