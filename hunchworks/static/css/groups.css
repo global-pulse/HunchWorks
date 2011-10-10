@@ -1,3 +1,38 @@
+#groups-index nav {
+  float: left;
+  margin-left: 1em;
+}
+
+  #groups-index nav li {
+	float: left;
+	list-style: none;
+
+	line-height: 3;
+	margin-top: 1em;
+
+	padding: 0 1em;
+	margin-left: 1px;
+
+	color: #666;
+	background: #ccc;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc');
+	background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+	background: -moz-linear-gradient(top,  #eee,  #ccc);
+
+	border: 1px solid #ccc;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom: none;
+  }
+  
+  #groups-index a {
+	text-decoration: none;
+  }
+
+	#groups-index a:hover {
+	  background: none;
+	}
+
 #groups-index div.groups {
   margin: -0.5em;
 }

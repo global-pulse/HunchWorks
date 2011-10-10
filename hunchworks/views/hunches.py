@@ -44,7 +44,7 @@ def open(req):
     privacy=hunchworks_enums.PrivacyLevel.OPEN, status=2
     ).order_by("-time_modified")
   hunches = paginated(req, hunches_, 10)
-  return _render(req, "undetermined", {
+  return _render(req, "open", {
     "hunches": hunches
   })
 
