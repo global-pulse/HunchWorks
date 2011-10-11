@@ -1,12 +1,11 @@
-{% extends "base.html" %}
-{% block title %}Edit a Hunch{% endblock %}
-{% block content %}
-  <h1 id='hunchId' hunch='{{ hunch.id }}' user='{{ user.id }}'>
-    <a href="{% url hunches %}">Hunches</a> &raquo;
-    <a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a> &raquo;
-    Edit
-  </h1>
+{% extends "hunches/base.html" %}
 
+{% block header %}
+  {{ block.super }}
+  <h1>Edit a Hunch</h1>
+{% endblock %}
+
+{% block content %}
   <form action="" method="post" class="edit hunch">
     {% include "hunches/form.html" %}
 

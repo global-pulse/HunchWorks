@@ -66,6 +66,7 @@
             </ul>
           {% endif %}
         {% endblock %}
+
         {% block primary_nav %}
           <ul class="primary">
             <li class="active"><a href="{% url hunches %}">Hunches</a></li>
@@ -73,12 +74,8 @@
             <li><a href="{% url groups %}">Groups</a></li>
           </ul>
         {% endblock %}
-        {% block secondary_nav %}
-          <ul class="secondary">
-            <li class="active"><a href="{% url my_groups %}">My Groups</a></li>
-            <li><a href="{% url all_groups %}">All Groups</a></li>
-          </ul>
-        {% endblock %}
+  
+        {% block secondary_nav %}{% endblock %}
       </nav>
 
       <div id="page">
