@@ -1,5 +1,5 @@
 body {
-  padding: 1em;
+  padding: 0 1em;
   background: #eee;
   color: #333;
 }
@@ -13,71 +13,40 @@ a {
   max-width: 960px;
   min-width: 650px;
   margin: 0 auto;
+  border: 1px solid #ccc;
+  border-top: none;
 }
 
   header {
-    padding: 0 1em;
-  }
-
-    header a {
-      text-decoration: none;
-    }
-
-      header a:hover {
-        background: none;
-      }
-
-    header h1 {
-      float: left;
-      font-size: 200%;
-      font-weight: bold;
-      line-height: 2em;
-      color: #000
-    }
-
-    header nav {
-      float: right;
-      margin-left: 1em;
-    }
-
-      header nav li {
-        float: left;
-        list-style: none;
-
-        line-height: 3;
-        margin-top: 1em;
-
-        padding: 0 1em;
-        margin-left: 1px;
-
-        color: #666;
-        background: #ccc;
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc');
-        background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
-        background: -moz-linear-gradient(top,  #eee,  #ccc);
-
-        border: 1px solid #ccc;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        border-bottom: none;
-      }
-
-  #page {
-    -webkit-box-shadow: 0 0 10px #ccc;
-    -moz-box-shadow: 0 0 10px #ccc;
-    box-shadow: 0 0 10px #ccc;
-    background: #fff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
+    overflow: hidden;
     padding: 1em;
   }
 
-    #page h1 {
+    header > h1 {
+      float: left;
       font-size: 200%;
-      margin-bottom: 0.5em;
+      margin-right: 0.5em;
+      padding-right: 0.5em;
+      border-right: 1px dotted #ccc;
+      font-weight: bold;
+      color: #000;
     }
 
-      #page h1 a {
+      header > h1 > a {
         text-decoration: none;
       }
+
+    header > h1:last-child {
+      border-right: none;
+      margin-right: 0;
+      padding-right: 0;
+    }
+
+  #page {
+    background: #fff;
+    padding: 1em;
+  }
 
     #page div.links {
       font-size: 80%;
