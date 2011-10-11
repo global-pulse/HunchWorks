@@ -1,0 +1,53 @@
+nav {
+  position: relative;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #aaa;
+  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+}
+
+nav > ul.user {
+  display: none;
+}
+
+nav > ul {
+  padding: 2px 0.5em;
+  overflow: hidden;
+}
+
+  nav > ul { }
+
+    nav > ul > li {
+      display: block;
+      float: left;
+      padding: 1px;
+      border-radius: 3px;
+      margin-right: 1px;
+      color: #666;
+    }
+
+      nav > ul > li > a {
+        display: block;
+        padding: 0.5em;
+        text-decoration: none;
+      }
+
+    nav > ul > li.active {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 0;
+      color: #000;
+    }
+
+    nav > ul > li:not(.active):hover {
+      background: #eee;
+      border: 1px solid #ccc;
+      padding: 0;
+    }
+
+nav > ul.primary { }
+
+nav > ul.secondary {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

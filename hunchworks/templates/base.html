@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="{% get_static_prefix %}css/reset.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/base.css">
+    <link rel="stylesheet" href="{% get_static_prefix %}css/nav.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/forms.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/pagination.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/utils.css">
@@ -50,27 +51,35 @@
     <div id="wrapper">
 
       <header>
-        <h1><a href="{% url dashboard %}">HunchWorks</a></h1>
+        {% block header %}
+          <h1><a href="{% url dashboard %}" title="Return to Dashboard">HunchWorks</a></h1>
+        {% endblock %}
+      </header>
 
-        {% if user.is_authenticated %}
-          <nav>
-            <ul>
+      <nav>
+        {% block user_nav %}
+          {% if user.is_authenticated %}
+            <ul class="user">
+              <li><a href="{% url profile %}">My Profile</a></li>
+              <li><a href="{% url connections %}">My Connections</a></li>
               <li><a href="{% url logout %}">Log out</a></li>
             </ul>
-          </nav>
-          <nav>
-            <ul>
-              <li><a href="{% url connections %}">Connections</a></li>
-              <li><a href="{% url hunches %}">Hunches</a></li>
-              <li><a href="{% url evidences %}">Evidence</a></li>
-              <li><a href="{% url groups %}">Groups</a></li>
-              <li><a href="{% url profile %}">Profile</a></li>
-            </ul>
-          </nav>
-        {% endif %}
-
-        <div class="clear-hack"></div>
-      </header>
+          {% endif %}
+        {% endblock %}
+        {% block primary_nav %}
+          <ul class="primary">
+            <li class="active"><a href="{% url hunches %}">Hunches</a></li>
+            <li><a href="{% url evidences %}">Evidence</a></li>
+            <li><a href="{% url groups %}">Groups</a></li>
+          </ul>
+        {% endblock %}
+        {% block secondary_nav %}
+          <ul class="secondary">
+            <li class="active"><a href="{% url my_groups %}">My Groups</a></li>
+            <li><a href="{% url all_groups %}">All Groups</a></li>
+          </ul>
+        {% endblock %}
+      </nav>
 
       <div id="page">
         {% block content %}{% endblock %}
