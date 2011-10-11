@@ -8,7 +8,6 @@ urlpatterns = patterns(
 
   # dashboard/home/index
   url(r'^$', dashboard.dashboard, name='dashboard'),
-  url(r'^profile/(?P<user_id>\d+)/connect$', dashboard.connect, name='connect'),
 
   # auth
   url(r'^login$',       auth.login,        name="login"),
@@ -17,11 +16,13 @@ urlpatterns = patterns(
   url(r'^invitePeople', auth.invitePeople, name="invitePeople"),
 
   # users
-  url(r'^profile/(?P<user_id>\d+)$', users.profile, name="profile"),
-  url(r'^profile/(?P<user_id>\d+)/edit$', users.edit, name="edit_profile"),
-  url(r'^profile$', users.profile, name="profile"),
-  url(r'^profile/edit$', users.edit, name="edit_profile"),
-  url(r'^connections$', users.connections, name="connections"),
+  url(r'^profile/(?P<user_id>\d+)$',         users.profile,     name="profile"),
+  url(r'^profile/(?P<user_id>\d+)/edit$',    users.edit,        name="edit_profile"),
+  url(r'^profile$',                          users.profile,     name="profile"),
+  url(r'^profile/edit$',                     users.edit,        name="edit_profile"),
+  url(r'^connections$',                      users.connections, name="connections"),
+  url(r'^profile/(?P<user_id>\d+)/connect$', users.connect,     name='connect'),
+  url(r'^profile/(?P<user_id>\d+)/remove$',  users.remove,      name='remove'),
 
 
   # groups

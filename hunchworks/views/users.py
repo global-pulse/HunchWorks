@@ -6,7 +6,7 @@ from hunchworks import models, forms
 from django.conf import settings
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
@@ -18,20 +18,31 @@ def _render(req, template, more_context):
 @login_required
 def profile(req, user_id=None):
   if not user_id:
-    user_id = req.user.pk
-  user = get_object_or_404(models.User, pk=user_id)
+    user_id = req.user.get_profile().pk
+  user_profile = get_object_or_404(models.UserProfile, pk=user_id)
+  
+  connected = None
+  not_me = True
+  if req.user.get_profile() == user_profile:
+    not_me = False
+  elif user_profile in req.user.get_profile().connections.all():
+    connected = True
+  else:
+    connected = False
 
   #Get hunches that contain user's skill set
   hunches = models.Hunch.objects.filter(
-    Q(skills__in=user.get_profile().skills.all()) |
-    Q(languages__in=user.get_profile().languages.all())
+    Q(skills__in=user_profile.skills.all()) |
+    Q(languages__in=user_profile.languages.all())
     ).distinct()
 
   invite_form = forms.InvitePeople()
   context = RequestContext(req)
-  context.update({ "user": user,
+  context.update({ "user_profile": user_profile,
                    "invite_form": invite_form,
-                   "hunches": hunches})
+                   "hunches": hunches,
+                   "connected": connected,
+                   "not_me": not_me})
   return _render(req, "profile", context)
 
 @login_required
@@ -77,4 +88,26 @@ def handle_uploaded_file(f):
   for chunk in f.chunks():
       destination.write(chunk)
   destination.close()
+  
+@login_required
+def connect(req, user_id):
+  user = get_object_or_404(models.UserProfile, pk=user_id)
+
+  connection = models.Connection.objects.get_or_create(
+    user_profile = req.user.get_profile(),
+	other_user_profile = user,
+	status=0)
+  
+  return redirect( user )
+  
+@login_required
+def remove(req, user_id):
+  user = get_object_or_404(models.UserProfile, pk=user_id)
+
+  connection = get_object_or_404( 
+    models.Connection,
+    user_profile = req.user.get_profile(),
+ 	other_user_profile = user).delete()
+
+  return redirect( user )
 
