@@ -230,10 +230,14 @@ class Attachment(models.Model):
 
 class Album(models.Model):
   name = models.CharField(max_length=45)
-  attachments = models.ManyToManyField('Attachment')
+  evidences = models.ManyToManyField('Evidence')
 
   def __unicode__(self):
     return self.name
+    
+  @models.permalink
+  def get_absolute_url(self):
+    return ("album", [self.pk])
 
 
 class Education(models.Model):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from django.conf.urls.defaults import *
-from views import dashboard, auth, users, groups, hunches, evidences, feeds
+from views import dashboard, auth, users, groups, hunches, evidences, albums, feeds
 
 urlpatterns = patterns(
   'hunchworks.views',
@@ -25,15 +25,15 @@ urlpatterns = patterns(
 
 
   # groups
-  url(r'^groups$',                           groups.index,  name="groups"),
-  url(r'^groups/my$',                        groups.my,     name="my_groups"),
-  url(r'^groups/all$',                       groups.all,    name="all_groups"),
-  url(r'^groups/(?P<group_id>\d+)$',         groups.show,   name="group"),
-  url(r'^groups/(?P<group_id>\d+)/edit$',    groups.edit,   name="edit_group"),
-  url(r'^groups/create',                     groups.create, name="create_group"),
-  url(r'^groups/(?P<group_id>\d+)/join$',    groups.join,   name="join_group"),
-  url(r'^groups/(?P<group_id>\d+)/leave$',   groups.leave,  name="leave_group"),
-  url(r'^groups/(?P<group_id>\d+)/hunches$', groups.view_hunches,  name="view_hunches"),
+  url(r'^groups$',                           groups.index,    name="groups"),
+  url(r'^groups/my$',                        groups.my,       name="my_groups"),
+  url(r'^groups/all$',                       groups.all,      name="all_groups"),
+  url(r'^groups/(?P<group_id>\d+)$',         groups.show,     name="group"),
+  url(r'^groups/(?P<group_id>\d+)/edit$',    groups.edit,     name="edit_group"),
+  url(r'^groups/create',                     groups.create,   name="create_group"),
+  url(r'^groups/(?P<group_id>\d+)/join$',    groups.join,     name="join_group"),
+  url(r'^groups/(?P<group_id>\d+)/leave$',   groups.leave,    name="leave_group"),
+  url(r'^groups/(?P<group_id>\d+)/hunches$', groups.hunches,  name="group_hunches"),
 
   # hunches
   url(r'^hunches$',                            hunches.index,    name="hunches"),
@@ -55,7 +55,14 @@ urlpatterns = patterns(
   url(r'^evidence/create$',                    evidences.create, name="create_evidence"),
 
   url(r'^evidences/search.json$', evidences.search, name="search_evidence"),
-  url(r'^evidences/feed/$', feeds.EvidencesFeed())
+  url(r'^evidences/feed/$', feeds.EvidencesFeed()),
+  
+  # albums
+  url(r'^albums$',                     albums.index,    name="albums"),
+  url(r'^albums/all$',                 albums.all,      name="all_albums"),
+  url(r'^albums/(?P<album_id>\d+)$',   albums.show,     name="album"),
+  url(r'^albums/create$',              albums.create,   name="create_album"),
+  url(r'^albums/edit$',                albums.edit,     name="edit_album"),
 )
 
 

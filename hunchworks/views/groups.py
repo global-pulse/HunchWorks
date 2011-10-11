@@ -100,7 +100,7 @@ def leave(req, group_id):
   return redirect(index)
   
 @login_required
-def view_hunches(req, group_id):
+def hunches(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
   
   group_members = group.members.values_list("id", flat=True)

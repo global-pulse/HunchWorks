@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div id="albums-index">
+	<div class="clear-hack"></div>
+	<h1>
+	  <a href="{% url albums %}">Albums</a> &raquo;
+	  All
+	</h1>
+	{% include "albums/albums.html" %}
+  </div>
+{% endblock %}

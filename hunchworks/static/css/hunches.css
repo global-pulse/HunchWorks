@@ -224,15 +224,6 @@ div.hunches {
                 margin-bottom: 0.4em;
               }
 
-              #hunch-show> .left > div.evidence > ul > li > div.right > div.preview {
-                line-height: 1.2em;
-                max-height: 3.6em;
-                overflow: hidden;
-                border-left: 0.5em solid #eee;
-                padding-left: 0.5em;
-                color: #666;
-              }
-
               #hunch-show> .left > div.evidence > ul > li > div.right > ul.meta > li {
                 font-size: 80%;
                 display: inline-block;

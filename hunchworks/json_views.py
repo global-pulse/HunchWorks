@@ -42,6 +42,10 @@ def user_groups(req):
   return http.HttpResponse(json.dumps(groups))
 
 
+
+
+
+#this is all old stuff
 def user_languages(request, user_id):
   skill_connections = models.SkillConnection.objects.filter(user=user_id)
   skill_connections = skill_connections.values_list('skill', flat=True)
