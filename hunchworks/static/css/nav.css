@@ -41,14 +41,22 @@ nav.user {
   border-left: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   border-bottom-left-radius: 5px;
+
+  background: #eee;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');
   background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
+  background: -moz-linear-gradient(top,  #fff,  #ddd);
 }
 
 nav.site {
   position: relative;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #aaa;
+
+  background: #ddd;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc');
   background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+  background: -moz-linear-gradient(top,  #eee,  #ccc);
 }
 
   nav.site > ul {
