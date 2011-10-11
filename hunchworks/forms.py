@@ -342,6 +342,9 @@ class HomepageForm(ModelForm):
 
 
 class UserForm(ModelForm):
+  location_interests = TokenField(models.Location, json_views.locations, required=False)
+  skills = TokenField(models.Skill, json_views.skills, required=False)
+  languages = TokenField(models.Language, json_views.languages, required=False)
   class Meta:
     model= models.UserProfile
     exclude = ("user")

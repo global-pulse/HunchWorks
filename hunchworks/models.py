@@ -281,6 +281,10 @@ class Location(models.Model):
 
   def __unicode__(self):
     return self.name or "<Location:%d>" % self.pk
+  
+  @classmethod
+  def search(cls, term, user_profile=None):
+    return cls.objects.filter(name__icontains=term)
 
 
 class Tag(models.Model):

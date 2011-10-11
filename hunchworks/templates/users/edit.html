@@ -1,8 +1,16 @@
 {% extends "base.html" %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Edit your profile</h1>
+{% endblock %}
+
 {% block title %}Edit Your Profile{% endblock %}
+
 {% block css %}
   <link rel="stylesheet" href="/static/profile.css" type="text/css"/>
 {% endblock %}
+
 {% block content %}
 <h1>Edit your profile</h1>
 <div id="edit">
@@ -14,12 +22,13 @@
       </ol>
   {% endif %}
   <form method="post" enctype="multipart/form-data" method="post"
-    action="/profile/edit">{% csrf_token %}
+    action="{% url edit_profile %}" class="edit profile">{% csrf_token %}
     
-    {{ profile_form }}
+    {% include "users/form.html" %}
 
-    <input type='submit' value='Submit changes'/>
-  
+	<div class="actions">
+	  <input type="submit">
+	</div>
   </form>
 </div>
 {% endblock %}

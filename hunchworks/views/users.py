@@ -52,11 +52,11 @@ def edit(req, user_id=None):
       context.update({ "user": user })
       return _render(req, "profile", context)
     else:
-      context.update({ "user": user, "profile_form": form })
+      context.update({ "user": user, "form": form })
       return _render(req, "edit", context) # Redirect after POST
   else:
-    profile_form = forms.UserForm(instance=user.get_profile())
-    context.update({ "user": user, "profile_form": profile_form })
+    form = forms.UserForm(instance=user.get_profile())
+    context.update({ "user": user, "form": form })
     return _render(req, "edit", context)
 
 @login_required

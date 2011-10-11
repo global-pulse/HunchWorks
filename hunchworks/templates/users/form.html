@@ -1,0 +1,23 @@
+{{ form.non_field_errors }}
+{% csrf_token %}
+
+<div class="left">
+  {% include "includes/fields/base.html" with field=form.title %}
+  {% include "includes/fields/base.html" with field=form.name %}
+  {% include "includes/fields/base.html" with field=form.profile_picture %}
+  {% include "includes/fields/base.html" with field=form.privacy %}
+  {% include "includes/fields/base.html" with field=form.bio_text %}
+  {% include "includes/fields/base.html" with field=form.phone %}
+  {% include "includes/fields/base.html" with field=form.skype_name %}
+  {% include "includes/fields/base.html" with field=form.website %}
+  {% include "includes/fields/base.html" with field=form.messenger_service %}
+  {% include "includes/fields/base.html" with field=form.translation_language %}
+  {% include "includes/fields/base.html" with field=form.roles %}
+  {% include "includes/fields/base.html" with field=form.qualifications %}
+  {% include "includes/fields/base.html" with field=form.courses %}
+</div>
+<div class="right">
+  {% include "includes/fields/base.html" with field=form.location_interests %}
+  {% include "includes/fields/base.html" with field=form.skills %}
+  {% include "includes/fields/base.html" with field=form.languages %}  
+</div>

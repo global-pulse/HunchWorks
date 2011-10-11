@@ -24,6 +24,9 @@ def _search_collab(req, model):
 
 def languages(req):
   return _search(req, models.Language)
+  
+def locations(req):
+  return _search(req, models.Location)
 
 def skills(req):
   return _search(req, models.Skill)
