@@ -1,3 +1,38 @@
+nav { }
+
+  nav > ul {
+    overflow: hidden;
+    padding: 2px;
+  }
+
+    nav > ul > li {
+      display: block;
+      float: left;
+      padding: 1px;
+      border-radius: 3px;
+      margin-right: 1px;
+      color: #666;
+    }
+
+      nav > ul > li > a {
+        display: block;
+        padding: 0.5em;
+        text-decoration: none;
+      }
+
+    nav > ul > li.active {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 0;
+      color: #000;
+    }
+
+    nav > ul > li:not(.active):hover {
+      background: #eee;
+      border: 1px solid #ccc;
+      padding: 0;
+    }
+
 nav.user {
   position: absolute;
   top: 0;
@@ -9,38 +44,6 @@ nav.user {
   background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
 }
 
-  nav.user > ul {
-    overflow: hidden;
-    padding: 2px;
-  }
-
-    nav.user > ul > li {
-      display: block;
-      float: left;
-      padding: 1px;
-      border-radius: 3px;
-      color: #666;
-    }
-
-      nav.user > ul > li > a {
-        display: block;
-        padding: 0.5em;
-        text-decoration: none;
-      }
-
-    nav.user > ul > li.active {
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 0;
-      color: #000;
-    }
-
-    nav.user > ul > li:not(.active):hover {
-      background: #eee;
-      border: 1px solid #ccc;
-      padding: 0;
-    }
-
 nav.site {
   position: relative;
   border-top: 1px solid #ccc;
@@ -50,36 +53,7 @@ nav.site {
 
   nav.site > ul {
     padding: 2px 0.5em;
-    overflow: hidden;
   }
-
-    nav.site > ul > li {
-      display: block;
-      float: left;
-      padding: 1px;
-      border-radius: 3px;
-      margin-right: 1px;
-      color: #666;
-    }
-
-      nav.site > ul > li > a {
-        display: block;
-        padding: 0.5em;
-        text-decoration: none;
-      }
-
-    nav.site > ul > li.active {
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 0;
-      color: #000;
-    }
-
-    nav.site > ul > li:not(.active):hover {
-      background: #eee;
-      border: 1px solid #ccc;
-      padding: 0;
-    }
 
   nav.site > ul.secondary {
     position: absolute;
