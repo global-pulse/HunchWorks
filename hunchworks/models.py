@@ -35,7 +35,6 @@ class UserProfile(models.Model):
   skype_name = models.CharField(max_length=30, blank=True)
   website = models.CharField(max_length=100, blank=True)
   profile_picture = models.ImageField(upload_to="profile_images", blank=True)
-  screen_name = models.CharField(max_length=45, blank=True)
   messenger_service = models.IntegerField(null=True, blank=True, choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
   translation_language = models.ForeignKey('TranslationLanguage', default=0)
 

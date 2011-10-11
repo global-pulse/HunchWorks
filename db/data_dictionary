@@ -43,7 +43,6 @@ user_profile
 	skype_name = Skype username
 	website = website URL to the user's website
 	profile_picture = a local system location of the profile picture of the user
-	screen_name = Screen Name of a messenger client
 	messenger_service = Int Enum of messenger clients
 	translation_language_id = the id of the translation language table it is
 		associated with 
