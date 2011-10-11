@@ -53,11 +53,11 @@ class UserProfile(models.Model):
 
   def __unicode__(self):
     return self.user.username
-    
+
   @models.permalink
   def get_absolute_url(self):
     return ("profile", [self.pk])
-    
+
   def profile_picture_url(self):
     return "http://icanhascheezburger.files.wordpress.com/2011/09/funny-pictures-oh-like-you-trying-to-squeeze-your-fat-ass-into-a-leopard-print-thong-is-any-different.jpg"
 
@@ -75,7 +75,7 @@ class Connection(models.Model):
 
   def __unicode__(self):
     return "%s -> %s" % (self.user_profile, self.other_user_profile)
-  
+
   @classmethod
   def search(cls, term, user_profile=None):
     return cls.objects.filter(user_profile=user_profile, other_user_profile__user__username__icontains=term)
@@ -91,7 +91,7 @@ class Hunch(models.Model):
   translation_language = models.ForeignKey('TranslationLanguage', default=0)
   location = models.ForeignKey('Location', null=True, blank=True)
   description = models.TextField()
-  
+
   skills = models.ManyToManyField('Skill', blank=True)
   languages = models.ManyToManyField('Language', blank=True)
   evidences = models.ManyToManyField('Evidence', through='HunchEvidence', blank=True)
@@ -135,7 +135,7 @@ class Hunch(models.Model):
   def _is_hidden(self):
     """Return True if this Hunch is hidden."""
     return (self.privacy == hunchworks_enums.PrivacyLevel.HIDDEN)
-    
+
   def member_count(self):
     return self.user_profiles.all().count()
 
@@ -316,7 +316,7 @@ class Skill(models.Model):
 
 class Language(models.Model):
   name = models.CharField(unique=True, max_length=100)
-  
+
   def __unicode__(self):
     return self.name
 
