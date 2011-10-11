@@ -1,9 +1,9 @@
-#groups-index nav {
+#group-list nav {
   float: left;
   margin-left: 1em;
 }
 
-  #groups-index nav li {
+  #group-list nav li {
 	float: left;
 	list-style: none;
 
@@ -25,24 +25,24 @@
 	border-bottom: none;
   }
   
-  #groups-index a {
+  #group-list a {
 	text-decoration: none;
   }
 
-	#groups-index a:hover {
+	#group-list a:hover {
 	  background: none;
 	}
 
-#groups-index div.groups {
+#group-list div.groups {
   margin: -0.5em;
 }
 
-  #groups-index div.group {
+  #group-list div.group {
     float: left;
     width: 50%;
   }
 
-    #groups-index div.group > div {
+    #group-list div.group > div {
       background: #f8f8f8;
       border: 1px solid #ddd;
       margin-top: 1em;
@@ -50,34 +50,34 @@
       margin: 0.5em;
     }
 
-      #groups-index div.group img.logo {
+      #group-list div.group img.logo {
         border: 1px solid #ddd;
         margin-right: 0.5em;
         float: left;
       }
 
-      #groups-index div.group h3 {
+      #group-list div.group h3 {
         font-size: 160%;
         margin-bottom: 0.3125em;
       }
 
-        #groups-index div.group h3 a {
+        #group-list div.group h3 a {
           text-decoration: none;
         }
 
-      #groups-index div.group div.desc {
+      #group-list div.group div.desc {
         line-height: 1.25;
         font-size: 80%;
         height: 3.75em;
         overflow: hidden;
       }
 
-      #groups-index div.group ul.stats {
+      #group-list div.group ul.stats {
         margin-top: 0.625em;
         font-size: 80%;
       }
 
-        #groups-index div.group ul.stats li {
+        #group-list div.group ul.stats li {
           display: block;
           float: left;
           border-right: 1px solid #ccc;
@@ -86,7 +86,7 @@
           color: #666;
         }
 
-          #groups-index div.group ul.stats li:last-child {
+          #group-list div.group ul.stats li:last-child {
             border-right: none;
             padding-right: 0;
             margin-right: 0;

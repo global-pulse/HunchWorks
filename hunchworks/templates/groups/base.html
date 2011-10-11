@@ -1,6 +1,8 @@
-<nav>
-  <ul>
+{% extends "base.html" %}
+
+{% block secondary_nav %}
+  <ul class="secondary">
     <li><a href="{% url my_groups %}">My Groups</a></li>
     <li><a href="{% url all_groups %}">All Groups</a></li>
   </ul>
-</nav>
+{% endblock %}
