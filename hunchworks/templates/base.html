@@ -57,17 +57,7 @@
         {% endblock %}
       </header>
 
-      <nav>
-        {% block user_nav %}
-          {% if user.is_authenticated %}
-            <ul class="user">
-              <li><a href="{% url profile %}">My Profile</a></li>
-              <li><a href="{% url connections %}">My Connections</a></li>
-              <li><a href="{% url logout %}">Log out</a></li>
-            </ul>
-          {% endif %}
-        {% endblock %}
-
+      <nav class="site">
         {% block primary_nav %}
           <ul class="primary">
             <li class="{% ifstartswith "hunches" %}active{% endifstartswith %}"><a href="{% url hunches %}">Hunches</a></li>
@@ -77,6 +67,18 @@
         {% endblock %}
   
         {% block secondary_nav %}{% endblock %}
+      </nav>
+
+      <nav class="user">
+        {% block user_nav %}
+          {% if user.is_authenticated %}
+            <ul class="user">
+              <li class="{% ifactive "profile" %}active{% endifactive %}"><a href="{% url profile %}">My Profile</a></li>
+              <li class="{% ifactive "connections" %}active{% endifactive %}"><a href="{% url connections %}">My Connections</a></li>
+              <li class="{% ifactive "logout" %}active{% endifactive %}"><a href="{% url logout %}">Log out</a></li>
+            </ul>
+          {% endif %}
+        {% endblock %}
       </nav>
 
       <div id="page">
