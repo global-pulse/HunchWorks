@@ -29,7 +29,6 @@ class UserProfile(models.Model):
   title = models.IntegerField(choices=hunchworks_enums.UserTitle.GetChoices(), default=0)
   name = models.CharField(max_length=100)
   email = models.EmailField(max_length=75)
-  show_profile_reminder = models.IntegerField(default=0)
   privacy = models.IntegerField(choices=hunchworks_enums.PrivacyLevel.GetChoices(), default=0)
   bio_text = models.TextField(blank=True)
   phone = models.CharField(max_length=20, blank=True)

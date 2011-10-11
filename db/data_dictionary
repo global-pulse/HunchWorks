@@ -37,8 +37,6 @@ user_profile
 	title = Enum of ints representing Mr, Mrs, Ms.
 	name = name of the user (not seperated because first/last is only common in US)
 	email = email of the user
-	show_profile_reminder = boolean, do they want to be reminded of finishing their
-		profile
 	privacy = Int Enum of Hidden, Closed, Open.
 	bio_text = A user description of themselves
 	phone = A string of the user's phone #
