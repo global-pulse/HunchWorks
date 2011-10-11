@@ -1,0 +1,29 @@
+{% extends "albums/base.html" %}
+{% load paginator_tags %}
+
+{% block content %}
+  <div class="albums">
+    {% for album in albums.object_list %}
+      <div class="album"><div>
+        <h3><a href="{{ album.get_absolute_url }}">{{ album }}</a></h3>
+
+        {% if album.description %}
+          <div class="desc">
+            {{ album.description|truncatewords:60|safe }}
+          </div>
+        {% endif %}
+
+        <div class="clear-hack"></div>
+      </div></div>
+    {% endfor %}
+    <div class="clear-hack"></div>
+  </div>
+
+  <div class="links">
+    <ul>
+      <li><a href="{% url create_album %}">Add an Album</a></li>
+    </ul>
+      {% paginator albums %}
+    <div class="clear-hack"></div>
+  </div>
+{% endblock %}
