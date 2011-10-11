@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load activelink %}
 
 {% block secondary_nav %}
   <ul class="secondary">
-    <li><a href="{% url my_hunches %}">My Hunches</a></li>
-    <li><a href="{% url all_hunches %}">All Hunches</a></li>
-    <li><a href="{% url finished_hunches %}">Finished Hunches</a></li>
-    <li><a href="{% url open_hunches %}">Open Hunches</a></li>
+    <li class="{% ifactive "my_hunches" %}active{% endifactive %}"><a href="{% url my_hunches %}">My Hunches</a></li>
+    <li class="{% ifactive "all_hunches" %}active{% endifactive %}"><a href="{% url all_hunches %}">All Hunches</a></li>
+    <li class="{% ifactive "finished_hunches" %}active{% endifactive %}"><a href="{% url finished_hunches %}">Finished Hunches</a></li>
+    <li class="{% ifactive "open_hunches" %}active{% endifactive %}"><a href="{% url open_hunches %}">Open Hunches</a></li>
   </ul>
 {% endblock %}
