@@ -15,6 +15,7 @@ a {
   margin: 0 auto;
   border: 1px solid #ccc;
   border-top: none;
+  position: relative;
 }
 
   header {
