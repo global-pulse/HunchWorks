@@ -5,7 +5,7 @@ from hunchworks.tests.helpers import TestHelpers
 from django.test import TestCase
 
 
-class HunchViewsTest(TestCase, TestHelpers):
+class EvidenceViewsTest(TestCase, TestHelpers):
   fixtures = ("test_users", "test_hunches", "test_evidences")
 
   def test_index(self):
