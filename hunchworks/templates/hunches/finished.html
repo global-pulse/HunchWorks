@@ -1,13 +1,6 @@
-{% extends "base.html" %}
+{% extends "hunches/list.html" %}
 
-{% block content %}
-  <div id="hunches-index">
-	{% include "hunches/navigation.html" %}
-	<div class="clear-hack"></div>
-	<h1>
-	  <a href="{% url hunches %}">Hunches</a> &raquo;
-	  Finished
-	</h1>
-	{% include "hunches/hunches.html" %}
-  </div>
+{% block header %}
+  {{ block.super }}
+  <h1>Finished Hunches</h1>
 {% endblock %}

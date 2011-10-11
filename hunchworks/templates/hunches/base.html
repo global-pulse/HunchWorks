@@ -1,8 +1,10 @@
-<nav>
-  <ul>
+{% extends "base.html" %}
+
+{% block secondary_nav %}
+  <ul class="secondary">
     <li><a href="{% url my_hunches %}">My Hunches</a></li>
     <li><a href="{% url all_hunches %}">All Hunches</a></li>
     <li><a href="{% url finished_hunches %}">Finished Hunches</a></li>
     <li><a href="{% url open_hunches %}">Open Hunches</a></li>
   </ul>
-</nav>
+{% endblock %}
