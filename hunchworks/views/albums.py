@@ -40,7 +40,7 @@ def edit(req, album_id):
     return redirect(album)
 
   return _render(req, "edit", {
-    "album": hunch, "user": req.user,
+    "album": album, "user": req.user,
     "form": form
   })
 

@@ -58,11 +58,11 @@ urlpatterns = patterns(
   url(r'^evidences/feed/$', feeds.EvidencesFeed()),
   
   # albums
-  url(r'^albums$',                     albums.index,    name="albums"),
-  url(r'^albums/all$',                 albums.all,      name="all_albums"),
-  url(r'^albums/(?P<album_id>\d+)$',   albums.show,     name="album"),
-  url(r'^albums/create$',              albums.create,   name="create_album"),
-  url(r'^albums/edit$',                albums.edit,     name="edit_album"),
+  url(r'^albums$',                          albums.index,    name="albums"),
+  url(r'^albums/all$',                      albums.all,      name="all_albums"),
+  url(r'^albums/(?P<album_id>\d+)$',        albums.show,     name="album"),
+  url(r'^albums/create$',                   albums.create,   name="create_album"),
+  url(r'^albums/(?P<album_id>\d+)/edit$',   albums.edit,     name="edit_album"),
 )
 
 
