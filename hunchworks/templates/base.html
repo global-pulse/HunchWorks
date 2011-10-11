@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load activelink %}
 
 <html lang="en">
   <head>
@@ -69,9 +70,9 @@
 
         {% block primary_nav %}
           <ul class="primary">
-            <li class="active"><a href="{% url hunches %}">Hunches</a></li>
-            <li><a href="{% url evidences %}">Evidence</a></li>
-            <li><a href="{% url groups %}">Groups</a></li>
+            <li class="{% ifstartswith "hunches" %}active{% endifstartswith %}"><a href="{% url hunches %}">Hunches</a></li>
+            <li class="{% ifstartswith "evidences" %}active{% endifstartswith %}"><a href="{% url evidences %}">Evidence</a></li>
+            <li class="{% ifstartswith "groups" %}active{% endifstartswith %}"><a href="{% url groups %}">Groups</a></li>
           </ul>
         {% endblock %}
   
