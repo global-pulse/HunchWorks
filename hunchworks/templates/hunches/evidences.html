@@ -1,0 +1,25 @@
+{% for rel in evidences %}
+  <article class="evidence">
+    <div>
+      <a href="{{ rel.evidence.link }}" class="embed">{{ rel.evidence.link }}</a>
+
+      <header>
+        <h3>{{ rel.evidence.description }}</h3>
+      </header>
+
+      <!--<section class="desc">
+        <p>{{ rel.evidence.description }}</p>
+      </section>-->
+
+      <ul class="meta">
+        <li class="source"><span>Source:</span> <a href="{{ rel.evidence.link }}">{{ rel.evidence.short_link }}</a></li>
+        <li class="date"><span>Posted:</span> {{ rel.evidence.time_created|date:"j F Y" }}</li>
+        <li class="creator"><span>By:</span> <a href="{{ rel.evidence.creator.get_absolute_url }}">{{ rel.evidence.creator }}</a></li>
+      </ul>
+    </div>
+    
+    <section class="comments">
+      {% include "comments/comments.html" with comments=rel.comment_set.all %}
+    </section>
+  </article>
+{% endfor %}

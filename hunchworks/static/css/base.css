@@ -18,7 +18,7 @@ a {
   position: relative;
 }
 
-  header {
+  #wrapper > header {
     overflow: hidden;
     padding: 1em;
 
@@ -28,7 +28,7 @@ a {
     background: -moz-linear-gradient(top,  #eee,  #fff);
   }
 
-    header > h1 {
+    #wrapper > header > h1 {
       float: left;
       font-size: 200%;
       margin-right: 0.5em;
@@ -38,11 +38,11 @@ a {
       color: #000;
     }
 
-      header > h1 > a {
+      #wrapper > header > h1 > a {
         text-decoration: none;
       }
 
-    header > h1:last-child {
+    #wrapper > header > h1:last-child {
       border-right: none;
       margin-right: 0;
       padding-right: 0;
@@ -50,7 +50,6 @@ a {
 
   #page {
     background: #fff;
-    padding: 1em;
   }
 
     #page div.links {

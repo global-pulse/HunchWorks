@@ -5,7 +5,7 @@ from urlparse import urlparse
 import hunchworks_enums
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save, post_save
 
 
 PRIVACY_CHOICES = (
@@ -137,6 +137,12 @@ class Hunch(models.Model):
     # view it. The only distinction between the levels is in the editing.
     return True
 
+  def evidences_for(self):
+    return HunchEvidence.objects.filter(hunch=self, support_cache__gt=0).order_by("-confidence_cache")
+
+  def evidences_against(self):
+    return HunchEvidence.objects.filter(hunch=self, support_cache__lte=0).order_by("-confidence_cache")
+
   def _is_hidden(self):
     """Return True if this Hunch is hidden."""
     return (self.privacy == hunchworks_enums.PrivacyLevel.HIDDEN)
@@ -164,7 +170,7 @@ class Evidence(models.Model):
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
-    return "%s" % (self.title or (self.description[:50] + '...'))
+    return self.title or self.description
 
   def type(self):
     return "Link"

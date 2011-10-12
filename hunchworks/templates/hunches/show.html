@@ -6,14 +6,47 @@
 {% endblock %}
 
 {% block content %}
-  <div id="hunch-show">
-    <div class="left">
-      <h1><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h1>
-      <ul class="tags">
+  <article class="hunch">
+    <header>
+      <div>
+        <h1>&#8220;<a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a>&#8221;</h1>
+        <div class="cite">&mdash; {{ hunch.creator }}, {{ hunch.time_created|date:"j F Y" }}</div>
+      </div>
+      <!--<ul class="tags">
         {% for tag in hunch.tags.all %}
           <li>{{ tag }}</li>
         {% endfor %}
-      </ul>
+      </ul>-->
+    </header>
+
+    <section class="evidence">
+      <div class="for">
+        <h2>Evidence <span>for</span> this hunch</h2>
+        {% include "hunches/evidences.html" with evidences=hunch.evidences_for %}
+      </div>
+      <div class="against">
+        <h2>Evidence <span>against</span> this hunch</h2>
+        {% include "hunches/evidences.html" with evidences=hunch.evidences_against %}
+      </div>
+    </section>
+    <script>
+      $(function() {
+        $("article.evidence > div > a.embed").each(function() {
+          $(this).embedly({
+            "key": window.hunchworks.embedly_key,
+            "maxWidth": $(this).width(),
+            "maxHeight": 9999,
+            "embedly_wmode": "transparent"
+          });
+        });
+      });
+    </script>
+      
+      
+  </article>
+
+  <!--<div id="hunch-show">
+    <div class="left">
 
       {% if hunch.privacy == 2 %}
         <div class="privacy open">
@@ -86,15 +119,7 @@
                 </div>
               </div>
               <div class="right">
-                <h3>&quot;{{ evidence }}&quot;</h3>
-                <div class="embed">
-                  <a href="{{ evidence.link }}">{{ evidence.link }}</a>
-                </div>
-                <ul class="meta">
-                  <li class="source"><span>Source</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
-                  <li class="date"><span>Posted</span> {{ evidence.time_created|date:"j F Y" }}</li>
-                  <li class="creator"><span>By</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
-                </ul>
+                
               </div>
               <div class="clear-hack"></div>
             </li>
@@ -239,5 +264,5 @@
       </ul>
       <div class="clear-hack"></div>
     </div>
-  </div>
+  </div>-->
 {% endblock %}

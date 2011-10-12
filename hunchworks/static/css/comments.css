@@ -1,47 +1,50 @@
-.comments { }
+section.comments { }
 
-  .comments > li {
-    display: block;
-  }
+  section.comments > ul { }
 
-.comment {
-  margin-top: 1em;
-}
-
-  .comment > .creator {
-    float: left;
-    width: 54px;
-    text-align: center;
-    margin-right: 0.5em;
-  }
-
-    .comment > .creator > a {
-      text-decoration: none;
+    section.comments > ul > li {
+      margin-bottom: 0.5em;
+      display: block;
     }
 
-      .comment > .creator > a > img {
-        display: block;
-        border-radius: 5px;
-        box-shadow: 0 0 5px #aaa;
-        margin-bottom: 0.25em;
-      }
+    section.comments > ul > li:last-child {
+      margin-bottom: 0;
+    }
+
+.comment {
+  overflow: hidden;
+}
+
+  .comment > .user {
+    float: right;
+  }
+  
+    .comment.mine > .user {
+      float: left;
+    }
 
   .comment > .text {
-    float: left;
     position: relative;
+    line-height: 1.3;
+    margin: 0 62px;
     border: 2px solid #ccc;
-    background: #f8f8f8;
-    box-shadow: 2px 2px 5px #eee;
+    background: #fff;
     border-radius: 5px;
-    padding: 1em;
+    padding: 0.75em;
   }
 
     .comment > .text > .bubble-arrow {
-      background: url("../img/bubble-arrow.png") no-repeat;
+      background: url("../img/bubble-arrow-right.png") no-repeat;
       position: absolute;
       width: 8px;
       height: 14px;
       top: 1em;
+      right: -8px;
+    }
+
+    .comment.mine > .text > .bubble-arrow {
+      background: url("../img/bubble-arrow-left.png") no-repeat;
+      right: auto;
       left: -8px;
     }
 

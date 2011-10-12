@@ -1,4 +1,151 @@
-div.hunches {
+article.hunch { }
+
+  article.hunch > header {
+    text-align: center;
+    color: #999;
+    padding: 2em;
+    border-bottom: 1px dotted #ccc;
+  }
+
+    article.hunch > header > div {
+      display: inline-block;
+    }
+
+      article.hunch > header > div > h1 {
+        font-size: 250%;
+      }
+
+        article.hunch > header > div > h1 > a {
+          text-decoration: none;
+          color: #000;
+        }
+
+      article.hunch > header > div > div.cite {
+        text-align: right;
+        margin-top: 0.5em;
+        padding-right: 1em;
+      }
+
+  article.hunch > section.evidence {
+    border-bottom: 1px dotted #ccc;
+    padding: 2em 2em 2em 3em;
+    overflow: hidden;
+  }
+
+    article.hunch > section.evidence > div {
+      width: 50%;
+      float: left;
+    }
+
+    article.hunch > section.evidence > div.for {
+      margin-left: -1em;
+      padding-right: 1em;
+    }
+
+      article.hunch > section.evidence > div > h2 {
+        text-align: center;
+        font-size: 160%;
+        color: #999;
+      }
+
+        article.hunch > section.evidence > div > h2 > span {
+          font-weight: bold;
+          color: #000;
+        }
+        
+      article.hunch > section.evidence > div > article.evidence {
+        margin-top: 1em;
+      }
+
+
+article.evidence {
+  background: #eee;
+}
+
+  article.evidence > div {
+    position: relative;
+  }
+
+    article.evidence > div > .embed {
+      display: block;
+      text-align: center;
+      border: 1px solid #ccc;
+      padding: 1px;
+    }
+
+      article.evidence > div > div.embed img {
+        display: block;
+      }
+
+    article.evidence > div > section.desc {
+      line-height: 1.4;
+      margin: 0.5em;
+      color: #999;
+    }
+    
+    article.evidence > div > header,
+    article.evidence > div > ul.meta {
+      display: none;
+      position: absolute;
+      text-align: center;
+      left: 0;
+      width: 100%;
+      background: #000;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+    }
+
+    article.evidence > div > header {
+      top: 0;
+      font-size: 125%;
+      padding: 0.8em 0;
+    }
+
+    article.evidence > div > ul.meta {
+      bottom: 0;
+      font-size: 80%;
+      padding: 0.625em 0;
+    }
+
+      article.evidence > div > ul.meta > li {
+        display: inline-block;
+        margin-right: 1em;
+      }
+      
+      article.evidence > div > ul.meta > li:last-child {
+        margin-right: 0;
+      }
+
+    article.evidence > div:hover > header,
+    article.evidence > div:hover > ul.meta {
+      display: block;
+    }
+
+  article.evidence > section.comments {
+    margin-top: 0.5em;
+  }
+
+    article.evidence > section.comments > ul { }
+
+      article.evidence > section.comments > ul > li.comment {
+        
+      }
+
+
+    /*#page > header {
+      padding-top: 1em;
+      padding-bottom: 2em;
+      margin-bottom: 2em;
+      border-bottom: 1px dotted #ccc;
+    }
+
+      #page > header > ul.tags {
+        margin-top: 0.5em;
+      }*/
+      
+      
+      
+/*div.hunches {
   margin: -0.5em;
 }
 
@@ -81,25 +228,6 @@ div.hunches {
       #hunch-show> .left > h1 {
         margin-bottom: 0.25em;
       }
-
-      #hunch-show > .left > ul.tags { }
-
-        #hunch-show > .left > ul.tags > li {
-          display: inline-block;
-          border: 1px solid #ddd;
-          border-radius: 1px 0.8125em 0.8125em 1px;
-          font-size: 80%;
-          background: #eee url("../icons/tag.png") no-repeat 2px 50%;
-          line-height: 19px;
-          padding-left: 19px;
-          padding-right: 0.625em;
-          margin-right: 0.625em;
-        }
-
-          #hunch-show > .left > ul.tags > li > a {
-            text-decoration: none;
-            padding-left: 0.3125em;
-          }
 
       #hunch-show> .left > div { }
 
@@ -377,4 +505,4 @@ form.hunch { }
   form.hunch #id_title {
     font-size: 125%;
     padding: 0.8em;
-  }
+  }*/
