@@ -19,7 +19,14 @@
     </div>
     
     <section class="comments">
-      {% include "comments/comments.html" with comments=rel.comment_set.all %}
+      <ul>
+        {% for comment in rel.comment_set.all %}
+          <li>
+            {% include "comments/comment.html" %}
+          </li>
+        {% endfor %}
+      </ul>
+
       {% include "comments/form.html" %}
     </section>
 
