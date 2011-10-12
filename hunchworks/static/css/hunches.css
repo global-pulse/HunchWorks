@@ -4,7 +4,7 @@ article.hunch { }
   article.hunch > header {
     text-align: center;
     color: #999;
-    padding: 2em;
+    padding: 4em;
     border-bottom: 1px dotted #ccc;
   }
 
@@ -70,7 +70,7 @@ article.hunch { }
 
 
   article.hunch > section.evidence {
-    padding: 2em 2em 2em 3em;
+    padding: 4em 2em 2em 3em;
     overflow: hidden;
   }
 
