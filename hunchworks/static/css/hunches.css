@@ -1,5 +1,6 @@
 article.hunch { }
 
+
   article.hunch > header {
     text-align: center;
     color: #999;
@@ -26,8 +27,49 @@ article.hunch { }
         padding-right: 1em;
       }
 
-  article.hunch > section.evidence {
+
+  article.hunch > section.meta {
     border-bottom: 1px dotted #ccc;
+    padding: 0.5em 0.5em 0.5em 2em;
+    background: #eee;
+    overflow: hidden;
+  }
+
+    article.hunch > section.meta > div {
+      width: 25%;
+      float: left;
+      margin-left: 0.5em;
+    }
+
+    article.hunch > section.meta > div:first-child {
+      margin-left: -1.5em;
+    }
+
+      article.hunch > section.meta > div > div {
+        background: #fff;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        padding: 0.5em;
+        text-align: center;
+        color: #999;
+      }
+
+        article.hunch > section.meta > div > div > h2 {
+          font-size: 125%;
+          font-weight: bold;
+          margin-bottom: 0.4em;
+          border-bottom: 1px dotted #ccc;
+          padding-bottom: 0.4em;
+          color: #333;
+        }
+
+        article.hunch > section.meta > div > div > p {
+          line-height: 1.3;
+          font-size: 80%;
+        }
+
+
+  article.hunch > section.evidence {
     padding: 2em 2em 2em 3em;
     overflow: hidden;
   }
