@@ -1,4 +1,9 @@
-{% extends "base.html" %}
+{% extends "evidences/base.html" %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Show an Evidence</h1>
+{% endblock %}
 
 {% block content %}
   <div id="evidence-show">

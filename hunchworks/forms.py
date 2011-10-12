@@ -248,8 +248,6 @@ class HunchForm(ModelForm):
     return hunch
 
 
-
-
 class EmbedWidget(forms.TextInput):
   def render(self, name, value, attrs=None):
     widget = super(EmbedWidget, self).render(
@@ -264,6 +262,13 @@ class EmbedWidget(forms.TextInput):
 
 class EmbedField(forms.CharField):
   widget = EmbedWidget
+
+
+class AlbumForm(forms.ModelForm):
+  evidences = EvidenceField(required=False)
+  
+  class Meta:
+    model = models.Album
 
 
 class EvidenceForm(ModelForm):
@@ -337,6 +342,9 @@ class HomepageForm(ModelForm):
 
 
 class UserForm(ModelForm):
+  location_interests = TokenField(models.Location, json_views.locations, required=False)
+  skills = TokenField(models.Skill, json_views.skills, required=False)
+  languages = TokenField(models.Language, json_views.languages, required=False)
   class Meta:
     model= models.UserProfile
     exclude = ("user")

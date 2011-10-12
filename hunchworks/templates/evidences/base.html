@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load activelink %}
+
+{% block secondary_nav %}
+  <ul class="secondary">
+    <li class="{% ifactive "evidences" %}active{% endifactive %}"><a href="{% url evidences %}">All Evidences</a></li>
+    <li class="{% ifactive "all_albums" %}active{% endifactive %}"><a href="{% url all_albums %}">All Albums</a></li>
+  </ul>
+{% endblock %}

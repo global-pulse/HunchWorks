@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load activelink %}
 
 <html lang="en">
   <head>
@@ -8,10 +9,13 @@
 
     <link rel="stylesheet" href="{% get_static_prefix %}css/reset.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/base.css">
+    <link rel="stylesheet" href="{% get_static_prefix %}css/nav.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/forms.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/pagination.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/utils.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/auth.css">
+    <link rel="stylesheet" href="{% get_static_prefix %}css/profile.css">
+    <link rel="stylesheet" href="{% get_static_prefix %}css/albums.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/groups.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/hunches.css">
     <link rel="stylesheet" href="{% get_static_prefix %}css/evidences.css">
@@ -34,9 +38,8 @@
     </script>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script>
+    <script src='/static/js/jquery-tokeninput-1.6.0-min.js'></script>
     <script src="/static/js/underscore-1.1.7-min.js"></script>
-    <script src='/static/jquery.tokeninput.js'></script>
-    <script src="/static/main.js"></script>
 
     <!-- temporary! use widget media -->
     <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
@@ -44,33 +47,41 @@
     <script src="/static/js/location-widget.js"></script>
     <script src="/static/js/evidence-widget.js"></script>
     <script src="/static/js/embed-widget.js"></script>
+    <script src="/static/js/token-widget.js"></script>
     {% block js %}{% endblock %}
   </head>
   <body>
     <div id="wrapper">
 
       <header>
-        <h1><a href="{% url dashboard %}">HunchWorks</a></h1>
-
-        {% if user.is_authenticated %}
-          <nav>
-            <ul>
-              <li><a href="{% url logout %}">Log out</a></li>
-            </ul>
-          </nav>
-          <nav>
-            <ul>
-              <li><a href="{% url connections %}">Connections</a></li>
-              <li><a href="{% url hunches %}">Hunches</a></li>
-              <li><a href="{% url evidences %}">Evidence</a></li>
-              <li><a href="{% url groups %}">Groups</a></li>
-              <li><a href="{% url profile %}">Profile</a></li>
-            </ul>
-          </nav>
-        {% endif %}
-
-        <div class="clear-hack"></div>
+        {% block header %}
+          <h1><a href="{% url dashboard %}" title="Return to Dashboard">HunchWorks</a></h1>
+        {% endblock %}
       </header>
+
+      <nav class="site">
+        {% block primary_nav %}
+          <ul class="primary">
+            <li class="{% ifstartswith "hunches" %}active{% endifstartswith %}"><a href="{% url hunches %}">Hunches</a></li>
+            <li class="{% ifstartswith "evidences" %}active{% endifstartswith %}"><a href="{% url evidences %}">Evidence</a></li>
+            <li class="{% ifstartswith "groups" %}active{% endifstartswith %}"><a href="{% url groups %}">Groups</a></li>
+          </ul>
+        {% endblock %}
+  
+        {% block secondary_nav %}{% endblock %}
+      </nav>
+
+      <nav class="user">
+        {% block user_nav %}
+          {% if user.is_authenticated %}
+            <ul class="user">
+              <li class="{% ifactive "profile" %}active{% endifactive %}"><a href="{% url profile %}">My Profile</a></li>
+              <li class="{% ifactive "connections" %}active{% endifactive %}"><a href="{% url connections %}">My Connections</a></li>
+              <li class="{% ifactive "logout" %}active{% endifactive %}"><a href="{% url logout %}">Log out</a></li>
+            </ul>
+          {% endif %}
+        {% endblock %}
+      </nav>
 
       <div id="page">
         {% block content %}{% endblock %}

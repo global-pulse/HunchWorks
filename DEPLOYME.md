@@ -86,3 +86,9 @@ server {
   }
 }
 ```
+
+### Sudoers Configuration
+
+```
+adammck ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl
+```

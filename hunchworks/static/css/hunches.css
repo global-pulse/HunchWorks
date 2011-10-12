@@ -63,42 +63,6 @@ div.hunches {
 		  margin-right: 0;
 		}
 
-#hunches-index nav {
-  float: left;
-  margin-left: 1em;
-}
-
-  #hunches-index nav li {
-	float: left;
-	list-style: none;
-
-	line-height: 3;
-	margin-top: 1em;
-
-	padding: 0 1em;
-	margin-left: 1px;
-
-	color: #666;
-	background: #ccc;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc');
-	background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
-	background: -moz-linear-gradient(top,  #eee,  #ccc);
-
-	border: 1px solid #ccc;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	border-bottom: none;
-  }
-  
-  #hunches-index a {
-	text-decoration: none;
-  }
-
-	#hunches-index a:hover {
-	  background: none;
-	}
-
-
 #hunch-show { }
 
   #hunch-show h2 {
@@ -258,15 +222,6 @@ div.hunches {
               #hunch-show> .left > div.evidence > ul > li > div.right > h3 {
                 font-size: 125%;
                 margin-bottom: 0.4em;
-              }
-
-              #hunch-show> .left > div.evidence > ul > li > div.right > div.preview {
-                line-height: 1.2em;
-                max-height: 3.6em;
-                overflow: hidden;
-                border-left: 0.5em solid #eee;
-                padding-left: 0.5em;
-                color: #666;
               }
 
               #hunch-show> .left > div.evidence > ul > li > div.right > ul.meta > li {

@@ -8,7 +8,8 @@
       "description": "This is a minimal hunch.",
       "time_created": "2000-01-01 00:00:00",
       "time_modified": "2000-01-01 00:00:00",
-      "translation_language": 1
+      "translation_language": 1,
+      "privacy": 2
     }
   },
 

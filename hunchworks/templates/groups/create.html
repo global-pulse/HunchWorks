@@ -1,10 +1,11 @@
-{% extends "base.html" %}
-{% block title %}Create a Group{% endblock %}
-{% block content %}
-  <h1 id='userId' user='{{ user_id }}'>
-    <a href="{% url groups %}">Groups</a> &raquo; New
-  </h1>
+{% extends "groups/base.html" %}
 
+{% block header %}
+  {{ block.super }}
+  <h1>Create a Group</h1>
+{% endblock %}
+
+{% block content %}
   <form action="" method="post" class="create group">
     {% include "groups/form.html" %}
 

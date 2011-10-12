@@ -1,14 +1,7 @@
-{% extends "base.html" %}
+{% extends "hunches/list.html" %}
 
-{% block content %}
-  <div id="hunches-index">
-	<!--{% include "hunches/navigation.html" %}-->
-	<div class="clear-hack"></div>
-	<h1>
-	  <a href="{% url groups %}">Groups</a> &raquo;
-	  <a href="{{ group.get_absolute_url }}">{{ group }}</a> &raquo;
-	  hunches
-	</h1>
-	{% include "groups/hunches.html" %}
-  </div>
+{% block header %}
+  {{ block.super }}
+  <h1>Show a Group</h1>
+  <h1>Hunches</h1>
 {% endblock %}

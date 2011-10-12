@@ -1,12 +1,13 @@
-{% extends "base.html" %}
+{% extends "evidences/base.html" %}
 {% load paginator_tags %}
 
-{% block content %}
-  <div id="evidences-list">
-    <h1>
-      <a href="{% url evidences %}">All Evidences</a>
-    </h1>
+{% block header %}
+  {{ block.super }}
+  <h1>All Evidences</h1>
+{% endblock %}
 
+{% block content %}
+  <div id="evidence-list">
     <div class="evidences">
       {% for evidence in evidences.object_list %}
         <div class="evidence">

@@ -1,8 +1,23 @@
 {% extends "base.html" %}
+
 {% block title %}Profile{% endblock %}
+
 {% block css %}
   <link rel="stylesheet" href="/static/profile.css" type="text/css"/>
 {% endblock %}
+
+{% block secondary_nav %}
+  <ul class="secondary">
+    {% if not_me %}
+      {% if connected %}
+        <li><a href="{% url remove user_profile.pk %}">Remove Connection</a></li>
+      {% else %}
+        <li><a href="{% url connect user_profile.pk %}">Add Connection</a></li>
+      {% endif %}
+    {% endif %}
+  </ul>
+{% endblock %}
+
 {% block content %}
   <div id='contents'>
 	<div id='column1'>

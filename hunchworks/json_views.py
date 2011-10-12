@@ -24,6 +24,9 @@ def _search_collab(req, model):
 
 def languages(req):
   return _search(req, models.Language)
+  
+def locations(req):
+  return _search(req, models.Location)
 
 def skills(req):
   return _search(req, models.Skill)
@@ -42,6 +45,10 @@ def user_groups(req):
   return http.HttpResponse(json.dumps(groups))
 
 
+
+
+
+#this is all old stuff
 def user_languages(request, user_id):
   skill_connections = models.SkillConnection.objects.filter(user=user_id)
   skill_connections = skill_connections.values_list('skill', flat=True)

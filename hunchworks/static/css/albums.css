@@ -1,0 +1,36 @@
+#album-show > div.evidence {
+  margin-top: 2em;
+}
+
+  #album-show > div.evidence > ul { }
+
+	#album-show > div.evidence > ul > li {
+	  display: block;
+	  padding-top: 1em;
+	  margin-top: 1em;
+	  border-top: 1px dotted #ccc;
+	  width: 50%
+	}
+
+	  #album-show > div.evidence > ul > li:first-child {
+		border-top: none;
+		padding-top: 0;
+	  }
+
+		#album-show > div.evidence > ul > li > h3 {
+		  font-size: 125%;
+		  margin-bottom: 0.4em;
+		}
+
+		#album-show > div.evidence > ul > li > ul.meta > li {
+		  font-size: 80%;
+		  display: inline-block;
+		  margin-top: 0.625em;
+		  padding: 0.3125em;
+		  background: #eee;
+		  color: #999;
+		}
+
+		  #album-show > div.evidence > ul > li > ul.meta > li span {
+			color: #bbb;
+		  }

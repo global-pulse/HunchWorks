@@ -1,5 +1,10 @@
-{% extends "base.html" %}
+{% extends "groups/base.html" %}
 {% load paginator_tags %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Show a Group</h1>
+{% endblock %}
 
 {% block content %}
   <div id="group-show">
@@ -69,7 +74,7 @@
 		  <div class="clear-hack"></div>
 		</div>
 		<div class='viewMore'>
-		  <a href='{% url view_hunches group.pk %}'>View More</a>
+		  <a href='{% url group_hunches group.pk %}'>View More</a>
 		</div>
 	  </div>
 	</div>

@@ -114,6 +114,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
   "django.core.context_processors.i18n",
   "django.core.context_processors.media",
   "django.core.context_processors.static",
+  "django.core.context_processors.request",
   "django.contrib.messages.context_processors.messages")
 
 MIDDLEWARE_CLASSES = (
@@ -133,6 +134,7 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
   'django.contrib.contenttypes',
   'django.contrib.auth',
+  'activelink',
   'hunchworks')
 
 # In DEBUG, also serve static files and Django admin.

@@ -1,4 +1,9 @@
-{% extends "base.html" %}
+{% extends "hunches/base.html" %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Show a Hunch</h1>
+{% endblock %}
 
 {% block content %}
   <div id="hunch-show">

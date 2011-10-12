@@ -1,0 +1,18 @@
+{% extends "albums/base.html" %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Edit this Album</h1>
+{% endblock %}
+
+{% block content %}
+  <h1>{{ album }}</h1>
+
+  <form action="" method="post" class="edit album">
+    {% include "albums/form.html" %}
+
+    <div class="actions">
+      <input type="submit" value="Edit Album">
+    </div>
+  </form>
+{% endblock %}

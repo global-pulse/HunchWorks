@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load activelink %}
+
+{% block secondary_nav %}
+  <ul class="secondary">
+    <li class="{% ifactive "my_groups" %}active{% endifactive %}"><a href="{% url my_groups %}">My Groups</a></li>
+    <li class="{% ifactive "all_groups" %}active{% endifactive %}"><a href="{% url all_groups %}">All Groups</a></li>
+  </ul>
+{% endblock %}

@@ -26,13 +26,4 @@ def dashboard(req):
       'suggested_people': suggested_people[:5] })
   return render_to_response('dashboard/home.html', context)
 
-@login_required
-def connect(req, user_id):
-  user = get_object_or_404(models.UserProfile, pk=user_id)
 
-  connection = models.Connection.objects.get_or_create(
-    user_profile = models.UserProfile.objects.get(pk=req.user.get_profile().pk),
-	other_user_profile = models.UserProfile.objects.get(pk=user_id),
-	status=0)
-  
-  return redirect( user )
