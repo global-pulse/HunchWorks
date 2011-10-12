@@ -17,7 +17,13 @@
         <li class="creator"><span>By:</span> <a href="{{ rel.evidence.creator.get_absolute_url }}">{{ rel.evidence.creator }}</a></li>
       </ul>
     </div>
-    
+    <div class="vote">
+      <form method="POST">
+      {% for choice in vote_form %}
+        {{ choice }}
+      {% endfor %}
+      </form>
+    </div>
     <section class="comments">
       {% include "comments/comments.html" with comments=rel.comment_set.all %}
     </section>

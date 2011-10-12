@@ -330,7 +330,7 @@ class GroupForm(ModelForm):
     return group
 
 
-class HunchCommentForm(forms.ModelForm):
+class HunchCommentForm(ModelForm):
   class Meta:
     model = models.Comment
     fields = ("text",)
@@ -367,3 +367,10 @@ class InvitePeople(forms.Form):
       #hunch = hunch,
       )
       invitation.save()
+
+class VoteForm(ModelForm):
+  class Meta:
+    model = models.Vote
+    widgets = {
+      "choice": forms.RadioSelect()
+    }
