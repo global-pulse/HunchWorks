@@ -23,6 +23,13 @@ GROUP_STATUS_CHOICES = (
   (1, "Accepted"),
   (2, "Blocked"))
 
+SUPPORT_CHOICES = (
+  (-2, "Strongly Refutes"),
+  (-1, "Mildly Refutes"),
+  (0, "Neutral"),
+  (1, "Midly Supports"),
+  (2, "Strongly Supports"))
+
 
 class UserProfile(models.Model):
   user = models.ForeignKey(User, unique=True)
@@ -363,3 +370,10 @@ class Comment(models.Model):
 class HunchEvidence(models.Model):
   hunch = models.ForeignKey('Hunch')
   evidence = models.ForeignKey('Evidence')
+  support_cache = models.IntegerField(choices=SUPPORT_CHOICES)
+  confidence_cache = models.FloatField()
+
+  def save(self, *args, **kwargs):
+    self.support_cache = 0
+    self.confidence_cache = 0.5
+    super(HunchEvidence, self).save(*args, **kwargs)

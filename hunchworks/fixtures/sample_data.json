@@ -970,7 +970,9 @@
         "fields": 
         {
             "hunch": 1,
-            "evidence": 1
+            "evidence": 1,
+            "support_cache": -2,
+            "confidence_cache": 0.5
         }
     },
     {
@@ -979,7 +981,9 @@
         "fields": 
         {
             "hunch": 1,
-            "evidence": 2
+            "evidence": 2,
+            "support_cache": 2,
+            "confidence_cache": 0.5
         }
     },
     {
@@ -988,7 +992,9 @@
         "fields": 
         {
             "hunch": 2,
-			"evidence": 1
+            "evidence": 1,
+            "support_cache": 0,
+            "confidence_cache": 0
         }
     },
     {
@@ -997,7 +1003,9 @@
         "fields": 
         {
             "hunch": 2,
-            "evidence": 2
+            "evidence": 2,
+            "support_cache": 0,
+            "confidence_cache": 0
         }
     },
     {
@@ -1006,7 +1014,9 @@
         "fields": 
         {
             "hunch": 3,
-            "evidence": 1
+            "evidence": 1,
+            "support_cache": 0,
+            "confidence_cache": 0
         }
     },
     
