@@ -26,6 +26,9 @@
     </div>
     <section class="comments">
       {% include "comments/comments.html" with comments=rel.comment_set.all %}
+      {% include "comments/form.html" %}
     </section>
+
+    <a href="" class="show-comment-form">Comment on this evidence</a>
   </article>
 {% endfor %}

@@ -7,12 +7,7 @@ section.comments { }
       display: block;
     }
 
-    section.comments > ul > li:last-child {
-      margin-bottom: 0;
-    }
-
 .comment {
-  overflow: hidden;
 }
 
   .comment > .user {
@@ -30,7 +25,7 @@ section.comments { }
     border: 2px solid #ccc;
     background: #fff;
     border-radius: 5px;
-    padding: 0.75em;
+    padding: 0.5em;
   }
 
     .comment > .text > .bubble-arrow {
