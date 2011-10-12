@@ -34,6 +34,7 @@ form { }
       }
 
     input, textarea, select, ul.token-input-list {
+      display: block;
       font: inherit;
       clear: both;
       width: 100%;
@@ -104,5 +105,13 @@ form { }
     padding-top: 1em;
     text-align: right;
     margin-bottom: 0;
+    overflow: hidden;
     clear: both;
   }
+  
+    form div.actions > input {
+      display: inline-block;
+      margin-left: 0.5em;
+      float: right;
+      clear: none;
+    }

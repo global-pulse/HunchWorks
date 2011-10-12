@@ -59,7 +59,8 @@ article.hunch { }
 
 
 article.evidence {
-  background: #eee;
+  background: #eee url("../img/bg.png");
+  box-shadow: 0 0 5px #ccc;
 }
 
   article.evidence > div {
@@ -69,11 +70,11 @@ article.evidence {
     article.evidence > div > .embed {
       display: block;
       text-align: center;
-      border: 1px solid #ccc;
-      padding: 1px;
     }
 
-      article.evidence > div > div.embed img {
+      article.evidence > div > div.embed img,
+      article.evidence > div > div.embed object,
+      article.evidence > div > div.embed embed {
         display: block;
       }
 
@@ -122,15 +123,71 @@ article.evidence {
     }
 
   article.evidence > section.comments {
-    margin-top: 0.5em;
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 0.5em;
+    overflow: hidden;
   }
+  
+    article.evidence > section.comments > form.comment { }
 
-    article.evidence > section.comments > ul { }
+    article.evidence > section.comments > form.comment > div.text {
+      position: relative;
+      padding: 0;
+    }
 
-      article.evidence > section.comments > ul > li.comment {
-        
+      article.evidence > section.comments > form.comment > div.text > div.field {
+        margin-bottom: 0;
+        padding-right: 27px;
+      }
+      
+        article.evidence > section.comments > form.comment > div.text > div.field > div.label {
+          display: none;
+        }
+
+        article.evidence > section.comments > form.comment > div.text > div.field > textarea {
+          clear: none;
+          padding: 0.5em;
+          background: none;
+          border: none;
+        }
+
+      article.evidence > section.comments > form.comment > div.text > div.actions > input {
+        position: absolute;
+        background: #eee;
+        color: #ccc;
+        border: none;
+        border-radius: 0 3px 3px 0;
+        font-size: 200%;
+        font-weight: normal;
+        padding: 0;
+        top: 1px;
+        right: 1px;
+        bottom: 1px;
+        width: 25px;
       }
 
+        article.evidence > section.comments > form.comment > div.text > div.actions > input:focus,
+        article.evidence > section.comments > form.comment > div.text > div.actions > input:hover {
+          background: #ccc;
+          color: #fff;
+        }
+
+      article.evidence > section.comments > form.comment > div.text > div.actions {
+        border: none;
+        padding: 0;
+        margin: 0;
+      }
+
+  article.evidence > a.show-comment-form {
+    clear: both;
+    display: block;
+    border: 1px solid #ccc;
+    background: rgba(0, 0, 0, 0.05);
+    border-top: none;
+    text-align: center;
+    padding: 0.5em;
+  }
 
     /*#page > header {
       padding-top: 1em;
