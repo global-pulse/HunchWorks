@@ -5,7 +5,7 @@ ul.tags { }
     border: 1px solid #ddd;
     border-radius: 1px 0.8125em 0.8125em 1px;
     font-size: 80%;
-    background: #eee url("../icons/tag.png") no-repeat 2px 50%;
+    background: #eee url("../../icons/tag.png") no-repeat 2px 50%;
     line-height: 19px;
     padding-left: 19px;
     padding-right: 0.625em;
