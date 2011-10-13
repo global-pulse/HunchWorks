@@ -1,47 +1,43 @@
 <!DOCTYPE html>
 {% load static %}
 {% load activelink %}
+{% load compress %}
 
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
 
-    <!--
-      Oh my! There are a lot of stylesheets here. That's just how I (adammck)
-      like to organize them. In production, we should concatenate and compress
-      them with something like django_compressor.
-    -->
+    {% compress css %}
+      <!-- global look and feel -->
+      <link rel="stylesheet" href="{% get_static_prefix %}css/global/reset.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/global/hacks.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/global/base.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/global/nav.css">
 
-    <!-- global look and feel -->
-    <link rel="stylesheet" href="{% get_static_prefix %}css/global/reset.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/global/hacks.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/global/base.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/global/nav.css">
+      <!-- includes -->
+      <link rel="stylesheet" href="{% get_static_prefix %}css/includes/paginator.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/includes/tags.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/includes/user.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/includes/comments.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/includes/token-input.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/includes/location-widget.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/includes/evidence-widget.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/includes/embed-widget.css">
 
-    <!-- includes -->
-    <link rel="stylesheet" href="{% get_static_prefix %}css/includes/paginator.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/includes/tags.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/includes/user.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/includes/comments.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/includes/token-input.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/includes/location-widget.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/includes/evidence-widget.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/includes/embed-widget.css">
+      <!-- forms -->
+      <link rel="stylesheet" href="{% get_static_prefix %}css/forms/base.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/forms/profile.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/forms/evidence.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/forms/hunch.css">
 
-    <!-- forms -->
-    <link rel="stylesheet" href="{% get_static_prefix %}css/forms/base.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/forms/profile.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/forms/evidence.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/forms/hunch.css">
-
-    <!-- specific pages -->
-    <link rel="stylesheet" href="{% get_static_prefix %}css/pages/auth.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/pages/album.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/pages/groups.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/pages/hunches.css">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/pages/connections.css">
-    {% block css %}{% endblock %}
+      <!-- specific pages -->
+      <link rel="stylesheet" href="{% get_static_prefix %}css/pages/auth.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/pages/album.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/pages/groups.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/pages/hunches.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/pages/connections.css">
+    {% endcompress %}
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
