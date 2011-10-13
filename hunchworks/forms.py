@@ -371,6 +371,26 @@ class InvitePeople(forms.Form):
 class VoteForm(ModelForm):
   class Meta:
     model = models.Vote
+    exclude = ("user_profile",)
     widgets = {
-      "choice": forms.RadioSelect()
+      "choice": forms.RadioSelect(),
     }
+
+  def save(self, user_profile=None, hunch_evidence=None):
+    with transaction.commit_on_success():
+      vote_form = super(VoteForm, self).save(commit=False)
+      
+      if len(models.Vote.objects.filter(user_profile=user_profile, hunch_evidence=hunch_evidence)) > 0:
+        vote = models.Vote.objects.get(
+          user_profile=user_profile, 
+          hunch_evidence=hunch_evidence)
+        vote.choice = vote_form.choice
+        vote.save()
+      else:
+        vote = models.Vote.objects.get_or_create(
+          user_profile=user_profile, 
+          hunch_evidence=hunch_evidence,
+          choice=vote_form.choice)
+        vote.save()
+
+      return vote

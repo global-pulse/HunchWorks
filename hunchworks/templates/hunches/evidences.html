@@ -19,9 +19,11 @@
     </div>
     <div class="vote">
       <form method="POST">
-      {% for choice in vote_form %}
-        {{ choice }}
-      {% endfor %}
+        {% csrf_token %}
+        {{ vote_form.choice }}
+        <input type="hidden" name="hunch_evidence" value="{{ rel.id }}"/>
+        <input type="submit" value="Vote"/>
+        <div class="clear-hack"></div>
       </form>
     </div>
     <section class="comments">

@@ -386,3 +386,5 @@ class HunchEvidence(models.Model):
 
 class Vote(models.Model):
   choice = models.IntegerField(choices=SUPPORT_CHOICES, default=None)
+  hunch_evidence = models.ForeignKey('HunchEvidence')
+  user_profile = models.ForeignKey('UserProfile')

@@ -61,9 +61,9 @@ def finished(req):
 
 @login_required
 def show(req, hunch_id):
-  hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+  hunch = get_object_or_404(models.Hunch, pk=hunch_id) 
   comment_form = forms.HunchCommentForm(data=req.POST or None)
-  vote_form = forms.VoteForm(data=req.POST or None)
+  vote_form = forms.VoteForm(req.POST or None)
 
   if len(hunch.user_profiles.filter(pk=req.user.get_profile().pk)) > 0:
     following = True
@@ -76,9 +76,10 @@ def show(req, hunch_id):
     comment.hunch = hunch
     comment.save()
     return redirect(comment)
+    
   if vote_form.is_valid():
-    vote = vote_form.save()
-    return redirect(vote)
+    vote = vote_form.save(user_profile=req.user.get_profile(), hunch_evidence=vote_form.cleaned_data["hunch_evidence"])
+    return redirect(hunch)
 
   return _render(req, "show", {
     "following" : following,
