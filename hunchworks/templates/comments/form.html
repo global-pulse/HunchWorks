@@ -1,8 +1,8 @@
-<form action="" method="post" class="comment mine" style="display: none;">
+<form action="" method="post" class="comment{% if comment_form.errors %} errors{% endif %}">
   {% include "users/user.html" with user=request.user.get_profile %}
 
-  <div class="text">
-    <div class="bubble-arrow"></div>
+  <div class="bubble">
+    <div class="arrow"></div>
     {{ comment_form.non_field_errors }}
     {% csrf_token %}
 
@@ -17,6 +17,7 @@
     <div class="submit-trigger"></div>
 
     <div class="actions">
+      <input type="hidden" name="action" value="comment">
       <input type="submit" value="&raquo;">
     </div>
   </div>

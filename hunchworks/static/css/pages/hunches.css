@@ -220,7 +220,7 @@
     #hunch-show article.evidence > section.comments {
       border: 1px solid #ccc;
       border-top: none;
-      padding: 0.5em;
+      padding: 1em;
       overflow: hidden;
     }
 
@@ -238,38 +238,44 @@
 
 
 
+
   #hunch-show .comment { }
 
-    #hunch-show .comment > .user {
-      float: right;
-    }
+    #hunch-show .comment > .user { }
 
-      #hunch-show .comment.mine > .user {
-        float: left;
-      }
+      #hunch-show li:nth-child(even) .comment > .user { float: right; }
+      #hunch-show li:nth-child(odd)  .comment > .user { float: left; }
 
-    #hunch-show .comment > .text {
+    #hunch-show .comment > .bubble {
       position: relative;
-      line-height: 1.3;
       margin: 0 62px;
+      line-height: 1.3;
+      min-height: 2.6em;
       border: 2px solid #ccc;
       background: #fff;
       border-radius: 5px;
       padding: 0.5em;
     }
 
-      #hunch-show .comment > .text > .bubble-arrow {
-        background: url("../../img/bubble-arrow-right.png") no-repeat;
+      /*#hunch-show li.odd .comment > .bubble { text-align: left; }
+      #hunch-show li.even .comment > .bubble { text-align: right; }*/
+
+      #hunch-show .comment > .bubble > .arrow {
+        background-repeat: no-repeat;
+        background-position: 0 50%;
         position: absolute;
+        top: 0;
         width: 8px;
-        height: 14px;
-        top: 1em;
+        height: 100%;
+      }
+
+      #hunch-show li:nth-child(even) .comment > .bubble > .arrow {
+        background-image: url("../../img/bubble-arrow-right.png");
         right: -8px;
       }
 
-      #hunch-show .comment.mine > .text > .bubble-arrow {
-        background: url("../../img/bubble-arrow-left.png") no-repeat;
-        right: auto;
+      #hunch-show li:nth-child(odd) .comment > .bubble > .arrow {
+        background-image: url("../../img/bubble-arrow-left.png");
         left: -8px;
       }
 
@@ -278,28 +284,34 @@
 
   #hunch-show form.comment { }
 
-    #hunch-show form.comment > div.text {
-      position: relative;
-      padding: 0;
+    #hunch-show form.comment > div.bubble { }
+
+    /* If the comment submitted was invalid, make the bubble borders look like
+    |* the invalid field border. They're deliberately styled the same. */
+    #hunch-show form.comment.errors > div.bubble {
+      border-color: #c66;
+      background-color: #fee;
+      color: #000;
     }
 
-      #hunch-show form.comment > div.text > div.field {
+      #hunch-show form.comment > div.bubble > div.field {
         margin-bottom: 0;
         padding-right: 27px;
       }
 
-        #hunch-show form.comment > div.text > div.field > div.label {
+        #hunch-show form.comment > div.bubble > div.field > div.label,
+        #hunch-show form.comment > div.bubble > div.field > ul.errorlist {
           display: none;
         }
 
-        #hunch-show form.comment > div.text > div.field > textarea {
+        #hunch-show form.comment > div.bubble > div.field > textarea {
           clear: none;
           padding: 0.5em;
           background: none;
           border: none;
         }
 
-      #hunch-show form.comment > div.text > div.actions > input {
+      #hunch-show form.comment > div.bubble > div.actions > input {
         position: absolute;
         background: #eee;
         color: #ccc;
@@ -314,13 +326,13 @@
         width: 25px;
       }
 
-        #hunch-show form.comment > div.text > div.actions > input:focus,
-        #hunch-show form.comment > div.text > div.actions > input:hover {
+        #hunch-show form.comment > div.bubble > div.actions > input:focus,
+        #hunch-show form.comment > div.bubble > div.actions > input:hover {
           background: #ccc;
           color: #fff;
         }
 
-      #hunch-show form.comment > div.text > div.actions {
+      #hunch-show form.comment > div.bubble > div.actions {
         border: none;
         padding: 0;
         margin: 0;

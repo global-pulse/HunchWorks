@@ -62,24 +62,56 @@ def finished(req):
 @login_required
 def show(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
-  comment_form = forms.HunchCommentForm(data=req.POST or None)
+
+
+  # If one of the HunchEvidence comment forms was just submitted, attempt the
+  # usual validate -> save -> redirect process. If this fails (i.e. the form was
+  # not valid), we'll need it later on to display again.
+
+  comment_form = None
+  if req.method == "POST":
+    if req.POST.get("action") == "comment":
+      comment_form = forms.CommentForm(req.POST)
+
+      if comment_form.is_valid():
+        comment = comment_form.save(creator=req.user.get_profile())
+        return redirect(comment)
+
+
+  def _wrap(hunch_evidence):
+    """
+    For a given ``hunch_evidence``, return a tuple containing:
+
+      * The HunchEvidence object itself.
+      * A QuerySet of the related comments.
+      * A CommentForm for creating new comments related to the HunchEvidence.
+    """
+
+    # If a comment form was just submitted for this HunchEvidence, use it.
+    # Otherwise, create a new empty form.
+
+    if comment_form is not None\
+    and unicode(comment_form["hunch_evidence"].value()) == unicode(hunch_evidence.pk):
+      form = comment_form
+
+    else:
+      form = forms.CommentForm(initial={
+        "hunch_evidence": hunch_evidence
+      })
+
+    return (hunch_evidence, hunch_evidence.comment_set.all(), form)
+
 
   if len(hunch.user_profiles.filter(pk=req.user.get_profile().pk)) > 0:
     following = True
   else:
     following = False
 
-  if comment_form.is_valid():
-    comment = comment_form.save(commit=False)
-    comment.creator = req.user.get_profile()
-    comment.hunch = hunch
-    comment.save()
-    return redirect(comment)
-
   return _render(req, "show", {
-    "following" : following,
     "hunch": hunch,
-    "comment_form": comment_form
+    "evidences_for": map(_wrap, hunch.evidences_for()),
+    "evidences_against": map(_wrap, hunch.evidences_against()),
+    "following": following,
   })
 
 

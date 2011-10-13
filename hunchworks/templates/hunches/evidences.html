@@ -1,35 +1,35 @@
-{% for rel in evidences %}
+{% for hunch_evidence, comments, comment_form in evidences %}
   <article class="evidence">
     <div>
-      <a href="{{ rel.evidence.link }}" class="embed">{{ rel.evidence.link }}</a>
+      <a href="{{ hunch_evidence.evidence.link }}" class="embed">{{ hunch_evidence.evidence.link }}</a>
 
       <header>
-        <h3>{{ rel.evidence.description }}</h3>
+        <h3>{{ hunch_evidence.evidence.description }}</h3>
       </header>
 
       <!--<section class="desc">
-        <p>{{ rel.evidence.description }}</p>
+        <p>{{ hunch_evidence.evidence.description }}</p>
       </section>-->
 
       <ul class="meta">
-        <li class="source"><span>Source:</span> <a href="{{ rel.evidence.link }}">{{ rel.evidence.short_link }}</a></li>
-        <li class="date"><span>Posted:</span> {{ rel.evidence.time_created|date:"j F Y" }}</li>
-        <li class="creator"><span>By:</span> <a href="{{ rel.evidence.creator.get_absolute_url }}">{{ rel.evidence.creator }}</a></li>
+        <li class="source"><span>Source:</span> <a href="{{ hunch_evidence.evidence.link }}">{{ hunch_evidence.evidence.short_link }}</a></li>
+        <li class="date"><span>Posted:</span> {{ hunch_evidence.evidence.time_created|date:"j F Y" }}</li>
+        <li class="creator"><span>By:</span> <a href="{{ hunch_evidence.evidence.creator.get_absolute_url }}">{{ hunch_evidence.evidence.creator }}</a></li>
       </ul>
     </div>
     
     <section class="comments">
       <ul>
-        {% for comment in rel.comment_set.all %}
+        {% for comment in comments.all %}
           <li>
             {% include "comments/comment.html" %}
           </li>
         {% endfor %}
+
+        <li>
+          {% include "comments/form.html" %}
+        </li>
       </ul>
-
-      {% include "comments/form.html" %}
     </section>
-
-    <a href="" class="show-comment-form">Comment on this evidence</a>
   </article>
 {% endfor %}
