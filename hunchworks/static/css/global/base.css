@@ -1,6 +1,6 @@
 body {
   padding: 0 1em;
-  background: #eee url("../img/bg.png");
+  background: #eee url("../../img/bg.png");
   color: #333;
 }
 
@@ -54,8 +54,8 @@ a {
 
     #page div.links {
       font-size: 80%;
-      margin-top: 1.25em;
       padding: 0.625em;
+      overflow: hidden;
 
       background: #eee;
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');

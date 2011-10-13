@@ -1,36 +1,32 @@
 {% extends "hunches/base.html" %}
+{% block body_id %}hunch-list{% endblock %}
 {% load paginator_tags %}
 
 {% block content %}
-  <div id="hunch-list">
-    <div class="hunches">
-      {% for hunch in hunches.object_list %}
-        <div class="hunch"><div>
-          <h3><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h3>
+  <section class="hunch-list">
+    {% for hunch in hunches.object_list %}
+      <article class="hunch">
+        <h2><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h2>
 
-          {% if hunch.description %}
-            <div class="desc">
-              {{ hunch.description|truncatewords:60|safe }}
-            </div>
-          {% endif %}
+        {% if hunch.description %}
+          <section class="desc">
+            {{ hunch.description|truncatewords:60|safe }}
+          </section>
+        {% endif %}
 
-          <ul class="stats">
-            <li>{{ hunch.member_count }} members</li>
-            <li>{{ hunch.evidence_count }} evidence</li>
-          </ul>
+        <ul class="stats">
+          <li>{{ hunch.member_count }} members</li>
+          <li>{{ hunch.evidence_count }} evidence</li>
+        </ul>
+      </article>
+    {% endfor %}
+  </section>
 
-          <div class="clear-hack"></div>
-        </div></div>
-      {% endfor %}
-      <div class="clear-hack"></div>
-    </div>
+  <div class="links">
+    <ul>
+      <li><a href="{% url create_hunch %}">Add a Hunch</a></li>
+    </ul>
 
-    <div class="links">
-      <ul>
-        <li><a href="{% url create_hunch %}">Add a Hunch</a></li>
-      </ul>
-      {% paginator hunches %}
-      <div class="clear-hack"></div>
-    </div>
+    {% paginator hunches %}
   </div>
 {% endblock %}

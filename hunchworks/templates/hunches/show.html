@@ -1,4 +1,10 @@
 {% extends "hunches/base.html" %}
+{% block body_id %}hunch-show{% endblock %}
+
+{% block title %}
+  Show a Hunch &mdash;
+  {{ block.super }}
+{% endblock %}
 
 {% block header %}
   {{ block.super }}
