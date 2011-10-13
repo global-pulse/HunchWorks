@@ -4,7 +4,7 @@ from hunchworks.models import Connection, UserProfile
 from django.contrib.auth.models import User
 from hunchworks.utils.tests import FunctionalTest
 
-from factoryboy import UserProfileFactory
+from fixturefactory import UserProfileFactory
 
 class ConnectionViewsTest(FunctionalTest):
   fixtures = ["test_users", "test_connections"]
