@@ -29,8 +29,9 @@ class FactoryMixin(object):
 
         return locals()
         """
-        raise NotImplementedError('You cannot directly instantiate FactoryMixin '
-                           'or call this method directly')
+        raise NotImplementedError(
+                'You cannot directly instantiate FactoryMixin '
+                'or call this method directly')
 
     def __init__(self, save_to_db=True):
         """Create new instance of a model by calling getparams in child class.
@@ -49,7 +50,8 @@ class FactoryMixin(object):
         self.last_obj_created = self.create(save_to_db=save_to_db, **dict_)
 
     def __repr__(self):
-        return "%s: Last created <%s>" % (self.__class__.__name__, str(self.last_obj_created))
+        return "%s: Last created <%s>" % (
+                self.__class__.__name__, str(self.last_obj_created))
 
     def create(self, save_to_db=True, **kwargs):
         """Basically a wrapper to Django's model.objects.create method."""
@@ -71,8 +73,8 @@ class FactoryMixin(object):
         if isinstance(percent, int):
             percent = percent * .1
         percent = 1 - percent
-
-        return [x for x in self.model.objects.all() if random.random() > percent]
+        rv = [x for x in self.model.objects.all() if random.random() > percent]
+        return rv
 
     def getPks(self, model=None):
         """Get flattened list of primary keys"""
@@ -116,9 +118,10 @@ class UserProfileFactory(FactoryMixin):
         return  ''.join([str(random.randint(0,9))
                 for x in range(random.choice([7,10,11,13,20]))])
     def website(self, subdomain):
-        return  "%s%s%s" % (random.choice(['www.','', 'http://', 'http://www.']),
-                        subdomain,
-                        random.choice(['.com', '.org', '.me', '.uk', '.it']))
+        return  "%s%s%s" %
+                    (random.choice(['www.','', 'http://', 'http://www.']),
+                     subdomain,
+                     random.choice(['.com', '.org', '.me', '.uk', '.it']))
 
     def getparams(self):
         user = UserFactory().last_obj_created
