@@ -10,15 +10,12 @@ from hunchworks import hunchworks_enums as enums
 class ConnectionFactory(BaseFactory, FactoryMixin):
     model = Connection
 
-    def __init__(self, uid1, uid2, *args, **kwargs):
-        self.uid1 = uid1
-        self.uid2 = uid2
-        super(ConnectionFactory, self).__init__(*args, **kwargs)
-
     def getparams(self):
-        status = random.choice(enums.ConnectionStatus.GetChoices())[0]
+        # Must be passed in at time of instantiation
         user_profile_id = self.uid1
         other_user_profile_id = self.uid2
+
+        status = random.choice(enums.ConnectionStatus.GetChoices())[0]
         return locals()
 
 class UserFactory(BaseFactory, FactoryMixin):

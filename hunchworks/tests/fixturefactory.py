@@ -3,6 +3,11 @@ import random
 class BaseFactory(object):
     """Base Class for creating django objects """
 
+    # parameters to instantiate an object.
+    # may be overridden by childcls's getparams() method
+    default_params = dict(save_to_db=True, )
+    last_obj_created = 'None'
+
     def getparams(cls):
         """Template method: must be overridden by child class.
         Return dict of params that get sent to self.create()
@@ -19,24 +24,31 @@ class BaseFactory(object):
                 'You cannot directly instantiate BaseFactory '
                 'or call this method directly')
 
-    def __init__(self, save_to_db=True):
+    def __init__(self, *args, **kwargs):
         """Create new instance of a model by calling getparams in child class.
-        Don't call directly.  Don't instantiate FactoryMixin directly"""
+        Don't call directly.  Don't instantiate FactoryMixin directly.
 
-        # Get dict of params for object to create
-        dict_ = self.getparams()
+        Any given params are passed to cls.getparams(*args, **kwargs)"""
+
+        #add kwargs as class vars.  This means getparams() can use
+        # any kwargs passed in at time of instantiation.  kwargs won't
+        # get explicitly passed to django unless set in getparams()
+        # (or by overriding __init__ in the child)
+        self.__dict__.update(**kwargs)
+
+        # Get dict of params necessary to create object
+        dict_ = self.default_params
+        dict_.update(self.getparams())
 
         # Check and prep dict_ as necessary
-        if dict_ == None: raise ValueError("Expected dict, got None. "
-                            "self.getparams() is missing a return value")
         try: del dict_['self'] # we don't want to pass this around
         except: pass
 
         # Create model object
-        self.last_obj_created = self.create(save_to_db=save_to_db, **dict_)
+        self.last_obj_created = self.create(**dict_)
 
     def __repr__(self):
-        return "%s: Last created <%s>" % (
+        return "%s: last_obj_created <%s>" % (
                 self.__class__.__name__, str(self.last_obj_created))
 
     def create(self, save_to_db=True, **kwargs):
