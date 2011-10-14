@@ -4,13 +4,13 @@ from hunchworks.models import Connection, UserProfile
 from django.contrib.auth.models import User
 from hunchworks.utils.tests import FunctionalTest
 
-from fixturefactory import UserProfileFactory
+#from fixturefactory import UserProfileFactory
 
 class ConnectionViewsTest(FunctionalTest):
   fixtures = ["test_users", "test_connections"]
 
   def setUp(self):
-    self._user = UserProfileFactory()
+    self._user = User.objects.create_user("user", "a@b.com", "pass")
     self.client.login(username="user", password="pass")
 
   def tearDown(self):

@@ -22,40 +22,40 @@ class HunchViewsTest(TestCase, TestHelpers):
   def test_all_hunches(self):
     with self.login("one"):
       resp = self.get("all_hunches")
-      self.assertQuery(resp, "div.hunch", count=1)
+      self.assertQuery(resp, "article.hunch", count=1)
 
   def test_my_hunches(self):
     with self.login("two"):
       resp = self.get("my_hunches")
-      self.assertQuery(resp, "div.hunch", count=1)
+      self.assertQuery(resp, "article.hunch", count=1)
     
   def test_get_open(self):
     with self.login("one") as profile:
       resp1 = self.get("open_hunches")
-      self.assertQuery(resp1, "div.hunch", count=1)
+      self.assertQuery(resp1, "article.hunch", count=1)
 
       hunch = Hunch.objects.create(creator=profile, title="blah", description="desc", status=2, privacy=2)
       HunchUser.objects.create(user_profile=profile, hunch=hunch)
     
       resp2 = self.get("open_hunches")
-      self.assertQuery(resp2, "div.hunch", count=2)
+      self.assertQuery(resp2, "article.hunch", count=2)
 
   def test_get_finished(self):
     with self.login("one") as profile:
       resp1 = self.get("finished_hunches")
-      self.assertQuery(resp1, "div.hunch", count=0)
+      self.assertQuery(resp1, "article.hunch", count=0)
 
       hunch = Hunch.objects.create(creator=profile, title="blah", description="desc", status=1, privacy=2)
       HunchUser.objects.create(user_profile=profile, hunch=hunch)
 
       resp2 = self.get("finished_hunches")
-      self.assertQuery(resp2, "div.hunch", count=1)
+      self.assertQuery(resp2, "article.hunch", count=1)
 
       hunch2 = Hunch.objects.create(creator=profile, title="blah2", description="desc2", status=0, privacy=2)
       HunchUser.objects.create(user_profile=profile, hunch=hunch2)
 
       resp3 = self.get("finished_hunches")
-      self.assertQuery(resp3, "div.hunch", count=2)
+      self.assertQuery(resp3, "article.hunch", count=2)
   
   def test_show_hunch(self):
     with self.login("one"):

@@ -61,4 +61,4 @@ class GroupViewsTest(TestCase, TestHelpers):
       group = Group.objects.get(pk=1)
       resp = self.get("group_hunches", group_id=group.pk)
       self.assertTemplateUsed(resp, "groups/view_hunches.html")
-      self.assertQuery(resp, "div.hunch", count=1)
+      self.assertQuery(resp, "article.hunch", count=1)

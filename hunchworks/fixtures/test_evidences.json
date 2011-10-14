@@ -18,7 +18,7 @@
     "fields": {
       "evidence": 1,
       "hunch": 1,
-      "support_cache": 0
+      "support_cache": 0,
       "confidence_cache": 0
     }
   }
