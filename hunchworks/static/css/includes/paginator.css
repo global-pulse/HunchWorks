@@ -29,10 +29,10 @@
 
     /* links look something like:
      *  <<  <  1 2 3 4  >  >> */
-    .paginator .first { background-image: url("../icons/silk/resultset_first.png");    }
-    .paginator .prev  { background-image: url("../icons/silk/resultset_previous.png"); }
-    .paginator .next  { background-image: url("../icons/silk/resultset_next.png");     }
-    .paginator .last  { background-image: url("../icons/silk/resultset_last.png");     }
+    .paginator .first { background-image: url("../../icons/silk/resultset_first.png");    }
+    .paginator .prev  { background-image: url("../../icons/silk/resultset_previous.png"); }
+    .paginator .next  { background-image: url("../../icons/silk/resultset_next.png");     }
+    .paginator .last  { background-image: url("../../icons/silk/resultset_last.png");     }
 
     .paginator span.na {
       background-position: -16px 50%; }

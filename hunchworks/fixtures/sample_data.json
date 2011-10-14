@@ -970,7 +970,9 @@
         "fields": 
         {
             "hunch": 1,
-            "evidence": 1
+            "evidence": 1,
+            "support_cache": -2,
+            "confidence_cache": 0.5
         }
     },
     {
@@ -979,7 +981,9 @@
         "fields": 
         {
             "hunch": 1,
-            "evidence": 2
+            "evidence": 2,
+            "support_cache": 2,
+            "confidence_cache": 0.5
         }
     },
     {
@@ -988,7 +992,9 @@
         "fields": 
         {
             "hunch": 2,
-			"evidence": 1
+            "evidence": 1,
+            "support_cache": 0,
+            "confidence_cache": 0
         }
     },
     {
@@ -997,7 +1003,9 @@
         "fields": 
         {
             "hunch": 2,
-            "evidence": 2
+            "evidence": 2,
+            "support_cache": 0,
+            "confidence_cache": 0
         }
     },
     {
@@ -1006,7 +1014,9 @@
         "fields": 
         {
             "hunch": 3,
-            "evidence": 1
+            "evidence": 1,
+            "support_cache": 0,
+            "confidence_cache": 0
         }
     },
     
@@ -1016,7 +1026,7 @@
         "model": "hunchworks.comment",
         "fields": 
         {
-            "text": "This evidence without a doubt proves this true",
+            "text": "This evidence without a doubt proves this true. This comment would be much more useful if it were longer, so I am writing this to make it so.",
             "time_posted": "2011-09-20 11:14:19.244634",
             "creator": 1,
             "hunch_evidence": 1
@@ -1060,7 +1070,7 @@
         "model": "hunchworks.comment",
         "fields": 
         {
-            "text": "This evidence is absolutely correct, amazing!",
+            "text": "This evidence is absolutely correct, amazing! It is very relevant to this hunch, and confirms it.",
             "time_posted": "2011-09-20 11:14:19.244634",
             "creator": 2,
             "hunch_evidence": 1

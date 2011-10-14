@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import re
 import json
 from hunchworks import models, custom_fields, json_views
 from django import forms
@@ -330,10 +331,28 @@ class GroupForm(ModelForm):
     return group
 
 
-class HunchCommentForm(forms.ModelForm):
+class HunchCommentForm(ModelForm):
   class Meta:
     model = models.Comment
     fields = ("text",)
+
+
+class CommentForm(forms.ModelForm):
+  class Meta:
+    model = models.Comment
+    fields = ("text", "hunch_evidence")
+    widgets = {
+      "hunch_evidence": forms.HiddenInput()
+    }
+
+  def save(self, creator=None):
+    comment = super(CommentForm, self).save(commit=False)
+
+    if creator is not None:
+      comment.creator = creator
+
+    comment.save()
+    return comment
 
 
 class HomepageForm(ModelForm):
@@ -367,3 +386,60 @@ class InvitePeople(forms.Form):
       #hunch = hunch,
       )
       invitation.save()
+
+
+class VoteChoiceRenderer(forms.widgets.RadioFieldRenderer):
+  """
+  Identical to Django's RadioFieldRenderer, with the addition of a "selected"
+  class to the <li> containing the selected radio button, for easier styling.
+  """
+
+  def _ul(self):
+    return '<ul>%s</ul>' % "".join(
+      map(self._li, self))
+
+  def _css_class(self, widget):
+    label = widget.choice_label.lower().replace(" ", "-")
+    css_class = re.sub("[^a-z\-]+", "", label)
+
+    if(self.value == widget.choice_value):
+      css_class += " selected"
+
+    return css_class
+
+  def _li(self, widget):
+    return '<li class="%s">%s</li>' % (
+      self._css_class(widget), unicode(widget))
+
+  def render(self):
+    return mark_safe(self._ul())
+
+
+class VoteForm(ModelForm):
+  class Meta:
+    model = models.Vote
+    exclude = ("user_profile",)
+    widgets = {
+      "choice": forms.RadioSelect(renderer=VoteChoiceRenderer),
+      "hunch_evidence": forms.HiddenInput()
+    }
+
+  def save(self, user_profile=None):
+    with transaction.commit_on_success():
+      vote_form = super(VoteForm, self).save(commit=False)
+      hunch_evidence = self.cleaned_data["hunch_evidence"]
+      
+      if len(models.Vote.objects.filter(user_profile=user_profile, hunch_evidence=hunch_evidence)) > 0:
+        vote = models.Vote.objects.get(
+          user_profile=user_profile, 
+          hunch_evidence=hunch_evidence)
+        vote.choice = vote_form.choice
+        vote.save()
+      else:
+        vote, created = models.Vote.objects.get_or_create(
+          user_profile=user_profile, 
+          hunch_evidence=hunch_evidence,
+          choice=vote_form.choice)
+        vote.save()
+
+      return vote

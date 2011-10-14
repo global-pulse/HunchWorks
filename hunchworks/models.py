@@ -5,7 +5,7 @@ from urlparse import urlparse
 import hunchworks_enums
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save, post_save
 
 
 PRIVACY_CHOICES = (
@@ -22,6 +22,13 @@ GROUP_STATUS_CHOICES = (
   (0, "Invited"),
   (1, "Accepted"),
   (2, "Blocked"))
+
+SUPPORT_CHOICES = (
+  (-2, "Strongly Refutes"),
+  (-1, "Mildly Refutes"),
+  (0, "Neutral"),
+  (1, "Mildly Supports"),
+  (2, "Strongly Supports"))
 
 
 class UserProfile(models.Model):
@@ -130,6 +137,12 @@ class Hunch(models.Model):
     # view it. The only distinction between the levels is in the editing.
     return True
 
+  def evidences_for(self):
+    return HunchEvidence.objects.filter(hunch=self, support_cache__gt=0).order_by("-confidence_cache")
+
+  def evidences_against(self):
+    return HunchEvidence.objects.filter(hunch=self, support_cache__lte=0).order_by("-confidence_cache")
+
   def _is_hidden(self):
     """Return True if this Hunch is hidden."""
     return (self.privacy == hunchworks_enums.PrivacyLevel.HIDDEN)
@@ -157,7 +170,7 @@ class Evidence(models.Model):
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
-    return "%s" % (self.title or (self.description[:50] + '...'))
+    return self.title or self.description
 
   def type(self):
     return "Link"
@@ -349,8 +362,8 @@ class Comment(models.Model):
 
   @models.permalink
   def get_absolute_base_url(self):
-    if self.hunch:
-      return ("hunch", [self.hunch.pk])
+    if self.hunch_evidence:
+      return ("hunch", [self.hunch_evidence.hunch.pk])
 
   def get_absolute_url(self):
     return self.get_absolute_base_url() + ("#c%d" % self.pk)
@@ -363,3 +376,15 @@ class Comment(models.Model):
 class HunchEvidence(models.Model):
   hunch = models.ForeignKey('Hunch')
   evidence = models.ForeignKey('Evidence')
+  support_cache = models.IntegerField(choices=SUPPORT_CHOICES)
+  confidence_cache = models.FloatField()
+
+  def save(self, *args, **kwargs):
+    self.support_cache = 0
+    self.confidence_cache = 0.5
+    super(HunchEvidence, self).save(*args, **kwargs)
+
+class Vote(models.Model):
+  choice = models.IntegerField(choices=SUPPORT_CHOICES, default=None)
+  hunch_evidence = models.ForeignKey('HunchEvidence')
+  user_profile = models.ForeignKey('UserProfile')

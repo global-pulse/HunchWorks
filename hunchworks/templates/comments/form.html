@@ -1,0 +1,24 @@
+<form action="" method="post" class="comment{% if comment_form.errors %} errors{% endif %}">
+  {% include "users/user.html" with user=request.user.get_profile %}
+
+  <div class="bubble">
+    <div class="arrow"></div>
+    {{ comment_form.non_field_errors }}
+    {% csrf_token %}
+
+    {% for field in comment_form.hidden_fields %}
+      {{ field }}
+    {% endfor %}
+
+    {% for field in comment_form.visible_fields %}
+      {% include "includes/fields/base.html" %}
+    {% endfor %}
+
+    <div class="submit-trigger"></div>
+
+    <div class="actions">
+      <input type="hidden" name="action" value="comment">
+      <input type="submit" value="&raquo;">
+    </div>
+  </div>
+</form>

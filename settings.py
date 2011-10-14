@@ -96,6 +96,7 @@ STATICFILES_FINDERS = (
   'django.contrib.staticfiles.finders.FileSystemFinder',
   'django.contrib.staticfiles.finders.AppDirectoriesFinder',
   #'django.contrib.staticfiles.finders.DefaultStorageFinder',
+  'compressor.finders.CompressorFinder'
 )
 
 # Make this unique, and don't share it with anybody.
@@ -135,6 +136,7 @@ INSTALLED_APPS = (
   'django.contrib.contenttypes',
   'django.contrib.auth',
   'activelink',
+  'compressor',
   'hunchworks')
 
 # In DEBUG, also serve static files and Django admin.
@@ -170,3 +172,7 @@ LOGGING = {
 }
 
 AUTH_PROFILE_MODULE = 'hunchworks.UserProfile'
+
+COMPRESS_CSS_FILTERS = (
+  "compressor.filters.css_default.CssAbsoluteFilter",
+  "compressor.filters.cssmin.CSSMinFilter")

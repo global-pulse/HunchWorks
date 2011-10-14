@@ -1,4 +1,10 @@
 {% extends "hunches/base.html" %}
+{% block body_id %}hunch-show{% endblock %}
+
+{% block title %}
+  Show a Hunch &mdash;
+  {{ block.super }}
+{% endblock %}
 
 {% block header %}
   {{ block.super }}
@@ -6,238 +12,67 @@
 {% endblock %}
 
 {% block content %}
-  <div id="hunch-show">
-    <div class="left">
-      <h1><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h1>
-      <ul class="tags">
+  <article class="hunch">
+    <header>
+      <div>
+        <h1>&#8220;<a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a>&#8221;</h1>
+        <div class="cite">&mdash; {{ hunch.creator }}, {{ hunch.time_created|date:"j F Y" }}</div>
+      </div>
+      <!--<ul class="tags">
         {% for tag in hunch.tags.all %}
           <li>{{ tag }}</li>
         {% endfor %}
-      </ul>
+      </ul>-->
+    </header>
 
-      {% if hunch.privacy == 2 %}
-        <div class="privacy open">
-          <h2>Privacy</h2>
-          <h3>Open</h3>
-
-          <p class="summary">
-            Anyone may view and contribute to this hunch.
-          </p>
-
-          <p class="shared-with">
-            Shared with
-            {% for user_profile in hunch.user_profiles.all %}
-              <a href="{{ user_profile.get_absolute_url }}">{{ user_profile }}</a>
-            {% endfor %}
-          </p>
+    <section class="meta">
+      <div class="support">
+        <div>
+          <h2>Strongly Supported</h2>
+          <p>This hunch is well-supported by evidence, with 90% confidence.</p>
         </div>
-      {% endif %}
-      {% if hunch.privacy == 1 %}
-        <div class="privacy closed">
-          <h2>Privacy</h2>
-          <h3>Closed</h3>
-
-          <p class="summary">
-            Anyone may view, but only invited users can contribute.
-          </p>
-
-          <p class="shared-with">
-            Shared with
-            <a href="">Adam Mckaig</a>,
-            <a href="">Chris Blumberg</a>
-            and <a href="">5 others</a>
-          </p>
-        </div>
-      {% endif %}
-      {% if hunch.privacy == 0 %}
-        <div class="privacy hidden">
-          <h2>Privacy</h2>
-          <h3>Hidden</h3>
-
-          <p class="summary">
-            This hunch is private. Only invited users can view it.
-          </p>
-
-          <p class="shared-with">
-            Shared with
-            <a href="">Adam Mckaig</a>,
-            <a href="">Chris Blumberg</a>
-            and <a href="">5 others</a>
-          </p>
-        </div>
-      {% endif %}
-
-      <div class="desc">
-        {{ hunch.description }}
       </div>
-
-      <div class="evidence">
-        <ul>
-          {% for evidence in hunch.evidences.all %}
-            <li class="tweet">
-              <div class="left">
-                <div class="support">
-                  <div>+{{ evidence.strength }}</div>
-                  <span>Strongly Supports</span>
-                </div>
-                <div class="confidence">
-                  <div>40%</div>
-                  <span>Confidence</span>
-                </div>
-              </div>
-              <div class="right">
-                <h3>&quot;{{ evidence }}&quot;</h3>
-                <div class="embed">
-                  <a href="{{ evidence.link }}">{{ evidence.link }}</a>
-                </div>
-                <ul class="meta">
-                  <li class="source"><span>Source</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
-                  <li class="date"><span>Posted</span> {{ evidence.time_created|date:"j F Y" }}</li>
-                  <li class="creator"><span>By</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
-                </ul>
-              </div>
-              <div class="clear-hack"></div>
-            </li>
-          {% endfor %}
-        </ul>
+      <div class="controversy">
+        <div>
+          <h2>Highly Controversial</h2>
+          <p>This hunch is widely disputed within the HunchWorks community.</p>
+        </div>
       </div>
+      <div class="activity">
+        <div>
+          <h2>Very Active</h2>
+          <p>This hunch is currently being evaluated by the HunchWorks community.</p>
+        </div>
+      </div>
+      <div class="privacy">
+        <div>
+          <h2>Open</h2>
+          <p>Any HunchWorks member may view and contribute to this hunch.</p>
+        </div>
+      </div>
+    </section>
 
-      <script>
-        $(function() {
-          $("div.evidence div.embed a").each(function() {
-            $(this).embedly({
-              "key": window.hunchworks.embedly_key,
-              "maxWidth": $(this).parent().width()
-            });
+    <section class="evidence">
+      <div class="for">
+        <h2>Evidence <span>for</span> this hunch</h2>
+        {% include "hunches/evidences.html" with evidences=evidences_for %}
+      </div>
+      <div class="against">
+        <h2>Evidence <span>against</span> this hunch</h2>
+        {% include "hunches/evidences.html" with evidences=evidences_against %}
+      </div>
+    </section>
+    <script>
+      $(function() {
+        $("article.evidence > div > a.embed").each(function() {
+          $(this).embedly({
+            "key": window.hunchworks.embedly_key,
+            "maxWidth": $(this).width(),
+            "maxHeight": 9999,
+            "embedly_wmode": "transparent"
           });
         });
-      </script>
-
-      <div class="comments">
-        <h2>Comments</h2>
-        <p>
-          These comments are about the hunch.
-          Not the evidence!
-        </p>
-        {% include "comments/comments.html" with comments=hunch.comment_set.all %}
-      </div>
-
-      <div class="comment create mine">
-        <div class="creator">
-          <a href="{{ user.get_profile.get_absolute_url }}">
-            <img class="avatar" src="http://i.imgur.com/yvPKY.jpg" width="50" height="50">
-            <span>{{ user.get_profile }}</span>
-          </a>
-        </div>
-        <div class="text">
-          <div class="bubble-arrow"></div>
-
-          <form action="" method="post">
-            {{ comment_form.non_field_errors }}
-
-            {% for field in comment_form.hidden_fields %}
-              {{ field }}
-            {% endfor %}
-            {% csrf_token %}
-
-            {% for field in comment_form.visible_fields %}
-              {% include "includes/fields/base.html" %}
-            {% endfor %}
-
-            <div class="actions">
-              <input type="submit" value="Post Comment">
-            </div>
-          </form>
-        </div>
-        <div class="clear-hack"></div>
-      </div>
-    </div>
-
-    <div class="right">
-      <div>
-        <ul>
-          {% if following %}
-            <li><a href="{% url unfollow_hunch hunch.pk %}">Unfollow</a></li>
-          {% else %}
-            <li><a href="{% url follow_hunch hunch.pk %}">Follow</a></li>
-          {% endif %}
-        </ul>
-      </div>
-      
-      <div>
-        <h2>Related Hunches</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In justo ligula, elementum id sodales pellentesque, pellentesque quis nisl. Donec sit amet nibh ipsum, id pulvinar velit.</p>
-
-        <ul class="type">
-          <li>By Keywords</li>
-          <li>By Location</li>
-          <li>By Evidence</li>
-        </ul>
-
-        <ul class="hunches">
-          <li>
-            <h3>Something Related</h3>
-            <ul class="meta">
-              <li>by <a href="">Adam Mckaig</a> and 10 others</li>
-              <li>10 pieces of evidence</li>
-              <li>25 comments</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Another Related Thing With a Much Longer Title Than the First</h3>
-            <ul class="meta">
-              <li>by <a href="">Adam Mckaig</a> and 10 others</li>
-              <li>10 pieces of evidence</li>
-              <li>25 comments</li>
-            </ul>
-          </li>
-          <li>
-            <h3>The Final Related Thing</h3>
-            <ul class="meta">
-              <li>by <a href="">Adam Mckaig</a> and 10 others</li>
-              <li>10 pieces of evidence</li>
-              <li>25 comments</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-
-      <div class="location">
-        <h2>Location</h2>
-        <div class="map"></div>
-        <div class="expand">
-          <a href="">Expand</a>
-        </div>
-      </div>
-
-      <script>
-        $(function() {
-          $("div.map").each(function() {
-            var nyc = new google.maps.LatLng(
-              40.716667, -74);
-
-            var map = new google.maps.Map(this, {
-              "disableDefaultUI": true,
-              "mapTypeId": google.maps.MapTypeId.TERRAIN,
-              "center": nyc,
-              "zoom": 13
-            });
-
-            new google.maps.Marker({
-              "position": nyc,
-              "map": map
-            });
-          });
-        });
-      </script>
-    </div>
-    <div class="clear-hack"></div>
-
-    <div class="links">
-      <ul>
-        <li><a href="{% url edit_hunch hunch.pk %}">Edit this Hunch</a></li>
-      </ul>
-      <div class="clear-hack"></div>
-    </div>
-  </div>
+      });
+    </script>
+  </article>
 {% endblock %}
