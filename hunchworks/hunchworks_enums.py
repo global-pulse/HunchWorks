@@ -21,7 +21,7 @@ class Enum(object):
   ## means that it is never reassigned when another class calls GetValues
   ## so your options are always the same. Map is now individually assigned
   ## in each class (redundant, but nessecary atm)
-  #MAP = {} 
+  #MAP = {}
   VALUE_LOOKUP = {}
 
   @classmethod
@@ -77,12 +77,14 @@ class Enum(object):
             not inspect.isroutine(item[1]) and
             not isinstance(item[1], (list, dict,))):
               cls.MAP[item[0]] = item[1]
-	    
+
     return cls.MAP
 
 
 class ConnectionStatus(Enum):
   """Enum representing the possible statuses a user connection can take."""
+  MAP = {}
+
   BLOCKED = 0
   FRIEND = 1
   ACCEPTED = 2
@@ -91,11 +93,11 @@ class ConnectionStatus(Enum):
 class UserTitle(Enum):
   """Enum representing the possible titles users can use."""
   MAP = {}
-  
+
   MR = 0
   MRS = 1
   MS = 2
-  
+
   FIELD_LOOKUP = {
     MR: 'Mr.',
     MRS: 'Mrs.',
@@ -106,11 +108,11 @@ class UserTitle(Enum):
 class PrivacyLevel(Enum):
   """Enum representing the various privacy levels available to users."""
   MAP = {}
-  
+
   HIDDEN = 0
   CLOSED = 1
   OPEN = 2
-  
+
   FIELD_LOOKUP = {
   	HIDDEN: 'Hidden',
   	CLOSED: 'Closed',
@@ -127,7 +129,7 @@ class SkillLevel(Enum):
 class HunchStatus(Enum):
   """Enum representing the statuses a Hunch can take."""
   MAP={}
-  
+
   CONFIRMED = 0
   DENIED = 1
   UNDETERMINED = 2
@@ -136,7 +138,7 @@ class HunchStatus(Enum):
 class GroupType(Enum):
   """Enum representing the types of groups that can be made"""
   MAP = {}
-  
+
   AD_HOC = 0
   ALUMNI = 1
   COMPLEMENT = 2
@@ -156,7 +158,7 @@ class GroupType(Enum):
 class GroupPrivilege(Enum):
   ADMIN = 0
   MEMBER = 1
-  
+
 class LanguageOptions(Enum):
 
   MAP = {}
@@ -174,17 +176,17 @@ class LanguageOptions(Enum):
     GERMAN: 'German',
     MANDARIN: 'Mandarin',
     }
-    
+
 class MessangerServices(Enum):
 
   MAP = {}
-  
+
   AIM = 0
   YAHOO = 1
   MSN = 2
   IRC = 3
   MEEBO = 4
-  
+
   FIELD_LOOKUP = {
     AIM: 'AIM',
     YAHOO: 'YAHOO',
@@ -192,8 +194,8 @@ class MessangerServices(Enum):
     IRC: 'IRC',
     MEEBO: 'MEEBO',
     }
-    
-  
+
+
 ATTACHMENT_TYPES = (
   ('Photo', 'Photo'),
   ('Link', 'Link'),
