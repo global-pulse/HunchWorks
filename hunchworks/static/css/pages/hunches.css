@@ -245,12 +245,11 @@
             width: 20%;
             float: left;
           }
-
           #hunch-show section.vote > form > div.field.choice > ul > li:first-child {
             margin-left: -2em;
           }
 
-          #hunch-show section.vote > form > div.field.choice > ul > li > label {
+          #hunch-show section.vote li > label {
             line-height: 1.3;
             cursor: pointer;
             display: block;

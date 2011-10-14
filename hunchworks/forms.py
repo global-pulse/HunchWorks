@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import re
 import json
 from hunchworks import models, custom_fields, json_views
 from django import forms
@@ -397,9 +398,18 @@ class VoteChoiceRenderer(forms.widgets.RadioFieldRenderer):
     return '<ul>%s</ul>' % "".join(
       map(self._li, self))
 
+  def _css_class(self, widget):
+    label = widget.choice_label.lower().replace(" ", "-")
+    css_class = re.sub("[^a-z\-]+", "", label)
+
+    if(self.value == widget.choice_value):
+      css_class += " selected"
+
+    return css_class
+
   def _li(self, widget):
-    css_class = "selected" if(self.value == widget.choice_value) else ""
-    return '<li class="%s">%s</li>' % (css_class, unicode(widget))
+    return '<li class="%s">%s</li>' % (
+      self._css_class(widget), unicode(widget))
 
   def render(self):
     return mark_safe(self._ul())

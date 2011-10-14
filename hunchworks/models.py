@@ -27,7 +27,7 @@ SUPPORT_CHOICES = (
   (-2, "Strongly Refutes"),
   (-1, "Mildly Refutes"),
   (0, "Neutral"),
-  (1, "Mildy Supports"),
+  (1, "Mildly Supports"),
   (2, "Strongly Supports"))
 
 
