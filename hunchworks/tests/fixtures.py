@@ -9,12 +9,12 @@ from hunchworks import hunchworks_enums as enums
 
 class ConnectionFactory(BaseFactory, DjangoMixin):
     model = Connection
+    pk1=None
+    pk2=None
 
     def getparams(self):
-        # Must be passed in at time of instantiation
-        user_profile_id = self.uid1
-        other_user_profile_id = self.uid2
-
+        user_profile_id = self.pk1 or self.getRandInst(UserProfile).pk
+        other_user_profile_id = self.pk2 or self.getRandInst(UserProfile).pk
         status = random.choice(enums.ConnectionStatus.GetChoices())[0]
         return locals()
 
@@ -49,13 +49,9 @@ class UserProfileFactory(BaseFactory, DjangoMixin):
         #profile_picture = models.ImageField(upload_to="profile_images", blank=True)
         messenger_service = random.choice(enums.MessangerServices.GetChoices())[0]
         translation_language = self.getRandInst(TranslationLanguage)
-        #invitation = self.getRandInst(Invitation)
+        invitation = self.getRandInst(Invitation)
 
-        #SUPPORT FOR MANY TO MANY: you need to create model objects for each one-to-one
-        # in the many-to-many relationship.
-        # ALL BELOW ARE MANY TO MANY
-        #connections => Connection
-        ConnectionFactory(pk, self.getRandInst(model=UserProfile).pk)
+        #ConnectionFactory(uid1=pk, uid2=self.getRandInst(model=UserProfile).pk)
         #roles = Role
         #location_interests = Location
         #skills = Skill
