@@ -207,6 +207,20 @@
         display: block;
       }
 
+    #hunch-show article.evidence > section.vote {
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      padding: 1em;
+
+    }
+
+    #hunch-show article.evidence > section.comments {
+      border: 1px solid #ccc;
+      border-top: none;
+      padding: 1em;
+      overflow: hidden;
+    }
+
     #hunch-show article.evidence > a.show-comment-form {
       clear: both;
       display: block;
@@ -217,12 +231,41 @@
       padding: 0.5em;
     }
 
-    #hunch-show article.evidence > section.comments {
-      border: 1px solid #ccc;
-      border-top: none;
-      padding: 1em;
-      overflow: hidden;
-    }
+
+
+
+  #hunch-show section.vote { }
+
+    #hunch-show section.vote > form { }
+
+      #hunch-show section.vote > form > div.field.choice { }
+
+        #hunch-show section.vote > form > div.field.choice > div.label,
+        #hunch-show section.vote > form > div.field.choice > ul.errorlist {
+          display: none;
+        }
+
+        #hunch-show section.vote > form > div.field.choice > ul {
+          overflow: hidden;
+          padding-left: 2em;
+        }
+
+          #hunch-show section.vote > form > div.field.choice > ul > li {
+            display: block;
+            box-sizing: border-box;
+            padding: 0.5em;
+            margin-left: 0.5em;
+            width: 20%;
+            float: left;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #ccc;
+            background: #eee;
+          }
+
+          #hunch-show section.vote > form > div.field.choice > ul > li:first-child {
+            margin-left: -2em;
+          }
 
 
 

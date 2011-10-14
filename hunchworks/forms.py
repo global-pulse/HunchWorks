@@ -392,11 +392,13 @@ class VoteForm(ModelForm):
     exclude = ("user_profile",)
     widgets = {
       "choice": forms.RadioSelect(),
+      "hunch_evidence": forms.HiddenInput()
     }
 
-  def save(self, user_profile=None, hunch_evidence=None):
+  def save(self, user_profile=None):
     with transaction.commit_on_success():
       vote_form = super(VoteForm, self).save(commit=False)
+      hunch_evidence = self.cleaned_data["hunch_evidence"]
       
       if len(models.Vote.objects.filter(user_profile=user_profile, hunch_evidence=hunch_evidence)) > 0:
         vote = models.Vote.objects.get(
@@ -405,7 +407,7 @@ class VoteForm(ModelForm):
         vote.choice = vote_form.choice
         vote.save()
       else:
-        vote = models.Vote.objects.get_or_create(
+        vote, created = models.Vote.objects.get_or_create(
           user_profile=user_profile, 
           hunch_evidence=hunch_evidence,
           choice=vote_form.choice)

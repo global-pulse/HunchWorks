@@ -59,10 +59,21 @@ def finished(req):
     "hunches": hunches
   })
 
+
 @login_required
 def show(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
-  vote_form = forms.VoteForm(req.POST or None)
+
+
+  # This is kind of nuts. It's a work-around to Python's lexical scope rules.
+  # The _id_counter var can't be a simple int, since those are immutable, and
+  # rebinding it within _auto_id (as in: _id_counter +=1) would prevent us from
+  # accessing the var in the outer scope.
+
+  _id_counter = [0]
+  def _auto_id():
+    _id_counter[0] += 1
+    return ("form_%s_id_" % _id_counter[0]) + "%s"
 
 
   # If one of the HunchEvidence comment forms was just submitted, attempt the
@@ -70,13 +81,24 @@ def show(req, hunch_id):
   # not valid), we'll need it later on to display again.
 
   comment_form = None
+  vote_form = None
+
   if req.method == "POST":
-    if req.POST.get("action") == "comment":
-      comment_form = forms.CommentForm(req.POST)
+    action = req.POST.get("action")
+
+    if action == "comment":
+      comment_form = forms.CommentForm(req.POST, auto_id=_auto_id())
 
       if comment_form.is_valid():
         comment = comment_form.save(creator=req.user.get_profile())
         return redirect(comment)
+
+    elif action == "vote":
+      vote_form = forms.VoteForm(req.POST, auto_id=_auto_id())
+
+      if vote_form.is_valid():
+        vote = vote_form.save(user_profile=req.user.get_profile())
+        return redirect(hunch)
 
 
   def _wrap(hunch_evidence):
@@ -86,21 +108,44 @@ def show(req, hunch_id):
       * The HunchEvidence object itself.
       * A QuerySet of the related comments.
       * A CommentForm for creating new comments related to the HunchEvidence.
+      * A VoteForm for creating or changing a vote related to the HunchEvidence.
     """
 
-    # If a comment form was just submitted for this HunchEvidence, use it.
-    # Otherwise, create a new empty form.
+    he_pk = unicode(hunch_evidence.pk)
 
-    if comment_form is not None\
-    and unicode(comment_form["hunch_evidence"].value()) == unicode(hunch_evidence.pk):
-      form = comment_form
+    def _submitted(form):
+      if form is not None:
+        if he_pk == unicode(form["hunch_evidence"].value()):
+          return True
+
+    # If a comment form was just submitted for this HE, use it.
+    if _submitted(comment_form):
+      cf = comment_form
 
     else:
-      form = forms.CommentForm(initial={
+      cf = forms.CommentForm(initial={
         "hunch_evidence": hunch_evidence
-      })
+      }, auto_id=_auto_id())
 
-    return (hunch_evidence, hunch_evidence.comment_set.all(), form)
+    # If a vote form was just submitted for this HE, use it.
+    if _submitted(vote_form):
+      vf = vote_form
+
+    # If the user has already voted on this HE, show an edit form. Otherwise,
+    # show a create form.
+    else:
+      try:
+        vf = forms.VoteForm(instance=models.Vote.objects.get(
+          hunch_evidence=hunch_evidence,
+          user_profile=req.user.get_profile()
+        ), auto_id=_auto_id())
+
+      except models.Vote.DoesNotExist:
+        vf = forms.VoteForm(initial={
+          "hunch_evidence": hunch_evidence
+        }, auto_id=_auto_id())
+
+    return (hunch_evidence, hunch_evidence.comment_set.all(), cf, vf)
 
 
   if len(hunch.user_profiles.filter(pk=req.user.get_profile().pk)) > 0:
@@ -109,17 +154,11 @@ def show(req, hunch_id):
     following = False
 
 
-  if vote_form.is_valid():
-    vote = vote_form.save(user_profile=req.user.get_profile(), hunch_evidence=vote_form.cleaned_data["hunch_evidence"])
-    return redirect(hunch)
-
-
   return _render(req, "show", {
     "hunch": hunch,
     "evidences_for": map(_wrap, hunch.evidences_for()),
     "evidences_against": map(_wrap, hunch.evidences_against()),
-    "following": following,
-    "vote_form": vote_form
+    "following": following
   })
 
 

@@ -1,4 +1,4 @@
-{% for hunch_evidence, comments, comment_form in evidences %}
+{% for hunch_evidence, comments, comment_form, vote_form in evidences %}
   <article class="evidence">
     <div>
       <a href="{{ hunch_evidence.evidence.link }}" class="embed">{{ hunch_evidence.evidence.link }}</a>
@@ -17,15 +17,25 @@
         <li class="creator"><span>By:</span> <a href="{{ hunch_evidence.evidence.creator.get_absolute_url }}">{{ hunch_evidence.evidence.creator }}</a></li>
       </ul>
     </div>
-    <div class="vote">
-      <form method="POST">
+
+    <section class="vote">
+      <form action="" method="POST">
+        {{ vote_form.non_field_errors }}
         {% csrf_token %}
-        {{ vote_form.choice }}
-        <input type="hidden" name="hunch_evidence" value="{{ rel.id }}"/>
+
+        {% for field in vote_form.hidden_fields %}
+          {{ field }}
+        {% endfor %}
+
+        {% for field in vote_form.visible_fields %}
+          {% include "includes/fields/base.html" %}
+        {% endfor %}
+
+        <input type="hidden" name="action" value="vote">
         <input type="submit" value="Vote"/>
-        <div class="clear-hack"></div>
       </form>
-    </div>
+    </section>
+
     <section class="comments">
       <ul>
         {% for comment in comments.all %}
