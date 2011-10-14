@@ -26,7 +26,7 @@ class BaseFactory(object):
 
     def __init__(self, *args, **kwargs):
         """Create new instance of a model by calling getparams in child class.
-        Don't call directly.  Don't instantiate FactoryMixin directly.
+        Don't call directly.  Don't instantiate BaseFactory directly.
 
         Any given params are passed to cls.getparams(*args, **kwargs)"""
 
@@ -52,13 +52,18 @@ class BaseFactory(object):
                 self.__class__.__name__, str(self.last_obj_created))
 
     def create(self, save_to_db=True, **kwargs):
-        """Basically a wrapper to Django's model.objects.create method."""
+        """A wrapper that uses self.model to create an instance of
+        self.model.  Assumes this works: inst=model(**kwargs) and inst.save()
+
+        In Django, this would wrap Django's
+        model.objects.create(**kwargs) method."""
+
         inst = self.model(**kwargs)
         if save_to_db:
             inst.save()
         return inst
 
-class FactoryMixin(object):
+class DjangoMixin(object):
     """Useful/Necessary methods for Fixture Factories"""
     def _getmodel(self, model=None):
         if model == None:

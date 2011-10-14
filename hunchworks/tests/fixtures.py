@@ -1,4 +1,4 @@
-from fixturefactory import BaseFactory, FactoryMixin
+from fixturefactory import BaseFactory, DjangoMixin
 
 import random
 
@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from hunchworks import hunchworks_enums as enums
 
 
-class ConnectionFactory(BaseFactory, FactoryMixin):
+class ConnectionFactory(BaseFactory, DjangoMixin):
     model = Connection
 
     def getparams(self):
@@ -18,7 +18,7 @@ class ConnectionFactory(BaseFactory, FactoryMixin):
         status = random.choice(enums.ConnectionStatus.GetChoices())[0]
         return locals()
 
-class UserFactory(BaseFactory, FactoryMixin):
+class UserFactory(BaseFactory, DjangoMixin):
     model = User
 
     def getparams(self):
@@ -31,7 +31,7 @@ class UserFactory(BaseFactory, FactoryMixin):
 
         return locals()
 
-class UserProfileFactory(BaseFactory, FactoryMixin):
+class UserProfileFactory(BaseFactory, DjangoMixin):
     model = UserProfile
 
     def getparams(self):
