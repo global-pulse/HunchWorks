@@ -17,7 +17,15 @@
         <li class="creator"><span>By:</span> <a href="{{ hunch_evidence.evidence.creator.get_absolute_url }}">{{ hunch_evidence.evidence.creator }}</a></li>
       </ul>
     </div>
-    
+    <div class="vote">
+      <form method="POST">
+        {% csrf_token %}
+        {{ vote_form.choice }}
+        <input type="hidden" name="hunch_evidence" value="{{ rel.id }}"/>
+        <input type="submit" value="Vote"/>
+        <div class="clear-hack"></div>
+      </form>
+    </div>
     <section class="comments">
       <ul>
         {% for comment in comments.all %}

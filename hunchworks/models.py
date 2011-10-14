@@ -383,3 +383,8 @@ class HunchEvidence(models.Model):
     self.support_cache = 0
     self.confidence_cache = 0.5
     super(HunchEvidence, self).save(*args, **kwargs)
+
+class Vote(models.Model):
+  choice = models.IntegerField(choices=SUPPORT_CHOICES, default=None)
+  hunch_evidence = models.ForeignKey('HunchEvidence')
+  user_profile = models.ForeignKey('UserProfile')

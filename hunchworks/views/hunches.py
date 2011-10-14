@@ -62,6 +62,7 @@ def finished(req):
 @login_required
 def show(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+  vote_form = forms.VoteForm(req.POST or None)
 
 
   # If one of the HunchEvidence comment forms was just submitted, attempt the
@@ -107,11 +108,18 @@ def show(req, hunch_id):
   else:
     following = False
 
+
+  if vote_form.is_valid():
+    vote = vote_form.save(user_profile=req.user.get_profile(), hunch_evidence=vote_form.cleaned_data["hunch_evidence"])
+    return redirect(hunch)
+
+
   return _render(req, "show", {
     "hunch": hunch,
     "evidences_for": map(_wrap, hunch.evidences_for()),
     "evidences_against": map(_wrap, hunch.evidences_against()),
     "following": following,
+    "vote_form": vote_form
   })
 
 
