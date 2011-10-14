@@ -386,12 +386,31 @@ class InvitePeople(forms.Form):
       )
       invitation.save()
 
+
+class VoteChoiceRenderer(forms.widgets.RadioFieldRenderer):
+  """
+  Identical to Django's RadioFieldRenderer, with the addition of a "selected"
+  class to the <li> containing the selected radio button, for easier styling.
+  """
+
+  def _ul(self):
+    return '<ul>%s</ul>' % "".join(
+      map(self._li, self))
+
+  def _li(self, widget):
+    css_class = "selected" if(self.value == widget.choice_value) else ""
+    return '<li class="%s">%s</li>' % (css_class, unicode(widget))
+
+  def render(self):
+    return mark_safe(self._ul())
+
+
 class VoteForm(ModelForm):
   class Meta:
     model = models.Vote
     exclude = ("user_profile",)
     widgets = {
-      "choice": forms.RadioSelect(),
+      "choice": forms.RadioSelect(renderer=VoteChoiceRenderer),
       "hunch_evidence": forms.HiddenInput()
     }
 

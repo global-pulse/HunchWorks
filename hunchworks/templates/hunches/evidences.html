@@ -19,6 +19,8 @@
     </div>
 
     <section class="vote">
+      <h3>Vote: Does this evidence support the hunch?</h3>
+
       <form action="" method="POST">
         {{ vote_form.non_field_errors }}
         {% csrf_token %}
@@ -31,8 +33,10 @@
           {% include "includes/fields/base.html" %}
         {% endfor %}
 
-        <input type="hidden" name="action" value="vote">
-        <input type="submit" value="Vote"/>
+        <div class="actions">
+          <input type="hidden" name="action" value="vote">
+          <input type="submit" value="Submit">
+        </div>
       </form>
     </section>
 
