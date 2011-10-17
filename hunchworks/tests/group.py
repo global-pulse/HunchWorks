@@ -13,14 +13,14 @@ class GroupViewsTest(TestCase, TestHelpers):
     with self.login("one"):
       resp = self.get("all_groups")
       self.assertTemplateUsed(resp, "groups/all.html")
-      self.assertQuery(resp, "div.group", count=3)
+      self.assertQuery(resp, "article.group", count=3)
 
   def test_my_groups(self):
     for username, c in (("one", 0), ("two", 1)):
       with self.login(username):
         resp = self.get("my_groups")
         self.assertTemplateUsed(resp, "groups/my.html")
-        self.assertQuery(resp, "div.group", count=c)
+        self.assertQuery(resp, "article.group", count=c)
 
   def test_show_group(self):
     with self.login("one"):
