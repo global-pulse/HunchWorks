@@ -1,5 +1,6 @@
 form { }
 
+  /* Errors not related to any particular field. */
   form > ul.errorlist {
     border: 2px solid #e05b52;
     border-radius: 5px;
@@ -12,10 +13,37 @@ form { }
       padding: 1em;
     }
 
-  form div.field,
-  form div.actions {
-    margin-bottom: 1em;
+
+  form > div.fields {
+    padding: 2em;
+    overflow: hidden;
   }
+
+    form > div.fields div.field {
+      margin-bottom: 2em;
+    }
+
+      form > div.fields div.field:last-child {
+        margin-bottom: 0;
+      }
+
+    /* Many forms are split into two columns. Usually, the important fields are
+    |* on the left, and the supplementary fields are on the right. */
+    form > div.fields > div.left,
+    form > div.fields > div.right {
+      float: left;
+    }
+
+    form > div.fields > div.left {
+      width: 60%;
+    }
+
+    form > div.fields > div.right {
+      width: 40%;
+      box-sizing: border-box;
+      padding-left: 2em;
+    }
+
 
   form div.field { }
 
@@ -64,7 +92,7 @@ form { }
       width: auto;
       border-radius: 5px;
       font-weight: bold;
-      background: #999;
+      background: #aaa;
       color: #fff;
     }
 
@@ -100,16 +128,19 @@ form { }
       color: #000;
     }
 
-  form div.actions {
-    border-top: 1px solid #eee;
-    padding-top: 1em;
-    text-align: right;
-    margin-bottom: 0;
+
+  form > div.actions {
     overflow: hidden;
     clear: both;
+    padding: 1em;
+
+    background: #eee;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
+    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
+    background: -moz-linear-gradient(top,  #eee,  #fff);
   }
   
-    form div.actions > input {
+    form > div.actions > input {
       display: inline-block;
       margin-left: 0.5em;
       float: right;

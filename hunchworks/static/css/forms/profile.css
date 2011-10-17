@@ -1,20 +1,5 @@
 form.profile { }
 
-  form.profile > div.left,
-  form.profile > div.right {
-     float: left;
-   }
-
-  form.profile > div.left {
-    width: 60%;
-  }
-
-  form.profile > div.right {
-    width: 40%;
-    box-sizing: border-box;
-    padding-left: 2em;
-  }
-
   form.profile #id_title {
     font-size: 125%;
     padding: 0.8em;

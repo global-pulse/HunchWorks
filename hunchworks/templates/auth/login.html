@@ -1,24 +1,33 @@
 {% extends "base.html" %}
 
+{% block title %}
+  Log In &mdash;
+  {{ block.super }}
+{% endblock %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Log In</h1>
+{% endblock %}
+
 {% block content %}
-  <div id="auth-login">
-    <h2>Log in to HunchWorks</h2>
-    <p>
-      Don't have a user account?
-      <a href="{% url signup %}">Sign up!</a>
-    </p>
+  <form action="" method="post" class="auth login">
+    {{ form.non_field_errors }}
+    {% csrf_token %}
 
-    <form action="" method="post">
-      {{ form.non_field_errors }}
-      {% csrf_token %}
-
+    <div class="fields">
       {% for field in form %}
         {% include "includes/fields/base.html" %}
       {% endfor %}
+    </div>
 
-      <div class="actions">
-        <input type="submit" value="Log in"/>
-      </div>
-    </form>
-  </div>
+    <div class="actions">
+      <input type="submit" value="Log in"/>
+
+      <p>
+        Don't have a user account?
+        <a href="{% url signup %}">Sign up!</a>
+      </p>
+    </div>
+  </form>
 {% endblock %}
