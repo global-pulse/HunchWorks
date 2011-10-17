@@ -1,34 +1,21 @@
 {% extends "base.html" %}
 
-{% block header %}
+{% block title %}
+  Edit Your Profile &mdash;
   {{ block.super }}
-  <h1>Edit your profile</h1>
 {% endblock %}
 
-{% block title %}Edit Your Profile{% endblock %}
-
-{% block css %}
-  <link rel="stylesheet" href="/static/profile.css" type="text/css"/>
+{% block header %}
+  {{ block.super }}
+  <h1>Edit Your Profile</h1>
 {% endblock %}
 
 {% block content %}
-<h1>Edit your profile</h1>
-<div id="edit">
-  {% if profile_form.subject.errors %}
-      <ol>
-      {% for error in profile_form.subject.errors %}
-          <li><strong>{{ error|escape }}</strong></li>
-      {% endfor %}
-      </ol>
-  {% endif %}
-  <form method="post" enctype="multipart/form-data" method="post"
-    action="{% url edit_profile %}" class="edit profile">{% csrf_token %}
-    
+  <form method="post" action="" enctype="multipart/form-data" class="edit profile">
     {% include "users/form.html" %}
 
-	<div class="actions">
-	  <input type="submit">
-	</div>
+    <div class="actions">
+      <input type="submit">
+    </div>
   </form>
-</div>
 {% endblock %}
