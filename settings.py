@@ -5,8 +5,8 @@ import os
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 PROJECT_NAME = os.path.basename(PROJECT_ROOT)
 
-
-DEBUG = True
+# Default to debug mode, but allow it to be disabled by the environment.
+DEBUG = (os.environ.get("HUNCHWORKS_DEBUG", "TRUE").upper() == "TRUE")
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -134,15 +134,15 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
   'django.contrib.contenttypes',
+  'django.contrib.staticfiles',
   'django.contrib.auth',
   'activelink',
   'compressor',
   'hunchworks')
 
-# In DEBUG, also serve static files and Django admin.
+# In DEBUG mode, enable the Django admin.
 if DEBUG:
   INSTALLED_APPS += (
-    'django.contrib.staticfiles',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
