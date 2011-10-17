@@ -7,7 +7,9 @@
 
 {% block content %}
   <form action="" method="post" class="create hunch">
-    {% include "hunches/form.html" %}
+    <div class="fields">
+      {% include "hunches/form.html" %}
+    </div>
 
     <div class="actions">
       <input type="button" value="Cancel">

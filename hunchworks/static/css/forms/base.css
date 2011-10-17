@@ -12,10 +12,13 @@ form { }
       padding: 1em;
     }
 
-  form div.field,
-  form div.actions {
-    margin-bottom: 1em;
+  form div.field {
+    margin-bottom: 2em;
   }
+
+    form div.field:last-child {
+      margin-bottom: 0;
+    }
 
   form div.field { }
 
@@ -64,7 +67,7 @@ form { }
       width: auto;
       border-radius: 5px;
       font-weight: bold;
-      background: #999;
+      background: #aaa;
       color: #fff;
     }
 
@@ -101,12 +104,15 @@ form { }
     }
 
   form div.actions {
-    border-top: 1px solid #eee;
-    padding-top: 1em;
     text-align: right;
-    margin-bottom: 0;
     overflow: hidden;
     clear: both;
+    padding: 1em;
+
+    background: #eee;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
+    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
+    background: -moz-linear-gradient(top,  #eee,  #fff);
   }
   
     form div.actions > input {

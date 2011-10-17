@@ -1,21 +1,26 @@
 form.hunch { }
 
-  form.hunch > div.left,
-  form.hunch > div.right {
-     float: left;
-   }
-
-  form.hunch > div.left {
-    width: 60%;
+  form.hunch > div.fields {
+    padding: 2em;
+    overflow: hidden;
   }
 
-  form.hunch > div.right {
-    width: 40%;
-    box-sizing: border-box;
-    padding-left: 2em;
-  }
+    form.hunch > div.fields > div.left,
+    form.hunch > div.fields > div.right {
+       float: left;
+     }
 
-  form.hunch #id_title {
-    font-size: 125%;
-    padding: 0.8em;
-  }
+    form.hunch > div.fields > div.left {
+      width: 60%;
+    }
+
+    form.hunch > div.fields > div.right {
+      width: 40%;
+      box-sizing: border-box;
+      padding-left: 2em;
+    }
+
+    form.hunch #id_title {
+      font-size: 125%;
+      padding: 0.8em;
+    }
