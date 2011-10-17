@@ -57,6 +57,7 @@ $ sudo lokkit -p http:tcp
 [program:hunchworks]
 directory=/home/adammck/hunchworks/src
 command=/home/adammck/hunchworks/bin/gunicorn_django -b 0.0.0.0:8001
+environment=HUNCHWORKS_DEBUG=False
 user=adammck
 umask=022
 autostart=True
@@ -75,6 +76,10 @@ upstream hunchworks_server {
 server {
   server_name hw.adammck.com;
   listen 80;
+
+  location /static/ {
+    root /home/adammck/hunchworks/src;
+  }
 
   location / {
     proxy_pass http://hunchworks_server;
