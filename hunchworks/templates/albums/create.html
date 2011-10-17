@@ -1,13 +1,13 @@
 {% extends "albums/base.html" %}
-{% block title %}Create a new album{% endblock %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Create an Album</h1>
+{% endblock %}
 
 {% block content %}
-  <h1>Create a new Album</h1>
-
   <form action="" method="post" class="create album">
     {% include "albums/form.html" %}
-
-    <div class="clear-hack"></div>
 
     <div class="actions">
       <input type="button" value="Cancel">

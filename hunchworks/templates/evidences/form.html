@@ -1,11 +1,13 @@
 {{ form.non_field_errors }}
 {% csrf_token %}
 
-<div class="left">
-  {% include "includes/fields/base.html" with field=form.title %}
-  {% include "includes/fields/base.html" with field=form.description %}
-  {% include "includes/fields/base.html" with field=form.tags %}
-</div>
-<div class="right">
-  {% include "includes/fields/base.html" with field=form.link %}
+<div class="fields">
+  <div class="left">
+    {% include "includes/fields/base.html" with field=form.title %}
+    {% include "includes/fields/base.html" with field=form.description %}
+    {% include "includes/fields/base.html" with field=form.tags %}
+  </div>
+  <div class="right">
+    {% include "includes/fields/base.html" with field=form.link %}
+  </div>
 </div>

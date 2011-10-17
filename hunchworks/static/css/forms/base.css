@@ -1,5 +1,6 @@
 form { }
 
+  /* Errors not related to any particular field. */
   form > ul.errorlist {
     border: 2px solid #e05b52;
     border-radius: 5px;
@@ -12,13 +13,37 @@ form { }
       padding: 1em;
     }
 
-  form div.field {
-    margin-bottom: 2em;
+
+  form > div.fields {
+    padding: 2em;
+    overflow: hidden;
   }
 
-    form div.field:last-child {
-      margin-bottom: 0;
+    form > div.fields div.field {
+      margin-bottom: 2em;
     }
+
+      form > div.fields div.field:last-child {
+        margin-bottom: 0;
+      }
+
+    /* Many forms are split into two columns. Usually, the important fields are
+    |* on the left, and the supplementary fields are on the right. */
+    form > div.fields > div.left,
+    form > div.fields > div.right {
+      float: left;
+    }
+
+    form > div.fields > div.left {
+      width: 60%;
+    }
+
+    form > div.fields > div.right {
+      width: 40%;
+      box-sizing: border-box;
+      padding-left: 2em;
+    }
+
 
   form div.field { }
 
@@ -103,7 +128,8 @@ form { }
       color: #000;
     }
 
-  form div.actions {
+
+  form > div.actions {
     text-align: right;
     overflow: hidden;
     clear: both;
@@ -115,7 +141,7 @@ form { }
     background: -moz-linear-gradient(top,  #eee,  #fff);
   }
   
-    form div.actions > input {
+    form > div.actions > input {
       display: inline-block;
       margin-left: 0.5em;
       float: right;

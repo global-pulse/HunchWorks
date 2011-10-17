@@ -2,12 +2,10 @@
 
 {% block header %}
   {{ block.super }}
-  <h1>Edit this Album</h1>
+  <h1>Edit an Album</h1>
 {% endblock %}
 
 {% block content %}
-  <h1>{{ album }}</h1>
-
   <form action="" method="post" class="edit album">
     {% include "albums/form.html" %}
 
