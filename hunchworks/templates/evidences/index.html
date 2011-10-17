@@ -1,5 +1,6 @@
 {% extends "evidences/base.html" %}
 {% load paginator_tags %}
+{% load bookmark_tags %}
 
 {% block header %}
   {{ block.super }}
@@ -12,6 +13,9 @@
       {% for evidence in evidences.object_list %}
         <div class="evidence">
           <a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a>
+        </div>
+        <div class="right">
+          {% bookmarks evidence %}
         </div>
       {% endfor %}
     </div>

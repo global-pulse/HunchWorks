@@ -1,0 +1,9 @@
+{% if bookmarked %}
+  <div class="unbookmark">
+    <a href="{% url unbookmark object_type object.id %}">Unbookmark</a>
+  </div>
+{% else %}
+  <div class="bookmark">
+    <a href="{% url bookmark object_type object.id %}">Bookmark</a>
+  </div>
+{% endif %}

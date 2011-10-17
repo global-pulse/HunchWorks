@@ -1,5 +1,6 @@
 {% extends "groups/base.html" %}
 {% load paginator_tags %}
+{% load bookmark_tags %}
 
 {% block content %}
   <div id="group-list">
@@ -19,6 +20,9 @@
             <li>{{ group.member_count }} members</li>
             <li>{{ group.hunch_count }} hunches</li>
           </ul>
+          <div class="right">
+	        {% bookmarks group %}
+	      </div>
 
           <div class="clear-hack"></div>
         </div></div>

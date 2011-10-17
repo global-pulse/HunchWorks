@@ -1,5 +1,6 @@
 {% extends "albums/base.html" %}
 {% load paginator_tags %}
+{% load bookmark_tags %}
 
 {% block content %}
   <div class="albums">
@@ -12,6 +13,9 @@
             {{ album.description|truncatewords:60|safe }}
           </div>
         {% endif %}
+        <div class="right">
+          {% bookmarks album %}
+        </div>
 
         <div class="clear-hack"></div>
       </div></div>

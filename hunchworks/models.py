@@ -6,6 +6,8 @@ import hunchworks_enums
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_save, post_save
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
 
 
 PRIVACY_CHOICES = (
@@ -388,3 +390,22 @@ class Vote(models.Model):
   choice = models.IntegerField(choices=SUPPORT_CHOICES, default=None)
   hunch_evidence = models.ForeignKey('HunchEvidence')
   user_profile = models.ForeignKey('UserProfile')
+
+
+class Bookmark(models.Model):
+  user_profile = models.ForeignKey('UserProfile')
+  
+  #Generic foreign key
+  content_type = models.ForeignKey(ContentType)
+  object_id = models.PositiveIntegerField()
+  content_object = generic.GenericForeignKey('content_type', 'object_id')
+
+  @classmethod
+  def bookmark_get_create(cls, object, user_profile):
+    try:
+      object_type = ContentType.objects.get_for_model(object)
+      bookmark = cls.objects.get(content_type=object_type.id, object_id=object.id, user_profile=user_profile)
+      return bookmark
+    except cls.DoesNotExist:
+      bookmark = cls.objects.create(content_object=object, user_profile=user_profile)
+      return bookmark
