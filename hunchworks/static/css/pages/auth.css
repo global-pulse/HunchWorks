@@ -1,16 +1,10 @@
-#auth-login,
-#auth-signup {
-  padding: 4em 30%;
+form.auth > div.fields {
+  padding: 8em 30%;
 }
 
-  #auth-login h2,
-  #auth-signup h2 {
-    font-size: 200%;
-    margin-bottom: 0.25em;
-  }
-
-  #auth-login p,
-  #auth-signup p {
-    margin-bottom: 1em;
-    color: #999;
+  form.auth > div.actions > p {
+    padding: 2px 0;
+    line-height: 3em;
+    margin-left: 1em;
+    color: #666;
   }

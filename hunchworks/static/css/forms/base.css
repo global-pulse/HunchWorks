@@ -130,7 +130,6 @@ form { }
 
 
   form > div.actions {
-    text-align: right;
     overflow: hidden;
     clear: both;
     padding: 1em;
