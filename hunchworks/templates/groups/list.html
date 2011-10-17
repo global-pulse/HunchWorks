@@ -1,6 +1,7 @@
 {% extends "groups/base.html" %}
 {% block body_id %}group-list{% endblock %}
 {% load paginator_tags %}
+{% load bookmark_tags %}
 
 {% block content %}
   <section class="group-list">
@@ -14,6 +15,7 @@
           <li>{{ group.hunch_count }} hunches</li>
         </ul>
 
+        {% bookmarks group %}
       </div></article>
     {% endfor %}
   </section>

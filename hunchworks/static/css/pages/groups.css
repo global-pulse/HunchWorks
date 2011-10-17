@@ -11,6 +11,7 @@
   }
 
     #group-list section.group-list > article.group > div {
+      position: relative;
       border: 1px solid #ccc;
       box-shadow: 1px 1px 5px #ccc;
       border-radius: 5px;
