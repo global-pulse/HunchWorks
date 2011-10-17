@@ -77,6 +77,10 @@ server {
   server_name hw.adammck.com;
   listen 80;
 
+  location /static/ {
+    root /home/adammck/hunchworks/src;
+  }
+
   location / {
     proxy_pass http://hunchworks_server;
     proxy_redirect off;
