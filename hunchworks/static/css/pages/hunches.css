@@ -3,6 +3,7 @@
 }
 
   #hunch-list section.hunch-list > article.hunch {
+    position: relative;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 5px #ccc;
     border-radius: 5px;

@@ -43,6 +43,7 @@
   }
 
     #group-list div.group > div {
+      position: relative;
       background: #f8f8f8;
       border: 1px solid #ddd;
       margin-top: 1em;

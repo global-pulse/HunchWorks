@@ -50,6 +50,7 @@ a {
 
   #page {
     background: #fff;
+    position: relative;
   }
 
     #page div.links {
