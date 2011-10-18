@@ -11,9 +11,24 @@
   <div id="evidence-list">
     <div class="evidences">
       {% for evidence in evidences.object_list %}
-        <div class="evidence">
-          <a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a>
-        </div>
+        <article class="evidence">
+          <div>
+            <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
+            <a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a>
+          </div>
+        </article>
+		<script>
+		  $(function() {
+			$("article.evidence > div > a.embed").each(function() {
+			  $(this).embedly({
+				"key": window.hunchworks.embedly_key,
+				"maxWidth": 100,
+				"maxHeight": 100,
+				"embedly_wmode": "transparent"
+			  });
+			});
+		  });
+		</script>
         <div class="right">
           {% bookmarks evidence %}
         </div>

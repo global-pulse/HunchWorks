@@ -8,9 +8,37 @@
 
 {% block content %}
   <div id="evidence-show">
-    <div class="evidence">
-      <h1>{{ evidence }}</h1>
-    </div>
+    <article class="evidence">
+      <div>
+        <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
+  
+        <header>
+          <h3>{{ evidence.description }}</h3>
+        </header>
+  
+        <!--<section class="desc">
+          <p>{{ hunch_evidence.evidence.description }}</p>
+        </section>-->
+  
+        <ul class="meta">
+          <li class="source"><span>Source:</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
+          <li class="date"><span>Posted:</span> {{ evidence.time_created|date:"j F Y" }}</li>
+          <li class="creator"><span>By:</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
+        </ul>
+      </div>
+    </article>
+    <script>
+      $(function() {
+        $("article.evidence > div > a.embed").each(function() {
+          $(this).embedly({
+            "key": window.hunchworks.embedly_key,
+            "maxWidth": $(this).width(),
+            "maxHeight": 9999,
+            "embedly_wmode": "transparent"
+          });
+        });
+      });
+    </script>
     <div class="right">
       {% bookmarks evidence %}
     </div>
