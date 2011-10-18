@@ -1,0 +1,5 @@
+{% if bookmarked %}
+  <a href="{% url unbookmark object_type object.id %}" title="Unbookmark this {{ object_type }}" class="unbookmark">Unbookmark</a>
+{% else %}
+  <a href="{% url bookmark object_type object.id %}" title="Bookmark this {{ object_type }}" class="bookmark">Bookmark</a>
+{% endif %}

@@ -1,38 +1,30 @@
 {% extends "groups/base.html" %}
+{% block body_id %}group-list{% endblock %}
 {% load paginator_tags %}
+{% load bookmark_tags %}
 
 {% block content %}
-  <div id="group-list">
-    <div class="groups">
-      {% for group in groups.object_list %}
-        <div class="group"><div>
-          <img src="{{ group.logo_url }}" height="100" class="logo">
-          <h3><a href="{{ group.get_absolute_url }}">{{ group }}</a></h3>
+  <section class="group-list">
+    {% for group in groups.object_list %}
+      <article class="group"><div>
+        <div class="img"><img src="{{ group.logo_url }}" height="100" class="logo"></div>
+        <h2><a href="{{ group.get_absolute_url }}">{{ group }}</a></h2>
 
-          {% if group.description %}
-            <div class="desc">
-              {{ group.description|truncatewords:60|safe }}
-            </div>
-          {% endif %}
+        <ul class="stats">
+          <li>{{ group.member_count }} members</li>
+          <li>{{ group.hunch_count }} hunches</li>
+        </ul>
 
-          <ul class="stats">
-            <li>{{ group.member_count }} members</li>
-            <li>{{ group.hunch_count }} hunches</li>
-          </ul>
+        {% bookmarks group %}
+      </div></article>
+    {% endfor %}
+  </section>
 
-          <div class="clear-hack"></div>
-        </div></div>
-      {% endfor %}
-      <div class="clear-hack"></div>
-    </div>
+  <div class="links">
+    <ul>
+      <li><a href="{% url create_group %}">Add a Group</a></li>
+    </ul>
 
-    <div class="links">
-      <ul>
-        <li><a href="{% url create_group %}">Add a Group</a></li>
-      </ul>
-
-      {% paginator groups %}
-      <div class="clear-hack"></div>
-    </div>
+    {% paginator groups %}
   </div>
 {% endblock %}

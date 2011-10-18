@@ -1,13 +1,23 @@
 from django.contrib.syndication.views import Feed
+from django.shortcuts import get_object_or_404
 from hunchworks.models import Evidence, Hunch
 
 class EvidencesFeed(Feed):
-  title = "HunchWorks Recently Updated Evidence"
-  link = "/evidences"
-  description = "Recently updated evidence on HunchWorks"
 
-  def items(self):
-    return Evidence.objects.order_by('-time_modified')[:20]
+  def get_object(self, request, hunch_id):
+      return get_object_or_404(Hunch, pk=hunch_id)
+
+  def title(self, obj):
+    return "Hunchworks evidence for %s" % obj.title
+
+  def description(self, obj):
+    return "Recently updated evidence on HunchWorks for %s" % obj.title
+
+  def link(self, obj):
+    return obj.get_absolute_url()
+
+  def items(self, obj):
+    return obj.evidences.all()
 
   def item_title(self, item):
     return item.title

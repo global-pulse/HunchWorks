@@ -1,4 +1,5 @@
 {% extends "evidences/base.html" %}
+{% load bookmark_tags %}
 
 {% block header %}
   {{ block.super }}
@@ -10,7 +11,9 @@
     <div class="evidence">
       <h1>{{ evidence }}</h1>
     </div>
-
+    <div class="right">
+      {% bookmarks evidence %}
+    </div>
     <div class="links">
       <ul>
         <li><a href="{% url edit_evidence evidence.pk %}">Edit this Evidence</a></li>

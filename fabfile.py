@@ -9,25 +9,6 @@ code_dir = "/home/adammck/hunchworks/src"
 def test():
   local("./manage.py test hunchworks")
 
-def update_requirements():
-  with cd(code_dir):
-    with prefix("source ../bin/activate"):
-      run("pip install -r requirements.txt")
-
-def purge():
-  with cd(code_dir):
-    run("git clean -fx")
-
-def update_code():
-  with cd(code_dir):
-    run("git pull")
-
-def update_database():
-  with cd(code_dir):
-    with prefix("source ../bin/activate"):
-      run("./manage.py syncdb --noinput")
-      run("./manage.py loaddata sample_data")
-
 def stop():
   run("sudo supervisorctl stop hunchworks")
 
@@ -37,7 +18,21 @@ def start():
 def deploy():
   test()
   stop()
-  purge()
-  update_code()
-  update_database()
+
+  with cd(code_dir):
+    with prefix("source ../bin/activate"):
+
+      # trash any local changes and pull the latest code.
+      run("git reset --hard")
+      run("git clean -dfx")
+      run("git pull")
+
+      # install any new requirements.
+      run("pip install -r requirements.txt")
+
+      # spawn a pristine instance with sample data.
+      run("./manage.py syncdb --noinput")
+      run("./manage.py collectstatic --noinput")
+      run("./manage.py loaddata sample_data")
+
   start()

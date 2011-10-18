@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from django.conf.urls.defaults import *
-from views import dashboard, auth, users, groups, hunches, evidences, albums, feeds
+from views import dashboard, auth, users, groups, hunches, evidences, albums, feeds, bookmark
 
 urlpatterns = patterns(
   'hunchworks.views',
@@ -37,17 +37,18 @@ urlpatterns = patterns(
   url(r'^groups/(?P<group_id>\d+)/hunches$', groups.hunches,  name="group_hunches"),
 
   # hunches
-  url(r'^hunches$',                            hunches.index,    name="hunches"),
-  url(r'^hunches/my$',                         hunches.my,       name="my_hunches"),
-  url(r'^hunches/all$',                        hunches.all,      name="all_hunches"),
-  url(r'^hunches/finished$',                   hunches.finished, name="finished_hunches"),
-  url(r'^hunches/open$',                       hunches.open,     name="open_hunches"),
-  url(r'^hunches/(?P<hunch_id>\d+)$',          hunches.show,     name="hunch"),
-  url(r'^hunches/(?P<hunch_id>\d+)/edit$',     hunches.edit,     name="edit_hunch"),
-  url(r'^hunches/create$',                     hunches.create,   name="create_hunch"),
-  url(r'^hunches/(?P<hunch_id>\d+)/follow$',   hunches.follow,   name="follow_hunch"),
-  url(r'^hunches/(?P<hunch_id>\d+)/unfollow$', hunches.unfollow, name="unfollow_hunch"),
+  url(r'^hunches$',                              hunches.index,      name="hunches"),
+  url(r'^hunches/my$',                           hunches.my,         name="my_hunches"),
+  url(r'^hunches/all$',                          hunches.all,        name="all_hunches"),
+  url(r'^hunches/finished$',                     hunches.finished,   name="finished_hunches"),
+  url(r'^hunches/open$',                         hunches.open,       name="open_hunches"),
+  url(r'^hunches/(?P<hunch_id>\d+)$',            hunches.show,       name="hunch"),
+  url(r'^hunches/(?P<hunch_id>\d+)/edit$',       hunches.edit,       name="edit_hunch"),
+  url(r'^hunches/create$',                       hunches.create,     name="create_hunch"),
+  url(r'^hunches/(?P<hunch_id>\d+)/follow$',     hunches.follow,     name="follow_hunch"),
+  url(r'^hunches/(?P<hunch_id>\d+)/unfollow$',   hunches.unfollow,   name="unfollow_hunch"),
   url(r'^hunches/feed/$', feeds.RecentHunchFeed()),
+  url(r'^hunches/(?P<hunch_id>\d+)/feed$',   feeds.EvidencesFeed()),
 
   # evidences
   url(r'^evidence$',                           evidences.index,  name="evidences"),
@@ -56,7 +57,6 @@ urlpatterns = patterns(
   url(r'^evidence/create$',                    evidences.create, name="create_evidence"),
 
   url(r'^evidences/search.json$', evidences.search, name="search_evidence"),
-  url(r'^evidences/feed/$', feeds.EvidencesFeed()),
   
   # albums
   url(r'^albums$',                          albums.index,    name="albums"),
@@ -64,6 +64,10 @@ urlpatterns = patterns(
   url(r'^albums/(?P<album_id>\d+)$',        albums.show,     name="album"),
   url(r'^albums/create$',                   albums.create,   name="create_album"),
   url(r'^albums/(?P<album_id>\d+)/edit$',   albums.edit,     name="edit_album"),
+  
+  # bookmarks
+  url(r'^bookmark/(?P<object_type>[a-zA-Z]+)/(?P<object_id>\d+)$',   bookmark.add,    name="bookmark"),
+  url(r'^unbookmark/(?P<object_type>[a-zA-Z]+)/(?P<object_id>\d+)$', bookmark.delete, name="unbookmark"),
 )
 
 

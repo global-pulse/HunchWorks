@@ -1,23 +1,29 @@
 {% extends "hunches/base.html" %}
 {% block body_id %}hunch-list{% endblock %}
 {% load paginator_tags %}
+{% load bookmark_tags %}
 
 {% block content %}
   <section class="hunch-list">
     {% for hunch in hunches.object_list %}
       <article class="hunch">
-        <h2><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h2>
+        <div class="left">
+          <h2><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h2>
 
-        {% if hunch.description %}
-          <section class="desc">
-            {{ hunch.description|truncatewords:60|safe }}
-          </section>
-        {% endif %}
+          {% if hunch.description %}
+            <section class="desc">
+              {{ hunch.description|truncatewords:60|safe }}
+            </section>
+          {% endif %}
 
-        <ul class="stats">
-          <li>{{ hunch.member_count }} members</li>
-          <li>{{ hunch.evidence_count }} evidence</li>
-        </ul>
+          <ul class="stats">
+            <li>{{ hunch.member_count }} members</li>
+            <li>{{ hunch.evidence_count }} evidence</li>
+          </ul>
+        </div>
+        <div class="right">
+          {% bookmarks hunch %}
+        </div>
       </article>
     {% endfor %}
   </section>
