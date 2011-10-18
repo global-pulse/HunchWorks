@@ -4,6 +4,7 @@ import datetime
 from urlparse import urlparse
 import hunchworks_enums
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_save, post_save
 from django.contrib.contenttypes.models import ContentType
@@ -196,7 +197,8 @@ class Evidence(models.Model):
 
   @classmethod
   def search(cls, term, user_profile=None):
-    return cls.objects.filter(description__icontains=term)
+    return cls.objects.filter(
+      Q(description__icontains=term) | Q(title__icontains=term))
 
 
 class Group(models.Model):
