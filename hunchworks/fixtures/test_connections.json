@@ -4,18 +4,8 @@
     "model": "hunchworks.connection",
     "fields": 
     {
-      "user_profile": 4,
+      "user_profile": 1,
       "other_user_profile": 2,
-      "status": 0
-    }
-  },
-  {
-    "pk": 2,
-    "model": "hunchworks.connection",
-    "fields": 
-    {
-      "user_profile": 4,
-      "other_user_profile": 3,
       "status": 0
     }
   }
