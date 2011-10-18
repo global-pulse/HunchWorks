@@ -7,7 +7,6 @@ section.group-list { }
       border: 1px solid #ccc;
       box-shadow: 1px 1px 5px #ccc;
       border-radius: 5px;
-      color: #999;
       overflow: hidden;
       margin-bottom: 1em;
     }
@@ -31,7 +30,6 @@ section.group-list { }
         font-size: 125%;
         font-weight: bold;
         margin: 0.8em 0 0.4em 0.8em;
-        color: #333;
       }
 
         section.group-list > article.group > div > h2 > a {
@@ -40,4 +38,16 @@ section.group-list { }
 
       section.group-list > article.group > div > ul.stats {
         margin-left: 2.5em;
+        color: #999;
       }
+
+      section.group-list > article.group > div > ul.links {
+        margin: 0.5em 0 1em 1em;
+        overflow: hidden;
+      }
+
+        section.group-list > article.group > div > ul.links > li {
+          display: block;
+          float: left;
+          margin-right: 1em;
+        }

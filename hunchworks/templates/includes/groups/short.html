@@ -9,5 +9,11 @@
     <li>{{ group.hunch_count }} hunches</li>
   </ul>
 
+  {% if show_join_link %}
+    <ul class="links">
+      <li><a href="{% url join_group group.pk %}" class="join">Join</a></li>
+    </ul>
+  {% endif %}
+
   {% bookmarks group %}
 </div></article>
