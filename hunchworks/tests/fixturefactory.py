@@ -34,11 +34,14 @@ class BaseFactory(object):
         # any kwargs passed in at time of instantiation.  kwargs won't
         # get explicitly passed to django unless set in getparams()
         # (or by overriding __init__ in the child)
-        self.__dict__.update(**kwargs)
+        self.__dict__ = kwargs
 
         # Get dict of params necessary to create object
         dict_ = self.default_params
         dict_.update(self.getparams())
+
+        #override getparams args with those supplied at runtime
+        dict_.update(**kwargs)
 
         # Check and prep dict_ as necessary
         try: del dict_['self'] # we don't want to pass this around
@@ -88,7 +91,7 @@ class DjangoMixin(object):
 
     def getUnusedPk(self, model=None):
         """Get minimum possible unused primary key"""
-        a = set(self.getPks(model))
+        a = set(self.getPks(model)) or [1]
         b = set(range(min(a), max(a)+2))
         return min(b.difference(a))
 
