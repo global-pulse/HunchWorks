@@ -48,6 +48,7 @@ urlpatterns = patterns(
   url(r'^hunches/(?P<hunch_id>\d+)/follow$',     hunches.follow,     name="follow_hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/unfollow$',   hunches.unfollow,   name="unfollow_hunch"),
   url(r'^hunches/feed/$', feeds.RecentHunchFeed()),
+  url(r'^hunches/(?P<hunch_id>\d+)/feed$',   feeds.EvidencesFeed()),
 
   # evidences
   url(r'^evidence$',                           evidences.index,  name="evidences"),
@@ -56,7 +57,6 @@ urlpatterns = patterns(
   url(r'^evidence/create$',                    evidences.create, name="create_evidence"),
 
   url(r'^evidences/search.json$', evidences.search, name="search_evidence"),
-  url(r'^evidences/feed/$', feeds.EvidencesFeed()),
   
   # albums
   url(r'^albums$',                          albums.index,    name="albums"),
