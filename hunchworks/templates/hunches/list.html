@@ -1,7 +1,6 @@
 {% extends "hunches/base.html" %}
 {% block body_id %}hunch-list{% endblock %}
 {% load paginator_tags %}
-{% load hunch_tags %}
 
 {% block content %}
   {% include "includes/hunches/list.html" with hunch_list=hunches.object_list %}
