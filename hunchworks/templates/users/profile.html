@@ -26,8 +26,9 @@
 		<h3>Your Profile:</h3>
 		<div class='field'>
 		  <b>Profile Picture:</b> 
-		  {% if user.profile_picture.url %}
-            {{ user.profile_picture.url }}
+		  {% if user_profile.profile_picture %}
+            <br />
+            <img src="{{ user_profile.profile_picture.url }}" width="100"/>
           {% else %}
             No profile picture selected
 		  {% endif %}
