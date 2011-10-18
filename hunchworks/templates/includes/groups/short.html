@@ -1,0 +1,13 @@
+{% load bookmark_tags %}
+
+<article class="group"><div>
+  <div class="img"><img src="{{ group.logo_url }}" height="100" class="logo"></div>
+  <h2><a href="{{ group.get_absolute_url }}">{{ group }}</a></h2>
+
+  <ul class="stats">
+    <li>{{ group.member_count }} members</li>
+    <li>{{ group.hunch_count }} hunches</li>
+  </ul>
+
+  {% bookmarks group %}
+</div></article>
