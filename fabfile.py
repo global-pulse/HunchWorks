@@ -7,7 +7,9 @@ code_dir = "/home/adammck/hunchworks/src"
 
 
 def test():
-  local("./manage.py test hunchworks")
+  local("coverage erase")
+  local("coverage run --source hunchworks ./manage.py test hunchworks")
+  local("coverage report")
 
 def stop():
   run("sudo supervisorctl stop hunchworks")
