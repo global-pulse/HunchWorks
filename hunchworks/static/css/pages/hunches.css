@@ -185,6 +185,14 @@
         display: block;
       }
 
+  #hunch-show div.no-evidence {
+    margin-top: 1em;
+    padding: 2em;
+    background: #eee;
+    color: #ccc;
+    text-align: center;
+  }
+
 
 
 
