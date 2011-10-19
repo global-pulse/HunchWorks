@@ -490,7 +490,9 @@ class VoteForm(ModelForm):
 class AddHunchEvidenceForm(forms.ModelForm):
   evidence = EvidenceField()
   vote     = forms.ChoiceField(choices=models.SUPPORT_CHOICES, widget=forms.RadioSelect(renderer=VoteChoiceRenderer))
-  comment  = forms.CharField(widget=forms.Textarea, required=False)
+  comment  = forms.CharField(widget=forms.Textarea, required=False,
+    help_text="Tell other users how this evidence supports or refutes this " +
+              "hunch.")
 
   class Meta:
     model = models.HunchEvidence

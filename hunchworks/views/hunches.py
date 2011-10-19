@@ -217,3 +217,24 @@ def unfollow(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
   hunch_user = get_object_or_404(models.HunchUser, hunch=hunch, user_profile=req.user.get_profile()).delete()
   return redirect(index)
+
+
+def add_evidence(req, hunch_id):
+  hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+
+  if req.method == "POST":
+    form = forms.AddHunchEvidenceForm(req.POST)
+
+    if form.is_valid():
+      hunch_evidence = form.save(user_profile=req.user.get_profile())
+      return redirect(hunch)
+
+  else:
+    form = forms.AddHunchEvidenceForm(initial={
+      "hunch": hunch
+    })
+
+  return _render(req, "add_evidence", {
+    "hunch": hunch,
+    "form": form
+  })

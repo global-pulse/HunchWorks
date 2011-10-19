@@ -109,6 +109,12 @@
             color: #000;
           }
 
+        #hunch-show section.evidence > div > div.add {
+          text-align: center;
+          margin-top: 0.5em;
+          color: #999;
+        }
+
 
 
 

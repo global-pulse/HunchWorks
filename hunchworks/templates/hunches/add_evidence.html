@@ -1,0 +1,37 @@
+{% extends "hunches/base.html" %}
+
+{% block title %}
+  Add Evidence to a Hunch &mdash;
+  {{ block.super }}
+{% endblock %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Add Evidence to a Hunch</h1>
+{% endblock %}
+
+{% block content %}
+  <form action="" method="post" class="add hunch_evidence">
+    {{ form.non_field_errors }}
+    {% csrf_token %}
+
+    {% for field in form.hidden_fields %}
+      {{ field }}
+    {% endfor %}
+
+    <div class="fields">
+      {% include "includes/fields/base.html" with field=form.evidence %}
+      {% include "includes/fields/base.html" with field=form.vote %}
+      {% include "includes/fields/base.html" with field=form.comment %}
+    </div>
+
+    <div class="actions">
+      <input type="hidden" name="action" value="add_evidence">
+      <input type="submit" value="Add Evidence to Hunch">
+    </div>
+  </form>
+{% endblock %}
+
+
+
+
