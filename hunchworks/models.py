@@ -44,7 +44,7 @@ class UserProfile(models.Model):
   phone = models.CharField(max_length=20, blank=True)
   skype_name = models.CharField(max_length=30, blank=True)
   website = models.CharField(max_length=100, blank=True)
-  profile_picture = models.ImageField(upload_to="profile_images", blank=True)
+  profile_picture = models.ImageField(upload_to="profile_images", blank=True, null=True)
   messenger_service = models.IntegerField(null=True, blank=True, choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
   translation_language = models.ForeignKey('TranslationLanguage', default=0)
 
@@ -67,7 +67,10 @@ class UserProfile(models.Model):
     return ("profile", [self.pk])
 
   def profile_picture_url(self):
-    return "http://icanhascheezburger.files.wordpress.com/2011/09/funny-pictures-oh-like-you-trying-to-squeeze-your-fat-ass-into-a-leopard-print-thong-is-any-different.jpg"
+    if self.profile_picture:
+      return self.profile_picture.url
+    else:
+      return "http://icanhascheezburger.files.wordpress.com/2011/09/funny-pictures-oh-like-you-trying-to-squeeze-your-fat-ass-into-a-leopard-print-thong-is-any-different.jpg"
 
 
 def create_user(sender, instance, created, **kwargs):
@@ -205,7 +208,7 @@ class Group(models.Model):
   name = models.CharField(max_length=100, unique=True)
   abbreviation = models.CharField(max_length=10, null=True, blank=True)
   description = models.TextField(blank=True, help_text="You can use HTML here.")
-  logo = models.CharField(max_length=100, blank=True, null=True) # TODO filefield
+  logo = models.ImageField(upload_to="group_images", blank=True, null=True)
   type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
   location = models.ForeignKey('Location', null=True, blank=True)
@@ -219,7 +222,10 @@ class Group(models.Model):
     return ("group", [self.pk])
 
   def logo_url(self):
-    return "http://i.imgur.com/BYf54.jpg"
+    if self.logo:
+      return self.logo.url
+    else:
+      return "http://i.imgur.com/BYf54.jpg"
 
   def member_count(self):
     return self.members.all().count()

@@ -304,7 +304,6 @@ class GroupForm(ModelForm):
 
   class Meta:
     model = models.Group
-    exclude = ("logo")
     widgets = {
       'name': forms.TextInput(attrs={ 'size': 50 }),
       'abbreviation': forms.TextInput(attrs={ 'size': 15 })
