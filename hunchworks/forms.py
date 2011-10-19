@@ -505,10 +505,11 @@ class AddHunchEvidenceForm(forms.ModelForm):
     with transaction.commit_on_success():
       hunch_evidence = super(AddHunchEvidenceForm, self).save()
 
-      comment = models.Comment.objects.create(
-        hunch_evidence=hunch_evidence,
-        creator=user_profile,
-        text=self.cleaned_data["comment"])
+      if self.cleaned_data["comment"]:
+        comment = models.Comment.objects.create(
+          hunch_evidence=hunch_evidence,
+          creator=user_profile,
+          text=self.cleaned_data["comment"])
 
       vote = models.Vote.objects.create(
         hunch_evidence=hunch_evidence,
