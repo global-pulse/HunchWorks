@@ -8,7 +8,43 @@
 {% endblock %}
 
 {% block content %}
-  <div id="evidence-list">
+  <section class="evidence-list">
+	{% for evidence in evidences.object_list %}
+	  <article class="evidence">
+		<div class="left">
+		  <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
+		  <h2>
+			<a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a>
+		  </h2>
+		</div>
+		<script>
+		  $(function() {
+			$("article.evidence > div > a.embed").each(function() {
+			  $(this).embedly({
+				"key": window.hunchworks.embedly_key,
+				"maxWidth": 100,
+				"maxHeight": 100,
+				"embedly_wmode": "transparent"
+			  });
+			});
+		  });
+		</script>
+		<div class="right">
+		  {% bookmarks evidence %}
+		</div>
+	  </article>
+	{% endfor %}
+
+    <div class="links">
+      <ul>
+        <li><a href="{% url create_evidence %}">Create an Evidence</a></li>
+      </ul>
+
+      {% paginator evidences %}
+      <div class="clear-hack"></div>
+    </div>
+  </div>
+  <!--<div id="evidence-list">
     <div class="evidences">
       {% for evidence in evidences.object_list %}
         <article class="evidence">
@@ -43,5 +79,5 @@
       {% paginator evidences %}
       <div class="clear-hack"></div>
     </div>
-  </div>
+  </div>-->
 {% endblock %}
