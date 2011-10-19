@@ -1,11 +1,14 @@
-.paginator { }
+.paginator {
+  overflow: hidden;
+  padding-left: 0.5em;
+}
 
   .paginator a,
   .paginator span {
     text-decoration: none;
     display: block;
     float: left;
-    padding: 0.625em;
+    padding: 1em 0.5em;
     color: #666;
   }
 
