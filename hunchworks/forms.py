@@ -453,7 +453,8 @@ class VoteChoiceRenderer(forms.widgets.RadioFieldRenderer):
       self._css_class(widget), unicode(widget))
 
   def render(self):
-    return mark_safe(self._ul())
+    return mark_safe('<div class="vote-widget">%s</div>' % (
+      self._ul()))
 
 
 class VoteForm(ModelForm):
