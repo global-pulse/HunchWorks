@@ -287,7 +287,9 @@
 
   #hunch-show form.comment { }
 
-    #hunch-show form.comment > div.bubble { }
+    #hunch-show form.comment > div.bubble {
+      padding: 0;
+    }
 
     /* If the comment submitted was invalid, make the bubble borders look like
     |* the invalid field border. They're deliberately styled the same. */
@@ -310,6 +312,8 @@
         #hunch-show form.comment > div.bubble > div.field > textarea {
           clear: none;
           padding: 0.5em;
+          line-height: 1.3;
+          height: 71px;
           background: none;
           border: none;
         }
