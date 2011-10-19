@@ -3,31 +3,30 @@
 {% load bookmark_tags %}
 
 {% block content %}
-  <div class="albums">
+  <section class="album-list">
     {% for album in albums.object_list %}
-      <div class="album"><div>
-        <h3><a href="{{ album.get_absolute_url }}">{{ album }}</a></h3>
-
-        {% if album.description %}
-          <div class="desc">
-            {{ album.description|truncatewords:60|safe }}
-          </div>
-        {% endif %}
-        <div class="right">
-          {% bookmarks album %}
-        </div>
-
-        <div class="clear-hack"></div>
-      </div></div>
-    {% endfor %}
-    <div class="clear-hack"></div>
-  </div>
-
+	  <article class="album">
+		<div class="left">
+		  <h2>
+			<a href="{{ album.get_absolute_url }}">{{ album }}</a>
+		  </h2>
+		  {% if album.description %}
+            <div class="desc">
+              {{ album.description|truncatewords:60|safe }}
+            </div>
+          {% endif %}
+		</div>
+		<div class="right">
+		  {% bookmarks album %}
+		</div>
+	  </article>
+	{% endfor %}
+  </section>
   <div class="links">
-    <ul>
-      <li><a href="{% url create_album %}">Add an Album</a></li>
-    </ul>
-      {% paginator albums %}
-    <div class="clear-hack"></div>
+	<ul>
+	  <li><a href="{% url create_album %}">Add an Album</a></li>
+	</ul>
+	  {% paginator albums %}
+	<div class="clear-hack"></div>
   </div>
 {% endblock %}

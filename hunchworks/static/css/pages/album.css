@@ -1,10 +1,61 @@
-#album-show > div.evidence {
+section.album-list { }
+
+  section.album-list > article.album {
+    position: relative;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 5px #ccc;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    padding: 1em;
+    color: #999;
+  }
+
+  section.album-list > article.album:last-child {
+    margin-bottom: 0;
+  }
+
+    section.album-list > article.album > div.left > h2 {
+      font-size: 125%;
+      font-weight: bold;
+      margin-bottom: 0.4em;
+      color: #333;
+    }
+
+      section.album-list > article.album > div.left > h2 > a {
+        text-decoration: none;
+      }
+
+    section.album-list > article.album > div.left > section.desc {
+      margin-bottom: 0.5em;
+    }
+
+    section.album-list > article.album > div.left > ul.stats {
+      margin-left: 1.5em;
+    }
+
+
+section.album-show > article.album {
   margin-top: 2em;
 }
 
-  #album-show > div.evidence > ul { }
+  section.album-show > article.album > div.left > h2 {
+    font-size: 125%;
+    font-weight: bold;
+    margin-bottom: 0.4em;
+    color: #333;
+  }
+  
+  section.album-show > article.album > article.evidence {
+    position: relative;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 5px #ccc;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    padding: 1em;
+    color: #999;
+  }
 
-	#album-show > div.evidence > ul > li {
+	section.album-show > article.album > article.evidence > div.left:first-child {
 	  display: block;
 	  padding-top: 1em;
 	  margin-top: 1em;
@@ -12,25 +63,20 @@
 	  width: 50%
 	}
 
-	  #album-show > div.evidence > ul > li:first-child {
-		border-top: none;
-		padding-top: 0;
+	  section.album-show > article.album > article.evidence > div.left > h3 {
+		font-size: 125%;
+		margin-bottom: 0.4em;
 	  }
 
-		#album-show > div.evidence > ul > li > h3 {
-		  font-size: 125%;
-		  margin-bottom: 0.4em;
-		}
+	  section.album-show > article.album > article.evidence > div.left > ul.meta > li {
+		font-size: 80%;
+		display: inline-block;
+		margin-top: 0.625em;
+		padding: 0.3125em;
+		background: #eee;
+		color: #999;
+	  }
 
-		#album-show > div.evidence > ul > li > ul.meta > li {
-		  font-size: 80%;
-		  display: inline-block;
-		  margin-top: 0.625em;
-		  padding: 0.3125em;
-		  background: #eee;
-		  color: #999;
+		section.album-show > article.album > article.evidence > div.left > ul.meta > li span {
+		  color: #bbb;
 		}
-
-		  #album-show > div.evidence > ul > li > ul.meta > li span {
-			color: #bbb;
-		  }
