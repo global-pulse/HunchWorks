@@ -130,6 +130,7 @@
 
       #hunch-show article.evidence > div > .embed {
         display: block;
+        background: #000;
         text-align: center;
       }
 
@@ -137,6 +138,7 @@
         #hunch-show article.evidence > div > div.embed object,
         #hunch-show article.evidence > div > div.embed embed {
           display: block;
+          margin: 0 auto;
         }
 
       #hunch-show article.evidence > div > section.desc {
