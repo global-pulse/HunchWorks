@@ -26,9 +26,6 @@
         {% endfor %}
       </ul>-->
     </header>
-    <div class="right">
-      {% bookmarks hunch %}
-    </div>
     <section class="meta">
       <div class="support">
         <div>
@@ -87,5 +84,7 @@
         <li><a href="{% url edit_hunch hunch.pk %}">Edit This Hunch</a></li>
       </ul>
     </div>
+
+    {% bookmarks hunch %}
   </article>
 {% endblock %}
