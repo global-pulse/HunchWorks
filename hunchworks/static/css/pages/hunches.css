@@ -202,50 +202,6 @@
           display: none;
         }
 
-        #hunch-show section.vote > form > div.field.choice > ul {
-          overflow: hidden;
-          padding-left: 2em;
-          margin: 0 auto;
-        }
-
-          #hunch-show section.vote > form > div.field.choice > ul > li {
-            display: block;
-            box-sizing: border-box;
-            margin-left: 0.5em;
-            width: 20%;
-            float: left;
-          }
-          #hunch-show section.vote > form > div.field.choice > ul > li:first-child {
-            margin-left: -2em;
-          }
-
-          #hunch-show section.vote li > label {
-            line-height: 1.3;
-            cursor: pointer;
-            display: block;
-            padding: 0.25em;
-            text-align: center;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            background: #fff;
-            color: #ccc;
-          }
-
-          #hunch-show section.vote > form > div.field.choice > ul > li > label:hover {
-            border-color: #999;
-            color: #999;
-          }
-
-            #hunch-show section.vote > form > div.field.choice > ul > li.selected > label {
-              border-color: #333;
-              font-weight: bold;
-              color: #333;
-            }
-
-            #hunch-show section.vote > form > div.field.choice > ul > li > label > input {
-              display: none;
-            }
-
       #hunch-show section.vote > form div.actions {
         display: none;
       }
