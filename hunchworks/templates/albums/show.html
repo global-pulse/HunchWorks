@@ -7,47 +7,50 @@
 {% endblock %}
 
 {% block content %}
-  <div id="album-show">
-    <h1><a href="{{ album.get_absolute_url }}">{{ album }}</a></h1>
-	<div class="right">
-	  {% bookmarks album %}
-	</div>
-    <div class="evidence">
-      <ul>
-        {% for evidence in album.evidences.all %}
-		  <div class="right">
-			{% bookmarks evidence %}
-		  </div>
-          <li class="tweet">
-            <h3>&quot;{{ evidence }}&quot;</h3>
-            <div class="embed">
-              <a href="{{ evidence.link }}">{{ evidence.link }}</a>
-            </div>
-            <ul class="meta">
-              <li class="source"><span>Source</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
-              <li class="date"><span>Posted</span> {{ evidence.time_created|date:"j F Y" }}</li>
-              <li class="creator"><span>By</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
-            </ul>
-            <div class="clear-hack"></div>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-    <script>
-      $(function() {
-        $("div.evidence div.embed a").each(function() {
-          $(this).embedly({
-            "key": window.hunchworks.embedly_key,
-            "maxWidth": $(this).parent().width()
-          });
+  <section class="album-show">
+    <article class="album">
+      <div class="left">
+        <h2>{{ album }}</h2>
+      </div>
+      <div class="right">
+        {% bookmarks album %}
+      </div>
+      {% for evidence in album.evidences.all %}
+      <article class="evidence">
+        <div class="left">
+          <h3>&quot;{{ evidence }}&quot;</h3>
+          <div class="embed">
+            <a href="{{ evidence.link }}">{{ evidence.link }}</a>
+          </div>
+          <ul class="meta">
+            <li class="source"><span>Source</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
+            <li class="date"><span>Posted</span> {{ evidence.time_created|date:"j F Y" }}</li>
+            <li class="creator"><span>By</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
+          </ul>
+          <div class="clear-hack"></div>
+        </div>
+        <div class="right">
+          {% bookmarks evidence %}
+        </div>
+      </article>
+      {% endfor %}
+    </article>
+  </section>
+  <script>
+    $(function() {
+      $("article.evidence div.embed a").each(function() {
+        $(this).embedly({
+          "key": window.hunchworks.embedly_key,
+          "maxWidth": $(this).parent().width()
         });
       });
-    </script>
-    <div class="links">
-      <ul>
-        <li><a href="{% url edit_album album.pk %}">Edit this Album</a></li>
-      </ul>
-      <div class="clear-hack"></div>
-    </div>
+    });
+  </script>
+  <div class="links">
+    <ul>
+      <li><a href="{% url edit_album album.pk %}">Edit this Album</a></li>
+    </ul>
+    <div class="clear-hack"></div>
   </div>
+</div>
 {% endblock %}

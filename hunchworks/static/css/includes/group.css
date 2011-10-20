@@ -38,6 +38,7 @@ section.group-list { }
 
       section.group-list > article.group > div > ul.stats {
         margin-left: 2.5em;
+        line-height: 1.3;
         color: #999;
       }
 
