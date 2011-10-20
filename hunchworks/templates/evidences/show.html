@@ -1,51 +1,50 @@
 {% extends "evidences/base.html" %}
 {% load bookmark_tags %}
 
+{% block body_id %}evidence-show{% endblock %}
+
 {% block header %}
   {{ block.super }}
   <h1>Show an Evidence</h1>
 {% endblock %}
 
 {% block content %}
-  <div id="evidence-show">
-    <article class="evidence">
-      <div>
-        <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
-  
-        <header>
-          <h3>{{ evidence.description }}</h3>
-        </header>
-  
-        <!--<section class="desc">
-          <p>{{ hunch_evidence.evidence.description }}</p>
-        </section>-->
-  
-        <ul class="meta">
-          <li class="source"><span>Source:</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
-          <li class="date"><span>Posted:</span> {{ evidence.time_created|date:"j F Y" }}</li>
-          <li class="creator"><span>By:</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
-        </ul>
-      </div>
-    </article>
-    <script>
-      $(function() {
-        $("article.evidence > div > a.embed").each(function() {
-          $(this).embedly({
-            "key": window.hunchworks.embedly_key,
-            "maxWidth": $(this).width(),
-            "maxHeight": 9999,
-            "embedly_wmode": "transparent"
-          });
+  <article class="evidence">
+    <header>
+      <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
+      <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
+
+      {% if evidence.description %}
+        <section class="desc">
+          {{ evidence.description|truncatewords:60|safe }}
+        </section>
+      {% endif %}
+    </header>
+
+    <!--<ul class="meta">
+      <li class="source"><span>Source:</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
+      <li class="date"><span>Posted:</span> {{ evidence.time_created|date:"j F Y" }}</li>
+      <li class="creator"><span>By:</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
+    </ul>-->
+
+    {% bookmarks evidence %}
+  </article>
+
+  <script>
+    $(function() {
+      $("a.embed").each(function() {
+        $(this).embedly({
+          "key": window.hunchworks.embedly_key,
+          "maxWidth": $(this).parent().width(),
+          "embedly_wmode": "transparent"
         });
       });
-    </script>
-    <div class="right">
-      {% bookmarks evidence %}
-    </div>
-    <div class="links">
-      <ul>
-        <li><a href="{% url edit_evidence evidence.pk %}">Edit this Evidence</a></li>
-      </ul>
-    </div>
+    });
+  </script>
+
+  <div class="links">
+    <ul>
+      <li><a href="{% url edit_evidence evidence.pk %}">Edit this Evidence</a></li>
+    </ul>
   </div>
 {% endblock %}

@@ -55,3 +55,41 @@
       margin: 0.5em 0 0.5em 2.5em;
       line-height: 1.3;
     }
+
+
+#evidence-show { }
+
+  #evidence-show article.evidence { }
+
+    #evidence-show article.evidence > header {
+      text-align: center;
+      padding: 4em;
+    }
+
+      /* Hide the embed link until it's been Embedlyed. */
+      #evidence-show article.evidence > header > a.embed {
+        display: none;
+      }
+
+      #evidence-show article.evidence > header > div.embed img,
+      #evidence-show article.evidence > header > div.embed object,
+      #evidence-show article.evidence > header > div.embed embed {
+        display: block;
+        margin: 0 auto;
+        border-radius: 4px;
+      }
+
+      #evidence-show article.evidence > header > h1 {
+        margin-top: 0.4em;
+        font-size: 250%;
+      }
+
+        #evidence-show article.evidence > header > h1 > a {
+          text-decoration: none;
+          color: #000;
+        }
+
+      #evidence-show article.evidence > header > section.desc {
+        margin-top: 1em;
+        color: #999;
+      }
