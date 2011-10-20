@@ -86,8 +86,8 @@ def join(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
   user_profile_group = models.UserProfileGroup.objects.get_or_create(
     user_profile = req.user.get_profile(),
-	group = group,
-	status=0)
+    group = group,
+    status=0)
 
   return redirect("group", group_id)
 
