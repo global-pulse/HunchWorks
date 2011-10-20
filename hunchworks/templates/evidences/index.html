@@ -37,8 +37,16 @@
       $("a.embed").each(function() {
         $(this).embedly({
           "key": window.hunchworks.embedly_key,
-          "maxHeight": 100,
-          "embedly_wmode": "transparent"
+          "success": function(oembed, dict) {
+
+            /* If this link has a thumbnail, insert it into the DOM. Otherwise,
+            |* leave it as it is (which is hidden by CSS). */
+            if(oembed.thumbnail_url) {
+              var $img = $("<img>").attr("src", oembed.thumbnail_url);
+              var $div = $("<div>").addClass("embed").append($img);
+              $(dict.node).replaceWith($div);
+            }
+          }
         });
       });
     });

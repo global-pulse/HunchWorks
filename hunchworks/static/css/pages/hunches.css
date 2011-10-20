@@ -33,6 +33,7 @@
 
     #hunch-list section.hunch-list > article.hunch > div.left > ul.stats {
       margin-left: 1.5em;
+      line-height: 1.3;
     }
 
 
