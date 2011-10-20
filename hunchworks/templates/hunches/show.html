@@ -75,6 +75,10 @@
             "embedly_wmode": "transparent"
           });
         });
+
+        $("article.evidence div.vote-widget input").click(function() {
+          $(this).closest("form").submit();
+        });
       });
     </script>
 

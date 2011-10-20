@@ -43,6 +43,5 @@ div.vote-widget { }
     div.vote-widget > ul > li.selected > label {
       border-color: #333;
       background: #fff;
-      font-weight: bold;
       color: #333;
     }
