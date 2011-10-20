@@ -62,3 +62,21 @@ class GroupViewsTest(TestCase, TestHelpers):
       resp = self.get("group_hunches", group_id=group.pk)
       self.assertTemplateUsed(resp, "groups/view_hunches.html")
       self.assertQuery(resp, "article.hunch", count=1)
+
+  def test_join_group(self):
+    with self.login("two"):
+
+      group = Group.objects.get(pk=2)
+      resp = self.get("join_group", group_id=group.pk)
+
+      resp2 = self.get("my_groups")
+      self.assertQuery(resp2, "article.group", count=2)
+
+  def test_leave_group(self):
+    with self.login("two"):
+
+      group = Group.objects.get(pk=1)
+      resp = self.get("leave_group", group_id=group.pk)
+
+      resp2 = self.get("my_groups")
+      self.assertQuery(resp2, "article.group", count=0)

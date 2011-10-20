@@ -12,6 +12,19 @@
       "privacy": 2
     }
   },
+  {
+    "pk": 2,
+    "model": "hunchworks.hunch",
+    "fields": {
+      "creator": 2,
+      "title": "Test Hunch Two",
+      "description": "This is a minimal hunch.",
+      "time_created": "2000-01-01 00:00:00",
+      "time_modified": "2000-01-01 00:00:00",
+      "translation_language": 1,
+      "privacy": 2
+    }
+  },
 
   {
     "pk": 1,
