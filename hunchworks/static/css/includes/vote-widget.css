@@ -1,0 +1,47 @@
+div.vote-widget { }
+
+  div.vote-widget > ul {
+    clear: both;
+    overflow: hidden;
+    padding-left: 2em;
+    margin: 0 auto;
+  }
+
+    div.vote-widget > ul > li {
+      display: block;
+      box-sizing: border-box;
+      margin-left: 0.5em;
+      width: 20%;
+      float: left;
+    }
+
+    div.vote-widget > ul > li:first-child {
+      margin-left: -2em;
+    }
+
+      div.vote-widget > ul > li > label {
+        line-height: 1.3;
+        cursor: pointer;
+        display: block;
+        padding: 0.25em;
+        text-align: center;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        background: #eee;
+        color: #ccc;
+      }
+
+      div.vote-widget > ul > li > label:hover {
+        border-color: #999;
+        color: #999;
+      }
+
+        div.vote-widget > ul > li > label > input {
+          display: none;
+        }
+
+    div.vote-widget > ul > li.selected > label {
+      border-color: #333;
+      background: #fff;
+      color: #333;
+    }

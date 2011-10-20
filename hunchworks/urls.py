@@ -47,7 +47,12 @@ urlpatterns = patterns(
   url(r'^hunches/create$',                       hunches.create,     name="create_hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/follow$',     hunches.follow,     name="follow_hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/unfollow$',   hunches.unfollow,   name="unfollow_hunch"),
-  url(r'^hunches/feed/$', feeds.RecentHunchFeed()),
+
+  # hunch evidence
+  url(r'^hunches/(?P<hunch_id>\d+)/evidence/add$', hunches.add_evidence, name="add_hunch_evidence"),
+
+  # hunch feeds
+  url(r'^hunches/feed/$',                    feeds.RecentHunchFeed()),
   url(r'^hunches/(?P<hunch_id>\d+)/feed$',   feeds.EvidencesFeed()),
 
   # evidences

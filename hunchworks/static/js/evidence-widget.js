@@ -1,7 +1,7 @@
 $(function() {
   var SEARCH_HELP = "Add evidences to this hunch by searching for them.";
 
-  $("div.evidence-widget").each(function() {
+  $("div.evidence-widget.many").each(function() {
     var $widget = $(this);
 
     var $results_outer = $("<div />", { "class": "search-results" }).hide().appendTo($widget);

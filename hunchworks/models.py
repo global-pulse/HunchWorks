@@ -383,6 +383,9 @@ class HunchEvidence(models.Model):
   support_cache = models.IntegerField(choices=SUPPORT_CHOICES)
   confidence_cache = models.FloatField()
 
+  class Meta:
+    unique_together = ("hunch", "evidence")
+
   def save(self, *args, **kwargs):
     self.support_cache = 0
     self.confidence_cache = 0.5

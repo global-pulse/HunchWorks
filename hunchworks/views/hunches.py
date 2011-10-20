@@ -82,6 +82,7 @@ def show(req, hunch_id):
 
   comment_form = None
   vote_form = None
+  hunch_evidence_form = None
 
   if req.method == "POST":
     action = req.POST.get("action")
@@ -99,6 +100,19 @@ def show(req, hunch_id):
       if vote_form.is_valid():
         vote = vote_form.save(user_profile=req.user.get_profile())
         return redirect(hunch)
+
+    elif action == "add_evidence":
+      hunch_evidence_form = forms.AddHunchEvidenceForm(req.POST)
+
+      if hunch_evidence_form.is_valid():
+        hunch_evidence = hunch_evidence_form.save(user_profile=req.user.get_profile())
+        return redirect(hunch)
+
+
+  if hunch_evidence_form is None:
+    hunch_evidence_form = forms.AddHunchEvidenceForm(initial={
+      "hunch": hunch
+    })
 
 
   def _wrap(hunch_evidence):
@@ -158,6 +172,7 @@ def show(req, hunch_id):
     "hunch": hunch,
     "evidences_for": map(_wrap, hunch.evidences_for()),
     "evidences_against": map(_wrap, hunch.evidences_against()),
+    "add_hunch_evidence_form": hunch_evidence_form,
     "following": following
   })
 
@@ -202,3 +217,24 @@ def unfollow(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
   hunch_user = get_object_or_404(models.HunchUser, hunch=hunch, user_profile=req.user.get_profile()).delete()
   return redirect(index)
+
+
+def add_evidence(req, hunch_id):
+  hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+
+  if req.method == "POST":
+    form = forms.AddHunchEvidenceForm(req.POST)
+
+    if form.is_valid():
+      hunch_evidence = form.save(user_profile=req.user.get_profile())
+      return redirect(hunch)
+
+  else:
+    form = forms.AddHunchEvidenceForm(initial={
+      "hunch": hunch
+    })
+
+  return _render(req, "add_evidence", {
+    "hunch": hunch,
+    "form": form
+  })
