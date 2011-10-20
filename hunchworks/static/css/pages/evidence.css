@@ -1,34 +1,49 @@
-section.evidence-list { }
+#evidence-list section.evidence-list {
+  padding: 2em;
+}
 
-  section.evidence-list > article.evidence {
+  #evidence-list section.evidence-list > article.evidence {
     position: relative;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 5px #ccc;
     border-radius: 5px;
     margin-bottom: 1em;
-    padding: 1em;
     color: #999;
+    overflow: hidden;
   }
 
-  section.evidence-list > article.evidence:last-child {
+  #evidence-list section.evidence-list > article.evidence:last-child {
     margin-bottom: 0;
   }
 
-    section.evidence-list > article.evidence > div.left > h2 {
+    #evidence-list section.evidence-list > article.evidence > div.embed {
+      float: right;
+      padding: 1px;
+    }
+
+      #evidence-list section.evidence-list > article.evidence > div.embed img,
+      #evidence-list section.evidence-list > article.evidence > div.embed object,
+      #evidence-list section.evidence-list > article.evidence > div.embed embed {
+        display: block;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+
+    #evidence-list section.evidence-list > article.evidence > h2 {
       font-size: 125%;
       font-weight: bold;
-      margin-bottom: 0.4em;
+      margin: 0.8em 0 0.4em 0.8em;
       color: #333;
     }
 
-      section.evidence-list > article.evidence > div.left > h2 > a {
+      #evidence-list section.evidence-list > article.evidence > h2 > a {
         text-decoration: none;
       }
 
-    section.evidence-list > article.evidence > div.left > section.desc {
-      margin-bottom: 0.5em;
+    #evidence-list section.evidence-list > article.evidence > section.desc {
+      margin: 0.5em 0 0.5em 1em;
     }
 
-    section.evidence-list > article.evidence > div.left > ul.stats {
-      margin-left: 1.5em;
+    #evidence-list section.evidence-list > article.evidence > ul.stats {
+      margin: 0.5em 0 0.5em 2.5em;
     }

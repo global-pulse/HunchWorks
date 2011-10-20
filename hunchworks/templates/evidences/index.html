@@ -2,6 +2,8 @@
 {% load paginator_tags %}
 {% load bookmark_tags %}
 
+{% block body_id %}evidence-list{% endblock %}
+
 {% block header %}
   {{ block.super }}
   <h1>All Evidences</h1>
@@ -9,39 +11,46 @@
 
 {% block content %}
   <section class="evidence-list">
-	{% for evidence in evidences.object_list %}
-	  <article class="evidence">
-		<div class="left">
-		  <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
-		  <h2>
-			<a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a>
-		  </h2>
-		</div>
-		<script>
-		  $(function() {
-			$("article.evidence > div > a.embed").each(function() {
-			  $(this).embedly({
-				"key": window.hunchworks.embedly_key,
-				"maxWidth": 100,
-				"maxHeight": 100,
-				"embedly_wmode": "transparent"
-			  });
-			});
-		  });
-		</script>
-		<div class="right">
-		  {% bookmarks evidence %}
-		</div>
-	  </article>
-	{% endfor %}
-  </section>
-    <div class="links">
-      <ul>
-        <li><a href="{% url create_evidence %}">Create an Evidence</a></li>
-      </ul>
+    {% for evidence in evidences.object_list %}
+      <article class="evidence">
+        <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
+        <h2><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h2>
 
-      {% paginator evidences %}
-      <div class="clear-hack"></div>
-    </div>
+        {% if evidence.description %}
+          <section class="desc">
+            {{ evidence.description|truncatewords:60|safe }}
+          </section>
+        {% endif %}
+
+        <ul class="stats">
+          <li>Supporting 10 hunches</li>
+          <li>Refuting 5 hunches</li>
+        </ul>
+
+        {% bookmarks evidence %}
+      </article>
+    {% endfor %}
+  </section>
+
+  <script>
+    $(function() {
+      $("a.embed").each(function() {
+        $(this).embedly({
+          "key": window.hunchworks.embedly_key,
+          "maxHeight": 100,
+          "embedly_wmode": "transparent"
+        });
+      });
+    });
+  </script>
+
+  <div class="links">
+    <ul>
+      <li><a href="{% url create_evidence %}">Create an Evidence</a></li>
+    </ul>
+
+    {% paginator evidences %}
+    <div class="clear-hack"></div>
   </div>
+</div>
 {% endblock %}
