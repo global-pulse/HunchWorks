@@ -2,10 +2,9 @@ form { }
 
   /* Errors not related to any particular field. */
   form > ul.errorlist {
-    border: 2px solid #e05b52;
-    border-radius: 5px;
-    background: #fee;
     margin-bottom: 1em;
+    background-color: #fee;
+    color: #f44;
   }
 
     form > ul.errorlist > li {
@@ -122,7 +121,8 @@ form { }
     form div.field.errors input,
     form div.field.errors textarea,
     form div.field.errors select,
-    form div.field.errors ul.token-input-list {
+    form div.field.errors ul.token-input-list,
+    form div.field.errors div.embed-widget {
       background-color: #fee;
       border-color: #c66;
       color: #000;
