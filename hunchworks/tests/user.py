@@ -42,7 +42,6 @@ class UsersViewsTest(TestCase, TestHelpers):
       })
 
       new_profile = UserProfile.objects.get(pk=1)
-      #self.assertEqual(new_profile.name, "Test Edit Profile")
       self.assertEqual(old_profile.email, new_profile.email)
       self.assertTemplateUsed(get_resp, "users/edit.html")
 

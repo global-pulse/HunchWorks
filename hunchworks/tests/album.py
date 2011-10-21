@@ -42,5 +42,5 @@ class AlbumViewsTest(TestCase, TestHelpers):
     with self.login("one"):
       get_resp = self.get("album", album_id=1)
       self.assertTemplateUsed(get_resp, "albums/show.html")
-      #self.assertQuery(get_resp, "article.album", count=1)
-      #self.assertQuery(get_resp, "article.evidence", count=1)
+      self.assertQuery(get_resp, "article.album", count=1)
+      self.assertQuery(get_resp, "article.evidence", count=1)

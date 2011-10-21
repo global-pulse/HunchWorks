@@ -15,33 +15,37 @@
       <div class="right">
         {% bookmarks album %}
       </div>
-      {% for evidence in album.evidences.all %}
-      <article class="evidence">
-        <div class="left">
-          <h3>&quot;{{ evidence }}&quot;</h3>
-          <div class="embed">
-            <a href="{{ evidence.link }}">{{ evidence.link }}</a>
-          </div>
-          <ul class="meta">
-            <li class="source"><span>Source</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
-            <li class="date"><span>Posted</span> {{ evidence.time_created|date:"j F Y" }}</li>
-            <li class="creator"><span>By</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
-          </ul>
-          <div class="clear-hack"></div>
-        </div>
-        <div class="right">
+        {% for evidence in album.evidences.all %}
+        <article class="evidence">
+          <header>
+            <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
+            <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
+      
+            {% if evidence.description %}
+              <section class="desc">
+                {{ evidence.description|truncatewords:60|safe }}
+              </section>
+            {% endif %}
+          </header>
+      
+          <!--<ul class="meta">
+            <li class="source"><span>Source:</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
+            <li class="date"><span>Posted:</span> {{ evidence.time_created|date:"j F Y" }}</li>
+            <li class="creator"><span>By:</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
+          </ul>-->
+      
           {% bookmarks evidence %}
-        </div>
-      </article>
+        </article>
       {% endfor %}
     </article>
   </section>
   <script>
     $(function() {
-      $("article.evidence div.embed a").each(function() {
+      $("a.embed").each(function() {
         $(this).embedly({
           "key": window.hunchworks.embedly_key,
-          "maxWidth": $(this).parent().width()
+          "maxWidth": $(this).parent().width(),
+          "embedly_wmode": "transparent"
         });
       });
     });

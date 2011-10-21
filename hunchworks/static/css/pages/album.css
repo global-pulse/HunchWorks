@@ -1,4 +1,6 @@
-section.album-list { }
+section.album-list {
+  padding: 2em;
+}
 
   section.album-list > article.album {
     position: relative;
@@ -6,6 +8,8 @@ section.album-list { }
     box-shadow: 1px 1px 5px #ccc;
     border-radius: 5px;
     margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
     padding: 1em;
     color: #999;
   }
@@ -17,7 +21,6 @@ section.album-list { }
     section.album-list > article.album > h2 {
       font-size: 125%;
       font-weight: bold;
-      margin-bottom: 0.4em;
       color: #333;
     }
 
@@ -25,50 +28,66 @@ section.album-list { }
         text-decoration: none;
       }
 
+    section.album-list > article.album > section.desc {
+      margin-top: 0.5em;
+    }
 
 section.album-show > article.album {
-  margin-top: 2em;
+  padding: 2em;
 }
 
   section.album-show > article.album > h2 {
-    font-size: 125%;
+    font-size: 150%;
     font-weight: bold;
     margin-bottom: 0.4em;
     color: #333;
   }
   
+  section.album-show > article.album > div.right > a {
+    margin-right: 1em;
+  }
+
   section.album-show > article.album > article.evidence {
     position: relative;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 5px #ccc;
     border-radius: 5px;
     margin-bottom: 1em;
+    margin-right: 1em;
+    margin-left: 1em;
     padding: 1em;
     color: #999;
   }
 
-  section.album-show > article.album > article.evidence:first-child {
-    display: block;
-    padding-top: 1em;
-    margin-top: 1em;
-    border-top: 1px dotted #ccc;
-    width: 50%
-  }
-
-    section.album-show > article.album > article.evidence > h3 {
-    font-size: 125%;
-    margin-bottom: 0.4em;
+    section.album-show > article.album > article.evidence > header {
+      text-align: center;
+      padding: 4em;
     }
 
-    section.album-show > article.album > article.evidence > ul.meta > li {
-      font-size: 80%;
-      display: inline-block;
-      margin-top: 0.625em;
-      padding: 0.3125em;
-      background: #eee;
-      color: #999;
-    }
+      /* Hide the embed link until it's been Embedlyed. */
+      section.album-show > article.album > article.evidence > header > a.embed {
+        display: none;
+      }
 
-    section.album-show > article.album > article.evidence > ul.meta > li span {
-      color: #bbb;
-    }
+      section.album-show > article.album > article.evidence > header > div.embed img,
+      section.album-show > article.album > article.evidence > header > div.embed object,
+      section.album-show > article.album > article.evidence > header > div.embed embed {
+        display: block;
+        margin: 0 auto;
+        border-radius: 4px;
+      }
+
+      section.album-show > article.album > article.evidence > header > h1 {
+        margin-top: 0.4em;
+        font-size: 250%;
+      }
+
+        section.album-show > article.album > article.evidence > header > h1 > a {
+          text-decoration: none;
+          color: #000;
+        }
+
+      section.album-show > article.album > article.evidence > header > section.desc {
+        margin-top: 1em;
+        color: #999;
+      }
