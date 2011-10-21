@@ -167,10 +167,10 @@ class HunchUser(models.Model):
 
 
 class Evidence(models.Model):
-  title = models.CharField(max_length=100, blank=True)
+  title = models.CharField(verbose_name="Short description", max_length=100, blank=True)
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
-  description = models.TextField(blank=True)
+  description = models.TextField(verbose_name="Further explanation", blank=True)
   creator = models.ForeignKey('UserProfile')
   link = models.CharField(max_length=255)
   tags = models.ManyToManyField('Tag', blank=True)
