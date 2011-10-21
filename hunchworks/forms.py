@@ -230,7 +230,8 @@ class HunchForm(ModelForm):
   add_groups = TokenField(models.Group, json_views.user_groups, required=False,
     label="Invite your groups",
     help_text="Type the name of the group you would like to invite")
-  location = LocationField(required=False)
+  location = LocationField(required=False,
+    help_text="If the hunch is relative to a specific location, you can mark it here.")
   evidences = EvidencesField(label="Add Evidence", required=False,
     help_text="If you know of evidence in the system that supports your hypothesis, start typing the title or description")
 
