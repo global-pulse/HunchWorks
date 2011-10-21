@@ -220,13 +220,19 @@ class EvidencesField(forms.ModelMultipleChoiceField):
 
 
 class HunchForm(ModelForm):
-  tags = TokenField(models.Tag, json_views.tags, required=False)
+  tags = TokenField(models.Tag, json_views.tags, required=False,
+    help_text="Tags that would help others find this Hunch")
   languages = TokenField(models.Language, json_views.languages, required=False)
   skills = TokenField(models.Skill, json_views.skills, required=False)
-  user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False)
-  add_groups = TokenField(models.Group, json_views.user_groups, required=False)
+  user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False,
+    label="Invite your connections",
+    help_text="Type the name of the user you would like to invite to work with you on this hunch")
+  add_groups = TokenField(models.Group, json_views.user_groups, required=False,
+    label="Invite your groups",
+    help_text="Type the name of the group you would like to invite")
   location = LocationField(required=False)
-  evidences = EvidencesField(required=False)
+  evidences = EvidencesField(label="Add Evidence", required=False,
+    help_text="If you know of evidence in the system that supports your hypothesis, start typing the title or description")
 
   class Meta:
     model = models.Hunch
@@ -314,7 +320,8 @@ class AlbumForm(forms.ModelForm):
 
 
 class EvidenceForm(ModelForm):
-  tags = TokenField(models.Tag, json_views.tags, required=False)
+  tags = TokenField(models.Tag, json_views.tags, required=False,
+    help_text="Tags that you think would help others search for or find this Hunch")
   link = EmbedField(
     help_text='Enter an URL to be embedded. You can find a list of supported ' +
               'providers at <a href="http://embed.ly/providers">Embedly</a>.')

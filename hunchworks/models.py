@@ -97,15 +97,15 @@ class Hunch(models.Model):
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
-  title = models.CharField(max_length=100, unique=True)
+  title = models.CharField(verbose_name="Hypothesis", max_length=100, unique=True)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
   translation_language = models.ForeignKey('TranslationLanguage', default=0)
   location = models.ForeignKey('Location', null=True, blank=True)
-  description = models.TextField()
+  description = models.TextField(verbose_name="further explanation")
 
   skills = models.ManyToManyField('Skill', blank=True)
   languages = models.ManyToManyField('Language', blank=True)
-  evidences = models.ManyToManyField('Evidence', through='HunchEvidence', blank=True)
+  evidences = models.ManyToManyField( 'Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
 
@@ -208,10 +208,11 @@ class Group(models.Model):
   name = models.CharField(max_length=100, unique=True)
   abbreviation = models.CharField(max_length=10, null=True, blank=True)
   description = models.TextField(blank=True, help_text="You can use HTML here.")
-  logo = models.ImageField(upload_to="group_images", blank=True, null=True)
+  logo = models.ImageField(verbose_name="Group picture", upload_to="group_images", blank=True, null=True)
   type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
-  location = models.ForeignKey('Location', null=True, blank=True)
+  location = models.ForeignKey('Location', null=True, blank=True,
+    help_text="The location in the world where the group is located")
   members = models.ManyToManyField('UserProfile', through='UserProfileGroup', null=True, blank=True)
 
   def __unicode__(self):
