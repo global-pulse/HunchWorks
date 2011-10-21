@@ -115,6 +115,10 @@
           color: #999;
         }
 
+      #hunch-show section.evidence div.empty-list {
+        margin-top: 1em;
+      }
+
 
 
 
@@ -184,14 +188,6 @@
       #hunch-show article.evidence > div:hover > ul.meta {
         display: block;
       }
-
-  #hunch-show div.no-evidence {
-    margin-top: 1em;
-    padding: 2em;
-    background: #eee;
-    color: #ccc;
-    text-align: center;
-  }
 
 
 
