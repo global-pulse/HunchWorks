@@ -33,6 +33,16 @@ SUPPORT_CHOICES = (
   (1, "Mildly Supports"),
   (2, "Strongly Supports"))
 
+POS_INF = float("inf")
+NEG_INF = float("-inf")
+
+SUPPORT_RANGES = (
+  (0, 0,        "Neutral"),
+  (1, POS_INF,  "Strongly Supported"),
+  (NEG_INF, -1, "Strongly Refuted"),
+  (0, 1,        "Mildly Supported"),
+  (-1, 0,       "Mildly Refuted"))
+
 
 class UserProfile(models.Model):
   user = models.ForeignKey(User, unique=True)
@@ -128,6 +138,10 @@ class Hunch(models.Model):
 
     self.time_modified = now
     super(Hunch, self).save(*args, **kwargs)
+
+  @property
+  def support(self):
+    return 0
 
   def is_editable_by(self, user):
     """Return True if this Hunch is editable by `user` (a Django auth user)."""
@@ -397,6 +411,21 @@ class HunchEvidence(models.Model):
     self.support_cache = 0
     self.confidence_cache = 0.5
     super(HunchEvidence, self).save(*args, **kwargs)
+
+  @property
+  def support(self):
+    return self.vote_set.aggregate(models.Avg("choice"))["choice__avg"] or 0
+
+  @property
+  def support_text(self):
+    s = self.support
+
+    for min_val, max_val, text in SUPPORT_RANGES:
+      if (min_val <= s) and (max_val >= s):
+        return text
+
+    return "Unknown"
+
 
 class Vote(models.Model):
   choice = models.IntegerField(choices=SUPPORT_CHOICES, default=None)

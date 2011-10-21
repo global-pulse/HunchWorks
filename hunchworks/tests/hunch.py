@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from hunchworks.models import Hunch, HunchUser, Vote
+from hunchworks.models import Hunch, HunchUser
 from hunchworks.tests.helpers import TestHelpers
 from django.contrib.auth.models import User
 from django.test import TestCase
