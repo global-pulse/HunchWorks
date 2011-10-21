@@ -14,31 +14,23 @@ section.album-list { }
     margin-bottom: 0;
   }
 
-    section.album-list > article.album > div.left > h2 {
+    section.album-list > article.album > h2 {
       font-size: 125%;
       font-weight: bold;
       margin-bottom: 0.4em;
       color: #333;
     }
 
-      section.album-list > article.album > div.left > h2 > a {
+      section.album-list > article.album > h2 > a {
         text-decoration: none;
       }
-
-    section.album-list > article.album > div.left > section.desc {
-      margin-bottom: 0.5em;
-    }
-
-    section.album-list > article.album > div.left > ul.stats {
-      margin-left: 1.5em;
-    }
 
 
 section.album-show > article.album {
   margin-top: 2em;
 }
 
-  section.album-show > article.album > div.left > h2 {
+  section.album-show > article.album > h2 {
     font-size: 125%;
     font-weight: bold;
     margin-bottom: 0.4em;
@@ -55,28 +47,28 @@ section.album-show > article.album {
     color: #999;
   }
 
-	section.album-show > article.album > article.evidence > div.left:first-child {
-	  display: block;
-	  padding-top: 1em;
-	  margin-top: 1em;
-	  border-top: 1px dotted #ccc;
-	  width: 50%
-	}
+  section.album-show > article.album > article.evidence:first-child {
+    display: block;
+    padding-top: 1em;
+    margin-top: 1em;
+    border-top: 1px dotted #ccc;
+    width: 50%
+  }
 
-	  section.album-show > article.album > article.evidence > div.left > h3 {
-		font-size: 125%;
-		margin-bottom: 0.4em;
-	  }
+    section.album-show > article.album > article.evidence > h3 {
+    font-size: 125%;
+    margin-bottom: 0.4em;
+    }
 
-	  section.album-show > article.album > article.evidence > div.left > ul.meta > li {
-		font-size: 80%;
-		display: inline-block;
-		margin-top: 0.625em;
-		padding: 0.3125em;
-		background: #eee;
-		color: #999;
-	  }
+    section.album-show > article.album > article.evidence > ul.meta > li {
+      font-size: 80%;
+      display: inline-block;
+      margin-top: 0.625em;
+      padding: 0.3125em;
+      background: #eee;
+      color: #999;
+    }
 
-		section.album-show > article.album > article.evidence > div.left > ul.meta > li span {
-		  color: #bbb;
-		}
+    section.album-show > article.album > article.evidence > ul.meta > li span {
+      color: #bbb;
+    }

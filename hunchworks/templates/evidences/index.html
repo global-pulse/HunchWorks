@@ -10,47 +10,53 @@
 {% endblock %}
 
 {% block content %}
-  <section class="evidence-list">
-    {% for evidence in evidences.object_list %}
-      <article class="evidence">
-        <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
-        <h2><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h2>
+  {% if evidences.object_list %}
+    <section class="evidence-list">
+      {% for evidence in evidences.object_list %}
+        <article class="evidence">
+          <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
+          <h2><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h2>
 
-        {% if evidence.description %}
-          <section class="desc">
-            {{ evidence.description|truncatewords:60|safe }}
-          </section>
-        {% endif %}
+          {% if evidence.description %}
+            <section class="desc">
+              {{ evidence.description|truncatewords:60|safe }}
+            </section>
+          {% endif %}
 
-        <ul class="stats">
-          <li>Supporting 10 hunches</li>
-          <li>Refuting 5 hunches</li>
-        </ul>
+          <ul class="stats">
+            <li>Supporting 10 hunches</li>
+            <li>Refuting 5 hunches</li>
+          </ul>
 
-        {% bookmarks evidence %}
-      </article>
-    {% endfor %}
-  </section>
+          {% bookmarks evidence %}
+        </article>
+      {% endfor %}
+    </section>
 
-  <script>
-    $(function() {
-      $("a.embed").each(function() {
-        $(this).embedly({
-          "key": window.hunchworks.embedly_key,
-          "success": function(oembed, dict) {
+    <script>
+      $(function() {
+        $("a.embed").each(function() {
+          $(this).embedly({
+            "key": window.hunchworks.embedly_key,
+            "success": function(oembed, dict) {
 
-            /* If this link has a thumbnail, insert it into the DOM. Otherwise,
-            |* leave it as it is (which is hidden by CSS). */
-            if(oembed.thumbnail_url) {
-              var $img = $("<img>").attr("src", oembed.thumbnail_url);
-              var $div = $("<div>").addClass("embed").append($img);
-              $(dict.node).replaceWith($div);
+              /* If this link has a thumbnail, insert it into the DOM. Otherwise,
+              |* leave it as it is (which is hidden by CSS). */
+              if(oembed.thumbnail_url) {
+                var $img = $("<img>").attr("src", oembed.thumbnail_url);
+                var $div = $("<div>").addClass("embed").append($img);
+                $(dict.node).replaceWith($div);
+              }
             }
-          }
+          });
         });
       });
-    });
-  </script>
+    </script>
+  {% else %}
+    <div class="empty-list">
+      No evidence has been created yet.
+    </div>
+  {% endif %}
 
   <div class="links">
     <ul>

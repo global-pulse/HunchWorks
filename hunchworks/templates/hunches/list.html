@@ -3,7 +3,11 @@
 {% load paginator_tags %}
 
 {% block content %}
-  {% include "includes/hunches/list.html" with hunch_list=hunches.object_list %}
+  {% if hunches.object_list %}
+    {% include "includes/hunches/list.html" with hunch_list=hunches.object_list %}
+  {% else %}
+    {% block empty %}{% endblock %}
+  {% endif %}
 
   <div class="links">
     <ul>

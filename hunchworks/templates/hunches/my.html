@@ -4,3 +4,9 @@
   {{ block.super }}
   <h1>My Hunches</h1>
 {% endblock %}
+
+{% block empty %}
+  <div class="empty-list">
+    You don't have any hunches right now.
+  </div>
+{% endblock %}

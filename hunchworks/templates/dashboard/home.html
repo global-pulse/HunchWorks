@@ -15,11 +15,23 @@
   <section class="hunches">
     <div>
       <h2>Recently <span>Updated</span> Hunches</h2>
-      {% include "includes/hunches/list.html" with hunch_list=recent_hunches %}
+      {% if recent_hunches %}
+        {% include "includes/hunches/list.html" with hunch_list=recent_hunches %}
+      {% else %}
+        <div class="empty-list">
+          No hunches have been updated recently.
+        </div>
+      {% endif %}
     </div>
     <div>
       <h2>Recently <span>Comfirmed</span> Hunches</h2>
-      {% include "includes/hunches/list.html" with hunch_list=confirmed_hunches %}
+      {% if confirmed_hunches %}
+        {% include "includes/hunches/list.html" with hunch_list=confirmed_hunches %}
+      {% else %}
+        <div class="empty-list">
+          No hunches have been confirmed recently.
+        </div>
+      {% endif %}
     </div>
   </section>
   <section class="suggestions">
@@ -29,7 +41,13 @@
     </div>
     <div>
       <h2>Suggested <span>Groups</span></h2>
-      {% include "includes/groups/list.html" with group_list=suggested_groups show_join_link=1 %}
+      {% if suggested_groups %}
+        {% include "includes/groups/list.html" with group_list=suggested_groups show_join_link=1 %}
+      {% else %}
+        <div class="empty-list">
+          No groups are suggested to you right now.
+        </div>
+      {% endif %}
     </div>
   </section>
 {% endblock %}

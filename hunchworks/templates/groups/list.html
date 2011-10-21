@@ -4,7 +4,11 @@
 {% load bookmark_tags %}
 
 {% block content %}
-  {% include "includes/groups/list.html" with group_list=groups.object_list %}
+  {% if groups.object_list %}
+    {% include "includes/groups/list.html" with group_list=groups.object_list %}
+  {% else %}
+    {% block empty %}{% endblock %}
+  {% endif %}
 
   <div class="links">
     <ul>
