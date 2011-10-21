@@ -6,6 +6,8 @@ section.album-list { }
     box-shadow: 1px 1px 5px #ccc;
     border-radius: 5px;
     margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
     padding: 1em;
     color: #999;
   }
@@ -38,11 +40,20 @@ section.album-show > article.album {
   margin-top: 2em;
 }
 
+  section.album-show > article.album > div.left {
+    margin-left: 1em;
+    margin-bottom: 1.5em;
+  }
+
   section.album-show > article.album > div.left > h2 {
-    font-size: 125%;
+    font-size: 150%;
     font-weight: bold;
     margin-bottom: 0.4em;
     color: #333;
+  }
+  
+  section.album-show > article.album > div.right > a {
+    margin-right: 1em;
   }
   
   section.album-show > article.album > article.evidence {
@@ -51,6 +62,8 @@ section.album-show > article.album {
     box-shadow: 1px 1px 5px #ccc;
     border-radius: 5px;
     margin-bottom: 1em;
+    margin-right: 1em;
+    margin-left: 1em;
     padding: 1em;
     color: #999;
   }
