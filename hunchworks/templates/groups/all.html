@@ -4,3 +4,9 @@
   {{ block.super }}
   <h1>All Groups</h1>
 {% endblock %}
+
+{% block empty %}
+  <div class="empty-list">
+    No groups have been created yet.
+  </div>
+{% endblock %}
