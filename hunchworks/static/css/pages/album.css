@@ -14,31 +14,23 @@ section.album-list { }
     margin-bottom: 0;
   }
 
-    section.album-list > article.album > div.left > h2 {
+    section.album-list > article.album > h2 {
       font-size: 125%;
       font-weight: bold;
       margin-bottom: 0.4em;
       color: #333;
     }
 
-      section.album-list > article.album > div.left > h2 > a {
+      section.album-list > article.album > h2 > a {
         text-decoration: none;
       }
-
-    section.album-list > article.album > div.left > section.desc {
-      margin-bottom: 0.5em;
-    }
-
-    section.album-list > article.album > div.left > ul.stats {
-      margin-left: 1.5em;
-    }
 
 
 section.album-show > article.album {
   margin-top: 2em;
 }
 
-  section.album-show > article.album > div.left > h2 {
+  section.album-show > article.album > h2 {
     font-size: 125%;
     font-weight: bold;
     margin-bottom: 0.4em;
