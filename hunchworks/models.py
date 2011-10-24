@@ -434,16 +434,6 @@ class HunchEvidence(models.Model):
   def support(self):
     return self.vote_set.aggregate(models.Avg("choice"))["choice__avg"] or 0
 
-  @property
-  def support_text(self):
-    s = self.support
-
-    for min_val, max_val, text in SUPPORT_RANGES:
-      if (min_val <= s) and (max_val >= s):
-        return text
-
-    return "Unknown"
-
 
 class Vote(models.Model):
   choice = models.IntegerField(choices=SUPPORT_CHOICES, default=None)

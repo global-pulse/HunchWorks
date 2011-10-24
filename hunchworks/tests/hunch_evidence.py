@@ -33,31 +33,27 @@ class HunchEvidenceTest(TestCase):
         user_profile=self._user().get_profile(),
         choice=choice)
 
-  def _votes(self, strong_sups, weak_sups, neutrals, weak_refs, strong_refs):
-    self._vote(+2, strong_sups)
-    self._vote(+1, weak_sups)
-    self._vote(0,  neutrals)
-    self._vote(-1, weak_refs)
+  def _votes(self, strong_refs, weak_refs, neutrals, weak_sups, strong_sups):
     self._vote(-2, strong_refs)
+    self._vote(-1, weak_refs)
+    self._vote(0,  neutrals)
+    self._vote(+1, weak_sups)
+    self._vote(+2, strong_sups)
 
 
   # actual tests
 
-  def test_neutral_evidence(self):
-    self.assertEqual(self.hunch_evidence.support_text, "Neutral")
+  def test_evidence_support_defaults_to_zero(self):
+    self.assertEqual(self.hunch_evidence.support, 0)
 
-  def test_supported_evidence(self):
-    self._votes(2, 10, 0, 4, 2)
-    self.assertEqual(self.hunch_evidence.support_text, "Mildly Supported")
+  def test_neutral_evidence_support(self):
+    self._votes(4, 2, 0, 2, 4)
+    self.assertEqual(self.hunch_evidence.support, 0)
 
-  def test_strongly_supported_evidence(self):
-    self._votes(20, 4, 0, 2, 2)
-    self.assertEqual(self.hunch_evidence.support_text, "Strongly Supported")
+  def test_negative_evidence_support(self):
+    self._votes(4, 4, 0, 0, 0)
+    self.assertEqual(self.hunch_evidence.support, -1.5)
 
-  def test_refuted_evidence(self):
-    self._votes(0, 4, 0, 8, 2)
-    self.assertEqual(self.hunch_evidence.support_text, "Mildly Refuted")
-
-  def test_strongly_refuted_evidence(self):
-    self._votes(0, 4, 2, 4, 16)
-    self.assertEqual(self.hunch_evidence.support_text, "Strongly Refuted")
+  def test_positive_evidence_support(self):
+    self._votes(0, 0, 0, 4, 4)
+    self.assertEqual(self.hunch_evidence.support, +1.5)
