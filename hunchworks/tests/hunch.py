@@ -14,14 +14,14 @@ class HunchTest(TestCase, UnitTestHelpers):
 
   # helpers
 
-  def _evidence(self, strong_sups, weak_sups, neutrals, weak_refs, strong_refs):
+  def _evidence(self, strong_refs, weak_refs, neutrals, weak_sups, strong_sups):
     evidence = Evidence.objects.create(creator=self._user().get_profile(), link="http://example.com")
     hunch_evidence = HunchEvidence.objects.create(hunch=self.hunch, evidence=evidence)
-    self._vote(hunch_evidence, +2, strong_sups)
-    self._vote(hunch_evidence, +1, weak_sups)
-    self._vote(hunch_evidence, 0,  neutrals)
-    self._vote(hunch_evidence, -1, weak_refs)
     self._vote(hunch_evidence, -2, strong_refs)
+    self._vote(hunch_evidence, -1, weak_refs)
+    self._vote(hunch_evidence, 0,  neutrals)
+    self._vote(hunch_evidence, +1, weak_sups)
+    self._vote(hunch_evidence, +2, strong_sups)
 
   def _vote(self, hunch_evidence, choice, times=1):
     for n in range(times):
@@ -33,23 +33,23 @@ class HunchTest(TestCase, UnitTestHelpers):
 
   # actual tests
 
-  def test_neutral_hunch(self):
+  def test_hunch_support_defaults_to_neutral(self):
     self.assertEqual(self.hunch.support_text, "Neutral")
 
-  def test_supported_hunch(self):
-    self._evidence(0, 2, 0, 0, 0)
+  def test_mild_hunch_support(self):
+    self._evidence(0, 0, 0, 2, 0)
     self.assertEqual(self.hunch.support_text, "Mildly Supported")
 
-  def test_strongly_supported_evidence(self):
-    self._evidence(20, 4, 0, 2, 2)
+  def test_strong_hunch_support(self):
+    self._evidence(2, 2, 0, 4, 20)
     self.assertEqual(self.hunch.support_text, "Strongly Supported")
 
-  def test_refuted_evidence(self):
-    self._evidence(0, 4, 0, 8, 2)
+  def test_mild_hunch_refute(self):
+    self._evidence(2 ,8 ,0 ,4 ,0)
     self.assertEqual(self.hunch.support_text, "Mildly Refuted")
 
-  def test_strongly_refuted_evidence(self):
-    self._evidence(0, 4, 2, 4, 16)
+  def test_strong_hunch_refute(self):
+    self._evidence(16 ,4 ,2 ,4 ,0)
     self.assertEqual(self.hunch.support_text, "Strongly Refuted")
 
 
