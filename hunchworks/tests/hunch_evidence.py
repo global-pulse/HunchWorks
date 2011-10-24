@@ -61,5 +61,6 @@ class HunchEvidenceTest(TestCase, UnitTestHelpers):
      self.assertAlmostEqual(self.hunch_evidence.controversy, 0.5, places=1)
 
   def test_high_evidence_controversy(self):
-    self._votes(1, 0, 0, 0, 1)
+    self._votes(10, 0, 0, 0, 0)
+    self._votes(0, 0, 0, 0, 10)
     self.assertEqual(self.hunch_evidence.controversy, 1)

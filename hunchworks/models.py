@@ -51,6 +51,12 @@ SUPPORT_RANGES = (
   (0, 1.1,        "Mildly Supported"),
   (-1.1, 0,       "Mildly Refuted"))
 
+CONTROVERSY_RANGES = (
+  (0, 0.2,        "Uncontroversial"),
+  (0.2, 0.6,      "Somewhat Controversial"),
+  (0.6, 0.95,     "Controversial"),
+  (0.95, POS_INF, "Very Controversial"))
+
 
 class UserProfile(models.Model):
   user = models.ForeignKey(User, unique=True)
@@ -164,6 +170,28 @@ class Hunch(models.Model):
     s = self.support
 
     for min_val, max_val, text in SUPPORT_RANGES:
+      if (min_val <= s) and (max_val >= s):
+        return text
+
+    return "Unknown"
+
+  @property
+  def controversy(self):
+    choices = Vote.objects.filter(
+      hunch_evidence__hunch=self).values_list(
+        "choice", flat=True)
+
+    if len(choices):
+      return numpy.std(choices) / SUPPORT_MAX_DEVIATION
+
+    else:
+      return 0
+
+  @property
+  def controversy_text(self):
+    s = self.controversy
+
+    for min_val, max_val, text in CONTROVERSY_RANGES:
       if (min_val <= s) and (max_val >= s):
         return text
 

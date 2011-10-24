@@ -53,6 +53,28 @@ class HunchTest(TestCase, UnitTestHelpers):
     self.assertEqual(self.hunch.support_text, "Strongly Refuted")
 
 
+  def test_hunch_controversy_defaults_to_zero(self):
+    self.assertEqual(self.hunch.controversy_text, "Uncontroversial")
+
+  def test_minimum_hunch_controversy(self):
+    self._evidence(10, 0, 0, 0, 0)
+    self.assertEqual(self.hunch.controversy_text, "Uncontroversial")
+
+  def test_low_hunch_controversy(self):
+    self._evidence(10, 0, 0, 0, 1)
+    self.assertEqual(self.hunch.controversy_text, "Somewhat Controversial")
+
+  def test_high_hunch_controversy(self):
+    self._evidence(10, 0, 0, 0, 5)
+    self._evidence(10, 0, 0, 0, 5)
+    self.assertEqual(self.hunch.controversy_text, "Controversial")
+
+  def test_maximum_hunch_controversy(self):
+    self._evidence(10, 0, 0, 0, 0)
+    self._evidence(0, 0, 0, 0, 10)
+    self.assertEqual(self.hunch.controversy_text, "Very Controversial")
+
+
 
 
 class HunchViewsTest(TestCase, ViewTestHelpers):
