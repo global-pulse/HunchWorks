@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import datetime
+import numpy
 from urlparse import urlparse
 import hunchworks_enums
 from django.db import models
@@ -32,6 +33,13 @@ SUPPORT_CHOICES = (
   (0, "Neutral"),
   (1, "Mildly Supports"),
   (2, "Strongly Supports"))
+
+def _max_std_dev(values):
+  return numpy.std([min(values), max(values)])
+
+# The maximum possible standard deviation of a set of SUPPORT_CHOICES, for
+# calculating the controversy ratio of a Hunch or HunchEvidence.
+SUPPORT_MAX_DEVIATION = _max_std_dev(zip(*SUPPORT_CHOICES)[0])
 
 POS_INF = float("inf")
 NEG_INF = float("-inf")
@@ -436,7 +444,8 @@ class HunchEvidence(models.Model):
 
   @property
   def controversy(self):
-    return 0
+    choices = self.vote_set.values_list("choice", flat=True)
+    return numpy.std(choices) / SUPPORT_MAX_DEVIATION
 
 
 class Vote(models.Model):
