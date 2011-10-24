@@ -37,11 +37,11 @@ POS_INF = float("inf")
 NEG_INF = float("-inf")
 
 SUPPORT_RANGES = (
-  (0, 0,        "Neutral"),
-  (1, POS_INF,  "Strongly Supported"),
-  (NEG_INF, -1, "Strongly Refuted"),
-  (0, 1,        "Mildly Supported"),
-  (-1, 0,       "Mildly Refuted"))
+  (0, 0,          "Neutral"),
+  (1.1, POS_INF,  "Strongly Supported"),
+  (NEG_INF, -1.1, "Strongly Refuted"),
+  (0, 1.1,        "Mildly Supported"),
+  (-1.1, 0,       "Mildly Refuted"))
 
 
 class UserProfile(models.Model):

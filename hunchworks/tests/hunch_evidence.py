@@ -51,7 +51,7 @@ class HunchEvidenceTest(TestCase):
     self.assertEqual(self.hunch_evidence.support_text, "Mildly Supported")
 
   def test_strongly_supported_evidence(self):
-    self._votes(10, 4, 0, 2, 2)
+    self._votes(20, 4, 0, 2, 2)
     self.assertEqual(self.hunch_evidence.support_text, "Strongly Supported")
 
   def test_refuted_evidence(self):
@@ -59,5 +59,5 @@ class HunchEvidenceTest(TestCase):
     self.assertEqual(self.hunch_evidence.support_text, "Mildly Refuted")
 
   def test_strongly_refuted_evidence(self):
-    self._votes(0, 4, 2, 4, 12)
+    self._votes(0, 4, 2, 4, 16)
     self.assertEqual(self.hunch_evidence.support_text, "Strongly Refuted")
