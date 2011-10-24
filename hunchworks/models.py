@@ -197,6 +197,9 @@ class Hunch(models.Model):
 
     return "Unknown"
 
+  def privacy_text(self):
+    return self.get_privacy_display()
+
   def is_editable_by(self, user):
     """Return True if this Hunch is editable by `user` (a Django auth user)."""
     return (self.creator.user == user)
