@@ -1,30 +1,18 @@
 #!/usr/bin/env python
 
 from hunchworks.models import Hunch, HunchUser, Evidence, HunchEvidence, Vote
-from hunchworks.tests.helpers import ViewTestHelpers
-from django.contrib.auth.models import User
+from hunchworks.tests.helpers import ViewTestHelpers, UnitTestHelpers
 from django.test import TestCase
 
 
-class HunchTest(TestCase):
+class HunchTest(TestCase, UnitTestHelpers):
   fixtures = ("test_users", "test_hunches")
 
   def setUp(self):
     self.hunch = Hunch.objects.get(pk=1)
-    self._user_count = 0
 
 
   # helpers
-
-  def _next_user_count(self):
-    self._user_count += 1
-    return self._user_count
-
-  def _user(self):
-    return User.objects.create_user(
-      "user_%s" % self._next_user_count(),
-      "user@example.com",
-      "password")
 
   def _evidence(self, strong_sups, weak_sups, neutrals, weak_refs, strong_refs):
     evidence = Evidence.objects.create(creator=self._user().get_profile(), link="http://example.com")
