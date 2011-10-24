@@ -141,7 +141,25 @@ class Hunch(models.Model):
 
   @property
   def support(self):
-    return 0
+    supports = [
+      hunch_evidence.support
+      for hunch_evidence in self.hunchevidence_set.all()]
+
+    if len(supports) > 0:
+      return sum(supports) / len(supports)
+
+    else:
+      return 0
+
+  @property
+  def support_text(self):
+    s = self.support
+
+    for min_val, max_val, text in SUPPORT_RANGES:
+      if (min_val <= s) and (max_val >= s):
+        return text
+
+    return "Unknown"
 
   def is_editable_by(self, user):
     """Return True if this Hunch is editable by `user` (a Django auth user)."""

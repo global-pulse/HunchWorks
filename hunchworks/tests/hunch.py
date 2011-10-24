@@ -1,9 +1,70 @@
 #!/usr/bin/env python
 
-from hunchworks.models import Hunch, HunchUser
+from hunchworks.models import Hunch, HunchUser, Evidence, HunchEvidence, Vote
 from hunchworks.tests.helpers import TestHelpers
 from django.contrib.auth.models import User
 from django.test import TestCase
+
+
+class HunchTest(TestCase):
+  fixtures = ("test_users", "test_hunches")
+
+  def setUp(self):
+    self.hunch = Hunch.objects.get(pk=1)
+    self._user_count = 0
+
+
+  # helpers
+
+  def _next_user_count(self):
+    self._user_count += 1
+    return self._user_count
+
+  def _user(self):
+    return User.objects.create_user(
+      "user_%s" % self._next_user_count(),
+      "user@example.com",
+      "password")
+
+  def _evidence(self, strong_sups, weak_sups, neutrals, weak_refs, strong_refs):
+    evidence = Evidence.objects.create(creator=self._user().get_profile(), link="http://example.com")
+    hunch_evidence = HunchEvidence.objects.create(hunch=self.hunch, evidence=evidence)
+    self._vote(hunch_evidence, +2, strong_sups)
+    self._vote(hunch_evidence, +1, weak_sups)
+    self._vote(hunch_evidence, 0,  neutrals)
+    self._vote(hunch_evidence, -1, weak_refs)
+    self._vote(hunch_evidence, -2, strong_refs)
+
+  def _vote(self, hunch_evidence, choice, times=1):
+    for n in range(times):
+      Vote.objects.create(
+        hunch_evidence=hunch_evidence,
+        user_profile=self._user().get_profile(),
+        choice=choice)
+
+
+  # actual tests
+
+  def test_neutral_hunch(self):
+    self.assertEqual(self.hunch.support_text, "Neutral")
+
+  def test_supported_hunch(self):
+    self._evidence(0, 2, 0, 0, 0)
+    self.assertEqual(self.hunch.support_text, "Mildly Supported")
+
+  def test_strongly_supported_evidence(self):
+    self._evidence(20, 4, 0, 2, 2)
+    self.assertEqual(self.hunch.support_text, "Strongly Supported")
+
+  def test_refuted_evidence(self):
+    self._evidence(0, 4, 0, 8, 2)
+    self.assertEqual(self.hunch.support_text, "Mildly Refuted")
+
+  def test_strongly_refuted_evidence(self):
+    self._evidence(0, 4, 2, 4, 16)
+    self.assertEqual(self.hunch.support_text, "Strongly Refuted")
+
+
 
 
 class HunchViewsTest(TestCase, TestHelpers):
