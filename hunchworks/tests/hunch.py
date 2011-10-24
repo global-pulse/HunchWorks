@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from hunchworks.models import Hunch, HunchUser, Evidence, HunchEvidence, Vote
-from hunchworks.tests.helpers import TestHelpers
+from hunchworks.tests.helpers import ViewTestHelpers
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -67,7 +67,7 @@ class HunchTest(TestCase):
 
 
 
-class HunchViewsTest(TestCase, TestHelpers):
+class HunchViewsTest(TestCase, ViewTestHelpers):
   fixtures = ("test_users", "test_hunches")
 
   def test_redirect_to_all_hunches(self):

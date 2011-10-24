@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-from hunchworks.tests.helpers import TestHelpers
+from hunchworks.tests.helpers import ViewTestHelpers
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.test.client import Client
 
 
-class AdminViewsTest(TestCase, TestHelpers):
+class AdminViewsTest(TestCase, ViewTestHelpers):
 
   def test_index(self):    
     my_admin = User.objects.create_superuser('admin', 'admin@test.com', "admin")
