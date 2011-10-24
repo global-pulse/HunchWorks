@@ -445,7 +445,12 @@ class HunchEvidence(models.Model):
   @property
   def controversy(self):
     choices = self.vote_set.values_list("choice", flat=True)
-    return numpy.std(choices) / SUPPORT_MAX_DEVIATION
+
+    if len(choices):
+      return numpy.std(choices) / SUPPORT_MAX_DEVIATION
+
+    else:
+      return 0
 
 
 class Vote(models.Model):
