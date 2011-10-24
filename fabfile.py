@@ -6,8 +6,14 @@ env.hosts = ["zoidberg.adammck.com"]
 code_dir = "/home/adammck/hunchworks/src"
 
 
+def delete_pyc_files():
+  local("find . -name '*.pyc' -delete")
+
 def test():
-  local("./manage.py test hunchworks")
+  delete_pyc_files()
+  local("coverage erase")
+  local("coverage run --source hunchworks ./manage.py test hunchworks")
+  local("coverage report")
 
 def stop():
   run("sudo supervisorctl stop hunchworks")

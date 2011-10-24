@@ -1,20 +1,30 @@
 {% extends "base.html" %}
-{% block title %}Profile{% endblock %}
-{% block css %}
-  <link rel="stylesheet" href="/static/profile.css" type="text/css"/>
-{% endblock %}
-{% block content %}
-  <div id='contents'>
-    <div class="connections">
-	  {% for connection in connected_profiles %}
-		<div class="connection">
-		  <a href="{{ connection.get_absolute_url }}">
-			<img src="{{ connection.profile_picture_url }}" width="163">
-			<span>{{ connection }}</span>
-		  </a>
-		</div>
-	  {% endfor %}
-	</div>
-  </div> <!-- end contents div -->
 
+{% block title %}
+  Your Connections &mdash;
+  {{ block.super }}
+{% endblock %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Your Connections</h1>
+{% endblock %}
+
+{% block content %}
+  <div class="connections">
+    {% if connected_profiles %}
+      {% for connection in connected_profiles %}
+        <div class="connection">
+          <a href="{{ connection.get_absolute_url }}">
+            <img src="{{ connection.profile_picture_url }}" width="163">
+            <span>{{ connection }}</span>
+          </a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="empty-list">
+        You don't have any connections.
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

@@ -3,6 +3,7 @@
 
 from hunchworks import forms, models
 from hunchworks.utils.pagination import paginated
+from hunchworks.utils.uploads import handle_uploaded_file
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
@@ -60,9 +61,11 @@ def show(req, group_id):
 @login_required
 def edit(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
-  form = forms.GroupForm(req.POST or None, instance=group)
+  form = forms.GroupForm(req.POST or None, req.FILES or None, instance=group)
 
   if form.is_valid():
+    for file in req.FILES:
+      handle_uploaded_file(req.FILES[file], '/group_images/')
     group = form.save()
     return redirect(group)
 
@@ -72,7 +75,7 @@ def edit(req, group_id):
 
 @login_required
 def create(req):
-  form = forms.GroupForm(req.POST or None)
+  form = forms.GroupForm(req.POST or None, req.FILES or None)
     
   if form.is_valid():
     group = form.save()
@@ -86,8 +89,8 @@ def join(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
   user_profile_group = models.UserProfileGroup.objects.get_or_create(
     user_profile = req.user.get_profile(),
-	group = group,
-	status=0)
+    group = group,
+    status=0)
 
   return redirect("group", group_id)
 

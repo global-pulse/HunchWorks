@@ -1,5 +1,6 @@
 {% extends "hunches/base.html" %}
 {% load bookmark_tags %}
+
 {% block body_id %}hunch-show{% endblock %}
 
 {% block title %}
@@ -25,9 +26,6 @@
         {% endfor %}
       </ul>-->
     </header>
-    <div class="right">
-      {% bookmarks hunch %}
-    </div>
     <section class="meta">
       <div class="support">
         <div>
@@ -58,11 +56,25 @@
     <section class="evidence">
       <div class="for">
         <h2>Evidence <span>for</span> this hunch</h2>
-        {% include "hunches/evidences.html" with evidences=evidences_for %}
+        <div class="add"><a href="{% url add_hunch_evidence hunch.pk %}">Add more supporting evidence</a></div>
+        {% if evidences_for %}
+          {% include "hunches/evidences.html" with evidences=evidences_for %}
+        {% else %}
+          <div class="empty-list">
+            <p>No supporting evidence has been added yet.</p>
+          </div>
+        {% endif %}
       </div>
       <div class="against">
         <h2>Evidence <span>against</span> this hunch</h2>
-        {% include "hunches/evidences.html" with evidences=evidences_against %}
+        <div class="add"><a href="{% url add_hunch_evidence hunch.pk %}">Add more refuting evidence</a></div>
+        {% if evidences_against %}
+          {% include "hunches/evidences.html" with evidences=evidences_against %}
+        {% else %}
+          <div class="empty-list">
+            <p>No refuting evidence has been added yet.</p>
+          </div>
+        {% endif %}
       </div>
     </section>
     <script>
@@ -75,7 +87,20 @@
             "embedly_wmode": "transparent"
           });
         });
+
+        $("article.evidence div.vote-widget input").click(function() {
+          $(this).closest("form").submit();
+        });
       });
     </script>
+
+    <div class="links">
+      <ul>
+        <li><a href="{% url add_hunch_evidence hunch.pk %}">Add Evidence to This Hunch</a></li>
+        <li><a href="{% url edit_hunch hunch.pk %}">Edit This Hunch</a></li>
+      </ul>
+    </div>
+
+    {% bookmarks hunch %}
   </article>
 {% endblock %}

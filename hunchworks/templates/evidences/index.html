@@ -2,31 +2,69 @@
 {% load paginator_tags %}
 {% load bookmark_tags %}
 
+{% block body_id %}evidence-list{% endblock %}
+
 {% block header %}
   {{ block.super }}
   <h1>All Evidences</h1>
 {% endblock %}
 
 {% block content %}
-  <div id="evidence-list">
-    <div class="evidences">
+  {% if evidences.object_list %}
+    <section class="evidence-list">
       {% for evidence in evidences.object_list %}
-        <div class="evidence">
-          <a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a>
-        </div>
-        <div class="right">
+        <article class="evidence">
+          <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
+          <h2><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h2>
+
+          {% if evidence.description %}
+            <section class="desc">
+              {{ evidence.description|truncatewords:60|safe }}
+            </section>
+          {% endif %}
+
+          <ul class="stats">
+            <li>Supporting 10 hunches</li>
+            <li>Refuting 5 hunches</li>
+          </ul>
+
           {% bookmarks evidence %}
-        </div>
+        </article>
       {% endfor %}
-    </div>
+    </section>
 
-    <div class="links">
-      <ul>
-        <li><a href="{% url create_evidence %}">Create an Evidence</a></li>
-      </ul>
+    <script>
+      $(function() {
+        $("a.embed").each(function() {
+          $(this).embedly({
+            "key": window.hunchworks.embedly_key,
+            "success": function(oembed, dict) {
 
-      {% paginator evidences %}
-      <div class="clear-hack"></div>
+              /* If this link has a thumbnail, insert it into the DOM. Otherwise,
+              |* leave it as it is (which is hidden by CSS). */
+              if(oembed.thumbnail_url) {
+                var $img = $("<img>").attr("src", oembed.thumbnail_url);
+                var $div = $("<div>").addClass("embed").append($img);
+                $(dict.node).replaceWith($div);
+              }
+            }
+          });
+        });
+      });
+    </script>
+  {% else %}
+    <div class="empty-list">
+      No evidence has been created yet.
     </div>
+  {% endif %}
+
+  <div class="links">
+    <ul>
+      <li><a href="{% url create_evidence %}">Create an Evidence</a></li>
+    </ul>
+
+    {% paginator evidences %}
+    <div class="clear-hack"></div>
   </div>
+</div>
 {% endblock %}

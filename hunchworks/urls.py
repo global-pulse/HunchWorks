@@ -47,7 +47,12 @@ urlpatterns = patterns(
   url(r'^hunches/create$',                       hunches.create,     name="create_hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/follow$',     hunches.follow,     name="follow_hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/unfollow$',   hunches.unfollow,   name="unfollow_hunch"),
-  url(r'^hunches/feed/$', feeds.RecentHunchFeed()),
+
+  # hunch evidence
+  url(r'^hunches/(?P<hunch_id>\d+)/evidence/add$', hunches.add_evidence, name="add_hunch_evidence"),
+
+  # hunch feeds
+  url(r'^hunches/feed/$',                    feeds.RecentHunchFeed()),
   url(r'^hunches/(?P<hunch_id>\d+)/feed$',   feeds.EvidencesFeed()),
 
   # evidences
@@ -74,13 +79,6 @@ urlpatterns = patterns(
 urlpatterns += patterns(
   'hunchworks.json_views',
   (r'^user/(?P<user_id>\d+)/collaborators$', 'collaborators'),
-  (r'^user/(?P<user_id>\d+)/languages$', 'user_languages'),
-  (r'^user/(?P<user_id>\d+)/skills$', 'user_skills'),
-  (r'^group/(?P<group_id>\d+)/collaborators$', 'group_collaborators'),
-  (r'^hunch/(?P<hunch_id>\d+)/collaborators$', 'hunch_collaborators'),
-  (r'^hunch/(?P<hunch_id>\d+)/languages$', 'hunch_languages'),
-  (r'^hunch/(?P<hunch_id>\d+)/skills$', 'hunch_skills'),
-  (r'^hunch/(?P<hunch_id>\d+)/tags$', 'hunch_tags'),
   (r'^skills$', 'skills'),
   (r'^languages$', 'languages'),
   (r'^locations$', 'locations'),

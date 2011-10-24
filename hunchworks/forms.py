@@ -131,6 +131,34 @@ class LocationField(forms.MultiValueField):
 class EvidenceWidget(forms.TextInput):
   def render(self, name, value, attrs=None):
     flat_widget = super(EvidenceWidget, self).render(
+      name, value, attrs)
+
+    try:
+      evidence = self.choices.queryset.get(pk=value)
+      previews = [self.render_one(evidence)]
+
+    except:
+      previews = []
+
+    return render_to_string("evidences/widget.html", {
+      "flat_widget": flat_widget,
+      "help_text": self._help(),
+      "previews": previews,
+      "variety": "one"
+    })
+
+  def render_one(self, evidence):
+    return render_to_string(
+      "evidences/short.html",
+      { "evidence": evidence })
+
+  def _help(self):
+    return "If JavaScript is disabled, enter an evidence ID."
+
+
+class MultipleEvidenceWidget(forms.TextInput):
+  def render(self, name, value, attrs=None):
+    flat_widget = super(MultipleEvidenceWidget, self).render(
       name, self._flat_value(value), attrs)
 
     previews = map(
@@ -140,7 +168,8 @@ class EvidenceWidget(forms.TextInput):
     return render_to_string("evidences/widget.html", {
       "flat_widget": flat_widget,
       "help_text": self._help(),
-      "previews": previews
+      "previews": previews,
+      "variety": "many"
     })
 
   def value_from_datadict(self, data, files, name):
@@ -166,7 +195,7 @@ class EvidenceWidget(forms.TextInput):
       pk__in=self._value(value))
 
 
-class EvidenceField(forms.ModelMultipleChoiceField):
+class EvidenceField(forms.ModelChoiceField):
   widget = EvidenceWidget
 
   @classmethod
@@ -178,14 +207,33 @@ class EvidenceField(forms.ModelMultipleChoiceField):
       self.query_set(), *args, **kwargs)
 
 
+class EvidencesField(forms.ModelMultipleChoiceField):
+  widget = MultipleEvidenceWidget
+
+  @classmethod
+  def query_set(cls):
+    return models.Evidence.objects.all()
+
+  def __init__(self, *args, **kwargs):
+    super(EvidencesField, self).__init__(
+      self.query_set(), *args, **kwargs)
+
+
 class HunchForm(ModelForm):
-  tags = TokenField(models.Tag, json_views.tags, required=False)
+  tags = TokenField(models.Tag, json_views.tags, required=False,
+    help_text="Tags that would help others find this Hunch")
   languages = TokenField(models.Language, json_views.languages, required=False)
   skills = TokenField(models.Skill, json_views.skills, required=False)
-  user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False)
-  add_groups = TokenField(models.Group, json_views.user_groups, required=False)
-  location = LocationField(required=False)
-  evidences = EvidenceField(required=False)
+  user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False,
+    label="Invite your connections",
+    help_text="Type the name of the user you would like to invite to work with you on this hunch")
+  add_groups = TokenField(models.Group, json_views.user_groups, required=False,
+    label="Invite your groups",
+    help_text="Type the name of the group you would like to invite")
+  location = LocationField(required=False,
+    help_text="If the hunch is relative to a specific location, you can mark it here.")
+  evidences = EvidencesField(label="Add Evidence", required=False,
+    help_text="If you know of evidence in the system that supports your hypothesis, start typing the title or description")
 
   class Meta:
     model = models.Hunch
@@ -266,14 +314,15 @@ class EmbedField(forms.CharField):
 
 
 class AlbumForm(forms.ModelForm):
-  evidences = EvidenceField(required=False)
+  evidences = EvidencesField(required=False)
   
   class Meta:
     model = models.Album
 
 
 class EvidenceForm(ModelForm):
-  tags = TokenField(models.Tag, json_views.tags, required=False)
+  tags = TokenField(models.Tag, json_views.tags, required=False,
+    help_text="Tags that you think would help others search for or find this Hunch")
   link = EmbedField(
     help_text='Enter an URL to be embedded. You can find a list of supported ' +
               'providers at <a href="http://embed.ly/providers">Embedly</a>.')
@@ -304,7 +353,6 @@ class GroupForm(ModelForm):
 
   class Meta:
     model = models.Group
-    exclude = ("logo")
     widgets = {
       'name': forms.TextInput(attrs={ 'size': 50 }),
       'abbreviation': forms.TextInput(attrs={ 'size': 15 })
@@ -412,7 +460,8 @@ class VoteChoiceRenderer(forms.widgets.RadioFieldRenderer):
       self._css_class(widget), unicode(widget))
 
   def render(self):
-    return mark_safe(self._ul())
+    return mark_safe('<div class="vote-widget">%s</div>' % (
+      self._ul()))
 
 
 class VoteForm(ModelForm):
@@ -443,3 +492,35 @@ class VoteForm(ModelForm):
         vote.save()
 
       return vote
+
+
+class AddHunchEvidenceForm(forms.ModelForm):
+  evidence = EvidenceField()
+  vote     = forms.ChoiceField(choices=models.SUPPORT_CHOICES, widget=forms.RadioSelect(renderer=VoteChoiceRenderer))
+  comment  = forms.CharField(widget=forms.Textarea, required=False,
+    help_text="Tell other users how this evidence supports or refutes this " +
+              "hunch.")
+
+  class Meta:
+    model = models.HunchEvidence
+    fields = ("hunch", "evidence")
+    widgets = {
+      "hunch": forms.HiddenInput()
+    }
+
+  def save(self, user_profile=None):
+    with transaction.commit_on_success():
+      hunch_evidence = super(AddHunchEvidenceForm, self).save()
+
+      if self.cleaned_data["comment"]:
+        comment = models.Comment.objects.create(
+          hunch_evidence=hunch_evidence,
+          creator=user_profile,
+          text=self.cleaned_data["comment"])
+
+      vote = models.Vote.objects.create(
+        hunch_evidence=hunch_evidence,
+        user_profile=user_profile,
+        choice=self.cleaned_data["vote"])
+
+      return hunch_evidence

@@ -3,15 +3,9 @@
 
 <div class="fields">
   <div class="left">
-    {% for field in form.visible_fields %}
-      <div class="fieldWrapper">
-          {{ field.errors }}
-          {{ field.label_tag }}: {{ field }}
-      </div>
-    {% endfor %}
-
     {% include "includes/fields/base.html" with field=form.title %}
     {% include "includes/fields/base.html" with field=form.name %}
+    {% include "includes/fields/base.html" with field=form.email %}
     {% include "includes/fields/base.html" with field=form.profile_picture %}
     {% include "includes/fields/base.html" with field=form.privacy %}
     {% include "includes/fields/base.html" with field=form.bio_text %}

@@ -4,6 +4,7 @@ import datetime
 from urlparse import urlparse
 import hunchworks_enums
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_save, post_save
 from django.contrib.contenttypes.models import ContentType
@@ -43,7 +44,7 @@ class UserProfile(models.Model):
   phone = models.CharField(max_length=20, blank=True)
   skype_name = models.CharField(max_length=30, blank=True)
   website = models.CharField(max_length=100, blank=True)
-  profile_picture = models.ImageField(upload_to="profile_images", blank=True)
+  profile_picture = models.ImageField(upload_to="profile_images", blank=True, null=True)
   messenger_service = models.IntegerField(null=True, blank=True, choices=hunchworks_enums.MessangerServices.GetChoices(), default=0)
   translation_language = models.ForeignKey('TranslationLanguage', default=0)
 
@@ -66,7 +67,10 @@ class UserProfile(models.Model):
     return ("profile", [self.pk])
 
   def profile_picture_url(self):
-    return "http://icanhascheezburger.files.wordpress.com/2011/09/funny-pictures-oh-like-you-trying-to-squeeze-your-fat-ass-into-a-leopard-print-thong-is-any-different.jpg"
+    if self.profile_picture:
+      return self.profile_picture.url
+    else:
+      return "http://icanhascheezburger.files.wordpress.com/2011/09/funny-pictures-oh-like-you-trying-to-squeeze-your-fat-ass-into-a-leopard-print-thong-is-any-different.jpg"
 
 
 def create_user(sender, instance, created, **kwargs):
@@ -93,15 +97,15 @@ class Hunch(models.Model):
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
-  title = models.CharField(max_length=100, unique=True)
+  title = models.CharField(verbose_name="Hypothesis", max_length=100, unique=True)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
   translation_language = models.ForeignKey('TranslationLanguage', default=0)
   location = models.ForeignKey('Location', null=True, blank=True)
-  description = models.TextField()
+  description = models.TextField(verbose_name="further explanation")
 
   skills = models.ManyToManyField('Skill', blank=True)
   languages = models.ManyToManyField('Language', blank=True)
-  evidences = models.ManyToManyField('Evidence', through='HunchEvidence', blank=True)
+  evidences = models.ManyToManyField( 'Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
 
@@ -163,10 +167,10 @@ class HunchUser(models.Model):
 
 
 class Evidence(models.Model):
-  title = models.CharField(max_length=100, blank=True)
+  title = models.CharField(verbose_name="Short description", max_length=100, blank=True)
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
-  description = models.TextField(blank=True)
+  description = models.TextField(verbose_name="Further explanation", blank=True)
   creator = models.ForeignKey('UserProfile')
   link = models.CharField(max_length=255)
   tags = models.ManyToManyField('Tag', blank=True)
@@ -196,17 +200,19 @@ class Evidence(models.Model):
 
   @classmethod
   def search(cls, term, user_profile=None):
-    return cls.objects.filter(description__icontains=term)
+    return cls.objects.filter(
+      Q(description__icontains=term) | Q(title__icontains=term))
 
 
 class Group(models.Model):
   name = models.CharField(max_length=100, unique=True)
   abbreviation = models.CharField(max_length=10, null=True, blank=True)
   description = models.TextField(blank=True, help_text="You can use HTML here.")
-  logo = models.CharField(max_length=100, blank=True, null=True) # TODO filefield
+  logo = models.ImageField(verbose_name="Group picture", upload_to="group_images", blank=True, null=True)
   type = models.IntegerField(choices=hunchworks_enums.GroupType.GetChoices(), default=0)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
-  location = models.ForeignKey('Location', null=True, blank=True)
+  location = models.ForeignKey('Location', null=True, blank=True,
+    help_text="The location in the world where the group is located")
   members = models.ManyToManyField('UserProfile', through='UserProfileGroup', null=True, blank=True)
 
   def __unicode__(self):
@@ -217,7 +223,10 @@ class Group(models.Model):
     return ("group", [self.pk])
 
   def logo_url(self):
-    return "http://i.imgur.com/BYf54.jpg"
+    if self.logo:
+      return self.logo.url
+    else:
+      return "http://i.imgur.com/BYf54.jpg"
 
   def member_count(self):
     return self.members.all().count()
@@ -380,6 +389,9 @@ class HunchEvidence(models.Model):
   evidence = models.ForeignKey('Evidence')
   support_cache = models.IntegerField(choices=SUPPORT_CHOICES)
   confidence_cache = models.FloatField()
+
+  class Meta:
+    unique_together = ("hunch", "evidence")
 
   def save(self, *args, **kwargs):
     self.support_cache = 0

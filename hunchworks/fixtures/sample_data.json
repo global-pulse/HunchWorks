@@ -962,6 +962,61 @@
             "link" : "http://www.youtube.com/watch?v=QH2-TGUlwu4"
         }
     },
+    {
+        "pk": 3,
+        "model": "hunchworks.evidence",
+        "fields": 
+        {
+            "time_created": "2011-08-21 11:14:19.244634",
+            "time_modified":  "2011-08-21 11:14:19.244634",
+            "title": "Africa Rainfall Estimation for the last 10 years",
+            "description": "http://www.fews.net/pages/imageryhome.aspx?pageID=1&l=en",
+            "creator": 1,
+            "tags": [1,2,3],
+            "link" : "http://earlywarning.usgs.gov/servlet/com.esri.wms.Esrimap?servicename=afr&request=map&width=600&height=600&format=image/jpeg&layers=rfeCu10,admin01&WMTVER=1.1.1&SRS=EPSG:102022&Bbox=-4200000,-4200000,3600000,4280000"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "hunchworks.evidence",
+        "fields": 
+        {
+            "time_created": "2011-08-21 11:14:19.244634",
+            "time_modified":  "2011-08-21 11:14:19.244634",
+            "title": "Africa Normalized Difference Vegetation Index for the last 10 years",
+            "description": "http://www.fews.net/pages/imageryhome.aspx?pageID=1&l=en",
+            "creator": 1,
+            "tags": [1,2,3],
+            "link" : "http://earlywarning.usgs.gov/servlet/com.esri.wms.Esrimap?servicename=afr&request=map&width=600&height=600&format=image/jpeg&layers=ndviCu10,admin01&WMTVER=1.1.1&SRS=EPSG:102022&Bbox=-4200000,-4200000,3600000,4280000"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "hunchworks.evidence",
+        "fields": 
+        {
+            "time_created": "2011-08-21 11:14:19.244634",
+            "time_modified":  "2011-08-21 11:14:19.244634",
+            "title": "World Food Price index from 1990 to 2011",
+            "creator": 1,
+            "tags": [1,2,3],
+            "link" : "http://www.fao.org/worldfoodsituation/wfs-home/foodpricesindex/en/"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "hunchworks.evidence",
+        "fields": 
+        {
+            "time_created": "2011-08-21 11:14:19.244634",
+            "time_modified":  "2011-08-21 11:14:19.244634",
+            "title": "US Dollars per Gallon of gasoline since 1980",
+            "description": "Monthly changes in the price of gasoline in the US",
+            "creator": 1,
+            "tags": [1,2,3],
+            "link" : "http://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=EMA_EPMR_PTA_NUS_DPG&f=M"
+        }
+    },
     
     
     {
@@ -1074,6 +1129,26 @@
             "time_posted": "2011-09-20 11:14:19.244634",
             "creator": 2,
             "hunch_evidence": 1
+        }
+    },
+    
+    
+    {
+        "pk": 1,
+        "model": "hunchworks.album",
+        "fields": 
+        {
+            "name": "Africa Precipitation",
+            "evidences": [3,4]
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.album",
+        "fields": 
+        {
+            "name": "Data Sets for Food and Gasoline prices",
+            "evidences": [5,6]
         }
     }
 ]

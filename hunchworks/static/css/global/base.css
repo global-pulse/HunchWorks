@@ -54,8 +54,6 @@ a {
   }
 
     #page div.links {
-      font-size: 80%;
-      padding: 0.625em;
       overflow: hidden;
 
       background: #eee;
@@ -66,14 +64,20 @@ a {
 
       #page div.links ul {
         float: right;
+        overflow: hidden;
       }
 
         #page div.links li {
-          display: inline-block;
-          margin-left: 1.25em;
+          display: block;
+          float: left;
+          border-right: 2px solid #fff;
         }
 
           #page div.links ul a {
-            display: inline-block;
-            padding: 0.625em;
+            display: block;
+            padding: 1em;
           }
+
+        #page div.links li:last-child {
+          border-right: none;
+        }

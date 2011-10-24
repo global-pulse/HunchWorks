@@ -1,9 +1,7 @@
 $(function() {
-  $("article.hunch article.evidence section.vote").each(function() {
-    var $vote = $(this);
-
-    $vote.find("div.choice input").click(function() {
-      $(this).closest("form").submit();
-    });
+  $("div.vote-widget label").click(function() {
+    var $li = $(this).closest("li");
+    $li.siblings("li").removeClass("selected");
+    $li.addClass("selected");
   });
 });

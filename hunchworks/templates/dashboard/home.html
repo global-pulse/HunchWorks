@@ -1,52 +1,53 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
-{% block css %}
-  <link rel="stylesheet" href="/static/homepage.css" type="text/css"/>
+
+{% block body_id %}dashboard{% endblock %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Dashboard</h1>
 {% endblock %}
+
 {% block content %}
-  <div id='contents'>
-	<div id='column1'>
-	  <div id='welcome'>
-		<div>
-		  Welcome Back, {{ user.first_name }}.
-		</div>
-		<div>
-		  Your Network:<a href='network'># of networked Users</a>
-		</div>
-		<div>
-		  Hunches Created:<a href='hunchesCreatedHistory'># of hunches created</a>
-		</div>
-		<div>
-		  Hunches Confirmed:
-		  <a href='hunchesConfirmedHistory'># of hunches confirmed</a>
-		</div>
-	  </div> <!-- end welcome div -->
-	  <div id='createHunch'>
-		Start a new Hunch! 
-		<button type='button' onclick="location.href='/hunches/create'">
-		  Create a Hunch
-		</button>
-	  </div> <!-- end createHunch -->
-	  <div id='recentHunches'>
-	    {% include "dashboard/recentHunches.html" %}
-	  </div> <!-- end recentHunches div -->
-	  <div id='recentConfirmedHunches'>
-        {% include "dashboard/recentConfirmedHunches.html" %}
-	  </div> <!-- end recentConfirmedHunches div -->
-	</div> <!-- end column1 div -->
-	<div id='column2'>
-	  <div id='googleMap'>
-		<div id='links'>
-		  <a href='yourHunchesHistory'>Your Hunches</a>
-		  <a href='communityHunchesHistory'>Community Hunches</a>
-		</div>
-		<div id='maps'>
-		  <img src='googleMap' alt='googleMap' height='200px' width='200px'/>
-		</div>
-	  </div>
-	  
-	 {% include "dashboard/suggestedGroups.html" %}
-     {% include "dashboard/suggestedPeople.html" %}
-	</div> <!-- end column2 div -->
-  </div> <!-- end contents div -->
+  <section class="intro">
+		<input type="button" value="Create a Hunch" onclick="location.href='/hunches/create'">
+    <p>Welcome Back, {{ user }}.</p>
+  </section>
+  <section class="hunches">
+    <div>
+      <h2>Recently <span>Updated</span> Hunches</h2>
+      {% if recent_hunches %}
+        {% include "includes/hunches/list.html" with hunch_list=recent_hunches %}
+      {% else %}
+        <div class="empty-list">
+          No hunches have been updated recently.
+        </div>
+      {% endif %}
+    </div>
+    <div>
+      <h2>Recently <span>Comfirmed</span> Hunches</h2>
+      {% if confirmed_hunches %}
+        {% include "includes/hunches/list.html" with hunch_list=confirmed_hunches %}
+      {% else %}
+        <div class="empty-list">
+          No hunches have been confirmed recently.
+        </div>
+      {% endif %}
+    </div>
+  </section>
+  <section class="suggestions">
+    <div>
+      <h2>Suggested <span>People</span></h2>
+      <div style="background: #eee; font-family: monospace; padding: 1em;">{{ suggested_people }}</div>
+    </div>
+    <div>
+      <h2>Suggested <span>Groups</span></h2>
+      {% if suggested_groups %}
+        {% include "includes/groups/list.html" with group_list=suggested_groups show_join_link=1 %}
+      {% else %}
+        <div class="empty-list">
+          No groups are suggested to you right now.
+        </div>
+      {% endif %}
+    </div>
+  </section>
 {% endblock %}

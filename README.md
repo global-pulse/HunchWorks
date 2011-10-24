@@ -43,7 +43,7 @@ Installation
 Running Tests
 -------------
 
-    $ ./manage.py test hunchworks
+    $ fab test
 
 
 License

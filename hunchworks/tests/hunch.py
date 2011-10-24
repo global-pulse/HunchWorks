@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from hunchworks.models import Hunch, HunchUser
+from hunchworks.models import Hunch, HunchUser, Vote
 from hunchworks.tests.helpers import TestHelpers
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -22,7 +22,7 @@ class HunchViewsTest(TestCase, TestHelpers):
   def test_all_hunches(self):
     with self.login("one"):
       resp = self.get("all_hunches")
-      self.assertQuery(resp, "article.hunch", count=1)
+      self.assertQuery(resp, "article.hunch", count=2)
 
   def test_my_hunches(self):
     with self.login("two"):
@@ -32,13 +32,13 @@ class HunchViewsTest(TestCase, TestHelpers):
   def test_get_open(self):
     with self.login("one") as profile:
       resp1 = self.get("open_hunches")
-      self.assertQuery(resp1, "article.hunch", count=1)
+      self.assertQuery(resp1, "article.hunch", count=2)
 
       hunch = Hunch.objects.create(creator=profile, title="blah", description="desc", status=2, privacy=2)
       HunchUser.objects.create(user_profile=profile, hunch=hunch)
     
       resp2 = self.get("open_hunches")
-      self.assertQuery(resp2, "article.hunch", count=2)
+      self.assertQuery(resp2, "article.hunch", count=3)
 
   def test_get_finished(self):
     with self.login("one") as profile:
@@ -91,3 +91,40 @@ class HunchViewsTest(TestCase, TestHelpers):
       self.assertEqual(new_hunch.title, "Test Edit Hunch")
       self.assertEqual(old_hunch.description, new_hunch.description)
       self.assertRedirects(post_resp, new_hunch.get_absolute_url())
+
+  def test_follow_hunch(self):
+    with self.login("two"):
+      resp = self.get("my_hunches")
+      self.assertQuery(resp, "article.hunch", count=1)
+
+      old_hunch = Hunch.objects.get(pk=2)
+      get_resp = self.get("follow_hunch", hunch_id=old_hunch.id)
+ 
+      resp2 = self.get("my_hunches")
+      self.assertQuery(resp2, "article.hunch", count=2)
+
+  def test_unfollow_hunch(self):
+    with self.login("two"):
+      resp = self.get("my_hunches")
+      self.assertQuery(resp, "article.hunch", count=1)
+
+      old_hunch = Hunch.objects.get(pk=1)
+      get_resp = self.get("unfollow_hunch", hunch_id=old_hunch.id)
+
+      resp2 = self.get("my_hunches")
+      self.assertQuery(resp2, "article.hunch", count=0)
+
+#   def test_vote(self):
+#     with self.login("two")
+#       hunch = Hunch.objects.get(pk=1)
+#       get_resp = self.get("hunch", hunch_id=hunch.pk)
+#       
+#       post_resp = self.submit_form(get_resp, {
+#         "action": "vote",
+#         "choice": 1
+#       })
+#       
+#       vote = Vote.objects.get(pk=1)
+#       
+#       self.assertRedirects(post_resp, new_hunch.get_absolute_url())
+#       
