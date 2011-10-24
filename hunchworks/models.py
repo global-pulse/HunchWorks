@@ -434,6 +434,10 @@ class HunchEvidence(models.Model):
   def support(self):
     return self.vote_set.aggregate(models.Avg("choice"))["choice__avg"] or 0
 
+  @property
+  def controversy(self):
+    return 0
+
 
 class Vote(models.Model):
   choice = models.IntegerField(choices=SUPPORT_CHOICES, default=None)

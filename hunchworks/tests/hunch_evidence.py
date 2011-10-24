@@ -47,3 +47,6 @@ class HunchEvidenceTest(TestCase, UnitTestHelpers):
   def test_positive_evidence_support(self):
     self._votes(0, 0, 0, 4, 4)
     self.assertEqual(self.hunch_evidence.support, +1.5)
+
+  def test_evidence_controversy_defaults_to_zero(self):
+    self.assertEqual(self.hunch_evidence.controversy, 0)
