@@ -8,6 +8,7 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django import http
+from django.contrib.auth.decorators import login_required
 
 
 def _render(req, template, more_context):
@@ -16,7 +17,7 @@ def _render(req, template, more_context):
     RequestContext(req, more_context)
   )
 
-
+@login_required
 def index(req):
   evidences = paginated(req, models.Evidence.objects.all(), 10)
 
@@ -24,7 +25,7 @@ def index(req):
     "evidences": evidences
   })
 
-
+@login_required
 def show(req, evidence_id):
   evidence = get_object_or_404(
     models.Evidence,
@@ -34,7 +35,7 @@ def show(req, evidence_id):
     "evidence": evidence
   })
 
-
+@login_required
 def edit(req, evidence_id):
   evidence = get_object_or_404(
     models.Evidence,
@@ -53,7 +54,7 @@ def edit(req, evidence_id):
     "form": form
   })
 
-
+@login_required
 def create(req):
   form = forms.EvidenceForm(req.POST or None)
 
@@ -65,7 +66,7 @@ def create(req):
     "form": form
   })
 
-
+@login_required
 def _preview(evidence):
   return render_to_string("evidences/short.html", {
     "evidence": evidence
