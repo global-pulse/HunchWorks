@@ -34,45 +34,45 @@ class HunchTest(TestCase, UnitTestHelpers):
   # actual tests
 
   def test_hunch_support_defaults_to_neutral(self):
-    self.assertEqual(self.hunch.support_text, "Neutral")
+    self.assertEqual(self.hunch.get_support_text(), "Neutral")
 
   def test_mild_hunch_support(self):
     self._evidence(0, 0, 0, 2, 0)
-    self.assertEqual(self.hunch.support_text, "Mildly Supported")
+    self.assertEqual(self.hunch.get_support_text(), "Mildly Supported")
 
   def test_strong_hunch_support(self):
     self._evidence(2, 2, 0, 4, 20)
-    self.assertEqual(self.hunch.support_text, "Strongly Supported")
+    self.assertEqual(self.hunch.get_support_text(), "Strongly Supported")
 
   def test_mild_hunch_refute(self):
     self._evidence(2 ,8 ,0 ,4 ,0)
-    self.assertEqual(self.hunch.support_text, "Mildly Refuted")
+    self.assertEqual(self.hunch.get_support_text(), "Mildly Refuted")
 
   def test_strong_hunch_refute(self):
     self._evidence(16 ,4 ,2 ,4 ,0)
-    self.assertEqual(self.hunch.support_text, "Strongly Refuted")
+    self.assertEqual(self.hunch.get_support_text(), "Strongly Refuted")
 
 
   def test_hunch_controversy_defaults_to_zero(self):
-    self.assertEqual(self.hunch.controversy_text, "Uncontroversial")
+    self.assertEqual(self.hunch.get_controversy_text(), "Uncontroversial")
 
   def test_minimum_hunch_controversy(self):
     self._evidence(10, 0, 0, 0, 0)
-    self.assertEqual(self.hunch.controversy_text, "Uncontroversial")
+    self.assertEqual(self.hunch.get_controversy_text(), "Uncontroversial")
 
   def test_low_hunch_controversy(self):
     self._evidence(10, 0, 0, 0, 1)
-    self.assertEqual(self.hunch.controversy_text, "Somewhat Controversial")
+    self.assertEqual(self.hunch.get_controversy_text(), "Somewhat Controversial")
 
   def test_high_hunch_controversy(self):
     self._evidence(10, 0, 0, 0, 5)
     self._evidence(10, 0, 0, 0, 5)
-    self.assertEqual(self.hunch.controversy_text, "Controversial")
+    self.assertEqual(self.hunch.get_controversy_text(), "Controversial")
 
   def test_maximum_hunch_controversy(self):
     self._evidence(10, 0, 0, 0, 0)
     self._evidence(0, 0, 0, 0, 10)
-    self.assertEqual(self.hunch.controversy_text, "Very Controversial")
+    self.assertEqual(self.hunch.get_controversy_text(), "Very Controversial")
 
 
   def test_activity_defaults_to_inactive(self):

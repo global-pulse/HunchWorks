@@ -34,33 +34,33 @@ class HunchEvidenceTest(TestCase, UnitTestHelpers):
   # actual tests
 
   def test_evidence_support_defaults_to_zero(self):
-    self.assertEqual(self.hunch_evidence.support, 0)
+    self.assertEqual(self.hunch_evidence.get_support(), 0)
 
   def test_neutral_evidence_support(self):
     self._votes(4, 2, 0, 2, 4)
-    self.assertEqual(self.hunch_evidence.support, 0)
+    self.assertEqual(self.hunch_evidence.get_support(), 0)
 
   def test_negative_evidence_support(self):
     self._votes(4, 4, 0, 0, 0)
-    self.assertEqual(self.hunch_evidence.support, -1.5)
+    self.assertEqual(self.hunch_evidence.get_support(), -1.5)
 
   def test_positive_evidence_support(self):
     self._votes(0, 0, 0, 4, 4)
-    self.assertEqual(self.hunch_evidence.support, +1.5)
+    self.assertEqual(self.hunch_evidence.get_support(), +1.5)
 
 
   def test_evidence_controversy_defaults_to_zero(self):
-    self.assertEqual(self.hunch_evidence.controversy, 0)
+    self.assertEqual(self.hunch_evidence.get_controversy(), 0)
 
   def test_zero_evidence_controversy(self):
     self._votes(10, 0, 0, 0, 0)
-    self.assertEqual(self.hunch_evidence.controversy, 0)
+    self.assertEqual(self.hunch_evidence.get_controversy(), 0)
 
   def test_low_evidence_controversy(self):
      self._votes(20, 0, 0, 1, 1)
-     self.assertAlmostEqual(self.hunch_evidence.controversy, 0.5, places=1)
+     self.assertAlmostEqual(self.hunch_evidence.get_controversy(), 0.5, places=1)
 
   def test_high_evidence_controversy(self):
     self._votes(10, 0, 0, 0, 0)
     self._votes(0, 0, 0, 0, 10)
-    self.assertEqual(self.hunch_evidence.controversy, 1)
+    self.assertEqual(self.hunch_evidence.get_controversy(), 1)

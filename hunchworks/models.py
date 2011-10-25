@@ -153,43 +153,25 @@ class Hunch(models.Model):
     self.time_modified = now
     super(Hunch, self).save(*args, **kwargs)
 
-  @property
-  def support(self):
-    supports = [
-      hunch_evidence.support
-      for hunch_evidence in self.hunchevidence_set.all()]
+  def get_support(self):
+    supports = map(HunchEvidence.get_support, self.hunchevidence_set.all())
+    return (sum(supports) / len(supports)) if any(supports) else 0
 
-    if len(supports) > 0:
-      return sum(supports) / len(supports)
+  def get_support_text(self):
+    s = self.get_support()
 
-    else:
-      return 0
-
-  @property
-  def support_text(self):
-    s = self.support
-
-    for min_val, max_val, text in SUPPORT_RANGES:
+    for min_val, max_val, text, desc in SUPPORT_RANGES:
       if (min_val <= s) and (max_val >= s):
         return text
 
     return "Unknown"
 
-  @property
-  def controversy(self):
-    choices = Vote.objects.filter(
-      hunch_evidence__hunch=self).values_list(
-        "choice", flat=True)
+  def get_controversy(self):
+    choices = Vote.objects.filter(hunch_evidence__hunch=self).values_list("choice", flat=True)
+    return (numpy.std(choices) / SUPPORT_MAX_DEVIATION) if any(choices) else 0
 
-    if len(choices):
-      return numpy.std(choices) / SUPPORT_MAX_DEVIATION
-
-    else:
-      return 0
-
-  @property
-  def controversy_text(self):
-    s = self.controversy
+  def get_controversy_text(self):
+    s = self.get_controversy()
 
     for min_val, max_val, text in CONTROVERSY_RANGES:
       if (min_val <= s) and (max_val >= s):
@@ -495,12 +477,10 @@ class HunchEvidence(models.Model):
     self.confidence_cache = 0.5
     super(HunchEvidence, self).save(*args, **kwargs)
 
-  @property
-  def support(self):
+  def get_support(self):
     return self.vote_set.aggregate(models.Avg("choice"))["choice__avg"] or 0
 
-  @property
-  def controversy(self):
+  def get_controversy(self):
     choices = self.vote_set.values_list("choice", flat=True)
 
     if len(choices):
