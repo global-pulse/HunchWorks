@@ -14,5 +14,8 @@
         <input type="submit">
       </div>
     </form>
+    <form action="{% url worldbank_indicators %}" method="get">
+      <input type="text" name="q"/>
+    </form>
   </div>
 {% endblock %}

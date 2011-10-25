@@ -2,6 +2,7 @@
 
 import json
 import models
+import urllib
 from django.shortcuts import get_object_or_404
 from django import http
 from django.utils import simplejson
@@ -43,3 +44,10 @@ def user_groups(req):
   values_list = query_set.values_list("id", "name")
   groups = [{ "id": x[0], "name": x[1]} for x in values_list]
   return http.HttpResponse(json.dumps(groups))
+
+def worldbank_indicators(req):
+  search = req.GET["q"]
+  data = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=50")
+  json_objects = json.loads(data.read())
+  data_refined = [{ "id": object["id"], "name": object["name"]} for object in json_objects[1] if object["name"].find(search) != -1]
+  return http.HttpResponse(json.dumps(data_refined))
