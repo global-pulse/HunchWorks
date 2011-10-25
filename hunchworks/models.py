@@ -197,6 +197,32 @@ class Hunch(models.Model):
 
     return "Unknown"
 
+  def activity_count(self, since_days=7):
+    since = datetime.datetime.now() -\
+      datetime.timedelta(days=since_days)
+
+    votes = Vote.objects.filter(
+      hunch_evidence__hunch=self,
+      time_updated__gt=since)
+
+    comments = Comment.objects.filter(
+      hunch_evidence__hunch=self,
+      time_posted__gt=since)
+
+    return votes.count() + comments.count()
+
+  @property
+  def activity_text(self):
+    if self.activity_count(1) >= 2:
+      return "Very Active"
+
+    elif self.activity_count(7) >= 1:
+      return "Active"
+
+    else:
+      return "Inactive"
+
+  @property
   def privacy_text(self):
     return self.get_privacy_display()
 
@@ -488,6 +514,11 @@ class Vote(models.Model):
   choice = models.IntegerField(choices=SUPPORT_CHOICES, default=None)
   hunch_evidence = models.ForeignKey('HunchEvidence')
   user_profile = models.ForeignKey('UserProfile')
+  time_updated = models.DateTimeField()
+
+  def save(self, *args, **kwargs):
+    self.time_updated = datetime.datetime.now()
+    super(Vote, self).save(*args, **kwargs)
 
 
 class Bookmark(models.Model):
