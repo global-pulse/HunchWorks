@@ -470,7 +470,7 @@ class VoteChoiceRenderer(forms.widgets.RadioFieldRenderer):
 class VoteForm(ModelForm):
   class Meta:
     model = models.Vote
-    exclude = ("user_profile",)
+    exclude = ("user_profile", "time_updated")
     widgets = {
       "choice": forms.RadioSelect(renderer=VoteChoiceRenderer),
       "hunch_evidence": forms.HiddenInput()
