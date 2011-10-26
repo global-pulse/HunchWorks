@@ -35,12 +35,14 @@ SUPPORT_CHOICES = (
   (1, "Mildly Supports"),
   (2, "Strongly Supports"))
 
-def _max_std_dev(values):
-  return numpy.std([min(values), max(values)])
+_support_values = zip(*SUPPORT_CHOICES)[0]
+MIN_SUPPORT = min(_support_values)
+MAX_SUPPORT = max(_support_values)
 
 # The maximum possible standard deviation of a set of SUPPORT_CHOICES, for
 # calculating the controversy ratio of a Hunch or HunchEvidence.
-SUPPORT_MAX_DEVIATION = _max_std_dev(zip(*SUPPORT_CHOICES)[0])
+SUPPORT_MAX_DEVIATION = numpy.std([MIN_SUPPORT, MAX_SUPPORT])
+
 
 POS_INF = float("inf")
 NEG_INF = float("-inf")
@@ -185,7 +187,7 @@ class Hunch(models.Model):
 
 
   def get_confidence(self):
-    return 0.5
+    return abs(self.get_support()) / MAX_SUPPORT
 
   def get_confidence_text(self):
     return unicode(int(round(self.get_confidence() * 100))) + "%"
