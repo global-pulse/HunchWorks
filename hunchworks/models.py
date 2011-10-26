@@ -171,6 +171,7 @@ class Evidence(models.Model):
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   description = models.TextField(verbose_name="Further explanation", blank=True)
+  location = models.ForeignKey('Location', null=True, blank=True)
   creator = models.ForeignKey('UserProfile')
   link = models.CharField(max_length=255)
   tags = models.ManyToManyField('Tag', blank=True)
