@@ -2,19 +2,70 @@ from fixturefactory import BaseFactory, DjangoMixin
 
 import random
 
-from hunchworks.models import UserProfile, Connection, TranslationLanguage, Invitation
+from hunchworks.models import UserProfile, Connection, TranslationLanguage, Invitation, Hunch, PRIVACY_CHOICES, Location, Album, Evidence
 from django.contrib.auth.models import User
 from hunchworks import hunchworks_enums as enums
+
+class AlbumFactory(BaseFactory, DjangoMixin):
+    model = Album
+
+    def getparams(self):
+        pk = self.getUnusedPk()
+        name = "album %s" % pk
+        return locals()
+
+class EvidenceFactory(BaseFactory, DjangoMixin):
+    model = Evidence
+
+    def getparams(self):
+        pk = self.getUnusedPk()
+        title = "title %s" % pk
+        time_created = "2011-01-01"
+        time_modified = "2011-06-06"
+        description = "some description of evidence %s" % pk
+        location = self.getRandInst(Location)
+        creator = self.getRandInst(UserProfile)
+        link = 'http://www.google.com'
+        return locals()
+
+class HunchFactory(BaseFactory, DjangoMixin):
+    model = Hunch
+
+    def getparams(self):
+        pk = self.getUnusedPk()
+        creator = self.getRandInst(UserProfile)
+        time_created = "2011-01-01"
+        time_modified = "2011-08-08"
+        status = random.choice(enums.HunchStatus.GetChoices())[0]
+        title = 'markov %s' % pk
+        privacy = random.choice(range(len(PRIVACY_CHOICES)))
+        translation_language = self.getRandInst(TranslationLanguage)
+        location = self.getRandInst(Location)
+        description = 'markov %s' % pk
+        return locals()
+
+#class HunchUserFactory(BaseFactory, DjangoMixin): pass
+
+class LocationFactory(BaseFactory, DjangoMixin):
+    model = Location
+
+    def getparams(self):
+        pk = self.getUnusedPk()
+        latitude = self.number()
+        longitude = self.number()
+        name = 'markov %s' % pk
+        return locals()
+
+    def number(self):
+        return '%0.2f' % (random.randint(-360,360) + random.random())
 
 
 class ConnectionFactory(BaseFactory, DjangoMixin):
     model = Connection
-    pk1=None
-    pk2=None
 
     def getparams(self):
-        user_profile_id = self.pk1 or self.getRandInst(UserProfile).pk
-        other_user_profile_id = self.pk2 or self.getRandInst(UserProfile).pk
+        user_profile = self.getRandInst(UserProfile)
+        other_user_profile = self.getRandInst(UserProfile)
         status = random.choice(enums.ConnectionStatus.GetChoices())[0]
         return locals()
 
