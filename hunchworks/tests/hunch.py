@@ -76,15 +76,15 @@ class HunchTest(TestCase, UnitTestHelpers):
 
 
   def test_activity_defaults_to_inactive(self):
-    self.assertEqual(self.hunch.activity_text, "Inactive")
+    self.assertEqual(self.hunch.get_activity_text(), "Inactive")
 
   def test_low_activity(self):
     self._evidence(0, 0, 1, 0, 0)
-    self.assertEqual(self.hunch.activity_text, "Active")
+    self.assertEqual(self.hunch.get_activity_text(), "Active")
 
   def test_high_activity(self):
     self._evidence(2, 2, 2, 2, 2)
-    self.assertEqual(self.hunch.activity_text, "Very Active")
+    self.assertEqual(self.hunch.get_activity_text(), "Very Active")
 
 
 

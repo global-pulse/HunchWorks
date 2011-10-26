@@ -53,10 +53,16 @@ SUPPORT_RANGES = (
   (-1.1, 0,       "Mildly Refuted",     "This hunch is refuted by evidence, but only with {{ confidence }} confidence."))
 
 CONTROVERSY_RANGES = (
-  (0, 0.2,        "Uncontroversial"),
-  (0.2, 0.6,      "Somewhat Controversial"),
-  (0.6, 0.95,     "Controversial"),
-  (0.95, POS_INF, "Very Controversial"))
+  (0, 0.2,        "Uncontroversial",        "This hunch is not controversial within the HunchWorks community."),
+  (0.2, 0.6,      "Somewhat Controversial", "Some members of the HunchWorks community dispute this hunch."),
+  (0.6, 0.95,     "Controversial",          "Many members of the HunchWorks community dispute this hunch."),
+  (0.95, POS_INF, "Very Controversial",     "This hunch is widely disputed within the HunchWorks community."))
+
+# (days_to_consider, minimum_activity, text, verbose_text)
+ACTIVITY_RANGES = (
+  (1, 2,    "Very Active", "This hunch is being discussed by the HunchWorks community today."),
+  (7, 1,    "Active",      "This hunch is has been discussed by the HunchWorks community within a week."),
+  (None, 0, "Inactive",    "This hunch is not being discussed or evaluated by the HunchWorks community."))
 
 
 class UserProfile(models.Model):
@@ -154,6 +160,7 @@ class Hunch(models.Model):
     self.time_modified = now
     super(Hunch, self).save(*args, **kwargs)
 
+
   def get_support(self):
     supports = map(HunchEvidence.get_support, self.hunchevidence_set.all())
     return (sum(supports) / len(supports)) if any(supports) else 0
@@ -165,7 +172,7 @@ class Hunch(models.Model):
       if (min_val <= s) and (max_val >= s):
         return (text, desc)
 
-    return ("Unknown", "The status of this hunch cannot be determined.")
+    return ("Unknown", "The support level of this hunch cannot be determined.")
 
   def get_support_text(self):
     return self.get_support_range()[0]
@@ -176,24 +183,33 @@ class Hunch(models.Model):
       "confidence": self.get_confidence_text()
     }))
 
+
   def get_confidence(self):
     return 0.5
 
   def get_confidence_text(self):
     return unicode(int(round(self.get_confidence() * 100))) + "%"
 
+
   def get_controversy(self):
     choices = Vote.objects.filter(hunch_evidence__hunch=self).values_list("choice", flat=True)
     return (numpy.std(choices) / SUPPORT_MAX_DEVIATION) if any(choices) else 0
 
-  def get_controversy_text(self):
+  def get_controversy_range(self):
     s = self.get_controversy()
 
-    for min_val, max_val, text in CONTROVERSY_RANGES:
+    for min_val, max_val, text, desc in CONTROVERSY_RANGES:
       if (min_val <= s) and (max_val >= s):
-        return text
+        return (text, desc)
 
-    return "Unknown"
+    return ("Unknown", "The controversy level of this hunch cannot be determined.")
+
+  def get_controversy_text(self):
+    return self.get_controversy_range()[0]
+
+  def get_verbose_controversy_text(self):
+    return self.get_controversy_range()[1]
+
 
   def activity_count(self, since_days=7):
     since = datetime.datetime.now() -\
@@ -209,16 +225,19 @@ class Hunch(models.Model):
 
     return votes.count() + comments.count()
 
-  @property
-  def activity_text(self):
-    if self.activity_count(1) >= 2:
-      return "Very Active"
+  def get_activity_range(self):
+    for days, min_activity, text, desc in ACTIVITY_RANGES:
+      if (days is None) or (self.activity_count(days) >= min_activity):
+        return (text, desc)
 
-    elif self.activity_count(7) >= 1:
-      return "Active"
+    return ("Unknown", "The activity level of this hunch cannot be determined.")
 
-    else:
-      return "Inactive"
+  def get_activity_text(self):
+    return self.get_activity_range()[0]
+
+  def get_verbose_activity_text(self):
+    return self.get_activity_range()[1]
+
 
   @property
   def privacy_text(self):

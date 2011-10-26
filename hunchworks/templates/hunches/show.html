@@ -36,13 +36,13 @@
       <div class="controversy">
         <div>
           <h2>{{ hunch.get_controversy_text }}</h2>
-          <p>This hunch is widely disputed within the HunchWorks community.</p>
+          <p>{{ hunch.get_verbose_controversy_text }}</p>
         </div>
       </div>
       <div class="activity">
         <div>
-          <h2>{{ hunch.activity_text }}</h2>
-          <p>This hunch is currently being evaluated by the HunchWorks community.</p>
+          <h2>{{ hunch.get_activity_text }}</h2>
+          <p>{{ hunch.get_verbose_activity_text }}</p>
         </div>
       </div>
       <div class="privacy">
