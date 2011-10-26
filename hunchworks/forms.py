@@ -328,7 +328,6 @@ class EvidenceForm(ModelForm):
               'providers at <a href="http://embed.ly/providers">Embedly</a>.')
   location = LocationField(required=False,
     help_text="If the evidence is relative to a specific location, you can mark it here.")
-              
 
   class Meta:
     model = models.Evidence
@@ -347,15 +346,16 @@ class EvidenceForm(ModelForm):
       return evidence
 
 
-
-
 class GroupForm(ModelForm):
   members = TokenField(models.UserProfile, json_views.collaborators, required=False,
     help_text="The HunchWorks members you wish to invite to this group.<br>" +
               "You can only invite members who you are connected with.")
+  location = LocationField(required=False,
+    help_text="If the evidence is relative to a specific location, you can mark it here.")
 
   class Meta:
     model = models.Group
+    exclude = ("type", "privacy")
     widgets = {
       'name': forms.TextInput(attrs={ 'size': 50 }),
       'abbreviation': forms.TextInput(attrs={ 'size': 15 })
@@ -412,12 +412,12 @@ class HomepageForm(ModelForm):
 
 
 class UserForm(ModelForm):
-  location_interests = TokenField(models.Location, json_views.locations, required=False)
+  #location_interests = TokenField(models.Location, json_views.locations, required=False)
   skills = TokenField(models.Skill, json_views.skills, required=False)
   languages = TokenField(models.Language, json_views.languages, required=False)
   class Meta:
     model= models.UserProfile
-    exclude = ("user")
+    exclude = ("user", "roles", "qualifications", "courses", "location_interests")
 
 
 class InvitePeople(forms.Form):
