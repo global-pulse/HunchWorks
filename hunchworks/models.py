@@ -20,7 +20,7 @@ PRIVACY_CHOICES = (
 
 PRIVACY_HELP_TEXT = "<br>".join([
   "<strong>Hidden</strong>: only visible to invited members.",
-  "<strong>Closed</strong>: visible to everyone, but only invited members can participate.",
+  "<strong>Closed</strong>: visible to all, but only invited users can participate.",
   "<strong>Open</strong>: available to any HunchWorks member."])
 
 GROUP_STATUS_CHOICES = (
@@ -130,17 +130,22 @@ class Hunch(models.Model):
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
-  title = models.CharField(verbose_name="Hypothesis", max_length=100, unique=True)
-  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
-  translation_language = models.ForeignKey('TranslationLanguage', default=0)
-  location = models.ForeignKey('Location', null=True, blank=True)
-  description = models.TextField(verbose_name="further explanation")
 
+  title = models.CharField(verbose_name="Hypothesis", max_length=100, unique=True,
+    help_text='Hypotheses should be a simple <a href="http://en.wikipedia.org/wiki/Falsifiability">falsifiable</a> statement.')
+
+  description = models.TextField(verbose_name="further explanation", blank=True)
+  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
+  location = models.ForeignKey('Location', null=True, blank=True)
   skills = models.ManyToManyField('Skill', blank=True)
   languages = models.ManyToManyField('Language', blank=True)
   evidences = models.ManyToManyField( 'Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
+
+  translation_language = models.ForeignKey('TranslationLanguage', default=1,
+    help_text="The language which this hunch will be discussed in.",
+    verbose_name="Language")
 
   class Meta:
     verbose_name_plural = "hunches"

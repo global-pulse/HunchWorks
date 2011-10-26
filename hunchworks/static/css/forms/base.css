@@ -12,6 +12,16 @@ form { }
       padding: 1em;
     }
 
+  form > section.help_text {
+    padding: 2em;
+    background-color: #efe;
+    border-bottom: 1px dotted #6c6;
+    color: #090;
+  }
+
+    form > section.help_text > p {
+      line-height: 1.4;
+    }
 
   form > div.fields {
     padding: 2em;
@@ -81,7 +91,7 @@ form { }
         border-color: #666;
         color: #333;
       }
-      
+
       textarea {
         resize: vertical;
       }
@@ -139,7 +149,7 @@ form { }
     background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
     background: -moz-linear-gradient(top,  #eee,  #fff);
   }
-  
+
     form > div.actions > input {
       display: inline-block;
       margin-left: 0.5em;

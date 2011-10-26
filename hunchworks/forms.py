@@ -221,19 +221,27 @@ class EvidencesField(forms.ModelMultipleChoiceField):
 
 class HunchForm(ModelForm):
   tags = TokenField(models.Tag, json_views.tags, required=False,
-    help_text="Tags that would help others find this Hunch")
-  languages = TokenField(models.Language, json_views.languages, required=False)
-  skills = TokenField(models.Skill, json_views.skills, required=False)
+    help_text="Tags should include keywords related to this hunch, to help other users find it.")
+
+  languages = TokenField(models.Language, json_views.languages, required=False,
+    label="Related Language Skills")
+
+  skills = TokenField(models.Skill, json_views.skills, required=False,
+    label="Related Skills")
+
   user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False,
-    label="Invite your connections",
-    help_text="Type the name of the user you would like to invite to work with you on this hunch")
+    help_text="Type the name of the user you would like to invite to work with you on this hunch",
+    label="Invite your connections")
+
   add_groups = TokenField(models.Group, json_views.user_groups, required=False,
-    label="Invite your groups",
-    help_text="Type the name of the group you would like to invite")
+    help_text="Type the name of the group you would like to invite",
+    label="Invite your groups")
+
   location = LocationField(required=False,
     help_text="If the hunch is relative to a specific location, you can mark it here.")
-  evidences = EvidencesField(label="Add Evidence", required=False,
-    help_text="If you know of evidence in the system that supports your hypothesis, start typing the title or description")
+
+  evidences = EvidencesField(required=False,
+    label="Attach Existing Evidence")
 
   class Meta:
     model = models.Hunch
@@ -284,7 +292,7 @@ class HunchForm(ModelForm):
       hunch.tags = self.cleaned_data['tags']
       hunch.languages = self.cleaned_data['languages']
       hunch.skills = self.cleaned_data['skills']
-      
+
       add_groups = self.cleaned_data['add_groups']
       group_members = []
 
@@ -315,7 +323,7 @@ class EmbedField(forms.CharField):
 
 class AlbumForm(forms.ModelForm):
   evidences = EvidencesField(required=False)
-  
+
   class Meta:
     model = models.Album
 
@@ -480,16 +488,16 @@ class VoteForm(ModelForm):
     with transaction.commit_on_success():
       vote_form = super(VoteForm, self).save(commit=False)
       hunch_evidence = self.cleaned_data["hunch_evidence"]
-      
+
       if len(models.Vote.objects.filter(user_profile=user_profile, hunch_evidence=hunch_evidence)) > 0:
         vote = models.Vote.objects.get(
-          user_profile=user_profile, 
+          user_profile=user_profile,
           hunch_evidence=hunch_evidence)
         vote.choice = vote_form.choice
         vote.save()
       else:
         vote, created = models.Vote.objects.get_or_create(
-          user_profile=user_profile, 
+          user_profile=user_profile,
           hunch_evidence=hunch_evidence,
           choice=vote_form.choice)
         vote.save()
@@ -499,10 +507,11 @@ class VoteForm(ModelForm):
 
 class AddHunchEvidenceForm(forms.ModelForm):
   evidence = EvidenceField()
-  vote     = forms.ChoiceField(choices=models.SUPPORT_CHOICES, widget=forms.RadioSelect(renderer=VoteChoiceRenderer))
-  comment  = forms.CharField(widget=forms.Textarea, required=False,
-    help_text="Tell other users how this evidence supports or refutes this " +
-              "hunch.")
+
+  vote = forms.ChoiceField(choices=models.SUPPORT_CHOICES, widget=forms.RadioSelect(renderer=VoteChoiceRenderer),
+    help_text="How is this evidence relevant to the hunch?")
+
+  comment = forms.CharField(widget=forms.Textarea, required=False)
 
   class Meta:
     model = models.HunchEvidence

@@ -12,6 +12,18 @@
 
 {% block content %}
   <form action="" method="post" class="add hunch_evidence">
+    <section class="help_text">
+      <p>
+        Hunches are supported or refuted by evidence. If you know of existing
+        evidence which is relevant to the hunch, use this form to attach it.
+      </p>
+      <p>
+        You cannot yet <em>create</em> evidence using this form. For now, please
+        use the <a href="{% url create_evidence %}">Create an Evidence</a> form
+        for that.
+      </p>
+    </section>
+
     {{ form.non_field_errors }}
     {% csrf_token %}
 
