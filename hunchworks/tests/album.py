@@ -32,12 +32,12 @@ class AlbumViewsTest(TestCase, TestHelpers):
       self.assertEqual(new_album.name, "Test Edit Album")
       self.assertEqual(old_album.id, new_album.id)
       self.assertRedirects(post_resp, new_album.get_absolute_url())
-    
+
   def test_create(self):
     with self.login("one"):
       get_resp = self.get("create_album")
       self.assertTemplateUsed(get_resp, "albums/create.html")
-      
+
   def test_show(self):
     with self.login("one"):
       get_resp = self.get("album", album_id=1)
