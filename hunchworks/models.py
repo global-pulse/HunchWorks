@@ -7,6 +7,7 @@ import hunchworks_enums
 from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.template import Template, Context
 from django.db.models.signals import pre_save, post_save
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
@@ -45,11 +46,11 @@ POS_INF = float("inf")
 NEG_INF = float("-inf")
 
 SUPPORT_RANGES = (
-  (0, 0,          "Neutral"),
-  (1.1, POS_INF,  "Strongly Supported"),
-  (NEG_INF, -1.1, "Strongly Refuted"),
-  (0, 1.1,        "Mildly Supported"),
-  (-1.1, 0,       "Mildly Refuted"))
+  (0, 0,          "Neutral",            "This hunch is not conclusively supported nor refuted by evidence."),
+  (1.1, POS_INF,  "Strongly Supported", "This hunch is strongly supported by evidence, with {{ confidence }} confidence."),
+  (NEG_INF, -1.1, "Strongly Refuted",   "This hunch is strongly refuted by evidence, with {{ confidence }} confidence."),
+  (0, 1.1,        "Mildly Supported",   "This hunch is supported by evidence, but only with {{ confidence }} confidence."),
+  (-1.1, 0,       "Mildly Refuted",     "This hunch is refuted by evidence, but only with {{ confidence }} confidence."))
 
 CONTROVERSY_RANGES = (
   (0, 0.2,        "Uncontroversial"),
@@ -157,14 +158,29 @@ class Hunch(models.Model):
     supports = map(HunchEvidence.get_support, self.hunchevidence_set.all())
     return (sum(supports) / len(supports)) if any(supports) else 0
 
-  def get_support_text(self):
+  def get_support_range(self):
     s = self.get_support()
 
     for min_val, max_val, text, desc in SUPPORT_RANGES:
       if (min_val <= s) and (max_val >= s):
-        return text
+        return (text, desc)
 
-    return "Unknown"
+    return ("Unknown", "The status of this hunch cannot be determined.")
+
+  def get_support_text(self):
+    return self.get_support_range()[0]
+
+  def get_verbose_support_text(self):
+    tmpl = self.get_support_range()[1]
+    return Template(tmpl).render(Context({
+      "confidence": self.get_confidence_text()
+    }))
+
+  def get_confidence(self):
+    return 0.5
+
+  def get_confidence_text(self):
+    return unicode(int(round(self.get_confidence() * 100))) + "%"
 
   def get_controversy(self):
     choices = Vote.objects.filter(hunch_evidence__hunch=self).values_list("choice", flat=True)
