@@ -4,13 +4,13 @@
 {% load bookmark_tags %}
 
 {% block content %}
-  {% if groups.object_list %}
-    {% include "includes/groups/list.html" with group_list=groups.object_list %}
+  {% if items.object_list %}
+	{% include "includes/groups/list.html" with group_list=items.object_list %}
   {% else %}
-    {% block empty %}{% endblock %}
+	{% block empty %}{% endblock %}
   {% endif %}
 
   <div class="links">
-    {% paginator groups %}
+    {% paginator items %}
   </div>
 {% endblock %}

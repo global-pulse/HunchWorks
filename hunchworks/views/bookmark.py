@@ -10,6 +10,7 @@ from hunchworks.utils.pagination import paginated
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from itertools import chain
 
 
 def _render(req, template, more_context):
@@ -31,7 +32,32 @@ def delete(req, object_type, object_id):
   object = get_object_or_404(model, pk=object_id)
   bookmark = models.Bookmark.bookmark_get_create(object, req.user.get_profile()).delete()
   return redirect(req.META["HTTP_REFERER"])
+
+@login_required
+def all(req):
+  object_type = ContentType.objects.get_for_model(models.Group)
+  bookmarked_groups = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type).values_list("object_id")
+  groups = models.Group.objects.filter(id__in=bookmarked_groups)
   
+  object_type2 = ContentType.objects.get_for_model(models.Hunch)
+  bookmarked_hunches = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type2).values_list("object_id")
+  hunches = models.Hunch.objects.filter(id__in=bookmarked_hunches)
+  
+  object_type3 = ContentType.objects.get_for_model(models.Album)
+  bookmarked_albums = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type3).values_list("object_id")
+  albums = models.Album.objects.filter(id__in=bookmarked_albums)
+  
+  object_type4 = ContentType.objects.get_for_model(models.Evidence)
+  bookmarked_evidence = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type4).values_list("object_id")
+  evidences = models.Evidence.objects.filter(id__in=bookmarked_evidence)
+  
+  all_items = list(chain(groups, hunches, albums, evidences))
+  
+  items = paginated(req, all_items, 10)
+  return _render(req, "groups", {
+    "items": items, "model": "group"
+  })
+
 @login_required
 def groups(req):
   object_type = ContentType.objects.get_for_model(models.Group)
@@ -39,7 +65,7 @@ def groups(req):
   group_ids = models.Group.objects.filter(id__in=bookmarked_groups)
   groups = paginated(req, group_ids, 10)
   return _render(req, "groups", {
-    "groups": groups
+    "items": groups, "model": "group"
   })
 
 @login_required
@@ -49,7 +75,7 @@ def hunches(req):
   hunch_ids = models.Hunch.objects.filter(id__in=bookmarked_hunches)
   hunches = paginated(req, hunch_ids, 10)
   return _render(req, "groups", {
-    "groups": hunches
+    "items": hunches, "model": "hunch"
   })
 
 @login_required
@@ -59,15 +85,15 @@ def albums(req):
   album_ids = models.Album.objects.filter(id__in=bookmarked_albums)
   albums = paginated(req, album_ids, 10)
   return _render(req, "groups", {
-    "groups": albums
+    "items": albums, "model": "album"
   })
 
 @login_required
 def evidence(req):
   object_type = ContentType.objects.get_for_model(models.Evidence)
   bookmarked_evidence = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type).values_list("object_id")
-  evidence_ids = models.Group.objects.filter(id__in=bookmarked_evidence)
-  evidence = paginated(req, evidence_ids, 10)
+  evidence_ids = models.Evidence.objects.filter(id__in=bookmarked_evidence)
+  evidences = paginated(req, evidence_ids, 10)
   return _render(req, "groups", {
-    "groups": evidence
+    "items": evidences, "model": "evidence"
   })

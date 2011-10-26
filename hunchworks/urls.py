@@ -77,6 +77,7 @@ urlpatterns = patterns(
   url(r'^bookmarks/hunches$',                                        bookmark.hunches,  name="bookmarked_hunches"),
   url(r'^bookmarks/albums$',                                         bookmark.albums,   name="bookmarked_albums"),
   url(r'^bookmarks/evidence$',                                       bookmark.evidence, name="bookmarked_evidence"),
+  url(r'^bookmarks/all$',                                            bookmark.all,      name="bookmarked_all"),
 )
 
 
