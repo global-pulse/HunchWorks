@@ -322,7 +322,7 @@ class AlbumForm(forms.ModelForm):
 
 class EvidenceForm(ModelForm):
   tags = TokenField(models.Tag, json_views.tags, required=False,
-    help_text="Tags that you think would help others search for or find this Hunch")
+    help_text="Tags that you think would help others search for or find this Evidence")
   link = EmbedField(
     help_text='Enter an URL to be embedded. You can find a list of supported ' +
               'providers at <a href="http://embed.ly/providers">Embedly</a>.')
@@ -503,12 +503,10 @@ class AddHunchEvidenceForm(forms.ModelForm):
   comment  = forms.CharField(widget=forms.Textarea, required=False,
     help_text="Tell other users how this evidence supports or refutes this " +
               "hunch.")
-  location = LocationField(required=False,
-    help_text="If the evidence is relative to a specific location, you can mark it here.")
 
   class Meta:
     model = models.HunchEvidence
-    fields = ("hunch", "evidence", "location")
+    fields = ("hunch", "evidence")
     widgets = {
       "hunch": forms.HiddenInput()
     }

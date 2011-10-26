@@ -283,7 +283,8 @@ class HunchUser(models.Model):
 
 
 class Evidence(models.Model):
-  title = models.CharField(verbose_name="Short description", max_length=100, blank=True)
+  title = models.CharField(verbose_name="Short description", max_length=100, blank=True,
+    help_text="This should be a short summary of the evidence or what it contains")
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   description = models.TextField(verbose_name="Further explanation", blank=True)
