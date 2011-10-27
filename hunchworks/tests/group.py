@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
 from hunchworks.models import Group
-from hunchworks.tests.helpers import TestHelpers
+from hunchworks.tests.helpers import ViewTestHelpers
 from django.contrib.auth.models import User
 from django.test import TestCase
 
 
-class GroupViewsTest(TestCase, TestHelpers):
+class GroupViewsTest(TestCase, ViewTestHelpers):
   fixtures = ("test_users", "test_groups", "test_hunches")
 
   def test_all_groups(self):

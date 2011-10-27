@@ -1,0 +1,16 @@
+{% extends "bookmarks/base.html" %}
+{% block body_id %}group-list{% endblock %}
+{% load paginator_tags %}
+{% load bookmark_tags %}
+
+{% block content %}
+  {% if items.object_list %}
+	{% include "includes/groups/list.html" with group_list=items.object_list %}
+  {% else %}
+	{% block empty %}{% endblock %}
+  {% endif %}
+
+  <div class="links">
+    {% paginator items %}
+  </div>
+{% endblock %}

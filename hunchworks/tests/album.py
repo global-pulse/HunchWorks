@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
-from hunchworks.tests.helpers import TestHelpers
+from hunchworks.tests.helpers import ViewTestHelpers
 from django.test import TestCase
 from hunchworks.models import Album
 
 
-class AlbumViewsTest(TestCase, TestHelpers):
+class AlbumViewsTest(TestCase, ViewTestHelpers):
   fixtures = ("test_users", "test_albums", "test_evidences")
 
   def test_index(self):

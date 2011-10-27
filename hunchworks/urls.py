@@ -71,8 +71,13 @@ urlpatterns = patterns(
   url(r'^albums/(?P<album_id>\d+)/edit$',   albums.edit,     name="edit_album"),
   
   # bookmarks
-  url(r'^bookmark/(?P<object_type>[a-zA-Z]+)/(?P<object_id>\d+)$',   bookmark.add,    name="bookmark"),
-  url(r'^unbookmark/(?P<object_type>[a-zA-Z]+)/(?P<object_id>\d+)$', bookmark.delete, name="unbookmark"),
+  url(r'^bookmark/(?P<object_type>[a-zA-Z]+)/(?P<object_id>\d+)$',   bookmark.add,      name="bookmark"),
+  url(r'^unbookmark/(?P<object_type>[a-zA-Z]+)/(?P<object_id>\d+)$', bookmark.delete,   name="unbookmark"),
+  url(r'^bookmarks/groups$',                                         bookmark.groups,   name="bookmarked_groups"),
+  url(r'^bookmarks/hunches$',                                        bookmark.hunches,  name="bookmarked_hunches"),
+  url(r'^bookmarks/albums$',                                         bookmark.albums,   name="bookmarked_albums"),
+  url(r'^bookmarks/evidence$',                                       bookmark.evidence, name="bookmarked_evidence"),
+  url(r'^bookmarks/all$',                                            bookmark.all,      name="bookmarked_all"),
 )
 
 

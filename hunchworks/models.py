@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 import datetime
+import numpy
 from urlparse import urlparse
 import hunchworks_enums
 from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.template import Template, Context
 from django.db.models.signals import pre_save, post_save
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
@@ -18,7 +20,7 @@ PRIVACY_CHOICES = (
 
 PRIVACY_HELP_TEXT = "<br>".join([
   "<strong>Hidden</strong>: only visible to invited members.",
-  "<strong>Closed</strong>: visible to everyone, but only invited members can participate.",
+  "<strong>Closed</strong>: visible to all, but only invited users can participate.",
   "<strong>Open</strong>: available to any HunchWorks member."])
 
 GROUP_STATUS_CHOICES = (
@@ -32,6 +34,37 @@ SUPPORT_CHOICES = (
   (0, "Neutral"),
   (1, "Mildly Supports"),
   (2, "Strongly Supports"))
+
+_support_values = zip(*SUPPORT_CHOICES)[0]
+MIN_SUPPORT = min(_support_values)
+MAX_SUPPORT = max(_support_values)
+
+# The maximum possible standard deviation of a set of SUPPORT_CHOICES, for
+# calculating the controversy ratio of a Hunch or HunchEvidence.
+SUPPORT_MAX_DEVIATION = numpy.std([MIN_SUPPORT, MAX_SUPPORT])
+
+
+POS_INF = float("inf")
+NEG_INF = float("-inf")
+
+SUPPORT_RANGES = (
+  (0, 0,          "Neutral",            "This hunch is not conclusively supported nor refuted by evidence."),
+  (1.1, POS_INF,  "Strongly Supported", "This hunch is strongly supported by evidence, with {{ confidence }} confidence."),
+  (NEG_INF, -1.1, "Strongly Refuted",   "This hunch is strongly refuted by evidence, with {{ confidence }} confidence."),
+  (0, 1.1,        "Mildly Supported",   "This hunch is supported by evidence, but only with {{ confidence }} confidence."),
+  (-1.1, 0,       "Mildly Refuted",     "This hunch is refuted by evidence, but only with {{ confidence }} confidence."))
+
+CONTROVERSY_RANGES = (
+  (0, 0.2,        "Uncontroversial",        "This hunch is not controversial within the HunchWorks community."),
+  (0.2, 0.6,      "Somewhat Controversial", "Some members of the HunchWorks community dispute this hunch."),
+  (0.6, 0.95,     "Controversial",          "Many members of the HunchWorks community dispute this hunch."),
+  (0.95, POS_INF, "Very Controversial",     "This hunch is widely disputed within the HunchWorks community."))
+
+# (days_to_consider, minimum_activity, text, verbose_text)
+ACTIVITY_RANGES = (
+  (1, 2,    "Very Active", "This hunch is being discussed by the HunchWorks community today."),
+  (7, 1,    "Active",      "This hunch is has been discussed by the HunchWorks community within a week."),
+  (None, 0, "Inactive",    "This hunch is not being discussed or evaluated by the HunchWorks community."))
 
 
 class UserProfile(models.Model):
@@ -97,17 +130,22 @@ class Hunch(models.Model):
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
-  title = models.CharField(verbose_name="Hypothesis", max_length=100, unique=True)
-  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
-  translation_language = models.ForeignKey('TranslationLanguage', default=0)
-  location = models.ForeignKey('Location', null=True, blank=True)
-  description = models.TextField(verbose_name="further explanation")
 
+  title = models.CharField(verbose_name="Hypothesis", max_length=100, unique=True,
+    help_text='Hypotheses should be a simple <a href="http://en.wikipedia.org/wiki/Falsifiability">falsifiable</a> statement.')
+
+  description = models.TextField(verbose_name="further explanation", blank=True)
+  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
+  location = models.ForeignKey('Location', null=True, blank=True)
   skills = models.ManyToManyField('Skill', blank=True)
   languages = models.ManyToManyField('Language', blank=True)
   evidences = models.ManyToManyField( 'Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
+
+  translation_language = models.ForeignKey('TranslationLanguage', default=1,
+    help_text="The language which this hunch will be discussed in.",
+    verbose_name="Language")
 
   class Meta:
     verbose_name_plural = "hunches"
@@ -128,6 +166,89 @@ class Hunch(models.Model):
 
     self.time_modified = now
     super(Hunch, self).save(*args, **kwargs)
+
+
+  def get_support(self):
+    supports = map(HunchEvidence.get_support, self.hunchevidence_set.all())
+    return (sum(supports) / len(supports)) if any(supports) else 0
+
+  def get_support_range(self):
+    s = self.get_support()
+
+    for min_val, max_val, text, desc in SUPPORT_RANGES:
+      if (min_val <= s) and (max_val >= s):
+        return (text, desc)
+
+    return ("Unknown", "The support level of this hunch cannot be determined.")
+
+  def get_support_text(self):
+    return self.get_support_range()[0]
+
+  def get_verbose_support_text(self):
+    tmpl = self.get_support_range()[1]
+    return Template(tmpl).render(Context({
+      "confidence": self.get_confidence_text()
+    }))
+
+
+  def get_confidence(self):
+    return abs(self.get_support()) / MAX_SUPPORT
+
+  def get_confidence_text(self):
+    return unicode(int(round(self.get_confidence() * 100))) + "%"
+
+
+  def get_controversy(self):
+    choices = Vote.objects.filter(hunch_evidence__hunch=self).values_list("choice", flat=True)
+    return (numpy.std(choices) / SUPPORT_MAX_DEVIATION) if any(choices) else 0
+
+  def get_controversy_range(self):
+    s = self.get_controversy()
+
+    for min_val, max_val, text, desc in CONTROVERSY_RANGES:
+      if (min_val <= s) and (max_val >= s):
+        return (text, desc)
+
+    return ("Unknown", "The controversy level of this hunch cannot be determined.")
+
+  def get_controversy_text(self):
+    return self.get_controversy_range()[0]
+
+  def get_verbose_controversy_text(self):
+    return self.get_controversy_range()[1]
+
+
+  def activity_count(self, since_days=7):
+    since = datetime.datetime.now() -\
+      datetime.timedelta(days=since_days)
+
+    votes = Vote.objects.filter(
+      hunch_evidence__hunch=self,
+      time_updated__gt=since)
+
+    comments = Comment.objects.filter(
+      hunch_evidence__hunch=self,
+      time_posted__gt=since)
+
+    return votes.count() + comments.count()
+
+  def get_activity_range(self):
+    for days, min_activity, text, desc in ACTIVITY_RANGES:
+      if (days is None) or (self.activity_count(days) >= min_activity):
+        return (text, desc)
+
+    return ("Unknown", "The activity level of this hunch cannot be determined.")
+
+  def get_activity_text(self):
+    return self.get_activity_range()[0]
+
+  def get_verbose_activity_text(self):
+    return self.get_activity_range()[1]
+
+
+  @property
+  def privacy_text(self):
+    return self.get_privacy_display()
 
   def is_editable_by(self, user):
     """Return True if this Hunch is editable by `user` (a Django auth user)."""
@@ -167,7 +288,8 @@ class HunchUser(models.Model):
 
 
 class Evidence(models.Model):
-  title = models.CharField(verbose_name="Short description", max_length=100, blank=True)
+  title = models.CharField(verbose_name="Short description", max_length=100, blank=True,
+    help_text="This should be a short summary of the evidence or what it contains")
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
   description = models.TextField(verbose_name="Further explanation", blank=True)
@@ -399,10 +521,28 @@ class HunchEvidence(models.Model):
     self.confidence_cache = 0.5
     super(HunchEvidence, self).save(*args, **kwargs)
 
+  def get_support(self):
+    return self.vote_set.aggregate(models.Avg("choice"))["choice__avg"] or 0
+
+  def get_controversy(self):
+    choices = self.vote_set.values_list("choice", flat=True)
+
+    if len(choices):
+      return numpy.std(choices) / SUPPORT_MAX_DEVIATION
+
+    else:
+      return 0
+
+
 class Vote(models.Model):
   choice = models.IntegerField(choices=SUPPORT_CHOICES, default=None)
   hunch_evidence = models.ForeignKey('HunchEvidence')
   user_profile = models.ForeignKey('UserProfile')
+  time_updated = models.DateTimeField()
+
+  def save(self, *args, **kwargs):
+    self.time_updated = datetime.datetime.now()
+    super(Vote, self).save(*args, **kwargs)
 
 
 class Bookmark(models.Model):

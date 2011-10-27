@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-from hunchworks.tests.helpers import TestHelpers
+from hunchworks.tests.helpers import ViewTestHelpers
 from django.test import TestCase
 
 
-class AuthViewsTest(TestCase, TestHelpers):
+class AuthViewsTest(TestCase, ViewTestHelpers):
   fixtures = ("test_users",)
 
   def test_login(self):

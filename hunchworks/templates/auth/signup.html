@@ -12,6 +12,13 @@
 
 {% block content %}
   <form action="" method="post" class="auth signup">
+    <section class="help_text">
+      <p>
+        HunchWorks is currently in closed alpha, so all users are required to
+        sign up before participating. This will change in the near future.
+      </p>
+    </section>
+
     {{ form.non_field_errors }}
     {% csrf_token %}
 
