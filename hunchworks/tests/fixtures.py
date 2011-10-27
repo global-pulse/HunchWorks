@@ -1,5 +1,4 @@
 from fixturefactory import BaseFactory, DjangoMixin
-
 import random
 
 from hunchworks.models import UserProfile, Connection, TranslationLanguage, Invitation, Hunch, PRIVACY_CHOICES, Location, Album, Evidence
@@ -10,9 +9,18 @@ class AlbumFactory(BaseFactory, DjangoMixin):
     model = Album
 
     def getparams(self):
+        """Define default model parameters here. Return dict.
+        (params can be overridden at time of instantiation)"""
         pk = self.getUnusedPk()
         name = "album %s" % pk
         return locals()
+
+    def lastly(self):
+        """Optional method to do things like
+        create m2m connections after instantiation"""
+        a = self.last_obj_created
+        for x in range(15):
+            a.evidences.add(self.getRandInst(Evidence))
 
 class EvidenceFactory(BaseFactory, DjangoMixin):
     model = Evidence
@@ -100,8 +108,10 @@ class UserProfileFactory(BaseFactory, DjangoMixin):
         #profile_picture = models.ImageField(upload_to="profile_images", blank=True)
         messenger_service = random.choice(enums.MessangerServices.GetChoices())[0]
         translation_language = self.getRandInst(TranslationLanguage)
-        invitation = self.getRandInst(Invitation)
+        #invitation = self.getRandInst(Invitation)
+        return locals()
 
+    def lastly(self):
         #ConnectionFactory(uid1=pk, uid2=self.getRandInst(model=UserProfile).pk)
         #roles = Role
         #location_interests = Location
@@ -110,8 +120,7 @@ class UserProfileFactory(BaseFactory, DjangoMixin):
 
         #qualifications = Education
         #courses = Course
-
-        return locals()
+        pass
 
     def phonenumber(self):
         return  ''.join([str(random.randint(0,9))
