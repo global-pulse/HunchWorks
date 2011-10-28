@@ -10,6 +10,7 @@ nav { }
       float: left;
       padding: 1px;
       border-radius: 3px;
+      -moz-border-radius: 3px;
       margin-right: 1px;
       color: #666;
     }

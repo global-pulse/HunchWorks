@@ -50,6 +50,7 @@ form { }
     form > div.fields > div.right {
       width: 40%;
       box-sizing: border-box;
+      -moz-box-sizing: border-box;
       padding-left: 2em;
     }
 
@@ -76,9 +77,11 @@ form { }
       clear: both;
       width: 100%;
       box-sizing: border-box;
+      -moz-box-sizing: border-box;
       border: 2px solid #999;
       background: #fffff8;
       border-radius: 3px;
+      -moz-border-radius: 3px;
       padding: 1em;
       color: #666;
     }
@@ -100,6 +103,7 @@ form { }
     input[type=button] {
       width: auto;
       border-radius: 5px;
+      -moz-border-radius: 5px;
       font-weight: bold;
       background: #aaa;
       color: #fff;

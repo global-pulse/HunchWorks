@@ -6,8 +6,10 @@ div.user {
     display: block;
     background: #333;
     box-shadow: 0 0 5px #999;
+    -moz-box-shadow: 0 0 5px #999;
     text-decoration: none;
     border-radius: 5px;
+    -moz-border-radius: 5px;
     padding: 2px;
   }
 
@@ -20,7 +22,8 @@ div.user {
       margin-bottom: 2px;
       background: #666;
       border-radius: 3px 3px 0 0;
-    }
+      -moz-border-radius: 3px 3px 0 0;
+	}
 
     div.user > a > span {
       display: block;

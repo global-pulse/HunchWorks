@@ -6,7 +6,9 @@
     position: relative;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 5px #ccc;
+    -moz-box-shadow: 1px 1px 5px #ccc;
     border-radius: 5px;
+    -moz-border-radius: 5px;
     margin-bottom: 1em;
     color: #999;
     overflow: hidden;
@@ -77,6 +79,7 @@
         display: block;
         margin: 0 auto;
         border-radius: 4px;
+        -moz-border-radius: 4px;
       }
 
       #evidence-show article.evidence > header > h1 {

@@ -80,6 +80,7 @@
           background: #fff;
           border: 2px solid #ccc;
           border-radius: 5px;
+          -moz-border-radius: 5px;
           padding: 0.5em;
           text-align: center;
           color: #999;
@@ -144,6 +145,7 @@
   #hunch-show article.evidence {
     background: #eee url("../../img/bg.png");
     box-shadow: 0 0 5px #ccc;
+    -moz-box-shadow: 0 0 5px #ccc;
     margin-top: 1em;
   }
 
@@ -285,6 +287,7 @@
       border: 2px solid #ccc;
       background: #fff;
       border-radius: 5px;
+      -moz-border-radius: 5px;
       padding: 0.5em;
     }
 
@@ -352,6 +355,7 @@
         color: #ccc;
         border: none;
         border-radius: 0 3px 3px 0;
+        -moz-border-radius: 0 3px 3px 0;
         font-size: 200%;
         font-weight: normal;
         padding: 0;

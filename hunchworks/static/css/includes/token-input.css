@@ -21,6 +21,7 @@ li.token-input-token {
   border: 1px solid #ccc;
   white-space: nowrap;
   border-radius: 3px;
+  -moz-border-radius: 3px;
 }
 
   li.token-input-token p {
