@@ -5,11 +5,9 @@ from django.test import TestCase
 from hunchworks.fixtures.factories import UserFactory
 
 class AuthViewsTest(TestCase, ViewTestHelpers):
-  fixtures = ("test_users",)
 
   def setUp(self):
     UserFactory(pk=1, username="one", password="sha1$46418$ec45f4354f5583a22949b6bf87e756c5da58567d")
-    #UserFactory(pk=4, username="four", password="four")
 
   def test_login(self):
     resp = self.get("login")
