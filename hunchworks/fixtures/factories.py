@@ -1,7 +1,7 @@
 from fixturefactory import BaseFactory, DjangoMixin
 import random
 
-from hunchworks.models import UserProfile, Connection, TranslationLanguage, Invitation, Hunch, PRIVACY_CHOICES, Location, Album, Evidence
+from hunchworks.models import UserProfile, Connection, TranslationLanguage, Invitation, Hunch, PRIVACY_CHOICES, Location, Album, Evidence, Group
 from django.contrib.auth.models import User
 from hunchworks import hunchworks_enums as enums
 
@@ -46,13 +46,26 @@ class HunchFactory(BaseFactory, DjangoMixin):
         time_modified = "2011-08-08"
         status = random.choice(enums.HunchStatus.GetChoices())[0]
         title = 'markov %s' % pk
-        privacy = random.choice(range(len(PRIVACY_CHOICES)))
+        privacy = random.choice(PRIVACY_CHOICES)[0]
         translation_language = self.getRandInst(TranslationLanguage)
         location = self.getRandInst(Location)
         description = 'markov %s' % pk
         return locals()
 
 #class HunchUserFactory(BaseFactory, DjangoMixin): pass
+class GroupFactory(BaseFactory, DjangoMixin):
+    model = Group
+
+    def getparams(self):
+        pk = self.getUnusedPk()
+        name = "Group with pk %s" % pk
+        abbreviation = "Grp %s" % pk
+        description = "Group description %s" % pk
+        #logo = models.ImageField(verbose_name="Group picture", upload_to="group_images", blank=True, null=True)
+        type = random.choice(enums.GroupType.GetChoices())[0]
+        privacy = random.choice(PRIVACY_CHOICES)[0]
+        location = self.getRandInst(Location)
+        return locals()
 
 class LocationFactory(BaseFactory, DjangoMixin):
     model = Location
