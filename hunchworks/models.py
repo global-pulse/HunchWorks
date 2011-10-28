@@ -93,7 +93,7 @@ class UserProfile(models.Model):
   courses = models.ManyToManyField('Course', blank=True)
 
   def __unicode__(self):
-    return self.user.username
+    return self.name or self.user.username
 
   @models.permalink
   def get_absolute_url(self):
