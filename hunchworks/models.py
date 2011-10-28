@@ -93,7 +93,7 @@ class UserProfile(models.Model):
   courses = models.ManyToManyField('Course', blank=True)
 
   def __unicode__(self):
-    return self.user.username
+    return self.name or self.user.username
 
   @models.permalink
   def get_absolute_url(self):
@@ -103,7 +103,7 @@ class UserProfile(models.Model):
     if self.profile_picture:
       return self.profile_picture.url
     else:
-      return "http://icanhascheezburger.files.wordpress.com/2011/09/funny-pictures-oh-like-you-trying-to-squeeze-your-fat-ass-into-a-leopard-print-thong-is-any-different.jpg"
+      return "http://www.clker.com/cliparts/5/9/4/c/12198090531909861341man%20silhouette.svg.hi.png"
 
 
 def create_user(sender, instance, created, **kwargs):
@@ -135,7 +135,7 @@ class Hunch(models.Model):
     help_text='Hypotheses should be a simple <a href="http://en.wikipedia.org/wiki/Falsifiability">falsifiable</a> statement.')
 
   description = models.TextField(verbose_name="further explanation", blank=True)
-  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
+  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=2, help_text=PRIVACY_HELP_TEXT)
   location = models.ForeignKey('Location', null=True, blank=True)
   skills = models.ManyToManyField('Skill', blank=True)
   languages = models.ManyToManyField('Language', blank=True)
@@ -510,15 +510,15 @@ class Comment(models.Model):
 class HunchEvidence(models.Model):
   hunch = models.ForeignKey('Hunch')
   evidence = models.ForeignKey('Evidence')
-  support_cache = models.IntegerField(choices=SUPPORT_CHOICES)
-  confidence_cache = models.FloatField()
+  support_cache = models.IntegerField(choices=SUPPORT_CHOICES, null=True)
+  confidence_cache = models.FloatField(null=True)
 
   class Meta:
     unique_together = ("hunch", "evidence")
 
   def save(self, *args, **kwargs):
-    self.support_cache = 0
-    self.confidence_cache = 0.5
+    self.support_cache = self.get_support()
+    self.confidence_cache = self.get_controversy()
     super(HunchEvidence, self).save(*args, **kwargs)
 
   def get_support(self):
@@ -542,7 +542,15 @@ class Vote(models.Model):
 
   def save(self, *args, **kwargs):
     self.time_updated = datetime.datetime.now()
-    super(Vote, self).save(*args, **kwargs)
+    return super(Vote, self).save(*args, **kwargs)
+
+
+def update_hunch_evidence_caches(sender, instance, created, **kwargs):
+  instance.hunch_evidence.save()
+
+post_save.connect(
+  update_hunch_evidence_caches,
+  sender=Vote)
 
 
 class Bookmark(models.Model):

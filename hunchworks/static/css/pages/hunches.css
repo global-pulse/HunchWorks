@@ -15,7 +15,6 @@
       text-align: center;
       color: #999;
       padding: 4em;
-      border-bottom: 1px dotted #ccc;
     }
 
       #hunch-show article.hunch > header > div {
@@ -24,6 +23,7 @@
 
         #hunch-show article.hunch > header > div > h1 {
           font-size: 250%;
+          line-height: 1.2;
         }
 
           #hunch-show article.hunch > header > div > h1 > a {
@@ -40,7 +40,26 @@
 
 
 
+    #hunch-show section.desc {
+      border-top: 1px dotted #ccc;
+      border-bottom: 1px dotted #ccc;
+      margin-bottom: 4em;
+      background: #f8f8f8;
+      padding: 2em;
+      color: #999;
+      display: none;
+    }
+
+      #hunch-show section.desc p {
+        font-size: 125%;
+        line-height: 1.4;
+      }
+
+
+
+
     #hunch-show section.meta {
+      border-top: 1px dotted #ccc;
       border-bottom: 1px dotted #ccc;
       padding: 0.5em 0.5em 0.5em 2em;
       background: #eee;
