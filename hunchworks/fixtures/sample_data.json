@@ -2,7 +2,7 @@
     {
         "pk": 1,
         "model": "hunchworks.location",
-        "fields": 
+        "fields":
         {
             "name": "New York City, NY",
             "latitude": "40.716667",
@@ -12,7 +12,7 @@
     {
         "pk": 2,
         "model": "hunchworks.location",
-        "fields": 
+        "fields":
         {
             "name": "Kampala, UG",
             "latitude": "0.313611",
@@ -22,7 +22,7 @@
     {
         "pk": 3,
         "model": "hunchworks.location",
-        "fields": 
+        "fields":
         {
             "name": "Miami, FL",
             "latitude": "25.787778",
@@ -32,7 +32,7 @@
     {
         "pk": 4,
         "model": "hunchworks.location",
-        "fields": 
+        "fields":
         {
             "name": "San Antonio, TX",
             "latitude": "29.416667",
@@ -42,33 +42,33 @@
 
 
     {
-    	"pk": 1,
+        "pk": 1,
         "model": "hunchworks.language",
-        "fields": 
+        "fields":
         {
             "name": "English"
         }
     },
     {
-    	"pk": 2,
+        "pk": 2,
         "model": "hunchworks.language",
-        "fields": 
+        "fields":
         {
             "name": "French"
         }
     },
     {
-    	"pk": 3,
+        "pk": 3,
         "model": "hunchworks.language",
-        "fields": 
+        "fields":
         {
             "name": "Spanish"
         }
     },
     {
-    	"pk": 4,
+        "pk": 4,
         "model": "hunchworks.language",
-        "fields": 
+        "fields":
         {
             "name": "German"
         }
@@ -76,33 +76,33 @@
 
 
     {
-    	"pk": 1,
+        "pk": 1,
         "model": "hunchworks.skill",
-        "fields": 
+        "fields":
         {
             "name": "Programming"
         }
     },
     {
-    	"pk": 2,
+        "pk": 2,
         "model": "hunchworks.skill",
-        "fields": 
+        "fields":
         {
             "name": "Welding"
         }
     },
     {
-    	"pk": 3,
+        "pk": 3,
         "model": "hunchworks.skill",
-        "fields": 
+        "fields":
         {
             "name": "Bomb dissarming"
         }
     },
     {
-    	"pk": 4,
+        "pk": 4,
         "model": "hunchworks.skill",
-        "fields": 
+        "fields":
         {
             "name": "Flying license"
         }
@@ -110,334 +110,373 @@
 
 
     {
-    	"pk": 1,
-    	"model": "auth.user",
-    	"fields":
-    	{
-    		"username": "test",
-    		"password": "sha1$485c2$9b04c450941be70bbad00283ff8897e7bb03bf9c",
-    		"is_active": "True",
-    		"is_staff": "True",
-    		"is_superuser": "True",
-    		"last_login": "2011-08-18 11:14:19.244634",
-    		"date_joined": "2011-08-18 11:14:19.244634"
-    	}
+        "pk": 1,
+        "model": "auth.user",
+        "fields":
+        {
+            "username": "adammck",
+            "password": "sha1$b1cf2$8f61d50ba5f928a60fc421b62ae2bd265537311a",
+            "is_active": "True",
+            "is_staff": "True",
+            "is_superuser": "True"
+        }
     },
     {
-    	"pk": 2,
-    	"model": "auth.user",
-    	"fields":
-    	{
-    		"username": "Sean",
-    		"password": "",
-    		"is_active": "True",
-    		"is_staff": "False",
-    		"is_superuser": "False",
-    		"last_login": "2011-08-19 11:14:19.244634",
-    		"date_joined": "2011-08-19 11:14:19.244634"
-    	}
+        "pk": 2,
+        "model": "auth.user",
+        "fields":
+        {
+            "username": "Bluestreak2k5",
+            "password": "sha1$cd46f$ae5a5e782433349ca44bd206cf4ed4c56851ca0a",
+            "is_active": "True",
+            "is_staff": "True",
+            "is_superuser": "True"
+        }
     },
     {
-    	"pk": 3,
-    	"model": "auth.user",
-    	"fields":
-    	{
-    		"username": "Mark",
-    		"password": "",
-    		"is_active": "True",
-    		"is_staff": "False",
-    		"is_superuser": "False",
-    		"last_login": "2011-08-20 11:14:19.244634",
-    		"date_joined": "2011-08-20 11:14:19.244634"
-    	}
+        "pk": 3,
+        "model": "auth.user",
+        "fields":
+        {
+            "username": "test",
+            "password": "sha1$485c2$9b04c450941be70bbad00283ff8897e7bb03bf9c",
+            "is_active": "True",
+            "is_staff": "True",
+            "is_superuser": "True",
+            "last_login": "2011-08-18 11:14:19.244634",
+            "date_joined": "2011-08-18 11:14:19.244634"
+        }
     },
     {
-    	"pk": 4,
-    	"model": "auth.user",
-    	"fields":
-    	{
-    		"username": "Helena",
-    		"password": "",
-    		"is_active": "True",
-    		"is_staff": "False",
-    		"is_superuser": "False",
-    		"last_login": "2011-08-21 11:14:19.244634",
-    		"date_joined": "2011-08-21 11:14:19.244634"
-    	}
+        "pk": 4,
+        "model": "auth.user",
+        "fields":
+        {
+            "username": "Sean",
+            "password": "",
+            "is_active": "True",
+            "is_staff": "False",
+            "is_superuser": "False",
+            "last_login": "2011-08-19 11:14:19.244634",
+            "date_joined": "2011-08-19 11:14:19.244634"
+        }
     },
     {
-    	"pk": 5,
-    	"model": "auth.user",
-    	"fields":
-    	{
-    		"username": "Betty",
-    		"password": "",
-    		"is_active": "True",
-    		"is_staff": "False",
-    		"is_superuser": "False",
-    		"last_login": "2011-08-22 11:14:19.244634",
-    		"date_joined": "2011-08-22 11:14:19.244634"
-    	}
+        "pk": 5,
+        "model": "auth.user",
+        "fields":
+        {
+            "username": "Mark",
+            "password": "",
+            "is_active": "True",
+            "is_staff": "False",
+            "is_superuser": "False",
+            "last_login": "2011-08-20 11:14:19.244634",
+            "date_joined": "2011-08-20 11:14:19.244634"
+        }
     },
     {
-    	"pk": 6,
-    	"model": "auth.user",
-    	"fields":
-    	{
-    		"username": "Margunn",
-    		"password": "",
-    		"is_active": "True",
-    		"is_staff": "False",
-    		"is_superuser": "False",
-    		"last_login": "2011-08-23 11:14:19.244634",
-    		"date_joined": "2011-08-23 11:14:19.244634"
-    	}
+        "pk": 6,
+        "model": "auth.user",
+        "fields":
+        {
+            "username": "Helena",
+            "password": "",
+            "is_active": "True",
+            "is_staff": "False",
+            "is_superuser": "False",
+            "last_login": "2011-08-21 11:14:19.244634",
+            "date_joined": "2011-08-21 11:14:19.244634"
+        }
     },
     {
-    	"pk": 7,
-    	"model": "auth.user",
-    	"fields":
-    	{
-    		"username": "Jen",
-    		"password": "",
-    		"is_active": "True",
-    		"is_staff": "False",
-    		"is_superuser": "False",
-    		"last_login": "2011-08-24 11:14:19.244634",
-    		"date_joined": "2011-08-24 11:14:19.244634"
-    	}
-    },
-
-
-    {
-    	"pk": 1,
-    	"model": "hunchworks.userprofile",
-    	"fields":
-    	{
-    		"user": 1,
-    		"name": "Admin",
-    		"email": "admin@hunchworks.com",
-    		"skills": [1,3]
-    	}
+        "pk": 7,
+        "model": "auth.user",
+        "fields":
+        {
+            "username": "Betty",
+            "password": "",
+            "is_active": "True",
+            "is_staff": "False",
+            "is_superuser": "False",
+            "last_login": "2011-08-22 11:14:19.244634",
+            "date_joined": "2011-08-22 11:14:19.244634"
+        }
     },
     {
-    	"pk": 2,
-    	"model": "hunchworks.userprofile",
-    	"fields":
-    	{
-    		"user": 2,
-    		"name": "Sean Rivello",
-    		"email": "sean@unicef.org",
-    		"skills": [2]
-    	}
+        "pk": 8,
+        "model": "auth.user",
+        "fields":
+        {
+            "username": "Margunn",
+            "password": "",
+            "is_active": "True",
+            "is_staff": "False",
+            "is_superuser": "False",
+            "last_login": "2011-08-23 11:14:19.244634",
+            "date_joined": "2011-08-23 11:14:19.244634"
+        }
     },
     {
-    	"pk": 3,
-    	"model": "hunchworks.userprofile",
-    	"fields":
-    	{
-    		"user": 3,
-    		"name": "Mark Spiegelman",
-    		"email": "mark@internews.com",
-    		"skills": [3]
-    	}
-    },
-    {
-    	"pk": 4,
-    	"model": "hunchworks.userprofile",
-    	"fields":
-    	{
-    		"user": 4,
-    		"name": "Helena Cabag",
-    		"email": "helen@undp.org",
-    		"skills": [2,4]
-    	}
-    },
-    {
-    	"pk": 5,
-    	"model": "hunchworks.userprofile",
-    	"fields":
-    	{
-    		"user": 5,
-    		"name": "Betty Heral",
-    		"email": "betty@crisismappers.com",
-    		"skills": [2,4]
-    	}
-    },
-    {
-    	"pk": 6,
-    	"model": "hunchworks.userprofile",
-    	"fields":
-    	{
-    		"user": 6,
-    		"name": "Margunn Grabow",
-    		"email": "margunn@undp.org",
-    		"skills": [2,4]
-    	}
-    },
-    {
-    	"pk": 7,
-    	"model": "hunchworks.userprofile",
-    	"fields":
-    	{
-    		"user": 7,
-    		"name": "Jen Maura",
-    		"email": "jen@nyu.edu",
-    		"skills": [2,4]
-    	}
+        "pk": 9,
+        "model": "auth.user",
+        "fields":
+        {
+            "username": "Jen",
+            "password": "",
+            "is_active": "True",
+            "is_staff": "False",
+            "is_superuser": "False",
+            "last_login": "2011-08-24 11:14:19.244634",
+            "date_joined": "2011-08-24 11:14:19.244634"
+        }
     },
 
 
     {
-    	"pk": 1,
-    	"model": "hunchworks.group",
-    	"fields":
-    	{
-    		"name": "United Nations Children's Fund",
-    		"abbreviation": "UNICEF"
-    	}
+        "pk": 1,
+        "model": "hunchworks.userprofile",
+        "fields":
+        {
+            "user": 1,
+            "name": "Adam Mckaig",
+            "email": "adam.mckaig@gmail.com",
+            "profile_picture": "fixtures/adam.jpg"
+        }
     },
     {
-    	"pk": 2,
-    	"model": "hunchworks.group",
-    	"fields":
-    	{
-    		"name": "Internews Agency"
-    	}
+        "pk": 2,
+        "model": "hunchworks.userprofile",
+        "fields":
+        {
+            "user": 2,
+            "name": "Chris Blumberg",
+            "email": "bluestreak2k5@yahoo.com",
+            "profile_picture": "fixtures/chris.jpg"
+        }
     },
     {
-    	"pk": 3,
-    	"model": "hunchworks.group",
-    	"fields":
-    	{
-    		"name": "United Nations Development Programme",
-    		"abbreviation": "UNDP"
-    	}
+        "pk": 3,
+        "model": "hunchworks.userprofile",
+        "fields":
+        {
+            "user": 3,
+            "name": "Test User",
+            "email": "test@hunchworks.org",
+            "skills": [1,3]
+        }
     },
     {
-    	"pk": 4,
-    	"model": "hunchworks.group",
-    	"fields":
-    	{
-    		"name": "Crisis mappers"
-    	}
+        "pk": 3,
+        "model": "hunchworks.userprofile",
+        "fields":
+        {
+            "user": 3,
+            "name": "Sean Rivello",
+            "email": "sean@unicef.org",
+            "skills": [2]
+        }
     },
     {
-    	"pk": 5,
-    	"model": "hunchworks.group",
-    	"fields":
-    	{
-    		"name": "New York University",
-    		"abbreviation": "NYU"
-    	}
+        "pk": 4,
+        "model": "hunchworks.userprofile",
+        "fields":
+        {
+            "user": 4,
+            "name": "Mark Spiegelman",
+            "email": "mark@internews.com",
+            "skills": [3]
+        }
     },
     {
-    	"pk": 6,
-    	"model": "hunchworks.group",
-    	"fields":
-    	{
-    		"name": "United Nations",
-    		"abbreviation": "UN"
-    	}
+        "pk": 5,
+        "model": "hunchworks.userprofile",
+        "fields":
+        {
+            "user": 5,
+            "name": "Helena Cabag",
+            "email": "helen@undp.org",
+            "skills": [2,4]
+        }
+    },
+    {
+        "pk": 6,
+        "model": "hunchworks.userprofile",
+        "fields":
+        {
+            "user": 6,
+            "name": "Betty Heral",
+            "email": "betty@crisismappers.com",
+            "skills": [2,4]
+        }
+    },
+    {
+        "pk": 7,
+        "model": "hunchworks.userprofile",
+        "fields":
+        {
+            "user": 7,
+            "name": "Margunn Grabow",
+            "email": "margunn@undp.org",
+            "skills": [2,4]
+        }
+    },
+    {
+        "pk": 8,
+        "model": "hunchworks.userprofile",
+        "fields":
+        {
+            "user": 8,
+            "name": "Jen Maura",
+            "email": "jen@nyu.edu",
+            "skills": [2,4]
+        }
     },
 
 
     {
-    	"pk": 1,
-    	"model": "hunchworks.userprofilegroup",
-    	"fields":
-    	{
-    		"user_profile": 2,
-    		"group": 1,
+        "pk": 1,
+        "model": "hunchworks.group",
+        "fields":
+        {
+            "name": "United Nations Children's Fund",
+            "abbreviation": "UNICEF"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.group",
+        "fields":
+        {
+            "name": "United States Agency for International Development",
+            "abbreviation": "USAID"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "hunchworks.group",
+        "fields":
+        {
+            "name": "United Nations Development Programme",
+            "abbreviation": "UNDP"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "hunchworks.group",
+        "fields":
+        {
+            "name": "Médecins Sans Frontières",
+            "abbreviation": "MSF"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "hunchworks.group",
+        "fields":
+        {
+            "name": "New York University",
+            "abbreviation": "NYU"
+        }
+    },
+
+
+    {
+        "pk": 1,
+        "model": "hunchworks.userprofilegroup",
+        "fields":
+        {
+            "user_profile": 2,
+            "group": 1,
             "status": 0
-    	}
+        }
     },
     {
-    	"pk": 2,
-    	"model": "hunchworks.userprofilegroup",
-    	"fields":
-    	{
-    		"user_profile": 3,
-    		"group": 2,
+        "pk": 2,
+        "model": "hunchworks.userprofilegroup",
+        "fields":
+        {
+            "user_profile": 3,
+            "group": 2,
             "status": 1
-    	}
+        }
     },
     {
-    	"pk": 3,
-    	"model": "hunchworks.userprofilegroup",
-    	"fields":
-    	{
-    		"user_profile": 4,
-    		"group": 3,
+        "pk": 3,
+        "model": "hunchworks.userprofilegroup",
+        "fields":
+        {
+            "user_profile": 4,
+            "group": 3,
             "status": 2
-    	}
+        }
     },
     {
-    	"pk": 4,
-    	"model": "hunchworks.userprofilegroup",
-    	"fields":
-    	{
-    		"user_profile": 5,
-    		"group": 4,
+        "pk": 4,
+        "model": "hunchworks.userprofilegroup",
+        "fields":
+        {
+            "user_profile": 5,
+            "group": 4,
             "status": 1
-    	}
+        }
     },
     {
-    	"pk": 5,
-    	"model": "hunchworks.userprofilegroup",
-    	"fields":
-    	{
-    		"user_profile": 6,
-    		"group": 3,
+        "pk": 5,
+        "model": "hunchworks.userprofilegroup",
+        "fields":
+        {
+            "user_profile": 6,
+            "group": 3,
             "status": 0
-    	}
+        }
     },
     {
-    	"pk": 6,
-    	"model": "hunchworks.userprofilegroup",
-    	"fields":
-    	{
-    		"user_profile": 7,
-    		"group": 5,
+        "pk": 6,
+        "model": "hunchworks.userprofilegroup",
+        "fields":
+        {
+            "user_profile": 7,
+            "group": 5,
             "status": 1
-    	}
+        }
     },
     {
-    	"pk": 7,
-    	"model": "hunchworks.userprofilegroup",
-    	"fields":
-    	{
-    		"user_profile": 2,
-    		"group": 6,
+        "pk": 7,
+        "model": "hunchworks.userprofilegroup",
+        "fields":
+        {
+            "user_profile": 2,
+            "group": 6,
             "status": 2
-    	}
+        }
     },
     {
-    	"pk": 8,
-    	"model": "hunchworks.userprofilegroup",
-    	"fields":
-    	{
-    		"user_profile": 4,
-    		"group": 6,
+        "pk": 8,
+        "model": "hunchworks.userprofilegroup",
+        "fields":
+        {
+            "user_profile": 4,
+            "group": 6,
             "status": 1
-    	}
+        }
     },
     {
-    	"pk": 9,
-    	"model": "hunchworks.userprofilegroup",
-    	"fields":
-    	{
-    		"user_profile": 6,
-    		"group": 6,
+        "pk": 9,
+        "model": "hunchworks.userprofilegroup",
+        "fields":
+        {
+            "user_profile": 6,
+            "group": 6,
             "status": 1
-    	}
+        }
     },
 
 
     {
         "pk": 1,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 2,
             "other_user_profile": 3,
@@ -447,7 +486,7 @@
     {
         "pk": 2,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 4,
             "other_user_profile": 6,
@@ -457,7 +496,7 @@
     {
         "pk": 3,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 3,
             "other_user_profile": 2,
@@ -467,7 +506,7 @@
     {
         "pk": 4,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 6,
             "other_user_profile": 4,
@@ -477,7 +516,7 @@
     {
         "pk": 5,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 2,
             "other_user_profile": 4,
@@ -487,7 +526,7 @@
     {
         "pk": 6,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 3,
             "other_user_profile": 5,
@@ -497,7 +536,7 @@
     {
         "pk": 7,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 5,
             "other_user_profile": 3,
@@ -507,7 +546,7 @@
     {
         "pk": 8,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 4,
             "other_user_profile": 2,
@@ -517,7 +556,7 @@
     {
         "pk": 9,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 2,
             "other_user_profile": 5,
@@ -527,7 +566,7 @@
     {
         "pk": 10,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 5,
             "other_user_profile": 2,
@@ -537,7 +576,7 @@
     {
         "pk": 11,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 4,
             "other_user_profile": 5,
@@ -547,7 +586,7 @@
     {
         "pk": 12,
         "model": "hunchworks.connection",
-        "fields": 
+        "fields":
         {
             "user_profile": 5,
             "other_user_profile": 4,
@@ -555,11 +594,11 @@
         }
     },
 
-    
+
     {
         "pk": 1,
         "model": "hunchworks.tag",
-        "fields": 
+        "fields":
         {
             "name": "Global Warming"
         }
@@ -567,7 +606,7 @@
     {
         "pk": 2,
         "model": "hunchworks.tag",
-        "fields": 
+        "fields":
         {
             "name": "Drought"
         }
@@ -575,7 +614,7 @@
     {
         "pk": 3,
         "model": "hunchworks.tag",
-        "fields": 
+        "fields":
         {
             "name": "Flood"
         }
@@ -583,506 +622,155 @@
     {
         "pk": 4,
         "model": "hunchworks.tag",
-        "fields": 
+        "fields":
         {
             "name": "Tsunami"
         }
     },
-    
-    
+
+
     {
         "pk": 1,
         "model": "hunchworks.hunch",
-        "fields": 
+        "fields":
         {
             "creator": 1,
-            "time_created": "2011-08-18 11:14:19.244634",
-            "time_modified": "2011-08-18 11:14:19.244634",
-            "status": 0,
-            "title": "Global Warming is True",
-            "privacy": 2,
-            "translation_language": 1,
-            "location": 1,
-            "description": "Proving all the non-believers wrong",
-            "tags": [1,2],
-            "skills": [1,2,3,4],
-            "languages": [1]
+            "time_created": "2011-10-28 00:00:00",
+            "time_modified": "2011-10-28 00:00:00",
+            "title": "There will be a serious cholera outbreak in the IDP camp in Gulu within a year",
+            "description": "There is a scarcity of basic sanitary facilities, shortage of water, poor drainage, poor sanitation habits, and contaminated boreholes. It is only a matter of time before disease breaks out.",
+            "location": 2
         }
     },
-    {
-        "pk": 2,
-        "model": "hunchworks.hunch",
-        "fields": 
-        {
-            "creator": 1,
-            "time_created": "2011-08-19 11:14:19.244634",
-            "time_modified": "2011-08-19 11:14:19.244634",
-            "status": 1,
-            "title": "Global Warming is False",
-            "privacy": 2,
-            "translation_language": 2,
-            "location": 3,
-            "description": "Proving all the non-believers wrong",
-            "tags": [3,4],
-            "skills": [3,4],
-            "languages": [2]
-        }
-    },
-    {
-        "pk": 3,
-        "model": "hunchworks.hunch",
-        "fields": 
-        {
-            "creator": 1,
-            "time_created": "2011-08-20 11:14:19.244634",
-            "time_modified": "2011-08-20 11:14:19.244634",
-            "status": 2,
-            "title": "Famine in Horn of Africa",
-            "privacy": 2,
-            "translation_language": 4,
-            "location": 2,
-            "description": "Proof that their is a famine in the horn of africa",
-            "skills": [1,4],
-            "languages": [3]  
-        }
-    },
-    {
-        "pk": 4,
-        "model": "hunchworks.hunch",
-        "fields": 
-        {
-            "creator": 1,
-            "time_created": "2011-08-21 11:14:19.244634",
-            "time_modified": "2011-08-21 11:14:19.244634",
-            "status": 2,
-            "title": "Japan nuclear plant still releasing radiation",
-            "privacy": 2,
-            "translation_language": 3,
-            "location": 1,
-            "description": "Japan crippled nuclear power plant is still releasing radiation clouds even though the Japanese government has said it isn't. Government hiding data from it's people?",
-            "skills": [2,4],
-            "languages": [4]
-        }
-    },
-    {
-        "pk": 5,
-        "model": "hunchworks.hunch",
-        "fields": 
-        {
-            "creator": 2,
-            "time_created": "2011-08-22 11:14:19.244634",
-            "time_modified": "2011-08-22 11:14:19.244634",
-            "status": 2,
-            "title": "FEMA poorly mishandled Hurricane Katrina",
-            "privacy": 1,
-            "translation_language": 1,
-            "location": 4,
-            "description": "Government organizations are useless",
-            "tags": [1,2],
-            "skills": [1,2,3,4],
-            "languages": [1]
-        }
-    },
-    {
-        "pk": 6,
-        "model": "hunchworks.hunch",
-        "fields": 
-        {
-            "creator": 2,
-            "time_created": "2011-08-23 11:14:19.244634",
-            "time_modified": "2011-08-23 11:14:19.244634",
-            "status": 2,
-            "title": "Drought going on in Africa",
-            "privacy": 2,
-            "translation_language": 2,
-            "location": 2,
-            "description": "A drought has caused destabilization in Africa and food prices to skyrocket",
-            "tags": [3,4],
-            "skills": [3,4],
-            "languages": [2]
-        }
-    },
-    {
-        "pk": 7,
-        "model": "hunchworks.hunch",
-        "fields": 
-        {
-            "creator": 2,
-            "time_created": "2011-08-24 11:14:19.244634",
-            "time_modified": "2011-08-24 11:14:19.244634",
-            "status": 2,
-            "title": "More Famine in Horn of Africa",
-            "privacy": 2,
-            "translation_language": 3,
-            "location": 3,
-            "description": "Proof that their is a famine in the horn of africa",
-            "skills": [1,4],
-            "languages": [3]  
-        }
-    },
-    {
-        "pk": 8,
-        "model": "hunchworks.hunch",
-        "fields": 
-        {
-            "creator": 3,
-            "time_created": "2011-08-25 11:14:19.244634",
-            "time_modified": "2011-08-25 11:14:19.244634",
-            "status": 0,
-            "title": "9/11 really caused by the US government",
-            "privacy": 2,
-            "translation_language": 2,
-            "location": 2,
-            "description": "The US government purposedly planned the planes ramming into the Twin Towers to starts wars for oil!",
-            "skills": [2,4],
-            "languages": [4]
-        }
-    },
-    {
-        "pk": 9,
-        "model": "hunchworks.hunch",
-        "fields": 
-        {
-            "creator": 3,
-            "time_created": "2011-08-26 11:14:19.244634",
-            "time_modified": "2011-08-26 11:14:19.244634",
-            "status": 1,
-            "title": "The Sun is affecting our World's weather",
-            "privacy": 2,
-            "translation_language": 1,
-            "location": 3,
-            "description": "Whenever their is a solar burst directed at Earth, natural disasters increase.",
-            "tags": [1,2],
-            "skills": [1,2,3,4],
-            "languages": [1]
-        }
-    },
-    {
-        "pk": 10,
-        "model": "hunchworks.hunch",
-        "fields": 
-        {
-            "creator": 3,
-            "time_created": "2011-08-27 11:14:19.244634",
-            "time_modified": "2011-08-27 11:14:19.244634",
-            "status": 2,
-            "title": "Earth Magnetic Field is decreasing",
-            "privacy": 2,
-            "translation_language": 3,
-            "location": 1,
-            "description": "Earth Magnetic field is decreasing by 5% a decade and is affecting everything on Earth!",
-            "tags": [3,4],
-            "skills": [3,4],
-            "languages": [2]
-        }
-    },
-    {
-        "pk": 11,
-        "model": "hunchworks.hunch",
-        "fields": 
-        {
-            "creator": 4,
-            "time_created": "2011-08-28 11:14:19.244634",
-            "time_modified": "2011-08-28 11:14:19.244634",
-            "status": 2,
-            "title": "North Pole Ice is decreasing",
-            "privacy": 2,
-            "translation_language": 4,
-            "location": 4,
-            "description": "Pictures proving the north pole had decreased by 13% in the last 30 years.",
-            "skills": [1,4],
-            "languages": [3]  
-        }
-    },
-    {
-        "pk": 12,
-        "model": "hunchworks.hunch",
-        "fields": 
-        {
-            "creator": 4,
-            "time_created": "2011-08-29 11:14:19.244634",
-            "time_modified": "2011-08-29 11:14:19.244634",
-            "status": 1,
-            "title": "South Pole Ice is increasing",
-            "privacy": 2,
-            "translation_language": 1,
-            "location": 2,
-            "description": "Pictures proving the south pole has increased by 27% in the last 30 years.",
-            "skills": [2,4],
-            "languages": [4]
-        }
-    },
-    
-    
+
+
     {
         "pk": 1,
         "model": "hunchworks.hunchuser",
-        "fields": 
+        "fields":
         {
             "hunch": 1,
-            "status": 0,
-            "user_profile": 1
+            "user_profile": 3
         }
     },
     {
         "pk": 2,
         "model": "hunchworks.hunchuser",
-        "fields": 
-        {
-            "hunch": 2,
-			"status": 1,
-			"user_profile": 1
-        }
-    },
-    {
-        "pk": 3,
-        "model": "hunchworks.hunchuser",
-        "fields": 
-        {
-            "hunch": 3,
-            "status": 1,
-            "user_profile": 1
-        }
-    },
-    {
-        "pk": 4,
-        "model": "hunchworks.hunchuser",
-        "fields": 
-        {
-            "hunch": 4,
-            "status": 2,
-            "user_profile": 1
-        }
-    },
-    {
-        "pk": 5,
-        "model": "hunchworks.hunchuser",
-        "fields": 
+        "fields":
         {
             "hunch": 1,
-            "status": 0,
-            "user_profile": 2
-        }
-    },
-    {
-        "pk": 6,
-        "model": "hunchworks.hunchuser",
-        "fields": 
-        {
-            "hunch": 1,
-			"status": 1,
-			"user_profile": 3
-        }
-    },
-    {
-        "pk": 7,
-        "model": "hunchworks.hunchuser",
-        "fields": 
-        {
-            "hunch": 1,
-            "status": 2,
             "user_profile": 4
         }
     },
     {
-        "pk": 8,
+        "pk": 3,
         "model": "hunchworks.hunchuser",
-        "fields": 
+        "fields":
         {
-            "hunch": 2,
-            "status": 1,
-            "user_profile": 2
+            "hunch": 1,
+            "user_profile": 5
         }
     },
     {
-        "pk": 9,
+        "pk": 4,
         "model": "hunchworks.hunchuser",
-        "fields": 
+        "fields":
         {
-            "hunch": 2,
-            "status": 0,
-            "user_profile": 3
+            "hunch": 1,
+            "user_profile": 6
         }
     },
-    {
-        "pk": 10,
-        "model": "hunchworks.hunchuser",
-        "fields": 
-        {
-            "hunch": 2,
-			"status": 1,
-			"user_profile": 4
-        }
-    },
-    {
-        "pk": 11,
-        "model": "hunchworks.hunchuser",
-        "fields": 
-        {
-            "hunch": 3,
-            "status": 1,
-            "user_profile": 2
-        }
-    },
-    {
-        "pk": 12,
-        "model": "hunchworks.hunchuser",
-        "fields": 
-        {
-            "hunch": 3,
-            "status": 2,
-            "user_profile": 3
-        }
-    },
-    
-    
+
+
     {
         "pk": 1,
         "model": "hunchworks.evidence",
-        "fields": 
+        "fields":
         {
-            "time_created": "2011-08-21 11:14:19.244634",
-            "time_modified":  "2011-08-21 11:14:19.244634",
-            "description": "Who needs a hypothesis when you have evidence!?",
             "creator": 1,
-            "tags": [1,2,3],
-            "link" : "http://i.imgur.com/nquZP.jpg"
+            "time_created": "2011-10-28 00:00:00",
+            "time_modified":  "2011-10-28 00:00:00",
+            "description": "Mountains of garbage piling up in the Gulu IDP camp",
+            "link" : "http://images.huffingtonpost.com/2011-06-12-new_campscene.jpg"
         }
     },
     {
         "pk": 2,
         "model": "hunchworks.evidence",
-        "fields": 
+        "fields":
         {
-            "time_created": "2011-08-21 11:14:19.244634",
-            "time_modified":  "2011-08-21 11:14:19.244634",
-            "description": "Nobody has anything to say",
             "creator": 1,
-            "tags": [1,2,3],
-            "link" : "http://www.youtube.com/watch?v=QH2-TGUlwu4"
+            "time_created": "2011-10-28 00:00:00",
+            "time_modified":  "2011-10-28 00:00:00",
+            "description": "Displaced people line up for cholera vaccinations in the Gulu IDP camp",
+            "link" : "http://www.doctorswithoutborders.org/images/news/2008/40407.jpg"
         }
     },
+
+
     {
-        "pk": 3,
-        "model": "hunchworks.evidence",
-        "fields": 
+        "pk": 1,
+        "model": "hunchworks.album",
+        "fields":
         {
-            "time_created": "2011-08-21 11:14:19.244634",
-            "time_modified":  "2011-08-21 11:14:19.244634",
-            "title": "Africa Rainfall Estimation for the last 10 years",
-            "description": "http://www.fews.net/pages/imageryhome.aspx?pageID=1&l=en",
-            "creator": 1,
-            "tags": [1,2,3],
-            "link" : "http://earlywarning.usgs.gov/servlet/com.esri.wms.Esrimap?servicename=afr&request=map&width=600&height=600&format=image/jpeg&layers=rfeCu10,admin01&WMTVER=1.1.1&SRS=EPSG:102022&Bbox=-4200000,-4200000,3600000,4280000"
+            "name": "Photos from the Gulu IDP camp in 2011",
+            "evidences": [1, 2, 3]
         }
     },
-    {
-        "pk": 4,
-        "model": "hunchworks.evidence",
-        "fields": 
-        {
-            "time_created": "2011-08-21 11:14:19.244634",
-            "time_modified":  "2011-08-21 11:14:19.244634",
-            "title": "Africa Normalized Difference Vegetation Index for the last 10 years",
-            "description": "http://www.fews.net/pages/imageryhome.aspx?pageID=1&l=en",
-            "creator": 1,
-            "tags": [1,2,3],
-            "link" : "http://earlywarning.usgs.gov/servlet/com.esri.wms.Esrimap?servicename=afr&request=map&width=600&height=600&format=image/jpeg&layers=ndviCu10,admin01&WMTVER=1.1.1&SRS=EPSG:102022&Bbox=-4200000,-4200000,3600000,4280000"
-        }
-    },
-    {
-        "pk": 5,
-        "model": "hunchworks.evidence",
-        "fields": 
-        {
-            "time_created": "2011-08-21 11:14:19.244634",
-            "time_modified":  "2011-08-21 11:14:19.244634",
-            "title": "World Food Price index from 1990 to 2011",
-            "creator": 1,
-            "tags": [1,2,3],
-            "link" : "http://www.fao.org/worldfoodsituation/wfs-home/foodpricesindex/en/"
-        }
-    },
-    {
-        "pk": 6,
-        "model": "hunchworks.evidence",
-        "fields": 
-        {
-            "time_created": "2011-08-21 11:14:19.244634",
-            "time_modified":  "2011-08-21 11:14:19.244634",
-            "title": "US Dollars per Gallon of gasoline since 1980",
-            "description": "Monthly changes in the price of gasoline in the US",
-            "creator": 1,
-            "tags": [1,2,3],
-            "link" : "http://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=EMA_EPMR_PTA_NUS_DPG&f=M"
-        }
-    },
-    
-    
+
+
     {
         "pk": 1,
         "model": "hunchworks.hunchevidence",
-        "fields": 
+        "fields":
         {
             "hunch": 1,
             "evidence": 1,
-            "support_cache": -2,
-            "confidence_cache": 0.5
+            "support_cache": 1
         }
     },
     {
         "pk": 2,
         "model": "hunchworks.hunchevidence",
-        "fields": 
+        "fields":
         {
             "hunch": 1,
             "evidence": 2,
-            "support_cache": 2,
-            "confidence_cache": 0.5
+            "support_cache": -2
+        }
+    },
+
+    {
+        "pk": 1,
+        "model": "hunchworks.vote",
+        "fields":
+        {
+            "hunch_evidence": 1,
+            "user_profile": 1,
+            "time_updated": "2011-10-28 00:00:00",
+            "choice": 1
         }
     },
     {
-        "pk": 3,
-        "model": "hunchworks.hunchevidence",
-        "fields": 
+        "pk": 2,
+        "model": "hunchworks.vote",
+        "fields":
         {
-            "hunch": 2,
-            "evidence": 1,
-            "support_cache": 0,
-            "confidence_cache": 0
+            "hunch_evidence": 2,
+            "user_profile": 1,
+            "time_updated": "2011-10-28 00:00:00",
+            "choice": -2
         }
     },
-    {
-        "pk": 4,
-        "model": "hunchworks.hunchevidence",
-        "fields": 
-        {
-            "hunch": 2,
-            "evidence": 2,
-            "support_cache": 0,
-            "confidence_cache": 0
-        }
-    },
-    {
-        "pk": 5,
-        "model": "hunchworks.hunchevidence",
-        "fields": 
-        {
-            "hunch": 3,
-            "evidence": 1,
-            "support_cache": 0,
-            "confidence_cache": 0
-        }
-    },
-    
-    
+
+
     {
         "pk": 1,
         "model": "hunchworks.comment",
-        "fields": 
+        "fields":
         {
-            "text": "This evidence without a doubt proves this true. This comment would be much more useful if it were longer, so I am writing this to make it so.",
-            "time_posted": "2011-09-20 11:14:19.244634",
+            "text": "There are mountains of garbage piling up all over the place. Nobody is cleaning it up! The last time I saw this was in Pabbo in 2009, a few months before a serious diarrhea outbreak.",
+            "time_posted": "2011-10-28 00:00:00",
             "creator": 1,
             "hunch_evidence": 1
         }
@@ -1090,65 +778,34 @@
     {
         "pk": 2,
         "model": "hunchworks.comment",
-        "fields": 
+        "fields":
         {
-            "text": "This hunch proves absolutely nothing, its useless",
-            "time_posted": "2011-09-20 11:14:19.244634",
-            "creator": 1,
-            "hunch": 1
+            "text": "So what? Every IDP camp has mountains of garbage. This is not a compelling case for intervention.",
+            "time_posted": "2011-10-28 00:00:00",
+            "creator": 2,
+            "hunch_evidence": 1
         }
     },
     {
         "pk": 3,
         "model": "hunchworks.comment",
-        "fields": 
+        "fields":
         {
-            "text": "This hunch has to be true, I see it everywhere!",
-            "time_posted": "2011-09-20 11:14:19.244634",
-            "creator": 2,
-            "hunch": 1
+            "text": "That isn't true. Most IDP camps are maintained very well, because of the serious risk of disease. None of the agencies want to take responsibility for cleaning up this mess.",
+            "time_posted": "2011-10-28 00:00:00",
+            "creator": 1,
+            "hunch_evidence": 1
         }
     },
     {
         "pk": 4,
         "model": "hunchworks.comment",
-        "fields": 
+        "fields":
         {
-            "text": "This evidence needs to be removed its useless!",
-            "time_posted": "2011-09-20 11:14:19.244634",
+            "text": "Earlier this year, MSF conducted a massive cholera vaccination programme nearby. There are many sanitation problems in this camp, but there will not be a cholera outbreak.",
+            "time_posted": "2011-10-28 00:00:00",
             "creator": 2,
             "hunch_evidence": 2
-        }
-    },
-    {
-        "pk": 5,
-        "model": "hunchworks.comment",
-        "fields": 
-        {
-            "text": "This evidence is absolutely correct, amazing! It is very relevant to this hunch, and confirms it.",
-            "time_posted": "2011-09-20 11:14:19.244634",
-            "creator": 2,
-            "hunch_evidence": 1
-        }
-    },
-    
-    
-    {
-        "pk": 1,
-        "model": "hunchworks.album",
-        "fields": 
-        {
-            "name": "Africa Precipitation",
-            "evidences": [3,4]
-        }
-    },
-    {
-        "pk": 2,
-        "model": "hunchworks.album",
-        "fields": 
-        {
-            "name": "Data Sets for Food and Gasoline prices",
-            "evidences": [5,6]
         }
     }
 ]
