@@ -3,10 +3,14 @@
 from hunchworks.models import Evidence
 from hunchworks.tests.helpers import ViewTestHelpers
 from django.test import TestCase
-
+from hunchworks.fixtures.factories import UserFactory, EvidenceFactory, LocationFactory
 
 class EvidenceViewsTest(TestCase, ViewTestHelpers):
-  fixtures = ("test_users", "test_hunches", "test_evidences")
+
+  def setUp(self):
+    UserFactory(username="one", password="sha1$46418$ec45f4354f5583a22949b6bf87e756c5da58567d")
+    LocationFactory()
+    EvidenceFactory(pk=1)
 
   def test_index(self):
     with self.login("one"):
