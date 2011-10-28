@@ -26,6 +26,13 @@
         {% endfor %}
       </ul>-->
     </header>
+
+    {% if hunch.description %}
+      <section class="desc">
+        <p>{{ hunch.description }}</p>
+      </section>
+    {% endif %}
+
     <section class="meta">
       <div class="support">
         <div>
