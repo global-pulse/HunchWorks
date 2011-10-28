@@ -2,16 +2,21 @@
 
 from hunchworks.tests.helpers import ViewTestHelpers
 from django.test import TestCase
-from hunchworks.models import Album, Evidence
+from hunchworks.models import Album
 
-from hunchworks.fixtures.factories import AlbumFactory
+from hunchworks.fixtures.factories import AlbumFactory, EvidenceFactory, LocationFactory, UserFactory, UserProfileFactory
 
 class AlbumViewsTest(TestCase, ViewTestHelpers):
-  fixtures = ("test_users", "test_evidences")
 
   def setUp(self):
-      a = AlbumFactory(lastly=False, pk=1, name="Test album")()
-      a.evidences.add(1)
+      a = UserFactory(pk=1,
+              username="one",
+              password="sha1$46418$ec45f4354f5583a22949b6bf87e756c5da58567d"
+              )()
+      b = AlbumFactory(lastly=False, pk=1)()
+      LocationFactory() # required by EvidenceFactory
+      c = EvidenceFactory()()
+      b.evidences.add(c)
 
   def test_index(self):
     with self.login("one"):
