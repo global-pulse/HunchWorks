@@ -15,7 +15,13 @@
       </div>
     </form>
     <form action="{% url worldbank_indicators %}" method="get">
-      <input type="text" name="q"/>
+      <input id="indicator" type="text" name="q"/>
     </form>
+    <script>
+      $(function(){
+        var data = "Core Selectors Attributes Traversing Manipulation CSS Events Effects Ajax Utilities".split(" ");
+        $("#indicator").autocomplete({source: {{ data_refined|safe }} });
+      });
+    </script>
   </div>
 {% endblock %}

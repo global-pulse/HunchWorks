@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 import json
+import urllib
 from hunchworks import forms, models
 from hunchworks.utils.pagination import paginated
 from django.template import RequestContext
@@ -62,8 +63,15 @@ def create(req):
     evidence = form.save(creator=req.user.get_profile())
     return redirect(evidence)
 
+  data = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=50")
+  json_objects = json.loads(data.read())
+  #data_refined = [{ "id": object["id"], "name": object["name"]} for object in json_objects[1] if object["name"].find(search) != -1]
+  data_refined = [ str(object["name"]) for object in json_objects[1]]
+  #data = json.dumps(data_refined)
+  print data_refined
+
   return _render(req, "create", {
-    "form": form
+    "form": form, "data_refined": data_refined
   })
 
 @login_required
