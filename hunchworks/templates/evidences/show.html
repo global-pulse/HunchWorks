@@ -35,7 +35,7 @@
       $("a.embed").each(function() {
         $(this).embedly({
           "key": window.hunchworks.embedly_key,
-          "maxWidth": $(this).parent().width(),
+          "maxWidth": parseInt($(this).parent().width(), 10),
           "embedly_wmode": "transparent"
         });
       });
