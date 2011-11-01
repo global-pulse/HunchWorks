@@ -63,15 +63,28 @@ def create(req):
     evidence = form.save(creator=req.user.get_profile())
     return redirect(evidence)
 
-  data = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=50")
-  json_objects = json.loads(data.read())
-  #data_refined = [{ "id": object["id"], "name": object["name"]} for object in json_objects[1] if object["name"].find(search) != -1]
-  data_refined = [ str(object["name"]) for object in json_objects[1]]
-  #data = json.dumps(data_refined)
-  print data_refined
+  #This is wihtout TokenInput
+  #indicators_raw = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=50")
+  #indicators_json = json.loads(indicators_raw.read())
+  #indicators = [ str(object["name"].replace(u'\xa0', u'')) for object in indicators_json[1]]
+  
+  #countries_raw = urllib.urlopen("http://api.worldbank.org/country?region=WLD&format=json&per_page=500")
+  #countries_json = json.loads(countries_raw.read())
+  #countries = [ str(object["name"].replace(u'\xa0', u'')) for object in countries_json[1]]
+  
+  #This is with TokenInput
+  indicators_raw = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=200")
+  indicators_json = json.loads(indicators_raw.read())
+  indicators = [{ "id": object["id"], "name": object["name"].replace(u'\xa0', u'')} for object in indicators_json[1]]
+  finished_indicators = json.dumps(indicators)
+  
+  countries_raw = urllib.urlopen("http://api.worldbank.org/country?region=WLD&format=json&per_page=500")
+  countries_json = json.loads(countries_raw.read())
+  countries = [{ "id": object["id"], "name": object["name"].replace(u'\xa0', u'')} for object in countries_json[1]]
+  finished_countries = json.dumps(countries)
 
   return _render(req, "create", {
-    "form": form, "data_refined": data_refined
+    "form": form, "indicators": finished_indicators, "countries": finished_countries
   })
 
 @login_required

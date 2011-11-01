@@ -6,7 +6,15 @@ import urllib
 from django.shortcuts import get_object_or_404
 from django import http
 from django.utils import simplejson
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
+
+def _render(req, template, more_context):
+  return render_to_response(
+    "evidences/" + template +".html",
+    RequestContext(req, more_context)
+  )
 
 def _tokens(query_set, keys=("id", "name")):
   return map(
@@ -46,8 +54,44 @@ def user_groups(req):
   return http.HttpResponse(json.dumps(groups))
 
 def worldbank_indicators(req):
-  search = req.GET["q"]
-  data = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=50")
+  indicator_id = req.POST["indicator"]
+  country_ids = req.POST["country"].split(',')
+  num_countries = len( country_ids )
+  
+  url = "http://api.worldbank.org/countries/"
+  for idx, country_id in enumerate(country_ids):
+    url = url + country_id 
+    if idx < num_countries -1:
+      url = url + ";"
+  url = url + "/indicators/" + indicator_id + "?per_page=600&format=json&date=1970:2000"
+  
+  data = urllib.urlopen( url )
   json_objects = json.loads(data.read())
-  data_refined = [{ "id": object["id"], "name": object["name"]} for object in json_objects[1] if object["name"].find(search) != -1]
-  return http.HttpResponse(json.dumps(data_refined))
+
+  #this is for Json data
+  #data_refined = [{ "country": object["country"]["value"], "date": object["date"], "value": object["value"]} for object in json_objects[1]]
+  #return http.HttpResponse(json.dumps(data_refined))
+  
+  data_refined = [{ "country": object["country"]["value"], "date": object["date"], "value": object["value"]} for object in json_objects[1]]
+  data_array = []
+  #data_array = data_array.fromlist( data_refined )
+  for item in data_refined:
+    new_array = []
+    new_array.extend([ str(item["date"])])
+    if item["value"] is None:
+      new_array.extend([ ])
+    else:
+      new_array.extend([ float(item["value"]) ])
+    data_array.append( new_array )
+    
+  data_array.reverse()
+  return _render( req, "visualization", {
+    "data_array": data_array 
+  })
+
+  #this was before using Token Input
+  #search = req.GET["q"]
+  #data = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=50")
+  #json_objects = json.loads(data.read())
+  #data_refined = [{ "id": object["id"], "name": object["name"]} for object in json_objects[1] if object["name"].find(search) != -1]
+  #return http.HttpResponse(json.dumps(data_refined))

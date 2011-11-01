@@ -14,13 +14,33 @@
         <input type="submit">
       </div>
     </form>
-    <form action="{% url worldbank_indicators %}" method="get">
-      <input id="indicator" type="text" name="q"/>
+    <form action="{% url worldbank_indicators %}" method="post">{% csrf_token %}
+      Indicators
+      <input name="indicator" id="indicator" type="text" />
+      Countries
+      <input name="country" id="country" type="text" />
+      <div class="actions">
+        <input type="submit">
+      </div>
     </form>
     <script>
-      $(function(){
-        var data = "Core Selectors Attributes Traversing Manipulation CSS Events Effects Ajax Utilities".split(" ");
-        $("#indicator").autocomplete({source: {{ data_refined|safe }} });
+      /* This is without TokenInput and with jqueryUI instead
+        $(function(){
+        $("#indicator").autocomplete({source: {{ indicators|safe }}, minLength: 3, delay: 1000 });
+        $("#country").autocomplete({source: {{ countries|safe }}, minLength: 2 });
+      });*/
+      
+      // This is with TokenInput
+      $(document).ready(function() {
+        $("#indicator").tokenInput( {{ indicators|safe }}, {
+          tokenLimit: 1,
+          searchDelay: 500,
+          minChars: 3
+        });
+        $("#country").tokenInput( {{ countries|safe }}, {
+          tokenLimit: 4,
+          minChars: 2
+        });
       });
     </script>
   </div>
