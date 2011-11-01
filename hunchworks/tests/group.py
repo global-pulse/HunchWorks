@@ -4,10 +4,19 @@ from hunchworks.models import Group
 from hunchworks.tests.helpers import ViewTestHelpers
 from django.contrib.auth.models import User
 from django.test import TestCase
-
+from hunchworks.fixtures.factories import UserFactory, GroupFactory, HunchFactory, LocationFactory, UserProfileGroupFactory
 
 class GroupViewsTest(TestCase, ViewTestHelpers):
-  fixtures = ("test_users", "test_groups", "test_hunches")
+  fixtures = ("test_hunches",)
+
+  def setUp(self):
+      LocationFactory()
+      UserFactory(pk=1, username="one")
+      a = UserFactory(pk=2, username="two")().userprofile_set.all()[0]
+      b = GroupFactory(pk=1)()
+      [GroupFactory() for x in range(2)]
+
+      UserProfileGroupFactory(user_profile=a, group=b)
 
   def test_all_groups(self):
     with self.login("one"):
