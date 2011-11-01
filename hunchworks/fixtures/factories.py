@@ -1,7 +1,7 @@
 from fixturefactory import BaseFactory, DjangoMixin
 import random
 
-from hunchworks.models import UserProfile, Connection, TranslationLanguage, Invitation, Hunch, PRIVACY_CHOICES, Location, Album, Evidence, Group
+from hunchworks.models import UserProfile, Connection, TranslationLanguage, Invitation, Hunch, PRIVACY_CHOICES, Location, Album, Evidence, Group, UserProfileGroup
 from django.contrib.auth.models import User
 from hunchworks import hunchworks_enums as enums
 
@@ -96,11 +96,22 @@ class UserFactory(BaseFactory, DjangoMixin):
     def getparams(self):
         """ Define parameters to create a new object with.
         Return dict"""
-
         pk = self.getUnusedPk()
         username = 'markov_%s' % pk
-        password = username
+        return locals()
 
+    def lastly(self):
+        #set default password to be username
+        a = self.last_obj_created
+        a.set_password(self.username)
+        a.save()
+
+class UserProfileGroupFactory(BaseFactory, DjangoMixin):
+    model = UserProfileGroup
+
+    def getparams(self):
+        user_profile = self.getRandInst(UserProfile)
+        group = self.getRandInst(Group)
         return locals()
 
 class UserProfileFactory(BaseFactory, DjangoMixin):
