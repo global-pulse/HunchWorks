@@ -148,6 +148,8 @@ if DEBUG:
     'django.contrib.messages',
     'django.contrib.admin')
 
+INSTALLED_AGENTS = { }
+
 # Dump logs to the console, for now.
 LOGGING = {
   "version": 1,
