@@ -148,7 +148,14 @@ if DEBUG:
     'django.contrib.messages',
     'django.contrib.admin')
 
-INSTALLED_AGENTS = { }
+INSTALLED_AGENTS = {
+  "gmail": {
+    "ENGINE": "hunchworks.agents.ImapAgent",
+    "HOST": "imap.gmail.com",
+    "USERNAME": "",
+    "PASSWORD": ""
+  }
+}
 
 # Dump logs to the console, for now.
 LOGGING = {
