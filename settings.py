@@ -154,6 +154,12 @@ INSTALLED_AGENTS = {
     "HOST": "imap.gmail.com",
     "USERNAME": "",
     "PASSWORD": ""
+  },
+  "unrest": {
+    "ENGINE": "hunchworks.agents.GoogleInsightsAgent",
+    "TERMS": ["protest", "occupy", "wall street"],
+    "USERNAME": "",
+    "PASSWORD": ""
   }
 }
 
