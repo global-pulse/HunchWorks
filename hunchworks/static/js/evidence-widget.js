@@ -1,5 +1,5 @@
 $(function() {
-  var SEARCH_HELP = "Add evidences to this hunch by searching for them.";
+  var SEARCH_HELP = "Search for existing evidences, and click to attach them to this hunch.";
 
   $("div.evidence-widget.many").each(function() {
     var $widget = $(this);

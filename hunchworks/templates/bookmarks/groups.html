@@ -1,0 +1,12 @@
+{% extends "bookmarks/list.html" %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Starred Groups</h1>
+{% endblock %}
+
+{% block empty %}
+  <div class="empty-list">
+    You don't have any starred groups
+  </div>
+{% endblock %}

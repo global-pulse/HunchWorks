@@ -1,12 +1,22 @@
 #!/usr/bin/env python
 
-from hunchworks.tests.helpers import TestHelpers
+from hunchworks.tests.helpers import ViewTestHelpers
 from django.test import TestCase
 from hunchworks.models import Album
 
+from hunchworks.fixtures.factories import AlbumFactory, EvidenceFactory, LocationFactory, UserFactory, UserProfileFactory
 
-class AlbumViewsTest(TestCase, TestHelpers):
-  fixtures = ("test_users", "test_albums", "test_evidences")
+class AlbumViewsTest(TestCase, ViewTestHelpers):
+
+  def setUp(self):
+      a = UserFactory(pk=1,
+              username="one",
+              password="sha1$46418$ec45f4354f5583a22949b6bf87e756c5da58567d"
+              )()
+      b = AlbumFactory(lastly=False, pk=1)()
+      LocationFactory() # required by EvidenceFactory
+      c = EvidenceFactory()()
+      b.evidences.add(c)
 
   def test_index(self):
     with self.login("one"):
@@ -32,12 +42,12 @@ class AlbumViewsTest(TestCase, TestHelpers):
       self.assertEqual(new_album.name, "Test Edit Album")
       self.assertEqual(old_album.id, new_album.id)
       self.assertRedirects(post_resp, new_album.get_absolute_url())
-    
+
   def test_create(self):
     with self.login("one"):
       get_resp = self.get("create_album")
       self.assertTemplateUsed(get_resp, "albums/create.html")
-      
+
   def test_show(self):
     with self.login("one"):
       get_resp = self.get("album", album_id=1)

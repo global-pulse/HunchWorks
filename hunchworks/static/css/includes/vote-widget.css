@@ -10,6 +10,7 @@ div.vote-widget { }
     div.vote-widget > ul > li {
       display: block;
       box-sizing: border-box;
+      -moz-box-sizing: border-box;
       margin-left: 0.5em;
       width: 20%;
       float: left;
@@ -27,6 +28,7 @@ div.vote-widget { }
         text-align: center;
         border: 2px solid #ccc;
         border-radius: 5px;
+        -moz-border-radius: 5px;
         background: #eee;
         color: #ccc;
       }

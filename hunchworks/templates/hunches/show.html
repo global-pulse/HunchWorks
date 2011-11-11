@@ -26,28 +26,35 @@
         {% endfor %}
       </ul>-->
     </header>
+
+    {% if hunch.description %}
+      <section class="desc">
+        <p>{{ hunch.description }}</p>
+      </section>
+    {% endif %}
+
     <section class="meta">
       <div class="support">
         <div>
-          <h2>Strongly Supported</h2>
-          <p>This hunch is well-supported by evidence, with 90% confidence.</p>
+          <h2>{{ hunch.get_support_text }}</h2>
+          <p>{{ hunch.get_verbose_support_text }}</p>
         </div>
       </div>
       <div class="controversy">
         <div>
-          <h2>Highly Controversial</h2>
-          <p>This hunch is widely disputed within the HunchWorks community.</p>
+          <h2>{{ hunch.get_controversy_text }}</h2>
+          <p>{{ hunch.get_verbose_controversy_text }}</p>
         </div>
       </div>
       <div class="activity">
         <div>
-          <h2>Very Active</h2>
-          <p>This hunch is currently being evaluated by the HunchWorks community.</p>
+          <h2>{{ hunch.get_activity_text }}</h2>
+          <p>{{ hunch.get_verbose_activity_text }}</p>
         </div>
       </div>
       <div class="privacy">
         <div>
-          <h2>Open</h2>
+          <h2>{{ hunch.privacy_text }}</h2>
           <p>Any HunchWorks member may view and contribute to this hunch.</p>
         </div>
       </div>

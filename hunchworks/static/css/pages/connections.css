@@ -18,8 +18,10 @@
 	display: block;
 	background: #333;
 	box-shadow: 0 0 5px #999;
+	-moz-box-shadow: 0 0 5px #999;
 	text-decoration: none;
 	border-radius: 5px;
+	-moz-border-radius: 5px;
 	padding: 2px;
   }
 
@@ -27,6 +29,7 @@
 	  display: block;
 	  margin-bottom: 2px;
 	  border-radius: 3px 3px 0 0;
+	  -moz-border-radius: 3px 3px 0 0;
 	}
 
 	#contents > div.connections > div.connection > a > span {

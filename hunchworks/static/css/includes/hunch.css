@@ -4,7 +4,9 @@ section.hunch-list { }
     position: relative;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 5px #ccc;
+    -moz-box-shadow: 1px 1px 5px #ccc;
     border-radius: 5px;
+    -moz-border-radius: 5px;
     margin-bottom: 1em;
     padding: 1em;
     color: #999;

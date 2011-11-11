@@ -1,6 +1,7 @@
 .embed-widget {
   border: 2px solid #999;
   border-radius: 3px;
+  -moz-border-radius: 3px;
   clear: both;
 }
 

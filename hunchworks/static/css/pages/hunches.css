@@ -15,7 +15,6 @@
       text-align: center;
       color: #999;
       padding: 4em;
-      border-bottom: 1px dotted #ccc;
     }
 
       #hunch-show article.hunch > header > div {
@@ -24,6 +23,7 @@
 
         #hunch-show article.hunch > header > div > h1 {
           font-size: 250%;
+          line-height: 1.2;
         }
 
           #hunch-show article.hunch > header > div > h1 > a {
@@ -40,7 +40,26 @@
 
 
 
+    #hunch-show section.desc {
+      border-top: 1px dotted #ccc;
+      border-bottom: 1px dotted #ccc;
+      margin-bottom: 4em;
+      background: #f8f8f8;
+      padding: 2em;
+      color: #999;
+      display: none;
+    }
+
+      #hunch-show section.desc p {
+        font-size: 125%;
+        line-height: 1.4;
+      }
+
+
+
+
     #hunch-show section.meta {
+      border-top: 1px dotted #ccc;
       border-bottom: 1px dotted #ccc;
       padding: 0.5em 0.5em 0.5em 2em;
       background: #eee;
@@ -61,6 +80,7 @@
           background: #fff;
           border: 2px solid #ccc;
           border-radius: 5px;
+          -moz-border-radius: 5px;
           padding: 0.5em;
           text-align: center;
           color: #999;
@@ -125,6 +145,7 @@
   #hunch-show article.evidence {
     background: #eee url("../../img/bg.png");
     box-shadow: 0 0 5px #ccc;
+    -moz-box-shadow: 0 0 5px #ccc;
     margin-top: 1em;
   }
 
@@ -200,7 +221,10 @@
   }
 
     #hunch-show section.vote > h3 {
-      display: none;
+      text-align: center;
+      margin-bottom: 1em;
+      font-weight: bold;
+      color: #999;
     }
 
     #hunch-show section.vote > form { }
@@ -263,6 +287,7 @@
       border: 2px solid #ccc;
       background: #fff;
       border-radius: 5px;
+      -moz-border-radius: 5px;
       padding: 0.5em;
     }
 
@@ -330,6 +355,7 @@
         color: #ccc;
         border: none;
         border-radius: 0 3px 3px 0;
+        -moz-border-radius: 0 3px 3px 0;
         font-size: 200%;
         font-weight: normal;
         padding: 0;

@@ -1,6 +1,7 @@
 .evidence-widget {
   border: 2px solid #eee;
   border-radius: 3px;
+  -moz-border-radius: 3px;
   clear: both;
 }
 
@@ -27,8 +28,10 @@
   .evidence-widget > div.search-results {
     background: rgba(255, 255, 255, 0.95);
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     border: 2px solid #ccc;
     box-shadow: 0 0 5px #aaa;
+    -moz-box-shadow: 0 0 5px #aaa;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     margin-top: 1px;

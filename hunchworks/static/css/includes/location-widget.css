@@ -33,6 +33,7 @@
   .loc-widget .map {
     border: 2px solid #eee;
     border-radius: 3px;
+    -moz-border-radius: 3px;
     clear: both;
   }
 

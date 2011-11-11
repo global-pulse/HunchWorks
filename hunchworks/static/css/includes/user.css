@@ -6,8 +6,10 @@ div.user {
     display: block;
     background: #333;
     box-shadow: 0 0 5px #999;
+    -moz-box-shadow: 0 0 5px #999;
     text-decoration: none;
     border-radius: 5px;
+    -moz-border-radius: 5px;
     padding: 2px;
   }
 
@@ -16,14 +18,22 @@ div.user {
   }
   
     div.user > a > img {
-			display: block;
-			margin-bottom: 2px;
-			border-radius: 3px 3px 0 0;
-		}
+      display: block;
+      margin-bottom: 2px;
+      background: #666;
+      border-radius: 3px 3px 0 0;
+      -moz-border-radius: 3px 3px 0 0;
+	}
 
     div.user > a > span {
-			display: block;
+      display: block;
       text-align: center;
-			padding: 0.25em;
-			color: #fff;
-		}
+      color: #fff;
+
+      /* Show only the first line of the user's name. Usually, this will be
+      |* their first name or username. */
+      padding: 0 0.25em;
+      line-height: 1.5;
+      max-height: 1.5em;
+      overflow: hidden;
+    }

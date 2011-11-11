@@ -6,7 +6,9 @@ section.album-list {
     position: relative;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 5px #ccc;
+    -moz-box-shadow: 1px 1px 5px #ccc;
     border-radius: 5px;
+    -moz-border-radius: 5px;
     margin-bottom: 1em;
     margin-left: 1em;
     margin-right: 1em;
@@ -51,7 +53,9 @@ section.album-show > article.album {
     position: relative;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 5px #ccc;
+    -moz-box-shadow: 1px 1px 5px #ccc;
     border-radius: 5px;
+    -moz-border-radius: 5px;
     margin-bottom: 1em;
     margin-right: 1em;
     margin-left: 1em;
@@ -75,6 +79,7 @@ section.album-show > article.album {
         display: block;
         margin: 0 auto;
         border-radius: 4px;
+        -moz-border-radius: 4px;
       }
 
       section.album-show > article.album > article.evidence > header > h1 {

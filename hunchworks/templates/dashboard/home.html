@@ -10,7 +10,7 @@
 {% block content %}
   <section class="intro">
 		<input type="button" value="Create a Hunch" onclick="location.href='/hunches/create'">
-    <p>Welcome Back, {{ user }}.</p>
+    <p>Welcome back, {{ user.get_profile }}.</p>
   </section>
   <section class="hunches">
     <div>
