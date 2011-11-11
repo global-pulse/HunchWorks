@@ -63,7 +63,7 @@ def worldbank_indicators(req):
     url = url + country_id 
     if idx < num_countries -1:
       url = url + ";"
-  url = url + "/indicators/" + indicator_id + "?per_page=600&format=json&date=1970:2000"
+  url = url + "/indicators/" + indicator_id + "?per_page=600&format=json"
   
   data = urllib.urlopen( url )
   json_objects = json.loads(data.read())
@@ -77,16 +77,16 @@ def worldbank_indicators(req):
   #data_array = data_array.fromlist( data_refined )
   for item in data_refined:
     new_array = []
-    new_array.extend([ str(item["date"])])
+    new_array.append( str(item["date"]) )
     if item["value"] is None:
-      new_array.extend([ ])
+      new_array.append( None )
     else:
-      new_array.extend([ float(item["value"]) ])
+      new_array.append( float(item["value"]) )
     data_array.append( new_array )
     
   data_array.reverse()
   return _render( req, "visualization", {
-    "data_array": data_array 
+    "data_array": json.dumps(data_array)
   })
 
   #this was before using Token Input
