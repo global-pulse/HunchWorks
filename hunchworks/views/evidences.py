@@ -104,12 +104,13 @@ def explore(req):
   indicators_prepop = []
   countries_prepop = []
 
-  if req.method == "POST":
-    form = forms.ExploreWorldBankForm(req.POST)
+  if len(req.GET):
+    form = forms.ExploreWorldBankForm(req.GET)
     if form.is_valid():
+
       indicators_prepop, countries_prepop, flat_data = worldbank_indicators(
-        req.POST["indicator"],
-        req.POST["country"].split(','))
+        form.cleaned_data["indicator"],
+        form.cleaned_data["country"].split(','))
 
   else:
     form = forms.ExploreWorldBankForm()
