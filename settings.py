@@ -167,6 +167,12 @@ LOGGING = {
   }
 }
 
+CACHES = {
+  "default": {
+    "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+    "LOCATION": "%s/cache" % PROJECT_ROOT
+  }
+}
 
 AUTH_PROFILE_MODULE = 'hunchworks.UserProfile'
 

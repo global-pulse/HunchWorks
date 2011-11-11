@@ -5,11 +5,12 @@ import json
 import urllib
 from hunchworks import forms, models
 from hunchworks.utils.pagination import paginated
+from hunchworks.utils.data import worldbank
 from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from django import http
 from django.contrib.auth.decorators import login_required
+from django import http
 
 
 def _render(req, template, more_context):
@@ -130,23 +131,15 @@ def explore(req):
   else:
     form = forms.ExploreWorldBankForm()
 
-  indicators_raw = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=6000")
-  indicators_json = json.loads(indicators_raw.read())
-  indicators = [{ "id": object["id"], "name": object["name"].replace(u'\xa0', u'')} for object in indicators_json[1]]
-  finished_indicators = json.dumps(indicators)
-
-  countries_raw = urllib.urlopen("http://api.worldbank.org/country?region=WLD&format=json&per_page=500")
-  countries_json = json.loads(countries_raw.read())
-  countries = [{ "id": object["id"], "name": object["name"].replace(u'\xa0', u'')} for object in countries_json[1]]
-  finished_countries = json.dumps(countries)
-
   return _render(req, "explore", {
     "form": form,
-    "show_graph": data_array is not None,
     "data_array": json.dumps(data_array),
-    "indicators": finished_indicators,
+    "show_graph": data_array is not None,
+
+    "indicators": json.dumps(worldbank.indicators()),
     "indicators_prepop": json.dumps(indicators_prepop),
-    "countries": finished_countries,
+
+    "countries": json.dumps(worldbank.countries()),
     "countries_prepop": json.dumps(countries_prepop)
   })
 
