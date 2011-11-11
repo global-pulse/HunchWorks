@@ -14,7 +14,7 @@
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'year');
         data.addColumn('number', 'Brazil');
-        data.addRows( {{ data_array|safe }} );
+        data.addRows( {{ flat_data|safe }} );
 
         var chart = new google.visualization.LineChart(document.getElementById('worldbank_data'));
         chart.draw(data, {width: 400, height: 240, title: 'Company Performance'});

@@ -69,62 +69,45 @@ def create(req):
   })
 
 def worldbank_indicators(indicator_id, country_ids):
-  num_countries = len( country_ids )
-  
-  url = "http://api.worldbank.org/countries/"
-  for idx, country_id in enumerate(country_ids):
-    url = url + country_id 
-    if idx < num_countries -1:
-      url = url + ";"
-  url = url + "/indicators/" + indicator_id + "?per_page=600&format=json"
-  
-  data = urllib.urlopen( url )
-  json_objects = json.loads(data.read())
-
-  data_refined = [
-    { "date": object["date"], "value": object["value"]}
-    for object in json_objects[1]
-  ]
+  data = worldbank.indicator(indicator_id, country_ids)
 
   def _extract(key):
     things = []
 
-    for item in json_objects[1]:
+    for item in data:
       thing = item[key]
       thing["name"] = thing["value"]
       del thing["value"]
 
       if not thing in things:
         things.append(thing)
-    
+
     return things
 
   countries = _extract("country")
   indicators = _extract("indicator")
 
-  data_array = []
-  for item in data_refined:
-    new_array = []
-    new_array.append( str(item["date"]) )
-    if item["value"] is None:
-      new_array.append( None )
-    else:
-      new_array.append( float(item["value"]) )
-    data_array.append( new_array )
-    
-  data_array.reverse()
-  return (indicators, countries, data_array)
+  def _value(value):
+    if value is not None:
+      return float(value)
+
+  flat_data = [
+    (unicode(item["date"]), _value(item["value"]))
+    for item in reversed(data)
+  ]
+
+  return (indicators, countries, flat_data)
 
 @login_required
 def explore(req):
-  data_array = None
+  flat_data = None
   indicators_prepop = []
   countries_prepop = []
 
   if req.method == "POST":
     form = forms.ExploreWorldBankForm(req.POST)
     if form.is_valid():
-      indicators_prepop, countries_prepop, data_array = worldbank_indicators(
+      indicators_prepop, countries_prepop, flat_data = worldbank_indicators(
         req.POST["indicator"],
         req.POST["country"].split(','))
 
@@ -133,8 +116,8 @@ def explore(req):
 
   return _render(req, "explore", {
     "form": form,
-    "data_array": json.dumps(data_array),
-    "show_graph": data_array is not None,
+    "flat_data": json.dumps(flat_data),
+    "show_graph": flat_data is not None,
 
     "indicators": json.dumps(worldbank.indicators()),
     "indicators_prepop": json.dumps(indicators_prepop),

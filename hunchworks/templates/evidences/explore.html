@@ -29,7 +29,7 @@
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Year');
         data.addColumn('number', 'Data');
-        data.addRows( {{ data_array|safe }} );
+        data.addRows( {{ flat_data|safe }} );
 
         var chart = new google.visualization.LineChart(document.getElementById('worldbank_data'));
         chart.draw(data, {width: $("#worldbank_data").width(), height: $("#worldbank_data").width()/2});
