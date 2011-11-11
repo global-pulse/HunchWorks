@@ -63,28 +63,91 @@ def create(req):
     evidence = form.save(creator=req.user.get_profile())
     return redirect(evidence)
 
-  #This is wihtout TokenInput
-  #indicators_raw = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=50")
-  #indicators_json = json.loads(indicators_raw.read())
-  #indicators = [ str(object["name"].replace(u'\xa0', u'')) for object in indicators_json[1]]
+  return _render(req, "create", {
+    "form": form
+  })
+
+def worldbank_indicators(indicator_id, country_ids):
+  num_countries = len( country_ids )
   
-  #countries_raw = urllib.urlopen("http://api.worldbank.org/country?region=WLD&format=json&per_page=500")
-  #countries_json = json.loads(countries_raw.read())
-  #countries = [ str(object["name"].replace(u'\xa0', u'')) for object in countries_json[1]]
+  url = "http://api.worldbank.org/countries/"
+  for idx, country_id in enumerate(country_ids):
+    url = url + country_id 
+    if idx < num_countries -1:
+      url = url + ";"
+  url = url + "/indicators/" + indicator_id + "?per_page=600&format=json"
   
-  #This is with TokenInput
-  indicators_raw = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=200")
+  data = urllib.urlopen( url )
+  json_objects = json.loads(data.read())
+
+  data_refined = [
+    { "date": object["date"], "value": object["value"]}
+    for object in json_objects[1]
+  ]
+
+  def _extract(key):
+    things = []
+
+    for item in json_objects[1]:
+      thing = item[key]
+      thing["name"] = thing["value"]
+      del thing["value"]
+
+      if not thing in things:
+        things.append(thing)
+    
+    return things
+
+  countries = _extract("country")
+  indicators = _extract("indicator")
+
+  data_array = []
+  for item in data_refined:
+    new_array = []
+    new_array.append( str(item["date"]) )
+    if item["value"] is None:
+      new_array.append( None )
+    else:
+      new_array.append( float(item["value"]) )
+    data_array.append( new_array )
+    
+  data_array.reverse()
+  return (indicators, countries, data_array)
+
+@login_required
+def explore(req):
+  data_array = None
+  indicators_prepop = []
+  countries_prepop = []
+
+  if req.method == "POST":
+    form = forms.ExploreWorldBankForm(req.POST)
+    if form.is_valid():
+      indicators_prepop, countries_prepop, data_array = worldbank_indicators(
+        req.POST["indicator"],
+        req.POST["country"].split(','))
+
+  else:
+    form = forms.ExploreWorldBankForm()
+
+  indicators_raw = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=6000")
   indicators_json = json.loads(indicators_raw.read())
   indicators = [{ "id": object["id"], "name": object["name"].replace(u'\xa0', u'')} for object in indicators_json[1]]
   finished_indicators = json.dumps(indicators)
-  
+
   countries_raw = urllib.urlopen("http://api.worldbank.org/country?region=WLD&format=json&per_page=500")
   countries_json = json.loads(countries_raw.read())
   countries = [{ "id": object["id"], "name": object["name"].replace(u'\xa0', u'')} for object in countries_json[1]]
   finished_countries = json.dumps(countries)
 
-  return _render(req, "create", {
-    "form": form, "indicators": finished_indicators, "countries": finished_countries
+  return _render(req, "explore", {
+    "form": form,
+    "show_graph": data_array is not None,
+    "data_array": json.dumps(data_array),
+    "indicators": finished_indicators,
+    "indicators_prepop": json.dumps(indicators_prepop),
+    "countries": finished_countries,
+    "countries_prepop": json.dumps(countries_prepop)
   })
 
 @login_required

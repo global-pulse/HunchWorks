@@ -63,7 +63,10 @@ urlpatterns = patterns(
   url(r"^evidence/create$",                    evidences.create, name="create_evidence"),
 
   url(r"^evidences/search.json$", evidences.search, name="search_evidence"),
-  
+
+  # explore external evidences
+  url(r"^evidence/explore$", evidences.explore, name="explore_evidence"),
+
   # albums
   url(r"^albums$",                          albums.index,    name="albums"),
   url(r"^albums/all$",                      albums.all,      name="all_albums"),

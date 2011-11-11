@@ -1,0 +1,70 @@
+{% extends "evidences/base.html" %}
+
+{% block body_id %}evidence-explore{% endblock %}
+
+{% block title %}
+  Explore Evidence &mdash;
+  {{ block.super }}
+{% endblock %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Explore Evidence</h1>
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+{% endblock %}
+
+{% block content %}
+  {% if show_graph %}
+    <section class="graph">
+      <div id="worldbank_data"></div>
+    </section>
+
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Year');
+        data.addColumn('number', 'Data');
+        data.addRows( {{ data_array|safe }} );
+
+        var chart = new google.visualization.LineChart(document.getElementById('worldbank_data'));
+        chart.draw(data, {width: $("#worldbank_data").width(), height: $("#worldbank_data").width()/2});
+      }
+    </script>
+  {% endif %}
+
+  <form action="" method="post">
+    {{ form.non_field_errors }}
+    {% csrf_token %}
+
+    <div class="fields">
+      {% for field in form %}
+        {% include "includes/fields/base.html" %}
+      {% endfor %}
+    </div>
+
+    <script>
+      $(document).ready(function() {
+        $("#id_indicator").tokenInput( {{ indicators|safe }}, {
+          prePopulate: {{ indicators_prepop|safe }},
+          tokenLimit: 1,
+          searchDelay: 500,
+          minChars: 3
+        });
+        $("#id_country").tokenInput( {{ countries|safe }}, {
+          prePopulate: {{ countries_prepop|safe }},
+          tokenLimit: 4,
+          minChars: 2
+        });
+      });
+    </script>
+
+    <div class="actions">
+      <input type="submit" value="Preview">
+    </div>
+  </form>
+{% endblock %}

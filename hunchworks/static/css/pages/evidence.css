@@ -93,3 +93,10 @@
         margin-top: 1em;
         color: #999;
       }
+
+
+#evidence-explore { }
+
+  #evidence-explore section.graph {
+    padding: 2em;
+  }

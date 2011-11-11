@@ -529,3 +529,8 @@ class AddHunchEvidenceForm(forms.ModelForm):
         choice=self.cleaned_data["vote"])
 
       return hunch_evidence
+
+
+class ExploreWorldBankForm(forms.Form):
+  indicator = forms.CharField()
+  country = forms.CharField()

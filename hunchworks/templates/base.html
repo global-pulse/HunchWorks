@@ -85,6 +85,7 @@
           <ul class="primary">
             <li class="{% ifstartswith "hunches" %}active{% endifstartswith %}"><a href="{% url hunches %}">Hunches</a></li>
             <li class="{% ifstartswith "evidences" %}active{% endifstartswith %}"><a href="{% url evidences %}">Evidence</a></li>
+            <li class="{% ifstartswith "evidence/explore" %}active{% endifstartswith %}"><a href="{% url explore_evidence %}">Explore Data</a></li>
             <li class="{% ifstartswith "groups" %}active{% endifstartswith %}"><a href="{% url groups %}">Groups</a></li>
           </ul>
         {% endblock %}
