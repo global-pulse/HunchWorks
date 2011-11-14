@@ -10,6 +10,7 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django import http
 
 
@@ -58,7 +59,9 @@ def edit(req, evidence_id):
 
 @login_required
 def create(req):
-  form = forms.EvidenceForm(req.POST or None)
+  form = forms.EvidenceForm(req.POST or None, initial={
+    "link": req.GET.get("link", None)
+  })
 
   if form.is_valid():
     evidence = form.save(creator=req.user.get_profile())
@@ -115,10 +118,15 @@ def explore(req):
   else:
     form = forms.ExploreWorldBankForm()
 
+  create_evidence_url = reverse("create_evidence") + "?" + urllib.urlencode({
+    "link": req.build_absolute_uri()
+  })
+
   return _render(req, "explore", {
     "form": form,
     "flat_data": json.dumps(flat_data),
     "show_graph": flat_data is not None,
+    "create_evidence_url": create_evidence_url,
 
     "indicators": json.dumps(worldbank.indicators()),
     "indicators_prepop": json.dumps(indicators_prepop),
