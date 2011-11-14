@@ -1,6 +1,7 @@
 {% extends "evidences/base.html" %}
 {% load paginator_tags %}
 {% load bookmark_tags %}
+{% load embed_tags %}
 
 {% block body_id %}evidence-list{% endblock %}
 
@@ -14,7 +15,7 @@
     <section class="evidence-list">
       {% for evidence in evidences.object_list %}
         <article class="evidence">
-          <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
+          {% embed evidence.link %}
           <h2><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h2>
 
           {% if evidence.description %}

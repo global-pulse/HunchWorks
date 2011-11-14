@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import json
 import urllib
 from hunchworks.utils.data import get_json
 
@@ -29,6 +30,21 @@ def countries():
   data = _api("country", region="WLD")
   return map(_id_name, data)
 
-def indicator(indicator_id, country_ids):
+def indicator(indicator_code, country_codes):
   return _api("countries/%s/indicators/%s" % (
-    ";".join(country_ids), indicator_id))
+    ";".join(country_codes), indicator_code))
+
+
+def _value(value):
+  if value is not None:
+    return float(value)
+
+def chart(indicator_code, country_codes):
+  data = indicator(indicator_code, country_codes)
+
+  flat_data = [
+    (unicode(item["date"]), _value(item["value"]))
+    for item in reversed(data)
+  ]
+
+  return flat_data
