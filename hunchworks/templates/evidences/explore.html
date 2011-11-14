@@ -19,24 +19,8 @@
 {% block content %}
   {% if show_graph %}
     <section class="graph">
-      <div id="worldbank_data"></div>
+      <div class="worldbank-chart" data-x-axis="Year" data-y-axis="Data" data-data="{{ flat_data }}"></div>
     </section>
-
-    <script type="text/javascript">
-      (function() {
-        google.setOnLoadCallback(function() {
-          var data = new google.visualization.DataTable();
-          data.addColumn('string', 'Year');
-          data.addColumn('number', 'Data');
-          data.addRows( {{ flat_data|safe }} );
-
-          var chart = new google.visualization.LineChart(document.getElementById('worldbank_data'));
-          chart.draw(data, {width: $("#worldbank_data").width(), height: $("#worldbank_data").width()/2});
-        });
-
-        google.load("visualization", "1", { packages: ["corechart"] });
-      })();
-    </script>
   {% endif %}
 
   <form action="" method="get">
