@@ -174,6 +174,13 @@ CACHES = {
   }
 }
 
+EMBED_PROCESSORS = [
+  "hunchworks.embeds.worldbank",
+  "hunchworks.embeds.embedly"
+]
+
+EMBEDLY_KEY = "b0383ffaf0ff11e0a68e4040d3dc5c07"
+
 AUTH_PROFILE_MODULE = 'hunchworks.UserProfile'
 
 COMPRESS_CSS_FILTERS = (

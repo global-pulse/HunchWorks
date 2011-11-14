@@ -23,11 +23,6 @@
       padding: 1px;
     }
 
-      /* Hide the embed link until it's been Embedlyed. */
-      #evidence-list section.evidence-list > article.evidence > a.embed {
-        display: none;
-      }
-
       #evidence-list section.evidence-list > article.evidence > div.embed img,
       #evidence-list section.evidence-list > article.evidence > div.embed object,
       #evidence-list section.evidence-list > article.evidence > div.embed embed {
@@ -67,11 +62,6 @@
       text-align: center;
       padding: 4em;
     }
-
-      /* Hide the embed link until it's been Embedlyed. */
-      #evidence-show article.evidence > header > a.embed {
-        display: none;
-      }
 
       #evidence-show article.evidence > header > div.embed img,
       #evidence-show article.evidence > header > div.embed object,
