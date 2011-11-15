@@ -8,12 +8,22 @@ register = template.Library()
 
 
 @register.inclusion_tag("templatetags/bookmark.html", takes_context=True)
-def bookmarks(context, object):
-  object_type = ContentType.objects.get_for_model(object)
-  bookmarked = False
-  try:
-    bookmark = models.Bookmark.objects.get(content_type=object_type.id, object_id=object.id, user_profile=context['request'].user.get_profile())
-    bookmarked = True
-  except models.Bookmark.DoesNotExist:
-    bookmarked = False
-  return {"object":object, "bookmarked":bookmarked, "object_type": object_type}
+def bookmarks(context, obj):
+
+  # Silently abort if the request isn't available.
+  if "request" not in context:
+    return { }
+
+  content_type = ContentType.objects.get_for_model(obj)
+
+  bookmark_count = models.Bookmark.objects.filter(
+    user_profile=context['request'].user.get_profile(),
+    content_type=content_type,
+    object_id=obj.id
+  ).count()
+
+  return {
+    "object": obj,
+    "content_type": content_type,
+    "is_bookmarked": bookmark_count > 0
+  }
