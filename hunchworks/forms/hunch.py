@@ -11,12 +11,6 @@ class HunchForm(forms.ModelForm):
   tags = TokenField(models.Tag, json_views.tags, required=False,
     help_text="Tags should include keywords related to this hunch, to help other users find it.")
 
-  languages = TokenField(models.Language, json_views.languages, required=False,
-    label="Related Language Skills")
-
-  skills = TokenField(models.Skill, json_views.skills, required=False,
-    label="Related Skills")
-
   user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False,
     help_text="Type the name of the user you would like to invite to work with you on this hunch",
     label="Invite your connections")
@@ -78,8 +72,6 @@ class HunchForm(forms.ModelForm):
       hunch.save()
 
       hunch.tags = self.cleaned_data['tags']
-      hunch.languages = self.cleaned_data['languages']
-      hunch.skills = self.cleaned_data['skills']
 
       add_groups = self.cleaned_data['add_groups']
       group_members = []

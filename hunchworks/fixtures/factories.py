@@ -139,8 +139,6 @@ class UserProfileFactory(BaseFactory, DjangoMixin):
         #ConnectionFactory(uid1=pk, uid2=self.getRandInst(model=UserProfile).pk)
         #roles = Role
         #location_interests = Location
-        #skills = Skill
-        #languages = Language
 
         #qualifications = Education
         #courses = Course

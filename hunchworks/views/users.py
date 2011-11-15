@@ -29,17 +29,11 @@ def profile(req, user_id=None):
   else:
     connected = False
 
-  #Get hunches that contain user's skill set
-  hunches = models.Hunch.objects.filter(
-    Q(skills__in=user_profile.skills.all()) |
-    Q(languages__in=user_profile.languages.all())
-    ).distinct()
-
   invite_form = forms.InviteForm()
   context = RequestContext(req)
   context.update({ "user_profile": user_profile,
                    "invite_form": invite_form,
-                   "hunches": hunches,
+                   "hunches": [],
                    "connected": connected,
                    "not_me": not_me})
   return _render(req, "profile", context)

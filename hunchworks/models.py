@@ -86,8 +86,6 @@ class UserProfile(models.Model):
 
   roles = models.ManyToManyField("Role", blank=True)
   location_interests = models.ManyToManyField('Location', blank=True)
-  skills = models.ManyToManyField('Skill', blank=True)
-  languages = models.ManyToManyField('Language', blank=True)
 
   qualifications = models.ManyToManyField('Education', blank=True)
   courses = models.ManyToManyField('Course', blank=True)
@@ -137,8 +135,6 @@ class Hunch(models.Model):
   description = models.TextField(verbose_name="further explanation", blank=True)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=2, help_text=PRIVACY_HELP_TEXT)
   location = models.ForeignKey('Location', null=True, blank=True)
-  skills = models.ManyToManyField('Skill', blank=True)
-  languages = models.ManyToManyField('Language', blank=True)
   evidences = models.ManyToManyField( 'Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
@@ -454,17 +450,6 @@ class Role(models.Model):
 
   def __unicode__(self):
     return self.title
-
-
-class Skill(models.Model):
-  name = models.CharField(unique=True, max_length=100)
-
-  def __unicode__(self):
-    return self.name
-
-  @classmethod
-  def search(cls, term, user_profile=None):
-    return cls.objects.filter(name__icontains=term)
 
 
 class Language(models.Model):
