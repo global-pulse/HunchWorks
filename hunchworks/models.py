@@ -129,10 +129,9 @@ class Hunch(models.Model):
   time_modified = models.DateTimeField()
   status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
 
-  title = models.CharField(verbose_name="Hypothesis", max_length=100, unique=True,
-    help_text='Hypotheses should be a simple <a href="http://en.wikipedia.org/wiki/Falsifiability">falsifiable</a> statement.')
+  title = models.CharField(max_length=160)
+  description = models.TextField(blank=True)
 
-  description = models.TextField(verbose_name="further explanation", blank=True)
   privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=2, help_text=PRIVACY_HELP_TEXT)
   location = models.ForeignKey('Location', null=True, blank=True)
   evidences = models.ManyToManyField( 'Evidence', through='HunchEvidence', blank=True)

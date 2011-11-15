@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from hunchworks import models, forms, hunchworks_enums
+from hunchworks.forms.hunch import HunchFormOne, HunchFormTwo
 from hunchworks.utils.pagination import paginated
 from django.template import RequestContext
 from django.core.exceptions import PermissionDenied
@@ -202,6 +203,27 @@ def create(req):
 
   return _render(req, "create", {
     "form": form, "user": req.user.get_profile()
+  })
+
+
+def create_one(req):
+  form = HunchFormOne()
+
+  return _render(req, "create/1", {
+    "form": form
+  })
+
+def create_two(req):
+  form = HunchFormTwo(req.POST or None)
+  evidence_list = None
+
+  if form.is_valid():
+    evidence_list = models.Evidence.search(
+      form.cleaned_data["search"])
+
+  return _render(req, "create/2", {
+    "evidence_list": evidence_list,
+    "form": form
   })
 
 

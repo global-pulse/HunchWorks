@@ -48,6 +48,10 @@ urlpatterns = patterns(
   url(r'^hunches/(?P<hunch_id>\d+)/follow$',     hunches.follow,     name="follow_hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/unfollow$',   hunches.unfollow,   name="unfollow_hunch"),
 
+  # create hunch steps
+  url(r"^hunches/create/1$", hunches.create_one),
+  url(r"^hunches/create/2$", hunches.create_two),
+
   # hunch evidence
   url(r'^hunches/(?P<hunch_id>\d+)/evidence/add$', hunches.add_evidence, name="add_hunch_evidence"),
 

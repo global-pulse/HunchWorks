@@ -7,6 +7,19 @@ from hunchworks import json_views
 from hunchworks.fields import TokenField, LocationField, EvidencesField
 
 
+class HunchFormOne(forms.Form):
+  title = forms.CharField(label="Hypothesis", max_length=160, required=True,
+    help_text='Hypotheses should be a simple <a href="http://en.wikipedia.org/wiki/Falsifiability">falsifiable</a> statement.')
+
+  description = forms.CharField(label="Further Explanation", widget=forms.Textarea, required=False,
+    help_text="")
+
+
+class HunchFormTwo(forms.Form):
+  evidences = EvidencesField(required=False,
+    label="Attach Existing Evidence")
+
+
 class HunchForm(forms.ModelForm):
   tags = TokenField(models.Tag, json_views.tags, required=False,
     help_text="Tags should include keywords related to this hunch, to help other users find it.")
