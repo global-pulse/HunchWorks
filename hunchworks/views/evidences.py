@@ -66,9 +66,8 @@ def create(req):
     "form": form
   })
 
-@login_required
 def _preview(evidence):
-  return render_to_string("evidences/short.html", {
+  return render_to_string("includes/evidences/short.html", {
     "evidence": evidence
   })
 
@@ -77,6 +76,7 @@ def _search_results(query_set):
     { "id": evidence.pk, "preview": _preview(evidence) }
     for evidence in query_set]
 
+@login_required
 def search(req):
   query_set = models.Evidence.search(
     req.GET["q"], req.user.get_profile())

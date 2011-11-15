@@ -3,9 +3,6 @@
     {{ flat_widget }}
     <p class="help">{{ help_text }}</p>
   </div>
-  <div class="evidences">
-    {% for preview in previews %}
-      {{ preview }}
-    {% endfor %}
-  </div>
+
+  {% include "includes/evidences/list.html" with evidence_list=previews %}
 </div>
