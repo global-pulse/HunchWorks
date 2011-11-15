@@ -86,21 +86,3 @@
         margin-top: 1em;
         color: #999;
       }
-
-
-#evidence-explore { }
-
-  #evidence-explore section.graph {
-    padding: 2em;
-    border-bottom: 1px dashed #ccc;
-  }
-
-    #evidence-explore section.graph div.chart {
-      border: 1px solid #eee;
-    }
-
-    #evidence-explore section.graph p.create-evidence {
-      text-align: center;
-      margin-top: 1em;
-      color: #999;
-    }
