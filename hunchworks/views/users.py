@@ -35,7 +35,7 @@ def profile(req, user_id=None):
     Q(languages__in=user_profile.languages.all())
     ).distinct()
 
-  invite_form = forms.InvitePeople()
+  invite_form = forms.InviteForm()
   context = RequestContext(req)
   context.update({ "user_profile": user_profile,
                    "invite_form": invite_form,

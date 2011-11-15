@@ -102,7 +102,7 @@ def show(req, hunch_id):
         return redirect(hunch)
 
     elif action == "add_evidence":
-      hunch_evidence_form = forms.AddHunchEvidenceForm(req.POST)
+      hunch_evidence_form = forms.HunchEvidenceForm(req.POST)
 
       if hunch_evidence_form.is_valid():
         hunch_evidence = hunch_evidence_form.save(user_profile=req.user.get_profile())
@@ -110,7 +110,7 @@ def show(req, hunch_id):
 
 
   if hunch_evidence_form is None:
-    hunch_evidence_form = forms.AddHunchEvidenceForm(initial={
+    hunch_evidence_form = forms.HunchEvidenceForm(initial={
       "hunch": hunch
     })
 
@@ -223,14 +223,14 @@ def add_evidence(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
 
   if req.method == "POST":
-    form = forms.AddHunchEvidenceForm(req.POST)
+    form = forms.HunchEvidenceForm(req.POST)
 
     if form.is_valid():
       hunch_evidence = form.save(user_profile=req.user.get_profile())
       return redirect(hunch)
 
   else:
-    form = forms.AddHunchEvidenceForm(initial={
+    form = forms.HunchEvidenceForm(initial={
       "hunch": hunch
     })
 
