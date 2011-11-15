@@ -11,27 +11,7 @@
 
 {% block content %}
   {% if evidences.object_list %}
-    <section class="evidence-list">
-      {% for evidence in evidences.object_list %}
-        <article class="evidence">
-          <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
-          <h2><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h2>
-
-          {% if evidence.description %}
-            <section class="desc">
-              {{ evidence.description|truncatewords:60|safe }}
-            </section>
-          {% endif %}
-
-          <ul class="stats">
-            <li>Supporting 10 hunches</li>
-            <li>Refuting 5 hunches</li>
-          </ul>
-
-          {% bookmarks evidence %}
-        </article>
-      {% endfor %}
-    </section>
+    {% include "includes/evidences/list.html" with evidence_list=evidences.object_list %}
 
     <script>
       $(function() {
@@ -64,7 +44,6 @@
     </ul>
 
     {% paginator evidences %}
-    <div class="clear-hack"></div>
   </div>
 </div>
 {% endblock %}
