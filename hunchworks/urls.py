@@ -7,6 +7,9 @@ from hunchworks import json_views
 urlpatterns = patterns(
   "hunchworks.views",
 
+  # embed
+  url(r"^embed/", include("djembedly.urls")),
+
   # dashboard/home/index
   url(r"^$", dashboard.dashboard, name="dashboard"),
 
@@ -24,7 +27,6 @@ urlpatterns = patterns(
   url(r"^connections$",                      users.connections, name="connections"),
   url(r"^profile/(?P<user_id>\d+)/connect$", users.connect,     name="connect"),
   url(r"^profile/(?P<user_id>\d+)/remove$",  users.remove,      name="remove"),
-
 
   # groups
   url(r"^groups$",                           groups.index,    name="groups"),

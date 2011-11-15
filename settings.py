@@ -138,6 +138,7 @@ INSTALLED_APPS = (
   'django.contrib.auth',
   'activelink',
   'compressor',
+  'djembedly',
   'hunchworks')
 
 # In DEBUG mode, enable the Django admin.
@@ -176,7 +177,7 @@ CACHES = {
 
 EMBED_PROCESSORS = [
   "hunchworks.embeds.worldbank",
-  "hunchworks.embeds.embedly"
+  "djembedly.embeds.embedly"
 ]
 
 EMBEDLY_KEY = "b0383ffaf0ff11e0a68e4040d3dc5c07"

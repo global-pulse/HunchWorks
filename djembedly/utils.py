@@ -3,9 +3,6 @@
 import sys
 from django.conf import settings
 
-from django import template
-register = template.Library()
-
 
 def _get_func(name):
   """
@@ -22,12 +19,7 @@ def _get_func(name):
   return getattr(module, func_name)
 
 
-@register.simple_tag
-def embed(url):
-  """
-  Return an HTML fragment to embed the content found at ``url``.
-  """
-
+def url_to_html(url):
   for name in settings.EMBED_PROCESSORS:
     func = _get_func(name)
     html = func(url)
