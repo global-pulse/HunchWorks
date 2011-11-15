@@ -8,7 +8,9 @@ $(function() {
     table.addRows($widget.data("data"));
 
     var chart = new google.visualization.LineChart(element);
-    chart.draw(table);
+    chart.draw(table, {
+      "height": 400
+    });
   };
 
   /* If there are any WorldBank charts on this page, load the Google viz API. */
