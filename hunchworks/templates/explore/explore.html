@@ -1,15 +1,15 @@
-{% extends "evidences/base.html" %}
+{% extends "explore/base.html" %}
 
-{% block body_id %}evidence-explore{% endblock %}
+{% block body_id %}explore{% endblock %}
 
 {% block title %}
-  Explore Evidence &mdash;
+  Explore Data &mdash;
   {{ block.super }}
 {% endblock %}
 
 {% block header %}
   {{ block.super }}
-  <h1>Explore Evidence</h1>
+  <h1>Explore Data</h1>
 {% endblock %}
 
 {% block js %}
@@ -25,6 +25,15 @@
   {% endif %}
 
   <form action="" method="get">
+    {% if not show_graph %}
+      <section class="help_text">
+        <p>
+          Search <a href="http://data.worldbank.org/">The World Bank</a>'s data
+          catalog to find evidence to support (or refute) your hunches.
+        </p>
+      </section>
+    {% endif %}
+
     {{ form.non_field_errors }}
 
     <div class="fields">

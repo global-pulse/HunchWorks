@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from django.conf.urls.defaults import *
-from views import dashboard, auth, users, groups, hunches, evidences, albums, feeds, bookmark
+from views import dashboard, auth, users, groups, hunches, evidences, explore, albums, feeds, bookmark
 from hunchworks import json_views
 
 urlpatterns = patterns(
@@ -67,7 +67,7 @@ urlpatterns = patterns(
   url(r"^evidences/search.json$", evidences.search, name="search_evidence"),
 
   # explore external evidences
-  url(r"^evidence/explore$", evidences.explore, name="explore_evidence"),
+  url(r"^explore$", explore.explore, name="explore"),
 
   # albums
   url(r"^albums$",                          albums.index,    name="albums"),
