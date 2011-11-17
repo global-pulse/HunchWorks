@@ -120,12 +120,6 @@ class PrivacyLevel(Enum):
   	}
 
 
-class SkillLevel(Enum):
-  """Enum representing the various skill levels a user can have in a subject."""
-  EXPERT = 0
-  SKILLED = 1
-
-
 class GroupType(Enum):
   """Enum representing the types of groups that can be made"""
   MAP = {}

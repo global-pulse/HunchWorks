@@ -77,40 +77,6 @@
 
     {
         "pk": 1,
-        "model": "hunchworks.skill",
-        "fields":
-        {
-            "name": "Programming"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "hunchworks.skill",
-        "fields":
-        {
-            "name": "Welding"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "hunchworks.skill",
-        "fields":
-        {
-            "name": "Bomb dissarming"
-        }
-    },
-    {
-        "pk": 4,
-        "model": "hunchworks.skill",
-        "fields":
-        {
-            "name": "Flying license"
-        }
-    },
-
-
-    {
-        "pk": 1,
         "model": "auth.user",
         "fields":
         {
@@ -262,8 +228,7 @@
         {
             "user": 3,
             "name": "Test User",
-            "email": "test@hunchworks.org",
-            "skills": [1,3]
+            "email": "test@hunchworks.org"
         }
     },
     {
@@ -273,8 +238,7 @@
         {
             "user": 3,
             "name": "Sean Rivello",
-            "email": "sean@unicef.org",
-            "skills": [2]
+            "email": "sean@unicef.org"
         }
     },
     {
@@ -284,8 +248,7 @@
         {
             "user": 4,
             "name": "Mark Spiegelman",
-            "email": "mark@internews.com",
-            "skills": [3]
+            "email": "mark@internews.com"
         }
     },
     {
@@ -295,8 +258,7 @@
         {
             "user": 5,
             "name": "Helena Cabag",
-            "email": "helen@undp.org",
-            "skills": [2,4]
+            "email": "helen@undp.org"
         }
     },
     {
@@ -306,8 +268,7 @@
         {
             "user": 6,
             "name": "Betty Heral",
-            "email": "betty@crisismappers.com",
-            "skills": [2,4]
+            "email": "betty@crisismappers.com"
         }
     },
     {
@@ -317,8 +278,7 @@
         {
             "user": 7,
             "name": "Margunn Grabow",
-            "email": "margunn@undp.org",
-            "skills": [2,4]
+            "email": "margunn@undp.org"
         }
     },
     {
@@ -328,8 +288,7 @@
         {
             "user": 8,
             "name": "Jen Maura",
-            "email": "jen@nyu.edu",
-            "skills": [2,4]
+            "email": "jen@nyu.edu"
         }
     },
 
