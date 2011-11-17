@@ -20,7 +20,9 @@
 
 #group-show { }
 
-  #group-show > div.group { }
+  #group-show > div.group {
+    padding: 15px;
+  }
 
     #group-show > div.group > div.info { }
 
@@ -32,26 +34,8 @@
 
       #group-show > div.group > div.info > h1 {
         margin-bottom: 0.25em;
+        font-size: 150%
       }
-
-      /*#group-show > div.group > div.info > ul.tags { }
-
-        #group-show > div.group > div.info > ul.tags > li {
-          display: inline-block;
-          border: 1px solid #ddd;
-          border-radius: 1px 0.8125em 0.8125em 1px;
-          font-size: 80%;
-          background: #eee url("../icons/tag.png") no-repeat 2px 50%;
-          line-height: 19px;
-          padding-left: 19px;
-          padding-right: 0.625em;
-          margin-right: 0.625em;
-        }
-
-          #group-show > div.group > div.info > ul.tags > li > a {
-            text-decoration: none;
-            padding-left: 0.3125em;
-          }*/
 
       #group-show > div.group > div.info > div.desc { }
 
@@ -98,9 +82,13 @@
 		  border-top: 1px solid #eee;
 		  padding-top: 0.625em;
 		}
-			  
+
+	  #group-show > div.group > div.right > div.viewMore {
+		float: right;
+	  }
+
 	  #group-show > div.group > div.right > div.hunches {
-		margin: -0.5em;
+		margin: 0.5em;
 	  }
 	  
 		#group-show > div.group > div.right > div.hunches > div.hunch {

@@ -13,11 +13,11 @@
       <div class="info">
         <img src="{{ group.logo_url }}" width="400">
 
-        <h1><a href="{% url groups %}">{{ group }}</a></h1>
+        <h1>{{ group }}</h1>
         <div class="right">
           {% bookmarks group %}
         </div>
-        <ul class="tags">
+        <!--<ul class="tags">
           <li>Alpha</li>
           <li>Beta</li>
           <li>Gamma</li>
@@ -25,7 +25,7 @@
           {% for tag in group.tags.all %}
             <li>{{ tag }}</li>
           {% endfor %}
-        </ul>
+        </ul>-->
         <ul>
           {% if is_member %}
             <li><a href="{% url leave_group group.pk %}">Leave</a></li>
@@ -57,30 +57,18 @@
       <div class="right">
         <h2>Hunches involving members</h2>
         <div class="hunches">
-          {% for hunch in hunches %}
-            <div class="hunch"><div>
-              <h3><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h3>
-
-              {% if hunch.description %}
-                <div class="desc">
-                  {{ hunch.description|truncatewords:60|safe }}
-                </div>
-              {% endif %}
-
-              <ul class="stats">
-                <li>{{ hunch.member_count }} members</li>
-                <li>{{ hunch.evidence_count }} evidence</li>
-              </ul>
-
-              <div class="clear-hack"></div>
-            </div></div>
-          {% endfor %}
-          <div class="clear-hack"></div>
+          {% if hunches %}
+            {% include "includes/hunches/list.html" with hunch_list=hunches %}
+          {% else %}
+            {% block empty %}{% endblock %}
+          {% endif %}
         </div>
         <div class='viewMore'>
           <a href='{% url group_hunches group.pk %}'>View More</a>
         </div>
+        <div class="clear-hack"></div>
       </div>
+      <div class="clear-hack"></div>
     </div>
     <div class="clear-hack"></div>
 
