@@ -1,8 +1,8 @@
-div.user {
+article.user {
   width: 54px;
 }
 
-  div.user > a {
+  article.user > a {
     display: block;
     background: #333;
     box-shadow: 0 0 5px #999;
@@ -13,19 +13,19 @@ div.user {
     padding: 2px;
   }
 
-  div.user:hover > a {
+  article.user:hover > a {
     background: #000;
   }
-  
-    div.user > a > img {
+
+    article.user > a > img {
       display: block;
       margin-bottom: 2px;
       background: #666;
       border-radius: 3px 3px 0 0;
       -moz-border-radius: 3px 3px 0 0;
-	}
+    }
 
-    div.user > a > span {
+    article.user > a > span {
       display: block;
       text-align: center;
       color: #fff;
@@ -37,3 +37,15 @@ div.user {
       max-height: 1.5em;
       overflow: hidden;
     }
+
+section.user-list {
+  overflow: hidden;
+}
+
+  section.user-list > article.user {
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+    float: left;
+  }
+
+  section.user-list > article.user:last-child { }

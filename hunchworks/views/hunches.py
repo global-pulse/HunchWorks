@@ -217,7 +217,7 @@ class HunchWizard(SessionWizardView):
           evidence=evidence,
           hunch=hunch)
 
-      for user_profile in form_list[2].cleaned_data["user_profiles"]:
+      for user_profile in form_list[3].cleaned_data["user_profiles"]:
         models.HunchUser.objects.create(
           user_profile=user_profile,
           hunch=hunch)

@@ -5,7 +5,7 @@ from django.db import transaction
 from hunchworks import models
 from hunchworks import json_views
 from hunchworks.forms.evidence import EvidenceForm
-from hunchworks.fields import TokenField, EmbedField, LocationField, EvidencesField
+from hunchworks.fields import TokenField, EmbedField, LocationField, EvidencesField, ConnectionsField
 
 
 class HunchFormOne(forms.Form):
@@ -37,9 +37,9 @@ class HunchFormThree(forms.Form):
 
 
 class HunchFormFour(forms.Form):
-  user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False,
-    help_text="Type the name of the user you would like to invite to work with you on this hunch",
-    label="Invite your connections")
+  user_profiles = ConnectionsField(required=False,
+    help_text="Users will be invited to contribute to your hunch by email.",
+    label="Invite other users")
 
   add_groups = TokenField(models.Group, json_views.user_groups, required=False,
     help_text="Type the name of the group you would like to invite",
