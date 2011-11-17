@@ -38,16 +38,16 @@ form { }
 
     /* Many forms are split into two columns. Usually, the important fields are
     |* on the left, and the supplementary fields are on the right. */
-    form div.fields > div.left,
-    form div.fields > div.right {
+    form div.fields div.left,
+    form div.fields div.right {
       float: left;
     }
 
-    form div.fields > div.left {
+    form div.fields div.left {
       width: 60%;
     }
 
-    form div.fields > div.right {
+    form div.fields div.right {
       width: 40%;
       box-sizing: border-box;
       -moz-box-sizing: border-box;
@@ -164,7 +164,7 @@ form { }
     background: #eee;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
     background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
-    background: -moz-linear-gradient(top,  #eee,  #fff);
+    background: -moz-linear-gradient(top, #eee, #fff);
   }
 
     form > div.actions > input,

@@ -382,57 +382,67 @@
 
 #hunch-create { }
 
-  #hunch-create form { }
+  #hunch-create form {
+    background: #eee;
+    background: -webkit-gradient(linear, left top, 25% top, from(#fff), to(#eee));
+    background: -moz-linear-gradient(left top, #fff, #eee, #eee, #eee, #eee);
+  }
 
-    #hunch-create form > section {
+    #hunch-create form > section.help {
+      float: left;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      width: 25%;
       padding: 2em;
     }
 
-      #hunch-create form > section > h2 {
+      #hunch-create form > section.help > h3 {
+        font-size: 200%;
+      }
+
+      #hunch-create form > section.help > p {
+        margin-top: 1em;
+        line-height: 1.4;
+      }
+
+    #hunch-create form > div.fields {
+      border-left: 1px solid #ddd;
+      background: #fff;
+    }
+
+      #hunch-create form > div.fields > h2 {
         text-align: center;
         font-size: 160%;
+        margin-bottom: 1.25em;
         color: #999;
       }
 
-        #hunch-create form > section > h2 > span {
+        #hunch-create form > div.fields > h2 > span {
           font-weight: bold;
           color: #000;
         }
 
-      #hunch-create form > section > div.show {
-        text-align: center;
-        margin-top: 0.5em;
-        color: #999;
-      }
-
-      #hunch-create form > section > div.fields {
-        padding: 0;
-      }
-
-    #hunch-create form > section.help_text {
-      overflow: hidden;
+    #hunch-create form > div.new-evidence {
+      border-top: 1px solid #ddd;
     }
 
-      #hunch-create form > section.help_text > p { }
-
-      #hunch-create form > section.help_text > p.steps {
-        float: left;
-        font-size: 200%;
-        margin-right: 1em;
+      #hunch-create form > div.fields > div.wrap {
+        overflow: hidden;
       }
 
-    #hunch-create form > section.existing-evidence {
-      border-bottom: 1px dashed #ccc;
-    }
-
-    #hunch-create form > section.new-evidence { }
-
-        #hunch-create form > section.new-evidence > div.fields > div {
-          padding-top: 2em;
-          padding-bottom: 1.5em;
+        #hunch-create form > div.fields > div.wrap > div {
+          padding-bottom: 2em;
         }
 
-  #hunch-create form > div.actions { }
+      #hunch-create form > div.fields > div.show {
+        text-align: center;
+        color: #999;
+        clear: both;
+      }
+
+  #hunch-create form > div.actions {
+    border-top: 1px solid #ccc;
+  }
 
     #hunch-create form > div.actions > button.prev {
       float: left;

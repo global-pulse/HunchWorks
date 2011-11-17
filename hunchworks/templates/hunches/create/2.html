@@ -1,25 +1,18 @@
 {% extends "hunches/create/base.html" %}
 
 {% block help_text %}
-  <p>
-    If you already have evidence to support your hunch, attach it now.<br>
-    You (and your collaborators) can always attach more as it's discovered.
+  <p>If you already have evidence to support your hunch, attach it now.</p>
+  <p>You (and your collaborators) can always attach more as it's discovered.</p>
   </p>
 {% endblock %}
 
 {% block form %}
-  <section class="existing-evidence">
+  <div class="fields">
     <h2>Attach <span>Existing Evidence</span> to This Hunch</h2>
+    {% include "includes/fields/base.html" with field=wizard.form.evidences %}
 
-    <div class="fields">
-      {% include "includes/fields/base.html" with field=wizard.form.evidences %}
-    </div>
-  </section>
-
-  <section class="new-evidence">
     <h2>or Create <span>New Evidence</span> and Attach it to This Hunch</h2>
-
-    <div class="fields" style="display: none;">
+    <div class="wrap">
       <div class="left">
         {% include "includes/fields/base.html" with field=wizard.form.title %}
         {% include "includes/fields/base.html" with field=wizard.form.description %}
@@ -30,14 +23,14 @@
         {% include "includes/fields/base.html" with field=wizard.form.tags %}
       </div>
     </div>
-  </section>
+  </div>
 
   <script>
     (function() {
-      var $section = $("section.new-evidence");
-      var $wrapper = $("<div>", { "class": "show" }).appendTo($section);
+      var $container= $("div.fields");
+      var $wrapper = $("<div>", { "class": "show" }).appendTo($container);
       var $trigger = $("<a>", { "href": "" }).appendTo($wrapper);
-      var $fields  = $section.find(".fields").hide();
+      var $fields  = $container.find(".wrap").hide();
 
       var verb = function() {
         return ($fields.css("display") == "none") ? "Show" : "Hide";
