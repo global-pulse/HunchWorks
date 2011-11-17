@@ -35,6 +35,8 @@ class HunchFormThree(forms.Form):
   location = LocationField(required=False,
     help_text="If the hunch is relative to a specific location, you can mark it here.")
 
+
+class HunchFormFour(forms.Form):
   user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False,
     help_text="Type the name of the user you would like to invite to work with you on this hunch",
     label="Invite your connections")

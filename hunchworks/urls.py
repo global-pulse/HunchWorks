@@ -53,6 +53,7 @@ urlpatterns = patterns(
     forms.hunch.HunchFormOne,
     forms.hunch.HunchFormTwo,
     forms.hunch.HunchFormThree,
+    forms.hunch.HunchFormFour
   ]), name="create_hunch"),
 
   # hunch evidence

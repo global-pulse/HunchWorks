@@ -1,0 +1,15 @@
+{% extends "hunches/create/base.html" %}
+
+{% block help_text %}
+  <p>
+    Invite other users and groups to contribute to your hunch.<br>
+    Lorem ipsum dolor sit amet.
+  </p>
+{% endblock %}
+
+{% block form %}
+  <div class="fields">
+    {% include "includes/fields/base.html" with field=wizard.form.user_profiles %}
+    {% include "includes/fields/base.html" with field=wizard.form.add_groups %}
+  </div>
+{% endblock %}

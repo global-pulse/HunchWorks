@@ -2,20 +2,13 @@
 
 {% block help_text %}
   <p>
-    Invite other users and groups to contribute to your hunch.<br>
-    Lorem ipsum dolor sit amet.
+    Attach metadata to your hunch, so other users can easily find it.
   </p>
 {% endblock %}
 
 {% block form %}
   <div class="fields">
-    <div class="left">
-      {% include "includes/fields/base.html" with field=wizard.form.user_profiles %}
-      {% include "includes/fields/base.html" with field=wizard.form.add_groups %}
-    </div>
-    <div class="right">
-      {% include "includes/fields/base.html" with field=wizard.form.tags %}
-      {% include "includes/fields/base.html" with field=wizard.form.location %}
-    </div>
+    {% include "includes/fields/base.html" with field=wizard.form.tags %}
+    {% include "includes/fields/base.html" with field=wizard.form.location %}
   </div>
 {% endblock %}
