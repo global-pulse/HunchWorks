@@ -202,15 +202,26 @@ class HunchWizard(SessionWizardView):
 
   def done(self, form_list, **kwargs):
     with transaction.commit_on_success():
-      hunch = models.Hunch.objects.create(
-        creator=self.request.user.get_profile(),
-        title=form_list[0].cleaned_data["title"],
-        description=form_list[0].cleaned_data["description"],
-        location=form_list[2].cleaned_data["location"])
 
-      #hunch.evidences = form_list[1].cleaned_data["evidences"]
-      #hunch.user_profiles = form_list[2].cleaned_data["user_profiles"]
+      hunch = models.Hunch.objects.create(
+        creator     = self.request.user.get_profile(),
+        title       = form_list[0].cleaned_data["title"],
+        description = form_list[0].cleaned_data["description"],
+        privacy     = form_list[0].cleaned_data["privacy"],
+        location    = form_list[2].cleaned_data["location"])
+
       hunch.tags = form_list[2].cleaned_data["tags"]
+
+      for evidence in form_list[1].cleaned_data["evidences"]:
+        models.HunchEvidence.objects.create(
+          evidence=evidence,
+          hunch=hunch)
+
+      for user_profile in form_list[2].cleaned_data["user_profiles"]:
+        models.HunchUser.objects.create(
+          user_profile=user_profile,
+          hunch=hunch)
+
       hunch.save()
 
     return redirect(hunch)

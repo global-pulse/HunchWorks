@@ -15,6 +15,9 @@ class HunchFormOne(forms.Form):
   description = forms.CharField(label="Further Explanation", widget=forms.Textarea, required=False,
     help_text="")
 
+  privacy = forms.ChoiceField(choices=models.PRIVACY_CHOICES,
+    help_text=models.PRIVACY_HELP_TEXT)
+
 
 class HunchFormTwo(EvidenceForm):
   evidences = EvidencesField(required=False,

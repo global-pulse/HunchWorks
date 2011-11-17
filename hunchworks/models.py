@@ -131,7 +131,7 @@ class Hunch(models.Model):
   title = models.CharField(max_length=160)
   description = models.TextField(blank=True)
 
-  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=2, help_text=PRIVACY_HELP_TEXT)
+  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
   location = models.ForeignKey('Location', null=True, blank=True)
   evidences = models.ManyToManyField( 'Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
