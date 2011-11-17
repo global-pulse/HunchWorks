@@ -126,15 +126,6 @@ class SkillLevel(Enum):
   SKILLED = 1
 
 
-class HunchStatus(Enum):
-  """Enum representing the statuses a Hunch can take."""
-  MAP={}
-
-  CONFIRMED = 0
-  DENIED = 1
-  UNDETERMINED = 2
-
-
 class GroupType(Enum):
   """Enum representing the types of groups that can be made"""
   MAP = {}

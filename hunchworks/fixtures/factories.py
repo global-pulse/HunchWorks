@@ -44,10 +44,8 @@ class HunchFactory(BaseFactory, DjangoMixin):
         creator = self.getRandInst(UserProfile)
         time_created = "2011-01-01"
         time_modified = "2011-08-08"
-        status = random.choice(enums.HunchStatus.GetChoices())[0]
         title = 'markov %s' % pk
         privacy = random.choice(PRIVACY_CHOICES)[0]
-        translation_language = self.getRandInst(TranslationLanguage)
         location = self.getRandInst(Location)
         description = 'markov %s' % pk
         return locals()

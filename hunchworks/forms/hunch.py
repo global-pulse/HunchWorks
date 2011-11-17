@@ -62,7 +62,7 @@ class HunchForm(forms.ModelForm):
   class Meta:
     model = models.Hunch
     exclude = (
-      "creator", "time_created", "time_modified", "status"
+      "creator", "time_created", "time_modified",
     )
 
   def __init__(self, *args, **kwargs):

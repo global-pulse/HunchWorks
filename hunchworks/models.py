@@ -127,7 +127,6 @@ class Hunch(models.Model):
   creator = models.ForeignKey('UserProfile', related_name="created_hunches")
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
-  status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
 
   title = models.CharField(max_length=160)
   description = models.TextField(blank=True)
@@ -137,10 +136,6 @@ class Hunch(models.Model):
   evidences = models.ManyToManyField( 'Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
-
-  translation_language = models.ForeignKey('TranslationLanguage', default=1,
-    help_text="The language which this hunch will be discussed in.",
-    verbose_name="Language")
 
   class Meta:
     verbose_name_plural = "hunches"

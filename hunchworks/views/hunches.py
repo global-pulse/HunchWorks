@@ -44,7 +44,7 @@ def all(req):
 def open(req):
   """Render hunches with status = undetermined"""
   hunches_ = models.Hunch.objects.filter(
-    privacy=hunchworks_enums.PrivacyLevel.OPEN, status=2
+    privacy=hunchworks_enums.PrivacyLevel.OPEN,
     ).order_by("-time_modified")
   hunches = paginated(req, hunches_, 10)
   return _render(req, "open", {
@@ -55,7 +55,7 @@ def open(req):
 def finished(req):
   """Render hunches with status = ( denied or confirmed )"""
   hunches_ = models.Hunch.objects.filter(
-    privacy=hunchworks_enums.PrivacyLevel.OPEN, status__in=(0,1)
+    privacy=hunchworks_enums.PrivacyLevel.OPEN,
     ).order_by("-time_modified")
   hunches = paginated(req, hunches_, 10)
   return _render(req, "finished", {
