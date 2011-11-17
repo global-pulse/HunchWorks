@@ -232,23 +232,13 @@
         }
     },
     {
-        "pk": 3,
-        "model": "hunchworks.userprofile",
-        "fields":
-        {
-            "user": 3,
-            "name": "Sean Rivello",
-            "email": "sean@unicef.org"
-        }
-    },
-    {
         "pk": 4,
         "model": "hunchworks.userprofile",
         "fields":
         {
             "user": 4,
-            "name": "Mark Spiegelman",
-            "email": "mark@internews.com"
+            "name": "Sean Rivello",
+            "email": "sean@unicef.org"
         }
     },
     {
@@ -257,8 +247,8 @@
         "fields":
         {
             "user": 5,
-            "name": "Helena Cabag",
-            "email": "helen@undp.org"
+            "name": "Mark Spiegelman",
+            "email": "mark@internews.com"
         }
     },
     {
@@ -267,8 +257,8 @@
         "fields":
         {
             "user": 6,
-            "name": "Betty Heral",
-            "email": "betty@crisismappers.com"
+            "name": "Helena Cabag",
+            "email": "helen@undp.org"
         }
     },
     {
@@ -277,8 +267,8 @@
         "fields":
         {
             "user": 7,
-            "name": "Margunn Grabow",
-            "email": "margunn@undp.org"
+            "name": "Betty Heral",
+            "email": "betty@crisismappers.com"
         }
     },
     {
@@ -287,6 +277,16 @@
         "fields":
         {
             "user": 8,
+            "name": "Margunn Grabow",
+            "email": "margunn@undp.org"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "hunchworks.userprofile",
+        "fields":
+        {
+            "user": 9,
             "name": "Jen Maura",
             "email": "jen@nyu.edu"
         }
