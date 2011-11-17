@@ -38,9 +38,9 @@ class LocationWidget(forms.MultiWidget):
     return """
       <div class="loc-widget">
         <ul class="type">
-          <li class="active" data-type="latlng">GIS Coordinates</li>
+          <li class="active" data-type="latlng">Position</li>
           <li data-type="map">Pin on Map</li>
-          <li data-type="name">Location Name</li>
+          <!--<li data-type="name">Location Name</li>-->
         </ul>
         <div class="latlng">
           <div class="widgets">

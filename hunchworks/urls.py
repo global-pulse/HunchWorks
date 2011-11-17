@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 from django.conf.urls.defaults import *
-from views import dashboard, auth, users, groups, hunches, evidences, albums, feeds, bookmark
+from hunchworks.views import dashboard, auth, users, groups, hunches, evidences, albums, feeds, bookmark
+from hunchworks import forms
 
 urlpatterns = patterns(
   'hunchworks.views',
@@ -44,13 +45,15 @@ urlpatterns = patterns(
   url(r'^hunches/open$',                         hunches.open,       name="open_hunches"),
   url(r'^hunches/(?P<hunch_id>\d+)$',            hunches.show,       name="hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/edit$',       hunches.edit,       name="edit_hunch"),
-  url(r'^hunches/create$',                       hunches.create,     name="create_hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/follow$',     hunches.follow,     name="follow_hunch"),
   url(r'^hunches/(?P<hunch_id>\d+)/unfollow$',   hunches.unfollow,   name="unfollow_hunch"),
 
-  # create hunch steps
-  url(r"^hunches/create/1$", hunches.create_one),
-  url(r"^hunches/create/2$", hunches.create_two),
+  # create hunch wizard
+  url(r'^hunches/create$', hunches.HunchWizard.as_view([
+    forms.hunch.HunchFormOne,
+    forms.hunch.HunchFormTwo,
+    forms.hunch.HunchFormThree,
+  ]), name="create_hunch"),
 
   # hunch evidence
   url(r'^hunches/(?P<hunch_id>\d+)/evidence/add$', hunches.add_evidence, name="add_hunch_evidence"),

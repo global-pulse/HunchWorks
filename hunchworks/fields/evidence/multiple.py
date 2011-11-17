@@ -10,16 +10,11 @@ class MultipleEvidenceWidget(forms.TextInput):
     flat_widget = super(MultipleEvidenceWidget, self)\
       .render(name, self._flat_value(value), attrs)
 
-    previews = map(
-      self.render_one,
-      self._value_objects(value)
-    )
-
     return render_to_string(
       "evidences/widget.html", {
         "flat_widget": flat_widget,
         "help_text": self._help(),
-        "previews": previews,
+        "evidence_list": self._value_objects(value),
         "variety": "many"
       }
     )
@@ -27,13 +22,6 @@ class MultipleEvidenceWidget(forms.TextInput):
   def value_from_datadict(self, data, files, name):
     keys = map(unicode.strip, data.get(name, "").split(","))
     return [int(key) for key in keys if key.isdigit()]
-
-  def render_one(self, evidence):
-    return render_to_string(
-      "evidences/short.html", {
-        "evidence": evidence
-      }
-    )
 
   def _help(self):
     return "If JavaScript is disabled, enter evidence IDs separated by commas."

@@ -1,6 +1,40 @@
 {% extends "hunches/base.html" %}
 
+{% block body_id %}hunch-create{% endblock %}
+
 {% block header %}
   {{ block.super }}
   <h1>Create a Hunch</h1>
+{% endblock %}
+
+{% block content %}
+  <form action="" method="post" class="create hunch">
+    <section class="help_text">
+      <p class="steps">
+        Step <span>{{ wizard.steps.step1 }}</span>
+        of <span>{{ wizard.steps.count  }}</span>
+      </p>
+
+      {% block help_text %}{% endblock %}
+    </section>
+
+    {{ wizard.management_form }}
+    {% csrf_token %}
+
+    {% block form %}{% endblock %}
+
+    <div class="actions">
+      {% block actions %}
+        {% if wizard.steps.prev %}
+          <button class="prev" name="wizard_prev_step" value="{{ wizard.steps.prev }}">&larr; Previous Step</button>
+        {% endif %}
+
+        {% if wizard.steps.next %}
+          <input type="submit" value="Next Step &rarr;">
+        {% else %}
+          <input type="submit" value="Preview Your Hunch &rarr;">
+        {% endif %}
+      {% endblock %}
+    </div>
+  </form>
 {% endblock %}

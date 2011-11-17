@@ -4,7 +4,8 @@ from django import forms
 from django.db import transaction
 from hunchworks import models
 from hunchworks import json_views
-from hunchworks.fields import TokenField, LocationField, EvidencesField
+from hunchworks.forms.evidence import EvidenceForm
+from hunchworks.fields import TokenField, EmbedField, LocationField, EvidencesField
 
 
 class HunchFormOne(forms.Form):
@@ -15,9 +16,29 @@ class HunchFormOne(forms.Form):
     help_text="")
 
 
-class HunchFormTwo(forms.Form):
+class HunchFormTwo(EvidenceForm):
   evidences = EvidencesField(required=False,
     label="Attach Existing Evidence")
+
+  link = EmbedField(required=False,
+    help_text='Enter an URL to be embedded. You can find a list of supported ' +
+              'providers at <a href="http://embed.ly/providers">Embedly</a>.')
+
+
+class HunchFormThree(forms.Form):
+  tags = TokenField(models.Tag, json_views.tags, required=False,
+    help_text="Tags should include keywords related to this hunch, to help other users find it.")
+
+  location = LocationField(required=False,
+    help_text="If the hunch is relative to a specific location, you can mark it here.")
+
+  user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False,
+    help_text="Type the name of the user you would like to invite to work with you on this hunch",
+    label="Invite your connections")
+
+  add_groups = TokenField(models.Group, json_views.user_groups, required=False,
+    help_text="Type the name of the group you would like to invite",
+    label="Invite your groups")
 
 
 class HunchForm(forms.ModelForm):
