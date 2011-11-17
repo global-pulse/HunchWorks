@@ -120,21 +120,6 @@ class PrivacyLevel(Enum):
   	}
 
 
-class SkillLevel(Enum):
-  """Enum representing the various skill levels a user can have in a subject."""
-  EXPERT = 0
-  SKILLED = 1
-
-
-class HunchStatus(Enum):
-  """Enum representing the statuses a Hunch can take."""
-  MAP={}
-
-  CONFIRMED = 0
-  DENIED = 1
-  UNDETERMINED = 2
-
-
 class GroupType(Enum):
   """Enum representing the types of groups that can be made"""
   MAP = {}

@@ -23,11 +23,13 @@
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/token-input.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/location-widget.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/evidence-widget.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/includes/connections-widget.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/embed-widget.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/vote-widget.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/bookmark.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/hunch.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/group.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/includes/evidence.css">
 
       <!-- forms -->
       <link rel="stylesheet" href="{% get_static_prefix %}css/forms/base.css">
@@ -55,7 +57,7 @@
       };
     </script>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script>
     <script src='/static/js/jquery-tokeninput-1.6.0-min.js'></script>
     <script src="/static/js/underscore-1.1.7-min.js"></script>
     <script src="/static/js/comment-forms.js"></script>
@@ -68,6 +70,7 @@
     <script src="/static/js/embed-widget.js"></script>
     <script src="/static/js/token-widget.js"></script>
     <script src="/static/js/vote-widget.js"></script>
+    <script src="/static/js/connections-widget.js"></script>
     {% block js %}{% endblock %}
   </head>
   <body id="{% block body_id %}{% endblock %}">

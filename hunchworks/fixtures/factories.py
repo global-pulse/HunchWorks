@@ -44,10 +44,8 @@ class HunchFactory(BaseFactory, DjangoMixin):
         creator = self.getRandInst(UserProfile)
         time_created = "2011-01-01"
         time_modified = "2011-08-08"
-        status = random.choice(enums.HunchStatus.GetChoices())[0]
         title = 'markov %s' % pk
         privacy = random.choice(PRIVACY_CHOICES)[0]
-        translation_language = self.getRandInst(TranslationLanguage)
         location = self.getRandInst(Location)
         description = 'markov %s' % pk
         return locals()
@@ -139,8 +137,6 @@ class UserProfileFactory(BaseFactory, DjangoMixin):
         #ConnectionFactory(uid1=pk, uid2=self.getRandInst(model=UserProfile).pk)
         #roles = Role
         #location_interests = Location
-        #skills = Skill
-        #languages = Language
 
         #qualifications = Education
         #courses = Course

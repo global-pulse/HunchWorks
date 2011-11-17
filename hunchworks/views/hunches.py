@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 
-from hunchworks import models, forms, hunchworks_enums
-from hunchworks.utils.pagination import paginated
+from django.db import transaction
 from django.template import RequestContext
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from formwizard.views import SessionWizardView
+from hunchworks import models, forms, hunchworks_enums
+from hunchworks.forms.hunch import HunchFormOne, HunchFormTwo, HunchFormThree
+from hunchworks.utils.pagination import paginated
 
 
 def _render(req, template, more_context):
@@ -41,7 +44,7 @@ def all(req):
 def open(req):
   """Render hunches with status = undetermined"""
   hunches_ = models.Hunch.objects.filter(
-    privacy=hunchworks_enums.PrivacyLevel.OPEN, status=2
+    privacy=hunchworks_enums.PrivacyLevel.OPEN,
     ).order_by("-time_modified")
   hunches = paginated(req, hunches_, 10)
   return _render(req, "open", {
@@ -52,7 +55,7 @@ def open(req):
 def finished(req):
   """Render hunches with status = ( denied or confirmed )"""
   hunches_ = models.Hunch.objects.filter(
-    privacy=hunchworks_enums.PrivacyLevel.OPEN, status__in=(0,1)
+    privacy=hunchworks_enums.PrivacyLevel.OPEN,
     ).order_by("-time_modified")
   hunches = paginated(req, hunches_, 10)
   return _render(req, "finished", {
@@ -102,7 +105,7 @@ def show(req, hunch_id):
         return redirect(hunch)
 
     elif action == "add_evidence":
-      hunch_evidence_form = forms.AddHunchEvidenceForm(req.POST)
+      hunch_evidence_form = forms.HunchEvidenceForm(req.POST)
 
       if hunch_evidence_form.is_valid():
         hunch_evidence = hunch_evidence_form.save(user_profile=req.user.get_profile())
@@ -110,7 +113,7 @@ def show(req, hunch_id):
 
 
   if hunch_evidence_form is None:
-    hunch_evidence_form = forms.AddHunchEvidenceForm(initial={
+    hunch_evidence_form = forms.HunchEvidenceForm(initial={
       "hunch": hunch
     })
 
@@ -192,17 +195,36 @@ def edit(req, hunch_id):
   })
 
 
-@login_required
-def create(req):
-  form = forms.HunchForm(req.POST or None)
+class HunchWizard(SessionWizardView):
+  def get_template_names(self):
+    return "hunches/create/%s.html" %\
+      self.steps.step1
 
-  if form.is_valid():
-    hunch = form.save(creator = req.user.get_profile())
+  def done(self, form_list, **kwargs):
+    with transaction.commit_on_success():
+
+      hunch = models.Hunch.objects.create(
+        creator     = self.request.user.get_profile(),
+        title       = form_list[0].cleaned_data["title"],
+        description = form_list[0].cleaned_data["description"],
+        privacy     = form_list[0].cleaned_data["privacy"],
+        location    = form_list[2].cleaned_data["location"])
+
+      hunch.tags = form_list[2].cleaned_data["tags"]
+
+      for evidence in form_list[1].cleaned_data["evidences"]:
+        models.HunchEvidence.objects.create(
+          evidence=evidence,
+          hunch=hunch)
+
+      for user_profile in form_list[3].cleaned_data["user_profiles"]:
+        models.HunchUser.objects.create(
+          user_profile=user_profile,
+          hunch=hunch)
+
+      hunch.save()
+
     return redirect(hunch)
-
-  return _render(req, "create", {
-    "form": form, "user": req.user.get_profile()
-  })
 
 
 @login_required
@@ -223,14 +245,14 @@ def add_evidence(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
 
   if req.method == "POST":
-    form = forms.AddHunchEvidenceForm(req.POST)
+    form = forms.HunchEvidenceForm(req.POST)
 
     if form.is_valid():
       hunch_evidence = form.save(user_profile=req.user.get_profile())
       return redirect(hunch)
 
   else:
-    form = forms.AddHunchEvidenceForm(initial={
+    form = forms.HunchEvidenceForm(initial={
       "hunch": hunch
     })
 

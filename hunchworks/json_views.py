@@ -21,15 +21,9 @@ def _search_collab(req, model):
   values_list = query_set.values_list( "other_user_profile__id", "other_user_profile__user__username")
   collaborators = [{ "id": x[0], "name": x[1]} for x in values_list]
   return http.HttpResponse(json.dumps(collaborators))
-
-def languages(req):
-  return _search(req, models.Language)
   
 def locations(req):
   return _search(req, models.Location)
-
-def skills(req):
-  return _search(req, models.Skill)
 
 def tags(req):
   return _search(req, models.Tag)

@@ -1,0 +1,14 @@
+{% extends "hunches/create/base.html" %}
+
+{% block help_text %}
+  <p>Creating a hunch is the primary method of discussing an idea within the HunchWorks community.</p>
+  <p>Try to state your hypothesis and rationale as clearly and comprehensively as possible.</p>
+{% endblock %}
+
+{% block form %}
+  <div class="fields">
+    {% include "includes/fields/base.html" with field=wizard.form.title %}
+    {% include "includes/fields/base.html" with field=wizard.form.description %}
+    {% include "includes/fields/base.html" with field=wizard.form.privacy %}
+  </div>
+{% endblock %}

@@ -136,22 +136,6 @@
 		  {% endif %}
 		</div>
 		<div class='field'>
-		  <b>Skills:</b>
-		  {% if skills %}
-			{{ user.skills }}
-		  {% else %}
-			Skills not entered
-		  {% endif %}
-		</div>
-		<div class='field'>
-		  <b>Languages:</b>
-		  {% if languages_known %}
-			{{ user.languages_known }}
-		  {% else %}
-			Languages known not entered
-		  {% endif %}
-		</div>
-		<div class='field'>
 		  <b>Location interests:</b>
 		  {% if location_interests %}
 			{{ user.location_interests }}
@@ -182,17 +166,7 @@
 	  <button id='createHunchButton' type='button'
 		onclick="location.href='/hunches/create'"> Create a Hunch! </button>
 	  <!-- Link to the createHunch page -->
-	  <div id='complementaryDiv'>
-		<h3>People with complementary skills</h3>
-		<ul id='complementaryList'>
-          {% for userprofile in connected_profiles %}
-		  <li id='complementaryPerson{{ userprofile.user_id }}'>
-          <a id='profile_{{ userprofile.user_id }}' href='profile/{{ userprofile.user_id }}'>
-              <img id='imgToProfile{{ userprofile.user_id }}' src='{{ userprofile.profile_picture_url }}' alt='imgToProfile1' style="width:150px"/>
-            {{ userprofile.user.username }} Maybe a short description about user? </a></li>
-          {% endfor %}
-		</ul>
-	  </div> <!-- end complementaryDiv div -->
+
 	  <div id='matchingHunches'>
 		<h3>Hunches matching your expertise</h3>
 		<ol id='matchingHunchesList'>

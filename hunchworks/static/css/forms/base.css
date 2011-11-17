@@ -23,31 +23,31 @@ form { }
       line-height: 1.4;
     }
 
-  form > div.fields {
+  form div.fields {
     padding: 2em;
     overflow: hidden;
   }
 
-    form > div.fields div.field {
+    form div.fields div.field {
       margin-bottom: 2em;
     }
 
-      form > div.fields div.field:last-child {
+      form div.fields div.field:last-child {
         margin-bottom: 0;
       }
 
     /* Many forms are split into two columns. Usually, the important fields are
     |* on the left, and the supplementary fields are on the right. */
-    form > div.fields > div.left,
-    form > div.fields > div.right {
+    form div.fields div.left,
+    form div.fields div.right {
       float: left;
     }
 
-    form > div.fields > div.left {
+    form div.fields div.left {
       width: 60%;
     }
 
-    form > div.fields > div.right {
+    form div.fields div.right {
       width: 40%;
       box-sizing: border-box;
       -moz-box-sizing: border-box;
@@ -71,7 +71,7 @@ form { }
         color: #999;
       }
 
-    input, textarea, select, ul.token-input-list {
+    input, textarea, select, button, ul.token-input-list {
       display: block;
       font: inherit;
       clear: both;
@@ -100,13 +100,26 @@ form { }
       }
 
     input[type=submit],
-    input[type=button] {
+    input[type=button],
+    button {
+      display: inline-block;
       width: auto;
+
+      outline: none;
+      cursor: pointer;
+      text-align: center;
+      padding: 0.5em 1em;
+
+      color: #666;
+      text-shadow: 0 0 3px #fff;
+
+      background: #ddd;
+      background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+      background: -moz-linear-gradient(top, #eee, #ccc);
+
+      border: solid 1px #bbb;
       border-radius: 5px;
       -moz-border-radius: 5px;
-      font-weight: bold;
-      background: #aaa;
-      color: #fff;
     }
 
     form div.field p.help {
@@ -146,17 +159,17 @@ form { }
   form > div.actions {
     overflow: hidden;
     clear: both;
-    padding: 1em;
+    padding: 1em 2em;
 
     background: #eee;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
     background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
-    background: -moz-linear-gradient(top,  #eee,  #fff);
+    background: -moz-linear-gradient(top, #eee, #fff);
   }
 
-    form > div.actions > input {
-      display: inline-block;
-      margin-left: 0.5em;
+    form > div.actions > input,
+    form > div.actions > button {
+      margin-left: 1em;
       float: right;
       clear: none;
     }

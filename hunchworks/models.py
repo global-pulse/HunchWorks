@@ -86,8 +86,6 @@ class UserProfile(models.Model):
 
   roles = models.ManyToManyField("Role", blank=True)
   location_interests = models.ManyToManyField('Location', blank=True)
-  skills = models.ManyToManyField('Skill', blank=True)
-  languages = models.ManyToManyField('Language', blank=True)
 
   qualifications = models.ManyToManyField('Education', blank=True)
   courses = models.ManyToManyField('Course', blank=True)
@@ -129,23 +127,15 @@ class Hunch(models.Model):
   creator = models.ForeignKey('UserProfile', related_name="created_hunches")
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
-  status = models.IntegerField(choices=hunchworks_enums.HunchStatus.GetChoices(), default=2)
 
-  title = models.CharField(verbose_name="Hypothesis", max_length=100, unique=True,
-    help_text='Hypotheses should be a simple <a href="http://en.wikipedia.org/wiki/Falsifiability">falsifiable</a> statement.')
+  title = models.CharField(max_length=160)
+  description = models.TextField(blank=True)
 
-  description = models.TextField(verbose_name="further explanation", blank=True)
-  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=2, help_text=PRIVACY_HELP_TEXT)
+  privacy = models.IntegerField(choices=PRIVACY_CHOICES, default=0, help_text=PRIVACY_HELP_TEXT)
   location = models.ForeignKey('Location', null=True, blank=True)
-  skills = models.ManyToManyField('Skill', blank=True)
-  languages = models.ManyToManyField('Language', blank=True)
   evidences = models.ManyToManyField( 'Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
   user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
-
-  translation_language = models.ForeignKey('TranslationLanguage', default=1,
-    help_text="The language which this hunch will be discussed in.",
-    verbose_name="Language")
 
   class Meta:
     verbose_name_plural = "hunches"
@@ -454,17 +444,6 @@ class Role(models.Model):
 
   def __unicode__(self):
     return self.title
-
-
-class Skill(models.Model):
-  name = models.CharField(unique=True, max_length=100)
-
-  def __unicode__(self):
-    return self.name
-
-  @classmethod
-  def search(cls, term, user_profile=None):
-    return cls.objects.filter(name__icontains=term)
 
 
 class Language(models.Model):

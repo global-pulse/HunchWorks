@@ -1,18 +1,21 @@
 .evidence-widget {
-  border: 2px solid #eee;
   border-radius: 3px;
   -moz-border-radius: 3px;
   clear: both;
 }
 
-    .evidence-widget > .evidences { }
+    .evidence-widget > section.evidence-list { }
 
-      .evidence-widget > .evidences > .evidence {
+      .evidence-widget > section.evidence-list > .evidence {
         position: relative;
         padding-right: 2em;
       }
 
-        .evidence-widget > .evidences > .evidence > div.delete {
+      .evidence-widget > section.evidence-list > .evidence {
+        margin-bottom: 0.5em !important;
+      }
+
+        .evidence-widget > section.evidence-list > .evidence > div.delete {
           position: absolute;
           top: 1em;
           bottom: 1em;
@@ -45,54 +48,16 @@
       padding: 0.625em;
     }
 
-    .evidence-widget > div.search-results > .evidences { }
+    .evidence-widget > div.search-results > section.evidence-list {
+      padding: 1em;
+    }
 
-      .evidence-widget > div.search-results > .evidences > .evidence {
+      .evidence-widget > div.search-results > section.evidence-list > article.evidence {
         cursor: pointer;
       }
 
-      .evidence-widget > div.search-results > .evidences > .evidence:hover {
-        background: #4B92DB;
-        color: #fff;
+      .evidence-widget > div.search-results > section.evidence-list > article.evidence:hover {
+        background: #eef;
       }
 
-      .evidence-widget > div.search-results > .evidences > .evidence:last-child {
-        border-bottom: none;
-      }
-
-  .evidence-widget > div.widget {
-    padding: 1em;
-  }
-
-
-.evidences { }
-
-  .evidences > .evidence {
-    border-bottom: 1px dotted #ccc;
-    padding: 1em;
-  }
-
-    .evidences > .evidence > h3 {
-      font-size: 125%;
-      margin-bottom: 0.4em;
-    }
-
-    .evidences > .evidence > div.preview {
-      line-height: 1.2em;
-      max-height: 3.6em;
-      overflow: hidden;
-      border-left: 0.5em solid #eee;
-      padding-left: 0.5em;
-      color: #666;
-    }
-
-      .evidences > .evidence > ul.meta { }
-
-        .evidences > .evidence > ul.meta > li {
-          font-size: 80%;
-          display: inline-block;
-          margin-top: 0.625em;
-          padding: 0.3125em;
-          background: #eee;
-          color: #999;
-        }
+  .evidence-widget > div.widget { }

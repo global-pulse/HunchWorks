@@ -1,5 +1,5 @@
 <div class="comment{% ifequal request.user.get_profile comment.creator %} mine{% endifequal %}" id="c{{ comment.pk }}">
-  {% include "users/user.html" with user=comment.creator %}
+  {% include "includes/users/short.html" with user_profile=comment.creator %}
   
   <div class="bubble">
     <div class="arrow"></div>

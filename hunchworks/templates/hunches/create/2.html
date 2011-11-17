@@ -1,0 +1,60 @@
+{% extends "hunches/create/base.html" %}
+
+{% block help_text %}
+  <p>If you already have evidence to support your hunch, attach it now.</p>
+  <p>You (and your collaborators) can always attach more as it's discovered.</p>
+  </p>
+{% endblock %}
+
+{% block form %}
+  <div class="fields">
+    <h2>Attach <span>Existing Evidence</span> to This Hunch</h2>
+    {% include "includes/fields/base.html" with field=wizard.form.evidences %}
+
+    <h2>or Create <span>New Evidence</span> and Attach it to This Hunch</h2>
+    <div class="wrap">
+      <div class="left">
+        {% include "includes/fields/base.html" with field=wizard.form.title %}
+        {% include "includes/fields/base.html" with field=wizard.form.description %}
+        {% include "includes/fields/base.html" with field=wizard.form.location %}
+      </div>
+      <div class="right">
+        {% include "includes/fields/base.html" with field=wizard.form.link %}
+        {% include "includes/fields/base.html" with field=wizard.form.tags %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var $container= $("div.fields");
+      var $wrapper = $("<div>", { "class": "show" }).appendTo($container);
+      var $trigger = $("<a>", { "href": "" }).appendTo($wrapper);
+      var $fields  = $container.find(".wrap").hide();
+
+      var verb = function() {
+        return ($fields.css("display") == "none") ? "Show" : "Hide";
+      };
+
+      var caption = function() {
+        return verb() + " the Create Evidence Form";
+      };
+
+      var update_caption = function() {
+        $trigger.html(caption());
+      };
+
+      $trigger.click(function(event) {
+        $fields.slideToggle("slow", update_caption);
+        event.preventDefault();
+      });
+
+      update_caption();
+    })();
+  </script>
+{% endblock %}
+
+{% block actions %}
+  {{ block.super }}
+  <input type="submit" value="Attach More Evidence">
+{% endblock %}
