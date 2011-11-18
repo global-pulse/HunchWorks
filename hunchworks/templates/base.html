@@ -90,7 +90,7 @@
             <li class="{% ifstartswith "groups" %}active{% endifstartswith %}"><a href="{% url groups %}">Groups</a></li>
           </ul>
         {% endblock %}
-  
+
         {% block secondary_nav %}{% endblock %}
       </nav>
 
@@ -112,5 +112,21 @@
         <div class="clear-hack"></div>
       </div>
     </div>
+
+    <footer>
+      <p class="opensource">
+        HunchWorks is <a href="https://github.com/global-pulse/HunchWorks">open source software</a>,<br>
+        available under the <a href="http://gnu.org/licenses/gpl-3.0.txt">GNU GPL v3</a>.
+      </p>
+
+      <p class="links">
+        <a href="http://www.unglobalpulse.org/technology/hunchworks">About HunchWorks</a>
+        | <a href="/">Privacy Policy</a>
+      </p>
+
+      <p class="copyright">
+        &copy; 2011 <a href="http://unglobalpulse.org">Global Pulse</a> et al.
+      </p>
+    </footer>
   </body>
 </html>

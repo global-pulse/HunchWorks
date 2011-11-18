@@ -9,10 +9,13 @@ a {
   color: inherit;
 }
 
-#wrapper {
+#wrapper, footer {
   max-width: 960px;
   min-width: 650px;
   margin: 0 auto;
+}
+
+#wrapper {
   border: 1px solid #ccc;
   border-top: none;
   position: relative;
@@ -81,3 +84,20 @@ a {
         #page div.links li:last-child {
           border-right: none;
         }
+
+footer {
+  padding: 2em 0;
+  color: #aaa;
+}
+
+  footer > p {
+    padding-left: 2em;
+    line-height: 1.4;
+  }
+
+  footer > p.opensource {
+    text-align: right;
+    float: right;
+    padding-right: 2em;
+    padding-left: 0;
+  }
