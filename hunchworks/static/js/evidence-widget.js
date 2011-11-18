@@ -99,6 +99,10 @@ $(function() {
       $(document.body).click();
     });
 
+    $results_inner.on("click", "a", function(event) {
+      event.preventDefault();
+    });
+
     $previews.delegate(".delete", "click", function() {
       $(this).closest(".evidence").remove();
       update_values();
