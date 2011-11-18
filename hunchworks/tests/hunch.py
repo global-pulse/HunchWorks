@@ -118,19 +118,6 @@ class HunchViewsTest(TestCase, ViewTestHelpers):
       resp = self.get("hunch", hunch_id=hunch.pk)
       self.assertContains(resp, hunch.title)
 
-  def test_create_hunch(self):
-    with self.login("one"):
-      get_resp = self.get("create_hunch")
-      self.assertTemplateUsed(get_resp, "hunches/create.html")
-
-      post_resp = self.submit_form(get_resp, {
-        "title": "Test Create Hunch",
-        "description": "I have a hunch that this test is going to pass"
-      })
-
-      created_hunch = Hunch.objects.get(title="Test Create Hunch")
-      self.assertRedirects(post_resp, created_hunch.get_absolute_url())
-
   def test_edit_hunch(self):
     with self.login("one"):
       old_hunch = Hunch.objects.get(pk=1)
