@@ -45,6 +45,10 @@ class HunchFormFour(forms.Form):
     help_text="Type the name of the group you would like to invite",
     label="Invite your groups")
 
+  message = forms.CharField(label="Include a personal message", widget=forms.Textarea, required=False,
+    help_text="This message will be sent to every user which you invite, " +
+              "along with a link to your hunch.")
+
 
 class HunchForm(forms.ModelForm):
   tags = TokenField(models.Tag, json_views.tags, required=False,
