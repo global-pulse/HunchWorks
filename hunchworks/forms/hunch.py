@@ -9,8 +9,8 @@ from hunchworks.fields import TokenField, EmbedField, LocationField, EvidencesFi
 
 
 class HunchFormOne(forms.Form):
-  title = forms.CharField(label="Hypothesis", max_length=160, required=True,
-    help_text='Hypotheses should be a simple <a href="http://en.wikipedia.org/wiki/Falsifiability">falsifiable</a> statement.')
+  title = forms.CharField(label="Your Hypothesis", max_length=160, required=True,
+    help_text='Hypotheses should be a simple <a href="http://en.wikipedia.org/wiki/Falsifiability" target="_blank">falsifiable</a> statement.')
 
   description = forms.CharField(label="Further Explanation", widget=forms.Textarea, required=False,
     help_text="")

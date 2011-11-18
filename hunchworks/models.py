@@ -19,9 +19,9 @@ PRIVACY_CHOICES = (
   (2, "Open"))
 
 PRIVACY_HELP_TEXT = "<br>".join([
-  "<strong>Hidden</strong>: only visible to invited members.",
-  "<strong>Closed</strong>: visible to all, but only invited users can participate.",
-  "<strong>Open</strong>: available to any HunchWorks member."])
+  "<strong>Hidden</strong>: only visible to explicitly invited users.",
+  "<strong>Closed</strong>: visible to all, but only invited users can contribute.",
+  "<strong>Open</strong>: available to any HunchWorks user."])
 
 GROUP_STATUS_CHOICES = (
   (0, "Invited"),
