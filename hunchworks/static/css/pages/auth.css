@@ -3,8 +3,7 @@ form.auth > div.fields {
 }
 
   form.auth > div.actions > p {
-    padding: 2px 0;
-    line-height: 3em;
-    margin-left: 1em;
+    padding: 0.5em 0;
+    margin: 1px 0;
     color: #666;
   }
