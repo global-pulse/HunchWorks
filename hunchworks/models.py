@@ -3,7 +3,6 @@
 import datetime
 import numpy
 from urlparse import urlparse
-import hunchworks_enums
 from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -11,6 +10,8 @@ from django.template import Template, Context
 from django.db.models.signals import pre_save, post_save
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from hunchworks import hunchworks_enums
+from hunchworks import events
 
 
 PRIVACY_CHOICES = (
@@ -67,7 +68,7 @@ ACTIVITY_RANGES = (
   (None, 0, "Inactive",    "This hunch is not being discussed or evaluated by the HunchWorks community."))
 
 
-class UserProfile(models.Model):
+class UserProfile(models.Model, events.HasEvents):
   user = models.ForeignKey(User, unique=True)
   title = models.IntegerField(choices=hunchworks_enums.UserTitle.GetChoices(), default=0)
   name = models.CharField(max_length=100)
@@ -149,14 +150,14 @@ class Hunch(models.Model):
 
   def save(self, *args, **kwargs):
     now = datetime.datetime.today()
+    self.time_modified = now
 
     # for new records.
     if not self.id:
       self.time_created = now
 
-    self.time_modified = now
-    super(Hunch, self).save(*args, **kwargs)
-
+    return super(Hunch, self).save(
+      *args, **kwargs)
 
   def get_support(self):
     supports = map(HunchEvidence.get_support, self.hunchevidence_set.all())
@@ -269,6 +270,11 @@ class Hunch(models.Model):
 
   def evidence_count(self):
     return self.evidences.all().count()
+
+
+post_save.connect(
+  events.hunch_created,
+  sender=Hunch)
 
 
 class HunchUser(models.Model):
