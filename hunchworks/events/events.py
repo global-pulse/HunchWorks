@@ -5,7 +5,7 @@ from hunchworks.events import utils
 
 # post_save(sender=Hunch)
 def hunch_created(sender, instance, created, **kwargs):
-  hunch = hunch
+  hunch = instance
   if created:
 
     notify_users = set(hunch.user_profiles.all())
