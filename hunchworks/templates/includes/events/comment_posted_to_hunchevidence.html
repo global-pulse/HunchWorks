@@ -1,0 +1,14 @@
+<article class="event comment-posted-hunchevidence">
+  {% include "includes/users/short.html" with user_profile=comment.creator %}
+
+  <div>
+    <p class="summary">
+      <a href="{% url profile comment.creator.pk }}">{{ comment.creator }}</a>
+      <span>commented</span> on
+      <a href="{% url hunch comment.hunch_evidence.hunch.pk %}" title="{{ comment.hunch_evidence }} on {{ comment.hunch_evidence.hunch }}">hunch evidence</a>
+      <time class="timeago" datetime="{{ comment.time_posted|date:"c" }}">{{ comment.time_posted }}</time>
+    </p>
+
+    <h2><a href="{% url hunch comment.hunch_evidence.hunch.pk %}">{{ comment.text }}</a></h2>
+  </div>
+</article>

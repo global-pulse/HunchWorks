@@ -492,6 +492,11 @@ class Comment(models.Model):
     super(Comment, self).save(*args, **kwargs)
 
 
+post_save.connect(
+  events.comment_posted,
+  sender=Comment)
+
+
 class HunchEvidence(models.Model):
   hunch = models.ForeignKey('Hunch')
   evidence = models.ForeignKey('Evidence')
