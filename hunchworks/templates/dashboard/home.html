@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% block body_id %}dashboard{% endblock %}
 
 {% block header %}
@@ -9,9 +10,20 @@
 
 {% block content %}
   <section class="intro">
-		<input type="button" value="Create a Hunch" onclick="location.href='/hunches/create'">
+    <input type="button" value="Create a Hunch" onclick="location.href='/hunches/create'">
     <p>Welcome back, {{ user.get_profile }}.</p>
   </section>
+
+  <div class="activity">
+    <h2>Latest Activity</h2>
+
+    <section class="event-list">
+      {% for event in events %}
+        {{ event.html|safe }}
+      {% endfor %}
+    </section>
+  </div>
+
   <section class="hunches">
     <div>
       <h2>Recently <span>Updated</span> Hunches</h2>
