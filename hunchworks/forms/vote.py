@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from django import forms
+from django.db import transaction
 from django.utils.safestring import mark_safe
 from hunchworks import models
 from hunchworks.fields import VoteField
