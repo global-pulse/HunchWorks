@@ -519,6 +519,11 @@ class HunchEvidence(models.Model):
       return 0
 
 
+post_save.connect(
+  events.evidence_attached,
+  sender=HunchEvidence)
+
+
 class Vote(models.Model):
   choice = models.IntegerField(choices=SUPPORT_CHOICES, default=None)
   hunch_evidence = models.ForeignKey('HunchEvidence')
