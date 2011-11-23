@@ -68,7 +68,7 @@ def create(req):
 
 def _preview(evidence):
   return render_to_string("includes/evidences/short.html", {
-    "evidence": evidence
+    "object": evidence
   })
 
 def _search_results(query_set):
