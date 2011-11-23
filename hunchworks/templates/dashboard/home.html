@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load partial_tags %}
 
 {% block body_id %}dashboard{% endblock %}
 
@@ -33,8 +34,8 @@
 
     <h2>Your <span>Starred Items</span></h2>
 
-    {% if bookmarks %}
-      {% include "includes/hunches/list.html" with item_list=bookmarks %}
+    {% if bookmarks.object_list %}
+      {% include "includes/bookmarks/list.html" with bookmark_list=bookmarks.object_list %}
     {% else %}
       <div class="empty-list">
         You haven't starred any items.

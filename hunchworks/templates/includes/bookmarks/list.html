@@ -1,0 +1,7 @@
+{% load partial_tags %}
+
+<section class="bookmark-list">
+  {% for bookmark in bookmark_list %}
+    {% partial bookmark.content_object %}
+  {% endfor %}
+</section>
