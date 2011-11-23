@@ -1,70 +1,39 @@
 #dashboard { }
 
-  #dashboard section.intro {
-    padding: 2em;
+  #dashboard #page {
     overflow: hidden;
-    border-bottom: 1px dashed #ccc;
   }
 
-    #dashboard section.intro > p {
+    #dashboard #page > div.left,
+    #dashboard #page > div.right {
+      box-sizing: border-box;
+      padding: 2em;
       float: left;
-      font-size: 125%;
-      line-height: 2.4em;
-      padding: 2px 0 2px 0.7em;
     }
 
-    #dashboard section.intro > input {
-      float: right;
+    #dashboard #page > div.left {
+      padding-right: 1em;
+      width: 60%;
     }
 
-  #dashboard div.activity {
-    float: left;
-    width: 70%;
-    padding: 2em;
-    box-sizing: border-box;
-  }
-
-    #dashboard div.activity > h2 {
-      text-align: center;
-      font-size: 160%;
-      color: #999;
-      margin-bottom: 0.625em;
+    #dashboard #page > div.right {
+      padding-left: 1em;
+      width: 40%;
     }
 
-  #dashboard section.hunches {
-    clear: both;
-  }
-
-  #dashboard section.hunches,
-  #dashboard section.suggestions {
-    padding: 2em;
-    padding-left: 3em;
-    overflow: hidden;
-    border-top: 1px dashed #ccc;
-  }
-
-    #dashboard section.hunches > div,
-    #dashboard section.suggestions > div {
-      float: left;
-      width: 50%;
-      margin-left: 1em;
-    }
-
-    #dashboard section.hunches > div:first-child,
-    #dashboard section.suggestions > div:first-child {
-      margin-left: -1em;
-    }
-
-      #dashboard section.hunches > div > h2,
-      #dashboard section.suggestions > div > h2 {
+      #dashboard #page > div > h2 {
         text-align: center;
         font-size: 160%;
         color: #999;
+        margin-top: 1.25em;
         margin-bottom: 0.625em;
       }
 
-        #dashboard section.hunches > div > h2 > span,
-        #dashboard section.suggestions > div > h2 > span {
+        #dashboard #page > div > h2 > span {
           font-weight: bold;
           color: #000;
         }
+
+      #dashboard #page > div > h2:first-child {
+        margin-top: 0;
+      }

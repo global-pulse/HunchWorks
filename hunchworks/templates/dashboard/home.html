@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-
 {% block body_id %}dashboard{% endblock %}
 
 {% block header %}
@@ -9,57 +8,37 @@
 {% endblock %}
 
 {% block content %}
-  <section class="intro">
-    <input type="button" value="Create a Hunch" onclick="location.href='/hunches/create'">
-    <p>Welcome back, {{ user.get_profile }}.</p>
-  </section>
+  <div class="left">
+    <h2>Latest <span>Activity</span></h2>
 
-  <div class="activity">
-    <h2>Latest Activity</h2>
-
-    <section class="event-list">
-      {% for event in events %}
-        {{ event.html|safe }}
-      {% endfor %}
-    </section>
+    {% if events.object_list.count %}
+      {% include "includes/events/list.html" with event_list=events.object_list %}
+    {% else %}
+      <div class="empty-list">
+        Nothing has happened lately.
+      </div>
+    {% endif %}
   </div>
 
-  <section class="hunches">
-    <div>
-      <h2>Recently <span>Updated</span> Hunches</h2>
-      {% if recent_hunches %}
-        {% include "includes/hunches/list.html" with hunch_list=recent_hunches %}
-      {% else %}
-        <div class="empty-list">
-          No hunches have been updated recently.
-        </div>
-      {% endif %}
-    </div>
-    <div>
-      <h2>Recently <span>Comfirmed</span> Hunches</h2>
-      {% if confirmed_hunches %}
-        {% include "includes/hunches/list.html" with hunch_list=confirmed_hunches %}
-      {% else %}
-        <div class="empty-list">
-          No hunches have been confirmed recently.
-        </div>
-      {% endif %}
-    </div>
-  </section>
-  <section class="suggestions">
-    <div>
-      <h2>Suggested <span>People</span></h2>
-      <div style="background: #eee; font-family: monospace; padding: 1em;">{{ suggested_people }}</div>
-    </div>
-    <div>
-      <h2>Suggested <span>Groups</span></h2>
-      {% if suggested_groups %}
-        {% include "includes/groups/list.html" with group_list=suggested_groups show_join_link=1 %}
-      {% else %}
-        <div class="empty-list">
-          No groups are suggested to you right now.
-        </div>
-      {% endif %}
-    </div>
-  </section>
+  <div class="right">
+    <h2>Your <span>Hunches</span></h2>
+
+    {% if hunches.object_list %}
+      {% include "includes/hunches/list.html" with hunch_list=hunches.object_list %}
+    {% else %}
+      <div class="empty-list">
+        You don't have any hunches.
+      </div>
+    {% endif %}
+
+    <h2>Your <span>Starred Items</span></h2>
+
+    {% if bookmarks %}
+      {% include "includes/hunches/list.html" with item_list=bookmarks %}
+    {% else %}
+      <div class="empty-list">
+        You haven't starred any items.
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}
