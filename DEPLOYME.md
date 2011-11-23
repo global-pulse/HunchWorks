@@ -39,6 +39,11 @@ $ sudo yum install supervisor
 $ sudo /etc/init.d/supervisord start
 $ sudo chkconfig --levels 235 supervisord on
 
+# Install MongoDB.
+$ sudo yum install mongodb-server
+$ sudo /etc/init.d/mongod start
+$ sudo chkconfig --levels 235 mongod on
+
 # Install Nginx.
 # (See below for config.)
 $ sudo yum install nginx

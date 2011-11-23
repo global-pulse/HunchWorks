@@ -14,7 +14,7 @@ class MultipleEvidenceWidget(forms.TextInput):
       "evidences/widget.html", {
         "flat_widget": flat_widget,
         "help_text": self._help(),
-        "evidence_list": self._value_objects(value),
+        "object_list": self._value_objects(value),
         "variety": "many"
       }
     )

@@ -1,12 +1,12 @@
 {% load bookmark_tags %}
 
-<article class="evidence" data-id="{{ evidence.id }}">
-  <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
-  <h2><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h2>
+<article class="evidence short" data-id="{{ object.id }}">
+  <!--<a href="{{ object.link }}" class="embed">{{ object.link }}</a>-->
+  <h2><a href="{{ object.get_absolute_url }}">{{ object }}</a></h2>
 
-  {% if evidence.description %}
+  {% if object.description %}
     <section class="desc">
-      {{ evidence.description|truncatewords:60|safe }}
+      {{ object.description|truncatewords:60|safe }}
     </section>
   {% endif %}
 
@@ -14,5 +14,5 @@
     <li>Used in {{ evidence.hunch_set.all.count }} hunches</li>
   </ul>
 
-  {% bookmarks evidence %}
+  {% bookmarks object %}
 </article>

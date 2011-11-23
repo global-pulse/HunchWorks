@@ -5,7 +5,7 @@
 
 {% block content %}
   {% if groups.object_list %}
-    {% include "includes/groups/list.html" with group_list=groups.object_list %}
+    {% include "includes/groups/list.html" with object_list=groups.object_list %}
   {% else %}
     {% block empty %}{% endblock %}
   {% endif %}

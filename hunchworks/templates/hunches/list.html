@@ -4,7 +4,7 @@
 
 {% block content %}
   {% if hunches.object_list %}
-    {% include "includes/hunches/list.html" with hunch_list=hunches.object_list %}
+    {% include "includes/hunches/list.html" with object_list=hunches.object_list %}
   {% else %}
     {% block empty %}{% endblock %}
   {% endif %}
