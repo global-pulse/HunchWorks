@@ -1,9 +1,9 @@
-#group-list section.group-list {
+#group-list section.object-list {
   overflow: hidden;
   padding: 1.5em;
 }
 
-  #group-list section.group-list > article.group {
+  #group-list section.object-list > article.group {
     float: left;
     width: 50%;
     box-sizing: border-box;
@@ -11,7 +11,7 @@
     padding: 0.5em;
   }
 
-    #group-list section.group-list > article.group > div {
+    #group-list section.object-list > article.group > div {
       margin-bottom: 0;
     }
 

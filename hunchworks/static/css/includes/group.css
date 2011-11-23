@@ -1,56 +1,56 @@
-section.group-list { }
+article.group.short { }
 
-  article.group.short { }
+  article.group.short > div {
+    position: relative;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 5px #ccc;
+    -moz-box-shadow: 1px 1px 5px #ccc;
+    border-radius: 5px;
+    -moz-border-radius: 3px;
+    overflow: hidden;
+  }
 
-    article.group.short > div {
-      position: relative;
-      border: 1px solid #ccc;
-      box-shadow: 1px 1px 5px #ccc;
-      -moz-box-shadow: 1px 1px 5px #ccc;
-      border-radius: 5px;
-      -moz-border-radius: 3px;
+    article.group.short > div > div.img {
+      float: right;
+      padding: 1px;
+    }
+
+      article.group.short > div > div.img > img {
+        display: block;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+
+    article.group.short > div > h2 {
+      font-size: 125%;
+      font-weight: bold;
+      margin: 0.8em 0 0.4em 0.8em;
+    }
+
+      article.group.short > div > h2 > a {
+        text-decoration: none;
+      }
+
+    article.group.short > div > ul.stats {
+      margin-left: 2.5em;
+      line-height: 1.3;
+      color: #999;
+    }
+
+    article.group.short > div > ul.links {
+      margin: 0.5em 0 1em 1em;
       overflow: hidden;
-      margin-bottom: 1em;
     }
 
-    article.group.short:last-child > div {
-      margin-bottom: 0;
-    }
-
-      article.group.short > div > div.img {
-        float: right;
-        padding: 1px;
+      article.group.short > div > ul.links > li {
+        display: block;
+        float: left;
+        margin-right: 1em;
       }
 
-        article.group.short > div > div.img > img {
-          display: block;
-          border-top-right-radius: 4px;
-          border-bottom-right-radius: 4px;
-        }
 
-      article.group.short > div > h2 {
-        font-size: 125%;
-        font-weight: bold;
-        margin: 0.8em 0 0.4em 0.8em;
-      }
+section.object-list.group { }
 
-        article.group.short > div > h2 > a {
-          text-decoration: none;
-        }
-
-      article.group.short > div > ul.stats {
-        margin-left: 2.5em;
-        line-height: 1.3;
-        color: #999;
-      }
-
-      article.group.short > div > ul.links {
-        margin: 0.5em 0 1em 1em;
-        overflow: hidden;
-      }
-
-        article.group.short > div > ul.links > li {
-          display: block;
-          float: left;
-          margin-right: 1em;
-        }
+  section.object-list.group > article {
+    margin-bottom: 0;
+  }

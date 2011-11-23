@@ -1,19 +1,19 @@
 {% load bookmark_tags %}
 
 <article class="short group"><div>
-  <div class="img"><img src="{{ group.logo_url }}" height="100" class="logo"></div>
-  <h2><a href="{{ group.get_absolute_url }}">{{ group }}</a></h2>
+  <div class="img"><img src="{{ object.logo_url }}" height="100" class="logo"></div>
+  <h2><a href="{{ object.get_absolute_url }}">{{ object }}</a></h2>
 
   <ul class="stats">
-    <li>{{ group.member_count }} members</li>
-    <li>{{ group.hunch_count }} hunches</li>
+    <li>{{ object.member_count }} members</li>
+    <li>{{ object.hunch_count }} hunches</li>
   </ul>
 
   {% if show_join_link %}
     <ul class="links">
-      <li><a href="{% url join_group group.pk %}" class="join">Join</a></li>
+      <li><a href="{% url join_group object.pk %}" class="join">Join</a></li>
     </ul>
   {% endif %}
 
-  {% bookmarks group %}
+  {% bookmarks object %}
 </div></article>
