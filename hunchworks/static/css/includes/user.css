@@ -38,14 +38,15 @@ article.user {
       overflow: hidden;
     }
 
-section.user-list {
+
+section.object-list.user {
   overflow: hidden;
 }
 
-  section.user-list > article.user {
+  section.object-list.user > article {
     margin-right: 0.5em;
     margin-bottom: 0.5em;
     float: left;
   }
 
-  section.user-list > article.user:last-child { }
+  section.object-list.user > article:last-child { }

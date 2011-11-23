@@ -1,6 +1,6 @@
-<article class="user" data-id="{{ user_profile.id }}">
-  <a href="{{ user_profile.get_absolute_url }}">
-    <img class="avatar" src="{{ user_profile.profile_picture_url }}" width="50" height="50">
-    <span>{{ user_profile }}</span>
+<article class="short user" data-id="{{ object.id }}">
+  <a href="{{ object.get_absolute_url }}">
+    <img class="avatar" src="{{ object.profile_picture_url }}" width="50" height="50">
+    <span>{{ object }}</span>
   </a>
 </article>

@@ -4,7 +4,7 @@
   </div>
 
   {% if user_profile_list %}
-    {% include "includes/users/list.html" with user_profile_list=user_profile_list %}
+    {% include "includes/users/list.html" with object_list=user_profile_list %}
   {% else %}
     <div class="empty-list">
       You don't have any friends.
