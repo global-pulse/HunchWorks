@@ -40,17 +40,48 @@ def worldbank_indicators(indicator_id, country_ids):
     if value is not None:
       return float(value)
 
-  flat_data = [
-    (unicode(item["date"]), _value(item["value"]))
-    for item in reversed(data)
-  ]
+  # all_country_data will output a dictionary that looks like this:
+  # { Brazil: { 2003: 10000, 2004: 11000, 2005: 12000 },
+  #   China: { 2003: 12000, 2004: 14000, 2006: 16000 }
+  # }
+  all_country_data = {}
+  country = ""
+  
+  for item in reversed(data):
 
-  return (indicators, countries, flat_data)
+    if country != item["country"]["name"]:
+      country = item["country"]["name"]
+      all_country_data[country] = {}
+
+    all_country_data[country][item["date"]] = _value(item["value"])
+
+  print all_country_data
+
+  # This will be a unique set of years across all countries in all_country_data
+  final_year_set = set()
+
+  for country in sorted(all_country_data.keys()):
+  	final_year_set.update(all_country_data[country].keys())
+  
+  # country_keys are the unique country names for all countries in the data.
+  country_keys = all_country_data.keys()
+  
+  # final_country_data will be an array of arrays looking like this:
+  # [ ["1998", 13000, 14000], ["1999", 15000, 16000], ["2000", 17000, 20000] ]
+  final_country_data = []
+  for year in sorted(final_year_set):
+    temp_data = [year]
+    for country in country_keys:
+      temp_data.append( all_country_data[country][year] )
+    final_country_data.append(temp_data)
+  
+  return (indicators, countries, country_keys, final_country_data)
 
 
 @login_required
 def explore(req):
   flat_data = None
+  flat_countries = None
   indicators_prepop = []
   countries_prepop = []
 
@@ -58,7 +89,7 @@ def explore(req):
     form = forms.ExploreWorldBankForm(req.GET)
     if form.is_valid():
 
-      indicators_prepop, countries_prepop, flat_data = worldbank_indicators(
+      indicators_prepop, countries_prepop, flat_countries, flat_data = worldbank_indicators(
         form.cleaned_data["indicator"],
         form.cleaned_data["country"].split(','))
 
@@ -72,6 +103,7 @@ def explore(req):
   return _render(req, "explore", {
     "form": form,
     "flat_data": json.dumps(flat_data),
+    "flat_countries": json.dumps(flat_countries),
     "show_graph": flat_data is not None,
     "create_evidence_url": create_evidence_url,
 

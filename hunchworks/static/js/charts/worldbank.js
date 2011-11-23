@@ -4,7 +4,10 @@ $(function() {
 
     var table = new google.visualization.DataTable();
     table.addColumn("string", $widget.data("x-axis"));
-    table.addColumn("number", $widget.data("y-axis"));
+    
+    _.each( $widget.data("countries"), function(country_name){
+      table.addColumn("number", country_name);
+    });
     table.addRows($widget.data("data"));
 
     var chart = new google.visualization.LineChart(element);
