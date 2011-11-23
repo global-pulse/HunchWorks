@@ -371,7 +371,7 @@ class Album(models.Model):
 
   def __unicode__(self):
     return self.name
-    
+
   @models.permalink
   def get_absolute_url(self):
     return ("album", [self.pk])
@@ -418,7 +418,7 @@ class Location(models.Model):
 
   def __unicode__(self):
     return self.name or "<Location:%d>" % self.pk
-  
+
   @classmethod
   def search(cls, term, user_profile=None):
     return cls.objects.filter(name__icontains=term)
@@ -534,7 +534,7 @@ post_save.connect(
 
 class Bookmark(models.Model):
   user_profile = models.ForeignKey('UserProfile')
-  
+
   #Generic foreign key
   content_type = models.ForeignKey(ContentType)
   object_id = models.PositiveIntegerField()
