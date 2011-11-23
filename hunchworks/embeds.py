@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 
 
 def worldbank(url):
-  if url.startswith("http://localhost:8000/evidence/explore?"):
+  if url.startswith("http://localhost:8000/explore?"):
     qs = urlparse.parse_qs(urlparse.urlparse(url).query)
     data = wb_chart(qs["indicator"][0], qs["country"])
 

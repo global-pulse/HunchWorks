@@ -16,4 +16,4 @@ def embedly(url):
     return '<a href="%s" class="embed"><img src="%s"></a>' % (
       obj.url, obj.url)
 
-  return obj
+  return None
