@@ -30,12 +30,12 @@ article.hunch.short {
   }
 
 
-section.hunch-list { }
+section.object-list.hunch { }
 
-  section.hunch-list > article.hunch.short {
+  section.object-list.hunch > article {
     margin-bottom: 1em;
   }
 
-  section.hunch-list > article.hunch.short:last-child {
+  section.object-list.hunch > article:last-child {
     margin-bottom: 0;
   }

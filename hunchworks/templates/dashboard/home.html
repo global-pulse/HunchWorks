@@ -25,7 +25,7 @@
     <h2>Your <span>Hunches</span></h2>
 
     {% if hunches.object_list %}
-      {% include "includes/hunches/list.html" with hunch_list=hunches.object_list %}
+      {% include "includes/hunches/list.html" with object_list=hunches.object_list %}
     {% else %}
       <div class="empty-list">
         You don't have any hunches.
