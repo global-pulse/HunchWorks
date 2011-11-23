@@ -286,6 +286,7 @@ class Evidence(models.Model):
   location = models.ForeignKey('Location', null=True, blank=True)
   creator = models.ForeignKey('UserProfile')
   link = models.CharField(max_length=255)
+  upload = models.FileField(upload_to='evidence', blank=True, null=True)
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
