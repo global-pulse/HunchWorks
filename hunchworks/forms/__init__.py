@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from hunchworks.forms.hunch import HunchForm
+from hunchworks.forms.hunch import HunchEditForm, HunchPermissionsForm
 from hunchworks.forms.album import AlbumForm
 from hunchworks.forms.evidence import EvidenceForm
 from hunchworks.forms.group import GroupForm

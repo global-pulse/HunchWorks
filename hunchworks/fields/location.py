@@ -40,7 +40,7 @@ class LocationWidget(forms.MultiWidget):
         <ul class="type">
           <li class="active" data-type="latlng">GIS Coordinates</li>
           <li data-type="map">Pin on Map</li>
-          <li data-type="name">Location Name</li>
+          <li data-type="name" style="display: none;">Location Name</li>
         </ul>
         <div class="latlng">
           <div class="widgets">

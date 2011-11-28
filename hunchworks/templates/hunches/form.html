@@ -1,17 +1,18 @@
 {{ form.non_field_errors }}
 {% csrf_token %}
 
+{% for field in form.hidden_fields %}
+  {{ field }}
+{% endfor %}
+
 <div class="fields">
   <div class="left">
     {% include "includes/fields/base.html" with field=form.title %}
     {% include "includes/fields/base.html" with field=form.description %}
-    {% include "includes/fields/base.html" with field=form.tags %}
-    {% include "includes/fields/base.html" with field=form.location %}
     {% include "includes/fields/base.html" with field=form.evidences %}
-    {% include "includes/fields/base.html" with field=form.user_profiles %}
-    {% include "includes/fields/base.html" with field=form.add_groups %}
   </div>
   <div class="right">
-    {% include "includes/fields/base.html" with field=form.privacy %}
+    {% include "includes/fields/base.html" with field=form.location %}
+    {% include "includes/fields/base.html" with field=form.tags %}
   </div>
 </div>

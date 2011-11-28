@@ -30,10 +30,6 @@ class MultipleConnectionWidget(forms.TextInput):
   def _value_objects(self, value):
     return self.choices.queryset.order_by("name")
 
-    #return self.choices.queryset.filter(
-    #  pk__in=self._value(value)
-    #)
-
 
 class ConnectionsField(forms.ModelMultipleChoiceField):
   widget = MultipleConnectionWidget

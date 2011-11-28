@@ -54,14 +54,6 @@ class HunchEditForm(forms.ModelForm):
   tags = TokenField(models.Tag, required=False,
     help_text="Tags should include keywords related to this hunch, to help other users find it.")
 
-  user_profiles = TokenField(models.UserProfile, required=False,
-    help_text="Type the name of the user you would like to invite to work with you on this hunch",
-    label="Invite your connections")
-
-  add_groups = TokenField(models.Group, required=False,
-    help_text="Type the name of the group you would like to invite",
-    label="Invite your groups")
-
   location = LocationField(required=False,
     help_text="If the hunch is relative to a specific location, you can mark it here.")
 
@@ -71,7 +63,7 @@ class HunchEditForm(forms.ModelForm):
   class Meta:
     model = models.Hunch
     exclude = (
-      "creator", "time_created", "time_modified",
+      "creator", "time_created", "time_modified", "privacy", "user_profiles", "groups"
     )
 
   def __init__(self, *args, **kwargs):
@@ -105,24 +97,30 @@ class HunchEditForm(forms.ModelForm):
 
   def save(self, creator=None):
     with transaction.commit_on_success():
-      self.stash("user_profiles")
       self.stash("evidences")
 
-      hunch = super(HunchForm, self).save(commit=False)
+      hunch = super(HunchEditForm, self).save(commit=False)
       if creator is not None:
         hunch.creator = creator
 
       hunch.save()
 
       hunch.tags = self.cleaned_data['tags']
-
-      add_groups = self.cleaned_data['add_groups']
-      group_members = []
-
-      for group in add_groups:
-        group_members.extend(group.members.all())
-
-      self.apply("user_profiles", group_members)
       self.apply("evidences")
 
     return hunch
+
+
+class HunchPermissionsForm(forms.ModelForm):
+  groups = TokenField(models.Group, required=False,
+    help_text="Adding a group to a hunch invites all of its users, <strong>present and future</strong>.")
+
+  user_profiles = ConnectionsField(required=False,
+    help_text="Users which are not implicity invited via their group(s) can be explicitly invited here.",
+    label="Users")
+
+  class Meta:
+    model = models.Hunch
+    fields = (
+      "privacy", "groups", "user_profiles"
+    )

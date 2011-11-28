@@ -17,6 +17,7 @@ def _render(req, template, more_context):
     RequestContext(req, more_context)
   )
 
+
 @login_required
 def index(req):
   evidences = paginated(req, models.Evidence.objects.all(), 10)
@@ -24,6 +25,7 @@ def index(req):
   return _render(req, "index", {
     "evidences": evidences
   })
+
 
 @login_required
 def show(req, evidence_id):
@@ -34,6 +36,7 @@ def show(req, evidence_id):
   return _render(req, "show", {
     "evidence": evidence
   })
+
 
 @login_required
 def edit(req, evidence_id):
@@ -54,6 +57,7 @@ def edit(req, evidence_id):
     "form": form
   })
 
+
 @login_required
 def create(req):
   form = forms.EvidenceForm(req.POST or None, initial={
@@ -68,15 +72,18 @@ def create(req):
     "form": form
   })
 
+
 def _preview(evidence):
   return render_to_string("includes/evidences/short.html", {
     "object": evidence
   })
 
+
 def _search_results(query_set):
   return [
     { "id": evidence.pk, "preview": _preview(evidence) }
     for evidence in query_set]
+
 
 @login_required
 def search(req):

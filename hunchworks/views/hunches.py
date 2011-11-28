@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from formwizard.views import SessionWizardView
 from hunchworks import models, forms, hunchworks_enums
-from hunchworks.forms.hunch import HunchFormOne, HunchFormTwo, HunchFormThree
 from hunchworks.utils.pagination import paginated
 
 
@@ -184,14 +183,34 @@ def show(req, hunch_id):
 @login_required
 def edit(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
-  form = forms.HunchForm(req.POST or None, instance=hunch)
+  form = forms.HunchEditForm(req.POST or None, instance=hunch)
 
   if form.is_valid():
     hunch = form.save()
     return redirect(hunch)
 
   return _render(req, "edit", {
-    "hunch": hunch, "user": req.user,
+    "hunch": hunch,
+    "form": form
+  })
+
+
+@login_required
+def permissions(req, hunch_id):
+  hunch = get_object_or_404(
+    models.Hunch,
+    pk=hunch_id)
+
+  form = forms.HunchPermissionsForm(
+    req.POST or None,
+    instance=hunch)
+
+  if form.is_valid():
+    hunch = form.save()
+    return redirect(hunch)
+
+  return _render(req, "permissions", {
+    "hunch": hunch,
     "form": form
   })
 

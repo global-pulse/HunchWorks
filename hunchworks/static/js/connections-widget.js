@@ -18,5 +18,11 @@ $(function() {
       event.preventDefault();
       update_value();
     });
+
+    /* Add the "selected" class to the users which are are selected. This is a
+    |* hack; MultipleConnectionWidget should deal with this server-side. */
+    _.each($value.val().split(","), function(id) {
+      $widget.find("article.user[data-id=" + id + "]").addClass("selected");
+    });
   });
 });

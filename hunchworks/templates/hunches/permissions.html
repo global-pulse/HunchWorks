@@ -1,0 +1,27 @@
+{% extends "hunches/base.html" %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Edit Hunch Permissions</h1>
+{% endblock %}
+
+{% block content %}
+  <form action="" method="post" class="hunch permissions">
+    {{ form.non_field_errors }}
+    {% csrf_token %}
+
+    {% for field in form.hidden_fields %}
+      {{ field }}
+    {% endfor %}
+
+    <div class="fields">
+      {% for field in form.visible_fields %}
+        {% include "includes/fields/base.html" %}
+      {% endfor %}
+    </div>
+
+    <div class="actions">
+      <input type="submit" value="Save Changes">
+    </div>
+  </form>
+{% endblock %}
