@@ -141,7 +141,7 @@ class Hunch(models.Model):
   location = models.ForeignKey('Location', null=True, blank=True)
   evidences = models.ManyToManyField( 'Evidence', through='HunchEvidence', blank=True)
   tags = models.ManyToManyField('Tag', blank=True)
-  user_profiles = models.ManyToManyField('UserProfile', through='HunchUser')
+  user_profiles = models.ManyToManyField("UserProfile")
 
   class Meta:
     verbose_name_plural = "hunches"
@@ -280,12 +280,6 @@ class Hunch(models.Model):
 post_save.connect(
   events.hunch_created,
   sender=Hunch)
-
-
-class HunchUser(models.Model):
-  hunch = models.ForeignKey('Hunch')
-  user_profile = models.ForeignKey('UserProfile')
-  status = models.IntegerField(default=0)
 
 
 class Evidence(models.Model):

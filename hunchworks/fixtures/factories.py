@@ -50,7 +50,6 @@ class HunchFactory(BaseFactory, DjangoMixin):
         description = 'markov %s' % pk
         return locals()
 
-#class HunchUserFactory(BaseFactory, DjangoMixin): pass
 class GroupFactory(BaseFactory, DjangoMixin):
     model = Group
 

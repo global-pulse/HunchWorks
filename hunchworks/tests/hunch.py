@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from hunchworks.models import Hunch, HunchUser, Evidence, HunchEvidence, Vote
+from hunchworks.models import Hunch, Evidence, HunchEvidence, Vote
 from hunchworks.tests.helpers import ViewTestHelpers, UnitTestHelpers
 from django.test import TestCase
 

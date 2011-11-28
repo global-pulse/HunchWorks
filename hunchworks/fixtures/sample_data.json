@@ -598,45 +598,8 @@
             "time_modified": "2011-10-28 00:00:00",
             "title": "There will be a serious cholera outbreak in the IDP camp in Gulu within a year",
             "description": "There is a scarcity of basic sanitary facilities, shortage of water, poor drainage, poor sanitation habits, and contaminated boreholes. It is only a matter of time before disease breaks out.",
-            "location": 2
-        }
-    },
-
-
-    {
-        "pk": 1,
-        "model": "hunchworks.hunchuser",
-        "fields":
-        {
-            "hunch": 1,
-            "user_profile": 3
-        }
-    },
-    {
-        "pk": 2,
-        "model": "hunchworks.hunchuser",
-        "fields":
-        {
-            "hunch": 1,
-            "user_profile": 4
-        }
-    },
-    {
-        "pk": 3,
-        "model": "hunchworks.hunchuser",
-        "fields":
-        {
-            "hunch": 1,
-            "user_profile": 5
-        }
-    },
-    {
-        "pk": 4,
-        "model": "hunchworks.hunchuser",
-        "fields":
-        {
-            "hunch": 1,
-            "user_profile": 6
+            "location": 2,
+            "user_profiles": [1, 2, 3, 4]
         }
     },
 

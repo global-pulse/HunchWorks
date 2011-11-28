@@ -217,15 +217,11 @@ class HunchWizard(SessionWizardView):
         location    = form_list[2].cleaned_data["location"])
 
       hunch.tags = form_list[2].cleaned_data["tags"]
+      hunch.user_profiles = form_list[3].cleaned_data["user_profiles"]
 
       for evidence in form_list[1].cleaned_data["evidences"]:
         models.HunchEvidence.objects.create(
           evidence=evidence,
-          hunch=hunch)
-
-      for user_profile in form_list[3].cleaned_data["user_profiles"]:
-        models.HunchUser.objects.create(
-          user_profile=user_profile,
           hunch=hunch)
 
       hunch.save()
@@ -236,14 +232,14 @@ class HunchWizard(SessionWizardView):
 @login_required
 def follow(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
-  hunch_user = models.HunchUser.objects.get_or_create(hunch=hunch, user_profile=req.user.get_profile())
+  hunch.userprofile_set.add(req.user.get_profile())
   return redirect(index)
 
 
 @login_required
 def unfollow(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
-  hunch_user = get_object_or_404(models.HunchUser, hunch=hunch, user_profile=req.user.get_profile()).delete()
+  hunch.userprofile_set.remove(req.user.get_profile())
   return redirect(index)
 
 
