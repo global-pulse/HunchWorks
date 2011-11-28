@@ -157,6 +157,7 @@
         display: block;
         background: #000;
         text-align: center;
+        overflow: hidden;
       }
 
         #hunch-show article.evidence > div > div.embed img,

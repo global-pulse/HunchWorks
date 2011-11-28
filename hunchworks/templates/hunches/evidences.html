@@ -1,7 +1,9 @@
+{% load embed_tags %}
+
 {% for hunch_evidence, comments, comment_form, vote_form in evidences %}
   <article class="evidence">
     <div>
-      <a href="{{ hunch_evidence.evidence.link }}" class="embed">{{ hunch_evidence.evidence.link }}</a>
+      {% embed hunch_evidence.evidence.link %}
 
       <header>
         <h3>{{ hunch_evidence.evidence.description }}</h3>
