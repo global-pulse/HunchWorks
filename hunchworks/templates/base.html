@@ -51,7 +51,7 @@
     {% endcompress %}
 
     <!--[if lt IE 9]>
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <script>
@@ -62,24 +62,29 @@
       };
     </script>
 
-    <script src="https://www.google.com/jsapi"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script>
-    <script src='/static/js/jquery-tokeninput-1.6.0-min.js'></script>
-    <script src='/static/js/jquery-timeago-0.9.3-min.js'></script>
-    <script src="/static/js/underscore-1.1.7-min.js"></script>
-    <script src="/static/js/comment-forms.js"></script>
 
-    <!-- temporary! use widget media -->
-    <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <script src="/static/js/location-widget.js"></script>
-    <script src="/static/js/evidence-widget.js"></script>
-    <script src="/static/js/embed-widget.js"></script>
-    <script src="/static/js/token-widget.js"></script>
-    <script src="/static/js/vote-widget.js"></script>
-    <script src="/static/js/connections-widget.js"></script>
-    <script src="/static/js/charts/worldbank.js"></script>
-    <script src="/static/js/relative-time.js"></script>
+    {% compress js %}
+      <!-- vendor libs -->
+      <script src="{% get_static_prefix %}js/underscore-1.1.7-min.js"></script>
+      <script src='{% get_static_prefix %}js/jquery-timeago-0.9.3-min.js'></script>
+      <script src="{% get_static_prefix %}js/relative-time.js"></script>
+
+      <!-- djtokeninput -->
+      <script src="{% get_static_prefix %}js/jquery-tokeninput-1.6.0-min.js"></script>
+      <script src="{% get_static_prefix %}js/djtokeninput.js"></script>
+
+      <!-- all widget media -->
+      <script src="{% get_static_prefix %}js/location-widget.js"></script>
+      <script src="{% get_static_prefix %}js/evidence-widget.js"></script>
+      <script src="{% get_static_prefix %}js/embed-widget.js"></script>
+      <script src="{% get_static_prefix %}js/vote-widget.js"></script>
+      <script src="{% get_static_prefix %}js/connections-widget.js"></script>
+      <script src="{% get_static_prefix %}js/charts/worldbank.js"></script>
+
+      <!-- misc -->
+      <script src="{% get_static_prefix %}js/comment-forms.js"></script>
+    {% endcompress %}
 
     {% block js %}{% endblock %}
   </head>
