@@ -7,7 +7,7 @@ from django.test import TestCase
 from hunchworks.fixtures.factories import UserFactory, GroupFactory, HunchFactory, LocationFactory, UserProfileGroupFactory
 
 class GroupViewsTest(TestCase, ViewTestHelpers):
-  fixtures = ("test_hunches",)
+  fixtures = ("test_users", "test_hunches")
 
   def setUp(self):
       LocationFactory()
@@ -69,7 +69,7 @@ class GroupViewsTest(TestCase, ViewTestHelpers):
     with self.login("one"):
       group = Group.objects.get(pk=1)
       resp = self.get("group_hunches", group_id=group.pk)
-      self.assertTemplateUsed(resp, "groups/view_hunches.html")
+      self.assertTemplateUsed(resp, "groups/hunches.html")
       self.assertQuery(resp, "article.hunch", count=1)
 
   def test_join_group(self):
