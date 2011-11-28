@@ -139,6 +139,7 @@ INSTALLED_APPS = (
   'activelink',
   'compressor',
   'djembedly',
+  'djtokeninput',
   'hunchworks')
 
 # In DEBUG mode, enable the Django admin.

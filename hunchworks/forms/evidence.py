@@ -2,13 +2,13 @@
 
 from django import forms
 from django.db import transaction
+from djtokeninput.fields import TokenField
+from hunchworks.fields import EmbedField, LocationField
 from hunchworks import models
-from hunchworks import json_views
-from hunchworks.fields import TokenField, EmbedField, LocationField
 
 
 class EvidenceForm(forms.ModelForm):
-  tags = TokenField(models.Tag, json_views.tags, required=False,
+  tags = TokenField(models.Tag, required=False,
     help_text="Tags that you think would help others search for or find this Evidence")
 
   link = EmbedField(

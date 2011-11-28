@@ -2,13 +2,13 @@
 
 from django import forms
 from django.db import transaction
+from djtokeninput.fields import TokenField
+from hunchworks.fields import LocationField
 from hunchworks import models
-from hunchworks import json_views
-from hunchworks.fields import TokenField, LocationField
 
 
 class GroupForm(forms.ModelForm):
-  members = TokenField(models.UserProfile, json_views.collaborators, required=False,
+  members = TokenField(models.UserProfile, required=False,
     help_text="The HunchWorks members you wish to invite to this group.<br>" +
               "You can only invite members who you are connected with.")
 

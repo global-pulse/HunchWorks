@@ -2,10 +2,10 @@
 
 from django import forms
 from django.db import transaction
-from hunchworks import models
-from hunchworks import json_views
+from djtokeninput.fields import TokenField
+from hunchworks.fields import EmbedField, LocationField, EvidencesField, ConnectionsField
 from hunchworks.forms.evidence import EvidenceForm
-from hunchworks.fields import TokenField, EmbedField, LocationField, EvidencesField, ConnectionsField
+from hunchworks import models
 
 
 class HunchFormOne(forms.Form):
@@ -29,7 +29,7 @@ class HunchFormTwo(EvidenceForm):
 
 
 class HunchFormThree(forms.Form):
-  tags = TokenField(models.Tag, json_views.tags, required=False,
+  tags = TokenField(models.Tag, required=False,
     help_text="Tags should include keywords related to this hunch, to help other users find it.")
 
   location = LocationField(required=False,
@@ -41,7 +41,7 @@ class HunchFormFour(forms.Form):
     help_text="Users will be invited to contribute to your hunch by email.",
     label="Invite other users")
 
-  add_groups = TokenField(models.Group, json_views.user_groups, required=False,
+  add_groups = TokenField(models.Group, required=False,
     help_text="Type the name of the group you would like to invite",
     label="Invite your groups")
 
@@ -50,15 +50,15 @@ class HunchFormFour(forms.Form):
               "along with a link to your hunch.")
 
 
-class HunchForm(forms.ModelForm):
-  tags = TokenField(models.Tag, json_views.tags, required=False,
+class HunchEditForm(forms.ModelForm):
+  tags = TokenField(models.Tag, required=False,
     help_text="Tags should include keywords related to this hunch, to help other users find it.")
 
-  user_profiles = TokenField(models.UserProfile, json_views.collaborators, required=False,
+  user_profiles = TokenField(models.UserProfile, required=False,
     help_text="Type the name of the user you would like to invite to work with you on this hunch",
     label="Invite your connections")
 
-  add_groups = TokenField(models.Group, json_views.user_groups, required=False,
+  add_groups = TokenField(models.Group, required=False,
     help_text="Type the name of the group you would like to invite",
     label="Invite your groups")
 
@@ -75,7 +75,7 @@ class HunchForm(forms.ModelForm):
     )
 
   def __init__(self, *args, **kwargs):
-    super(HunchForm, self).__init__(*args, **kwargs)
+    super(HunchEditForm, self).__init__(*args, **kwargs)
     self._stash = {}
 
   def stash(self, field_name):

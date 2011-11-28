@@ -11,6 +11,10 @@ urlpatterns = patterns(
   # embed
   url(r"^embed/", include("djembedly.urls")),
 
+  # tokeninputs
+  # https://github.com/adammck/djtokeninput
+  url(r"^djtokeninput/", include("djtokeninput.urls")),
+
   # dashboard/home/index
   url(r"^$", dashboard.dashboard, name="dashboard"),
 
@@ -92,15 +96,4 @@ urlpatterns = patterns(
   url(r'^bookmarks/albums$',                                         bookmark.albums,   name="bookmarked_albums"),
   url(r'^bookmarks/evidence$',                                       bookmark.evidence, name="bookmarked_evidence"),
   url(r'^bookmarks/all$',                                            bookmark.all,      name="bookmarked_all"),
-)
-
-
-urlpatterns += patterns(
-  "hunchworks.json_views",
-  (r"^user/(?P<user_id>\d+)/collaborators$", "collaborators"),
-  (r"^locations$", "locations"),
-  (r"^tags$", "tags"),
-  (r"^collaborators$", "collaborators"),
-  (r"^user/groups$", "user_groups"),
-  url(r"worldbank/indicators", "worldbank_indicators", name="worldbank_indicators")
 )

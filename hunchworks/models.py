@@ -104,6 +104,11 @@ class UserProfile(models.Model, events.HasEvents):
     else:
       return "http://www.clker.com/cliparts/5/9/4/c/12198090531909861341man%20silhouette.svg.hi.png"
 
+  @classmethod
+  def search(cls, query):
+    return cls.objects.filter(
+      Q(user__username__icontains=query) | Q(name__icontains=query))
+
 
 def create_user(sender, instance, created, **kwargs):
   if created: UserProfile.objects.create(user=instance)
@@ -352,6 +357,11 @@ class Group(models.Model):
 
   def hunch_count(self):
     return 0
+
+  @classmethod
+  def search(cls, query):
+    return cls.objects.filter(
+      Q(name__icontains=query))
 
 
 class UserProfileGroup(models.Model):

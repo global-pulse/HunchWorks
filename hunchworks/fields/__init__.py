@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from hunchworks.fields.token import TokenField
 from hunchworks.fields.location import LocationField
 from hunchworks.fields.embed import EmbedField
 from hunchworks.fields.evidence.single import EvidenceField
