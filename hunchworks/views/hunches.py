@@ -3,6 +3,7 @@
 from django.db import transaction
 from django.template import RequestContext
 from django.core.exceptions import PermissionDenied
+from django.core.files.storage import get_storage_class
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -197,6 +198,7 @@ def edit(req, hunch_id):
 
 
 class HunchWizard(SessionWizardView):
+  file_storage = get_storage_class()
   def get_template_names(self):
     return "hunches/create/%s.html" %\
       self.steps.step1
