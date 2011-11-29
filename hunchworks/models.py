@@ -484,6 +484,8 @@ class Comment(models.Model):
   def get_absolute_base_url(self):
     if self.hunch_evidence:
       return ("hunch", [self.hunch_evidence.hunch.pk])
+    elif self.hunch:
+      return ("hunch", [self.hunch.pk])
 
   def get_absolute_url(self):
     return self.get_absolute_base_url() + ("#c%d" % self.pk)
