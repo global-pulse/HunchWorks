@@ -571,3 +571,55 @@ class Bookmark(models.Model):
     except cls.DoesNotExist:
       bookmark = cls.objects.create(content_object=object, user_profile=user_profile)
       return bookmark
+
+
+class InviteProxy(models.Model):
+  """
+  This model exists solely to provide a generic foreign key to objects which
+  can be "invited" to things (e.g. to a hunch, to a group).
+
+  This is a hack, to allow us to use TokenField for invites. It would probably
+  be better to store this sort of thing in MongoDB, but we'd lose the implicit
+  integration, which is kind of the whole point.
+  """
+
+  MODELS = [UserProfile, Group, Location]
+
+  content_type   = models.ForeignKey(ContentType)
+  object_id      = models.PositiveIntegerField()
+  content_object = generic.GenericForeignKey("content_type", "object_id")
+
+  # This field should be named "name_cache" (or something similar), but
+  # djTokeninput fetches the results using values_list("id", "name").
+  name = models.CharField(max_length=255)
+
+  def __unicode__(self):
+    return self.name
+
+  @classmethod
+  def search(cls, query):
+    return cls.objects.filter(
+      name__icontains=query)
+
+  @classmethod
+  def connect_signals(cls):
+
+    # Call _post_save every time one of cls.MODELS is saved.
+    for model in cls.MODELS:
+      post_save.connect(
+        cls._post_save,
+        sender=model)
+
+  @classmethod
+  def _post_save(cls, sender, instance, created, **kwargs):
+
+    # Ensure that we have an InviteProxy to instance.
+    obj, created = cls.objects.get_or_create(
+      content_type=ContentType.objects.get_for_model(instance),
+      object_id=instance.pk)
+
+    # Update our cached name.
+    obj.name = unicode(instance)
+    obj.save()
+
+InviteProxy.connect_signals()

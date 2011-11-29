@@ -86,6 +86,7 @@ def show(req, hunch_id):
   comment_form = None
   vote_form = None
   hunch_evidence_form = None
+  invite_form = None
 
   if req.method == "POST":
     action = req.POST.get("action")
@@ -111,11 +112,21 @@ def show(req, hunch_id):
         hunch_evidence = hunch_evidence_form.save(user_profile=req.user.get_profile())
         return redirect(hunch)
 
+    elif action == "invite":
+      invite_form = forms.InviteForm(req.POST)
+
+      if invite_form.is_valid():
+        # do something!
+        pass
+
 
   if hunch_evidence_form is None:
     hunch_evidence_form = forms.HunchEvidenceForm(initial={
       "hunch": hunch
     })
+
+  if invite_form is None:
+    invite_form = forms.InviteForm()
 
 
   def _wrap(hunch_evidence):
@@ -176,6 +187,7 @@ def show(req, hunch_id):
     "evidences_for": map(_wrap, hunch.evidences_for()),
     "evidences_against": map(_wrap, hunch.evidences_against()),
     "add_hunch_evidence_form": hunch_evidence_form,
+    "invite_form": invite_form,
     "following": following
   })
 

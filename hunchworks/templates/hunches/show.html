@@ -101,6 +101,26 @@
       });
     </script>
 
+    <section class="invite">
+      <h2>Invite Other Users and Groups</h2>
+
+      <form method="post">
+        {{ invite_form.non_field_errors }}
+        {% csrf_token %}
+
+        <div class="fields">
+          {% for field in invite_form.visible_fields %}
+            {% include "includes/fields/base.html" %}
+          {% endfor %}
+        </div>
+
+        <div class="actions">
+          <input type="hidden" name="action" value="invite">
+          <input type="submit" value="Send Invitations">
+        </div>
+      </form>
+    </section>
+
     <div class="links">
       <ul>
         <li><a href="{% url add_hunch_evidence hunch.pk %}">Add Evidence to This Hunch</a></li>

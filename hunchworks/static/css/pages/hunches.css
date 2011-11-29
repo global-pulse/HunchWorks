@@ -381,6 +381,20 @@
 
 
 
+    #hunch-show section.invite {
+      border-top: 1px dotted #ccc;
+      padding: 2em;
+    }
+
+      #hunch-show section.invite > h2 {
+        text-align: center;
+        font-size: 160%;
+        color: #999;
+      }
+
+
+
+
 #hunch-create { }
 
   #hunch-create form {
