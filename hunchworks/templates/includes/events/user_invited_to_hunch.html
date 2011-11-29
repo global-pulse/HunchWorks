@@ -1,0 +1,13 @@
+<article class="event user-invited-to-hunch">
+  {% include "includes/users/short.html" with object=inviter %}
+
+  <div>
+    <p class="summary">
+      <a href="{% url profile inviter }}">{{ inviter }}</a> <span>invited you</span> to 
+      <a href="{% url hunch hunch.pk %}" title="{{ hunch }}">a hunch</a>
+      <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>
+    </p>
+
+    <h2><a href="{% url hunch hunch.pk %}">{{ hunch }}</a></h2>
+  </div>
+</article>

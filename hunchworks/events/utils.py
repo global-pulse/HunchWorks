@@ -7,13 +7,14 @@ from django.contrib.contenttypes.models import ContentType
 
 
 def create_event(target_object, event_type, **kwargs):
-  html = _render(event_type, **kwargs)
+  now = datetime.datetime.now()
+  html = _render(event_type, now=now, **kwargs)
 
   return _collection().insert({
-    "created_at": datetime.datetime.now(),
     "content_type_id": _content_type_id(target_object),
     "object_id": target_object.pk,
     "type": event_type,
+    "created_at": now,
     "html": html
   })
 

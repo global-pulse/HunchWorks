@@ -116,8 +116,9 @@ def show(req, hunch_id):
       invite_form = forms.InviteForm(req.POST)
 
       if invite_form.is_valid():
-        # do something!
-        pass
+        invite_form.send_invites(
+          req.user.get_profile())
+        return redirect(hunch)
 
 
   if hunch_evidence_form is None:
@@ -126,7 +127,9 @@ def show(req, hunch_id):
     })
 
   if invite_form is None:
-    invite_form = forms.InviteForm()
+    invite_form = forms.InviteForm(initial={
+      "hunch": hunch
+    })
 
 
   def _wrap(hunch_evidence):

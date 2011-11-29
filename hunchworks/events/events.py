@@ -46,3 +46,13 @@ def comment_posted(sender, instance, created, **kwargs):
         user_profile.create_event(
           "comment_posted_to_hunchevidence",
           comment=comment)
+
+
+# user_invited(sender=Hunch)
+def user_invited_to_hunch(sender, instance, inviter, invitee, message, **kwargs):
+  invitee.create_event(
+    "user_invited_to_hunch",
+    hunch=instance,
+    inviter=inviter,
+    invitee=invitee,
+    message=message)

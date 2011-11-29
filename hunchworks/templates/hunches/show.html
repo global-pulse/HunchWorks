@@ -108,6 +108,10 @@
         {{ invite_form.non_field_errors }}
         {% csrf_token %}
 
+        {% for field in invite_form.hidden_fields %}
+          {{ field }}
+        {% endfor %}
+
         <div class="fields">
           {% for field in invite_form.visible_fields %}
             {% include "includes/fields/base.html" %}

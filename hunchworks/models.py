@@ -10,6 +10,7 @@ from django.template import Template, Context
 from django.db.models.signals import pre_save, post_save
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from hunchworks.signals import user_invited
 from hunchworks import hunchworks_enums
 from hunchworks import events
 
@@ -151,6 +152,20 @@ class Hunch(models.Model):
   def __unicode__(self):
     return self.title
 
+  def invite(self, invite_proxy, inviter, message):
+    obj = invite_proxy.content_object
+
+    if isinstance(obj, UserProfile):
+      self.user_profiles.add(obj)
+
+      user_invited.send(
+        sender=Hunch, instance=self,
+        inviter=inviter, invitee=obj,
+        message=message)
+
+    else:
+      raise NotImplementedError
+
   @models.permalink
   def get_absolute_url(self):
     return ("hunch", [self.pk])
@@ -283,6 +298,10 @@ post_save.connect(
   events.hunch_created,
   sender=Hunch)
 
+user_invited.connect(
+  events.user_invited_to_hunch,
+  sender=Hunch)
+
 
 class Evidence(models.Model):
   title = models.CharField(verbose_name="Short description", max_length=100, blank=True,
@@ -341,6 +360,9 @@ class Group(models.Model):
   @models.permalink
   def get_absolute_url(self):
     return ("group", [self.pk])
+
+  def invite_to_hunch(self, sent_by, hunch):
+    hunch.groups.add(self)
 
   def logo_url(self):
     if self.logo:
@@ -471,7 +493,7 @@ class Language(models.Model):
 
 class Invitation(models.Model):
   email = models.CharField(max_length=100)
-  invited_by = models.ForeignKey('UserProfile', related_name="invitations")
+  sent_by = models.ForeignKey('UserProfile', related_name="invitations")
   hunch = models.ForeignKey('Hunch', null=True, blank=True)
 
   def __unicode__(self):
@@ -583,7 +605,7 @@ class InviteProxy(models.Model):
   integration, which is kind of the whole point.
   """
 
-  MODELS = [UserProfile, Group, Location]
+  MODELS = [UserProfile, Group]
 
   content_type   = models.ForeignKey(ContentType)
   object_id      = models.PositiveIntegerField()
