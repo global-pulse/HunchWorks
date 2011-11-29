@@ -54,7 +54,7 @@ urlpatterns = patterns(
   # create hunch wizard
   url(r'^hunches/create$', hunches.HunchWizard.as_view([
     forms.hunch.HunchFormOne,
-    #forms.hunch.HunchFormTwo,
+    forms.hunch.HunchFormTwo,
     forms.hunch.HunchFormThree,
     forms.hunch.HunchFormFour
   ]), name="create_hunch"),
