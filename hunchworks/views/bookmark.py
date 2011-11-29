@@ -35,65 +35,44 @@ def delete(req, object_type, object_id):
 
 @login_required
 def all(req):
-  object_type = ContentType.objects.get_for_model(models.Group)
-  bookmarked_groups = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type).values_list("object_id")
-  groups = models.Group.objects.filter(id__in=bookmarked_groups)
-  
-  object_type2 = ContentType.objects.get_for_model(models.Hunch)
-  bookmarked_hunches = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type2).values_list("object_id")
-  hunches = models.Hunch.objects.filter(id__in=bookmarked_hunches)
-  
-  object_type3 = ContentType.objects.get_for_model(models.Album)
-  bookmarked_albums = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type3).values_list("object_id")
-  albums = models.Album.objects.filter(id__in=bookmarked_albums)
-  
-  object_type4 = ContentType.objects.get_for_model(models.Evidence)
-  bookmarked_evidence = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type4).values_list("object_id")
-  evidences = models.Evidence.objects.filter(id__in=bookmarked_evidence)
-  
-  all_items = list(chain(groups, hunches, albums, evidences))
-  
-  items = paginated(req, all_items, 10)
-  return _render(req, "groups", {
-    "items": items, "model": "group"
+  p = req.user.get_profile()
+
+  return _render(req, "bookmarks", {
+    "bookmark_list": paginated(req, p.bookmark_set.all(), 10)
   })
 
 @login_required
 def groups(req):
   object_type = ContentType.objects.get_for_model(models.Group)
-  bookmarked_groups = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type).values_list("object_id")
-  group_ids = models.Group.objects.filter(id__in=bookmarked_groups)
-  groups = paginated(req, group_ids, 10)
-  return _render(req, "groups", {
-    "items": groups, "model": "group"
+  bookmarked_groups = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type)
+
+  return _render(req, "bookmarks", {
+    "bookmark_list": paginated(req, bookmarked_groups, 10),
   })
 
 @login_required
 def hunches(req):
   object_type = ContentType.objects.get_for_model(models.Hunch)
-  bookmarked_hunches = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type).values_list("object_id")
-  hunch_ids = models.Hunch.objects.filter(id__in=bookmarked_hunches)
-  hunches = paginated(req, hunch_ids, 10)
-  return _render(req, "groups", {
-    "items": hunches, "model": "hunch"
+  bookmarked_hunches = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type)
+
+  return _render(req, "bookmarks", {
+    "bookmark_list": paginated(req, bookmarked_hunches, 10)
   })
 
 @login_required
 def albums(req):
   object_type = ContentType.objects.get_for_model(models.Album)
-  bookmarked_albums = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type).values_list("object_id")
-  album_ids = models.Album.objects.filter(id__in=bookmarked_albums)
-  albums = paginated(req, album_ids, 10)
-  return _render(req, "groups", {
-    "items": albums, "model": "album"
+  bookmarked_albums = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type)
+
+  return _render(req, "bookmarks", {
+    "bookmark_list": paginated(req, bookmarked_albums, 10)
   })
 
 @login_required
 def evidence(req):
   object_type = ContentType.objects.get_for_model(models.Evidence)
-  bookmarked_evidence = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type).values_list("object_id")
-  evidence_ids = models.Evidence.objects.filter(id__in=bookmarked_evidence)
-  evidences = paginated(req, evidence_ids, 10)
-  return _render(req, "groups", {
-    "items": evidences, "model": "evidence"
+  bookmarked_evidence = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type)
+
+  return _render(req, "bookmarks", {
+    "bookmark_list": paginated(req, bookmarked_evidence, 10)
   })

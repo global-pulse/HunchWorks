@@ -55,8 +55,6 @@ def worldbank_indicators(indicator_id, country_ids):
 
     all_country_data[country][item["date"]] = _value(item["value"])
 
-  print all_country_data
-
   # This will be a unique set of years across all countries in all_country_data
   final_year_set = set()
 

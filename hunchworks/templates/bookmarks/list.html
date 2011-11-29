@@ -2,15 +2,20 @@
 {% block body_id %}group-list{% endblock %}
 {% load paginator_tags %}
 {% load bookmark_tags %}
+{% load partial_tags %}
 
 {% block content %}
-  {% if items.object_list %}
-	{% include "includes/groups/list.html" with object_list=items.object_list %}
+  {% if bookmark_list.object_list %}
+    <section class="object-list">
+      {% for bookmark in bookmark_list.object_list %}
+        {% partial bookmark.content_object %}
+      {% endfor %}
+    </section>
   {% else %}
 	{% block empty %}{% endblock %}
   {% endif %}
 
   <div class="links">
-    {% paginator items %}
+    {% paginator bookmark_list %}
   </div>
 {% endblock %}
