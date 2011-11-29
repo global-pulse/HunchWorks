@@ -25,7 +25,7 @@ class HunchEvidenceForm(forms.ModelForm):
 
   def save(self, user_profile=None):
     with transaction.commit_on_success():
-      hunch_evidence = super(AddHunchEvidenceForm, self).save()
+      hunch_evidence = super(HunchEvidenceForm, self).save()
 
       if self.cleaned_data["comment"]:
         comment = models.Comment.objects.create(

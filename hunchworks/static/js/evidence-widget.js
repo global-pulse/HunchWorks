@@ -5,7 +5,7 @@ $(function() {
     var $widget = $(this);
 
     var $results_outer = $("<div />", { "class": "search-results" }).hide().appendTo($widget);
-    var $results_inner = $("<section />", { "class": "evidence-list" }).appendTo($results_outer);
+    var $results_inner = $("<section />", { "class": "object-list evidence" }).appendTo($results_outer);
     var $results_title = $("<h3 />").prependTo($results_outer);
 
     var $search_container = $("<div />", { "class": "widget search" }).appendTo($widget);
@@ -13,7 +13,7 @@ $(function() {
     var $search_help      = $("<p>", { "class": "help" }).html(SEARCH_HELP).appendTo($search_container);
 
     var $value    = $("> .widget > input", $widget);
-    var $previews = $("> .evidence-list", $widget);
+    var $previews = $("> .object-list", $widget);
 
 
     var to_int = function(x) {

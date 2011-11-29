@@ -18,6 +18,7 @@ Requirements
 
 * Python `>= 2.6`
 * Django `== 1.3`
+* MongoDB `>= 2.0`
 
 
 Installation

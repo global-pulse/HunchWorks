@@ -105,13 +105,14 @@ def leave(req, group_id):
 @login_required
 def hunches(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
-  
+
   group_members = group.members.values_list("id", flat=True)
   hunch_users = models.HunchUser.objects.filter(user_profile__in=group_members).values_list("hunch_id", flat=True).distinct()
   hunches = models.Hunch.objects.filter(id__in=hunch_users).order_by("-time_modified")
-  
+
   hunches = paginated(req, hunches, 10)
-  
-  return _render(req, "view_hunches", {
-    "group": group, "hunches": hunches
+
+  return _render(req, "hunches", {
+    "group": group,
+    "hunches": hunches
   })

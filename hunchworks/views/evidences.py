@@ -7,8 +7,8 @@ from hunchworks.utils.pagination import paginated
 from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from django import http
 from django.contrib.auth.decorators import login_required
+from django import http
 
 
 def _render(req, template, more_context):
@@ -60,7 +60,11 @@ def edit(req, evidence_id):
 
 @login_required
 def create(req):
-  form = forms.EvidenceForm(req.POST or None, req.FILES or None)
+  form = forms.EvidenceForm(req.POST or None,
+          req.FILES or None,
+          initial={
+    "link": req.GET.get("link", None)
+  })
 
   if form.is_valid():
     for file in req.FILES:
@@ -74,7 +78,7 @@ def create(req):
 
 def _preview(evidence):
   return render_to_string("includes/evidences/short.html", {
-    "evidence": evidence
+    "object": evidence
   })
 
 def _search_results(query_set):

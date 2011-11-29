@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from formwizard.views import SessionWizardView
 from hunchworks import models, forms, hunchworks_enums
 from hunchworks.forms.hunch import HunchFormOne, HunchFormTwo, HunchFormThree
@@ -199,6 +200,11 @@ class HunchWizard(SessionWizardView):
   def get_template_names(self):
     return "hunches/create/%s.html" %\
       self.steps.step1
+
+  @method_decorator(login_required)
+  def dispatch(self, *args, **kwargs):
+      return super(HunchWizard, self)\
+        .dispatch(*args, **kwargs)
 
   def done(self, form_list, **kwargs):
     with transaction.commit_on_success():

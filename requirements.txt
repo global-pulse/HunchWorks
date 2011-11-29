@@ -10,3 +10,5 @@ beautifulsoup==3.2.0
 cssmin==0.1.4
 fixturefactory==0.2b
 django-formwizard==1.0
+pymongo==2.0.1
+-e git://github.com/adammck/embedly-python.git#egg=Embedly

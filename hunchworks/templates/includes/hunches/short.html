@@ -1,21 +1,21 @@
 {% load bookmark_tags %}
 
-<article class="hunch">
+<article class="short hunch">
   <div class="left">
-    <h2><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h2>
+    <h2><a href="{{ object.get_absolute_url }}">{{ object }}</a></h2>
 
-    {% if hunch.description %}
+    {% if object.description %}
       <section class="desc">
-        {{ hunch.description|truncatewords:60|safe }}
+        {{ object.description|truncatewords:60|safe }}
       </section>
     {% endif %}
 
     <ul class="stats">
-      <li>{{ hunch.member_count }} members</li>
-      <li>{{ hunch.evidence_count }} evidence</li>
+      <li>{{ object.member_count }} members</li>
+      <li>{{ object.evidence_count }} evidence</li>
     </ul>
   </div>
   <div class="right">
-    {% bookmarks hunch %}
+    {% bookmarks object %}
   </div>
 </article>

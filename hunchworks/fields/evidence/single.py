@@ -11,16 +11,16 @@ class EvidenceWidget(forms.TextInput):
       .render(name, value, attrs)
 
     try:
-      evidence_list = [self.choices.queryset.get(pk=value)]
+      object_list = [self.choices.queryset.get(pk=value)]
 
     except:
-      evidence_list = []
+      object_list = []
 
     return render_to_string(
       "evidences/widget.html", {
         "flat_widget": flat_widget,
         "help_text": self._help(),
-        "evidence_list": evidence_list,
+        "object_list": object_list,
         "variety": "one"
       }
     )

@@ -18,18 +18,3 @@ admin.site.register(Location)
 admin.site.register(Tag)
 admin.site.register(Role)
 admin.site.register(Invitation)
-
-
-# Unregister the Django auth user, and re-register it with our
-# related UserProfile inline.
-from django.contrib.auth.models import User
-from django.contrib.auth.admin import UserAdmin
-
-class UserProfileInline(admin.StackedInline):
-  model = UserProfile
-
-class UserProfileAdmin(UserAdmin):
-  inlines = [UserProfileInline]
-
-admin.site.unregister(User)
-admin.site.register(User, UserProfileAdmin)

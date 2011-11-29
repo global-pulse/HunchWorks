@@ -1,0 +1,5 @@
+<section class="event-list">
+  {% for event in event_list %}
+    {{ event.html|safe }}
+  {% endfor %}
+</section>

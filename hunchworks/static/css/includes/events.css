@@ -1,0 +1,113 @@
+section.event-list {
+  box-shadow: 0 0 5px #ccc;
+  border-radius: 5px;
+}
+
+  section.event-list > article.event {
+    padding: 1em 0;
+    background: #f8f8f8;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f8f8f8));
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px dotted #ccc;
+    overflow: hidden;
+    position: relative;
+
+    min-height: 54px;
+  }
+
+  section.event-list > article.event:first-child {
+    border-top: 1px solid #ccc;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  section.event-list > article.event:last-child {
+    border-bottom: 1px solid #ccc;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  section.event-list > article.event:hover {
+    background: #ffe;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ffe));
+  }
+
+    section.event-list > article.event > article.user {
+      position: absolute;
+      top: 50%;
+      left: 1em;
+      margin-top: -27px;
+    }
+
+      section.event-list > article.event > article.user img {
+        margin-bottom: 0;
+        border-radius: 3px;
+      }
+
+      section.event-list > article.event > article.user span {
+        display: none;
+      }
+
+    section.event-list > article.event > div {
+      padding: 0 1em 0 2em;
+      margin-left: 54px;
+    }
+
+      section.event-list > article.event > div > p {
+        max-height: 1em;
+        white-space: nowrap;
+        color: #999;
+      }
+
+      section.event-list > article.event > div > p.summary {
+        font-size: 80%;
+      }
+
+        section.event-list > article.event > div > p.summary > span {
+          background: #ffd;
+          color: #666;
+        }
+
+      section.event-list > article.event > div > h2 {
+        font-size: 125%;
+        font-weight: bold;
+        line-height: 1.2;
+        max-height: 2.4em;
+        margin: 0.4em 0;
+        overflow: hidden;
+        color: #999;
+      }
+
+        section.event-list > article.event > div > h2 > a {
+          text-decoration: none;
+          color: #333;
+        }
+
+      section.event-list > article.event > div > p.more { }
+
+  section.event-list > article.event.invalid {
+    font-family: monospace;
+    border-color: #fbb;
+    background: #fee;
+  }
+
+
+
+
+  section.event-list article.event.hunch-created { }
+
+    section.event-list article.event.hunch-created > div > h2 {
+      background: url("/static/icons/bulb.png") no-repeat 0 50%;
+      padding-left: 21px;
+    }
+
+
+
+
+  section.event-list article.event.evidence-attached { }
+
+    section.event-list article.event.evidence-attached > div > h2 {
+      background: url("/static/icons/puzzle.png") no-repeat 0 50%;
+      padding-left: 21px;
+    }

@@ -15,6 +15,7 @@
       <link rel="stylesheet" href="{% get_static_prefix %}css/global/base.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/global/lists.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/global/nav.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/global/object-list.css">
 
       <!-- includes -->
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/paginator.css">
@@ -30,6 +31,7 @@
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/hunch.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/group.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/includes/evidence.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/includes/events.css">
 
       <!-- forms -->
       <link rel="stylesheet" href="{% get_static_prefix %}css/forms/base.css">
@@ -45,6 +47,7 @@
       <link rel="stylesheet" href="{% get_static_prefix %}css/pages/hunches.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/pages/connections.css">
       <link rel="stylesheet" href="{% get_static_prefix %}css/pages/evidence.css">
+      <link rel="stylesheet" href="{% get_static_prefix %}css/pages/explore.css">
     {% endcompress %}
 
     <!--[if lt IE 9]>
@@ -52,13 +55,17 @@
     <![endif]-->
 
     <script>
+      /* This is duplicated (from settings.py), but will be removed soon.
+      |* Otherwise, I'd extract it into a global context processor. */
       window.hunchworks = {
         "embedly_key": "b0383ffaf0ff11e0a68e4040d3dc5c07"
       };
     </script>
 
+    <script src="https://www.google.com/jsapi"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script>
     <script src='/static/js/jquery-tokeninput-1.6.0-min.js'></script>
+    <script src='/static/js/jquery-timeago-0.9.3-min.js'></script>
     <script src="/static/js/underscore-1.1.7-min.js"></script>
     <script src="/static/js/comment-forms.js"></script>
 
@@ -71,6 +78,9 @@
     <script src="/static/js/token-widget.js"></script>
     <script src="/static/js/vote-widget.js"></script>
     <script src="/static/js/connections-widget.js"></script>
+    <script src="/static/js/charts/worldbank.js"></script>
+    <script src="/static/js/relative-time.js"></script>
+
     {% block js %}{% endblock %}
   </head>
   <body id="{% block body_id %}{% endblock %}">
@@ -87,6 +97,7 @@
           <ul class="primary">
             <li class="{% ifstartswith "hunches" %}active{% endifstartswith %}"><a href="{% url hunches %}">Hunches</a></li>
             <li class="{% ifstartswith "evidences" %}active{% endifstartswith %}"><a href="{% url evidences %}">Evidence</a></li>
+            <li class="{% ifstartswith "explore" %}active{% endifstartswith %}"><a href="{% url explore %}">Explore Data</a></li>
             <li class="{% ifstartswith "groups" %}active{% endifstartswith %}"><a href="{% url groups %}">Groups</a></li>
           </ul>
         {% endblock %}

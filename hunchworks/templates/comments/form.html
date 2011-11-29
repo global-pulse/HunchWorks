@@ -1,5 +1,5 @@
 <form action="" method="post" class="comment{% if comment_form.errors %} errors{% endif %}">
-  {% include "includes/users/short.html" with user_profile=request.user.get_profile %}
+  {% include "includes/users/short.html" with object=request.user.get_profile %}
 
   <div class="bubble">
     <div class="arrow"></div>

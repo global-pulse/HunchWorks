@@ -1,5 +1,6 @@
 {% extends "evidences/base.html" %}
 {% load bookmark_tags %}
+{% load embed_tags %}
 
 {% block body_id %}evidence-show{% endblock %}
 
@@ -11,7 +12,8 @@
 {% block content %}
   <article class="evidence">
     <header>
-      <a href="{{ evidence.link }}" class="embed">{{ evidence.link }}</a>
+      {% embed evidence.link %}
+
       <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
 
       {% if evidence.description %}
@@ -29,18 +31,6 @@
 
     {% bookmarks evidence %}
   </article>
-
-  <script>
-    $(function() {
-      $("a.embed").each(function() {
-        $(this).embedly({
-          "key": window.hunchworks.embedly_key,
-          "maxWidth": parseInt($(this).parent().width(), 10),
-          "embedly_wmode": "transparent"
-        });
-      });
-    });
-  </script>
 
   <div class="links">
     <ul>

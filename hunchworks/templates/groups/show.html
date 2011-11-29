@@ -58,7 +58,7 @@
         <h2>Hunches involving members</h2>
         <div class="hunches">
           {% if hunches %}
-            {% include "includes/hunches/list.html" with hunch_list=hunches %}
+            {% include "includes/hunches/list.html" with object_list=hunches %}
           {% else %}
             {% block empty %}{% endblock %}
           {% endif %}

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import re
 from django import forms
 from django.forms import widgets
 from django.utils.safestring import mark_safe
@@ -39,5 +40,8 @@ class VoteWidget(forms.RadioSelect):
 
 
 class VoteField(forms.ChoiceField):
-  choices = models.SUPPORT_CHOICES
   widget = VoteWidget
+
+  def __init__(self, *args, **kwargs):
+    return super(VoteField, self).\
+      __init__(models.SUPPORT_CHOICES, *args, **kwargs)

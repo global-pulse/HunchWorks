@@ -10,3 +10,4 @@ from hunchworks.forms.hunchevidence import HunchEvidenceForm
 from hunchworks.forms.user import UserForm
 from hunchworks.forms.invite import InviteForm
 from hunchworks.forms.vote import VoteForm
+from hunchworks.forms.explore import ExploreWorldBankForm

@@ -1,6 +1,6 @@
 #evidence-list { }
 
-  #evidence-list section.evidence-list {
+  #evidence-list section.object-list {
     padding: 2em;
   }
 
@@ -13,11 +13,6 @@
       text-align: center;
       padding: 4em;
     }
-
-      /* Hide the embed link until it's been Embedlyed. */
-      #evidence-show article.evidence > header > a.embed {
-        display: none;
-      }
 
       #evidence-show article.evidence > header > div.embed img,
       #evidence-show article.evidence > header > div.embed object,

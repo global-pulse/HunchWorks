@@ -138,6 +138,7 @@ INSTALLED_APPS = (
   'django.contrib.auth',
   'activelink',
   'compressor',
+  'djembedly',
   'hunchworks')
 
 # In DEBUG mode, enable the Django admin.
@@ -167,6 +168,19 @@ LOGGING = {
   }
 }
 
+CACHES = {
+  "default": {
+    "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+    "LOCATION": "%s/cache" % PROJECT_ROOT
+  }
+}
+
+EMBED_PROCESSORS = [
+  "hunchworks.embeds.worldbank",
+  "djembedly.embeds.embedly"
+]
+
+EMBEDLY_KEY = "b0383ffaf0ff11e0a68e4040d3dc5c07"
 
 AUTH_PROFILE_MODULE = 'hunchworks.UserProfile'
 
