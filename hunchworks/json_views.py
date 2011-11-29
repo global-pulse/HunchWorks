@@ -61,14 +61,9 @@ def worldbank_indicators(req):
   
   data = urllib.urlopen( url )
   json_objects = json.loads(data.read())
-
-  #this is for Json data
-  #data_refined = [{ "country": object["country"]["value"], "date": object["date"], "value": object["value"]} for object in json_objects[1]]
-  #return http.HttpResponse(json.dumps(data_refined))
   
   data_refined = [{ "country": object["country"]["value"], "date": object["date"], "value": object["value"]} for object in json_objects[1]]
   data_array = []
-  #data_array = data_array.fromlist( data_refined )
   for item in data_refined:
     new_array = []
     new_array.append( str(item["date"]) )
@@ -82,10 +77,3 @@ def worldbank_indicators(req):
   return _render( req, "visualization", {
     "data_array": json.dumps(data_array)
   })
-
-  #this was before using Token Input
-  #search = req.GET["q"]
-  #data = urllib.urlopen("http://api.worldbank.org/indicator?format=json&per_page=50")
-  #json_objects = json.loads(data.read())
-  #data_refined = [{ "id": object["id"], "name": object["name"]} for object in json_objects[1] if object["name"].find(search) != -1]
-  #return http.HttpResponse(json.dumps(data_refined))
