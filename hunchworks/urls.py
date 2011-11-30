@@ -45,16 +45,20 @@ urlpatterns = patterns(
   url(r"^groups/(?P<group_id>\d+)/hunches$", groups.hunches,  name="group_hunches"),
 
   # hunches
-  url(r"^hunches$",                               hunches.index,       name="hunches"),
-  url(r"^hunches/my$",                            hunches.my,          name="my_hunches"),
-  url(r"^hunches/all$",                           hunches.all,         name="all_hunches"),
-  url(r"^hunches/finished$",                      hunches.finished,    name="finished_hunches"),
-  url(r"^hunches/open$",                          hunches.open,        name="open_hunches"),
-  url(r"^hunches/(?P<hunch_id>\d+)$",             hunches.show,        name="hunch"),
-  url(r"^hunches/(?P<hunch_id>\d+)/edit$",        hunches.edit,        name="edit_hunch"),
-  url(r"^hunches/(?P<hunch_id>\d+)/permissions$", hunches.permissions, name="hunch_permissions"),
-  url(r"^hunches/(?P<hunch_id>\d+)/follow$",      hunches.follow,      name="follow_hunch"),
-  url(r"^hunches/(?P<hunch_id>\d+)/unfollow$",    hunches.unfollow,    name="unfollow_hunch"),
+  url(r"^hunches$",                                hunches.index,        name="hunches"),
+  url(r"^hunches/my$",                             hunches.my,           name="my_hunches"),
+  url(r"^hunches/all$",                            hunches.all,          name="all_hunches"),
+  url(r"^hunches/finished$",                       hunches.finished,     name="finished_hunches"),
+  url(r"^hunches/open$",                           hunches.open,         name="open_hunches"),
+  url(r"^hunches/(?P<hunch_id>\d+)$",              hunches.show,         name="hunch"),
+  url(r"^hunches/(?P<hunch_id>\d+)/evidence$",     hunches.evidence,     name="hunch_evidence"),
+  url(r"^hunches/(?P<hunch_id>\d+)/comments$",     hunches.comments,     name="hunch_comments"),
+  url(r"^hunches/(?P<hunch_id>\d+)/contributors$", hunches.contributors, name="hunch_contributors"),
+  url(r"^hunches/(?P<hunch_id>\d+)/permissions$",  hunches.permissions,  name="hunch_permissions"),
+
+  url(r"^hunches/(?P<hunch_id>\d+)/edit$",         hunches.edit,         name="edit_hunch"),
+  url(r"^hunches/(?P<hunch_id>\d+)/follow$",       hunches.follow,       name="follow_hunch"),
+  url(r"^hunches/(?P<hunch_id>\d+)/unfollow$",     hunches.unfollow,     name="unfollow_hunch"),
 
   # create hunch wizard
   url(r'^hunches/create$', hunches.HunchWizard.as_view([

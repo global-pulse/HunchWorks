@@ -87,6 +87,7 @@ def show(req, hunch_id):
   vote_form = None
   hunch_evidence_form = None
   invite_form = None
+  invited = None
 
   if req.method == "POST":
     action = req.POST.get("action")
@@ -116,10 +117,10 @@ def show(req, hunch_id):
       invite_form = forms.InviteForm(req.POST)
 
       if invite_form.is_valid():
-        invite_form.send_invites(
-          req.user.get_profile())
-        return redirect(hunch)
 
+        # send the intivtes and clear the form, so it's reinstantiated later.
+        invited = invite_form.send_invites(inviter=req.user.get_profile())
+        invite_form = None
 
   if hunch_evidence_form is None:
     hunch_evidence_form = forms.HunchEvidenceForm(initial={
@@ -185,13 +186,53 @@ def show(req, hunch_id):
     following = False
 
 
-  return _render(req, "show", {
+  return _render(req, "show/summary", {
     "hunch": hunch,
     "evidences_for": map(_wrap, hunch.evidences_for()),
     "evidences_against": map(_wrap, hunch.evidences_against()),
     "add_hunch_evidence_form": hunch_evidence_form,
     "invite_form": invite_form,
+    "invited": invited,
     "following": following
+  })
+
+
+@login_required
+def evidence(req, hunch_id):
+  hunch = get_object_or_404(
+    models.Hunch,
+    pk=hunch_id)
+
+  return _render(req, "show/evidence", {
+    "hunch": hunch
+  })
+
+
+@login_required
+def comments(req, hunch_id):
+  hunch = get_object_or_404(
+    models.Hunch,
+    pk=hunch_id)
+
+  return _render(req, "show/comments", {
+    "hunch": hunch
+  })
+
+
+@login_required
+def contributors(req, hunch_id):
+  hunch = get_object_or_404(
+    models.Hunch,
+    pk=hunch_id)
+
+  form = forms.InviteForm(initial={
+    "hunch": hunch
+  })
+
+  return _render(req, "show/contributors", {
+    "contributors": hunch.contributors,
+    "hunch": hunch,
+    "form": form
   })
 
 

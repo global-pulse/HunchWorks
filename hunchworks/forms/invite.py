@@ -15,6 +15,11 @@ class InviteForm(forms.Form):
               "along with a link to your hunch.")
 
   def send_invites(self, inviter):
+
     hunch = self.cleaned_data["hunch"]
-    for invite_proxy in self.cleaned_data["recipients"]:
+    recipients = self.cleaned_data["recipients"]
+
+    for invite_proxy in recipients:
       hunch.invite(invite_proxy, inviter, self.cleaned_data["message"])
+
+    return recipients

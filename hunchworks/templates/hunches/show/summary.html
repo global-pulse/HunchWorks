@@ -1,0 +1,49 @@
+{% extends "hunches/show/base.html" %}
+
+{% block secondary_content %}
+  {% if hunch.location %}
+    <section class="map">
+      <div></div>
+    </section>
+    <script>
+      $(function() {
+        $("article.hunch section.map > div").each(function() {
+          if(window.google) {
+            var lat = {{ hunch.location.latitude|escapejs }};
+            var lng = {{ hunch.location.longitude|escapejs }};
+            var latlng = new google.maps.LatLng(lat, lng);
+
+            var map = new google.maps.Map(this, {
+              "mapTypeId": google.maps.MapTypeId.TERRAIN,
+              "disableDefaultUI": true,
+              "center": latlng,
+              "zoom": 6
+            });
+
+            new google.maps.Marker({
+              "position": latlng,
+              "map": map            
+            });
+
+          } else {
+            $(this).addClass("error").html(
+              "<div>Google Maps is not available.</div>"
+            );
+          }
+        });
+      });
+    </script>
+  {% endif %}
+
+  <section class="desc">
+    {% if hunch.description %}
+      <p>{{ hunch.description }}</p>
+    {% endif %}
+
+    <ul class="tags">
+      {% for tag in hunch.tags.all %}
+        <li>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock %}

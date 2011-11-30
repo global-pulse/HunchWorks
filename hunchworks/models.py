@@ -181,6 +181,27 @@ class Hunch(models.Model):
     return super(Hunch, self).save(
       *args, **kwargs)
 
+
+  def contributors(self):
+    """
+    Return a QuerySet containing the UserProfiles which have contributed to
+    this hunch (i.e. they have added evidence or commented on it).
+    """
+
+    user_profile_ids = set()
+
+    query_sets = [
+      Evidence.objects.filter(hunch=self),
+      Comment.objects.filter(Q(hunch_evidence=self) | Q(hunch=self))
+    ]
+
+    for query_set in query_sets:
+      ids = query_set.values_list("creator_id", flat=True)
+      user_profile_ids.update(ids)
+
+    return UserProfile.objects.filter(id__in=user_profile_ids)
+
+
   def get_support(self):
     supports = map(HunchEvidence.get_support, self.hunchevidence_set.all())
     return (sum(supports) / len(supports)) if any(supports) else 0

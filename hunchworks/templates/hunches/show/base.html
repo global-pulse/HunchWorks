@@ -1,0 +1,77 @@
+{% extends "hunches/base.html" %}
+{% load bookmark_tags %}
+{% load activelink %}
+
+{% block body_id %}hunch-show{% endblock %}
+
+{% block title %}
+  Show a Hunch &mdash;
+  {{ block.super }}
+{% endblock %}
+
+{% block header %}
+  {{ block.super }}
+  <h1>Show a Hunch</h1>
+{% endblock %}
+
+{% block content %}
+  <article class="hunch">
+    <header>
+      <div>
+        <h1>&#8220;<a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a>&#8221;</h1>
+        <div class="cite">&mdash; {{ hunch.creator }}, {{ hunch.time_created|date:"j F Y" }}</div>
+      </div>
+
+      <!--
+      <section class="meta">
+        <div>
+          <div class="support">
+            <h2>{{ hunch.get_support_text }}</h2>
+            <p>{{ hunch.get_verbose_support_text }}</p>
+          </div>
+          <div class="controversy">
+            <h2>{{ hunch.get_controversy_text }}</h2>
+            <p>{{ hunch.get_verbose_controversy_text }}</p>
+          </div>
+          <div class="activity">
+            <h2>{{ hunch.get_activity_text }}</h2>
+            <p>{{ hunch.get_verbose_activity_text }}</p>
+          </div>
+          <div class="privacy">
+            <h2>{{ hunch.privacy_text }}</h2>
+            <p>Any HunchWorks member may view and contribute to this hunch.</p>
+          </div>
+        </div>
+      </section>
+      -->
+    </header>
+
+
+    <nav class="tabs">
+      <ul>
+        <li class="{% ifactive "hunch"              hunch.pk %}active{% endifactive %}"><a href="{% url hunch              hunch.pk %}">Overview</a></li>
+        <li class=""><a href="">Activity</a></li>
+        <li class="{% ifactive "hunch_evidence"     hunch.pk %}active{% endifactive %}"><a href="{% url hunch_evidence     hunch.pk %}">Evidence <span>2</span></a></li>
+        <li class="{% ifactive "hunch_comments"     hunch.pk %}active{% endifactive %}"><a href="{% url hunch_comments     hunch.pk %}">Comments <span>15</span></a></li>
+        <li class="{% ifactive "hunch_contributors" hunch.pk %}active{% endifactive %}"><a href="{% url hunch_contributors hunch.pk %}">Contributors <span>2</span></a></li>
+      </ul>
+    </nav>
+
+
+    <div class="inner">
+      {% block secondary_content %}{% endblock %}
+    </div>
+
+
+    <div class="links">
+      <ul>
+        <li><a href="{% url add_hunch_evidence hunch.pk %}">Add Evidence to This Hunch</a></li>
+        <li><a href="{% url hunch_permissions hunch.pk %}">Edit Permissions</a></li>
+        <li><a href="{% url edit_hunch hunch.pk %}">Edit This Hunch</a></li>
+      </ul>
+    </div>
+
+
+    {% bookmarks hunch %}
+  </article>
+{% endblock %}

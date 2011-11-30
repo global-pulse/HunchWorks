@@ -1,0 +1,40 @@
+{% extends "hunches/show/base.html" %}
+
+{% block title %}
+  Evidence &mdash;
+  {{ block.super }}
+{% endblock %}
+
+{% block secondary_content %}
+  <section class="evidence">
+    <div class="for">
+      <h2>Evidence <span>for</span> this hunch</h2>
+      <div class="add"><a href="{% url add_hunch_evidence hunch.pk %}">Add more supporting evidence</a></div>
+      {% if evidences_for %}
+        {% include "hunches/evidences.html" with evidences=evidences_for %}
+      {% else %}
+        <div class="empty-list">
+          <p>No supporting evidence has been added yet.</p>
+        </div>
+      {% endif %}
+    </div>
+    <div class="against">
+      <h2>Evidence <span>against</span> this hunch</h2>
+      <div class="add"><a href="{% url add_hunch_evidence hunch.pk %}">Add more refuting evidence</a></div>
+      {% if evidences_against %}
+        {% include "hunches/evidences.html" with evidences=evidences_against %}
+      {% else %}
+        <div class="empty-list">
+          <p>No refuting evidence has been added yet.</p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+  <script>
+    $(function() {
+      $("article.evidence div.vote-widget input").click(function() {
+        $(this).closest("form").submit();
+      });
+    });
+  </script>
+{% endblock %}

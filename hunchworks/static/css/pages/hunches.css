@@ -12,18 +12,22 @@
   #hunch-show article.hunch { }
 
     #hunch-show article.hunch > header {
-      text-align: center;
       color: #999;
       padding: 4em;
+      overflow: hidden;
     }
 
       #hunch-show article.hunch > header > div {
         display: inline-block;
+        float: left;
+        width: 75%;
       }
 
         #hunch-show article.hunch > header > div > h1 {
           font-size: 250%;
           line-height: 1.2;
+          text-indent: -0.5em;
+          margin-right: 1.6em;
         }
 
           #hunch-show article.hunch > header > div > h1 > a {
@@ -32,7 +36,6 @@
           }
 
         #hunch-show article.hunch > header > div > div.cite {
-          text-align: right;
           margin-top: 0.5em;
           padding-right: 1em;
         }
@@ -40,71 +43,48 @@
 
 
 
-    #hunch-show section.desc {
-      border-top: 1px dotted #ccc;
-      border-bottom: 1px dotted #ccc;
-      margin-bottom: 4em;
-      background: #f8f8f8;
-      padding: 2em;
-      color: #999;
-      display: none;
-    }
+  #hunch-show div.inner {
+    overflow: hidden;
+    padding: 2em;
+  }
 
-      #hunch-show section.desc p {
+
+
+
+    #hunch-show section.desc { }
+
+      #hunch-show section.desc > p {
+        clear: left;
         font-size: 125%;
         line-height: 1.4;
       }
 
+      #hunch-show section.desc > ul.tags {
+        margin-top: 1em;
+      }
 
 
 
-    #hunch-show section.meta {
-      border-top: 1px dotted #ccc;
-      border-bottom: 1px dotted #ccc;
-      padding: 0.5em 0.5em 0.5em 2em;
-      background: #eee;
-      overflow: hidden;
+
+    #hunch-show section.map {
+      float: right;
+      width: 20em;
+      margin-left: 2em;
+      padding: 1px;
+      border: 1px solid #ccc;
+      background: eee;
     }
 
-      #hunch-show section.meta > div {
-        width: 25%;
-        float: left;
-        margin-left: 0.5em;
+      #hunch-show section.map > div {
+        height: 15em;
       }
-
-      #hunch-show section.meta > div:first-child {
-        margin-left: -1.5em;
-      }
-
-        #hunch-show section.meta > div > div {
-          background: #fff;
-          border: 2px solid #ccc;
-          border-radius: 5px;
-          -moz-border-radius: 5px;
-          padding: 0.5em;
-          text-align: center;
-          color: #999;
-        }
-
-          #hunch-show section.meta > div > div > h2 {
-            font-size: 125%;
-            font-weight: bold;
-            margin-bottom: 0.4em;
-            border-bottom: 1px dotted #ccc;
-            padding-bottom: 0.4em;
-            color: #333;
-          }
-
-          #hunch-show section.meta > div > div > p {
-            line-height: 1.3;
-            font-size: 80%;
-          }
 
 
 
 
     #hunch-show section.evidence {
-      padding: 4em 2em 2em 3em;
+      clear: both;
+      padding-left: 1em;
       overflow: hidden;
     }
 
@@ -379,18 +359,29 @@
       }
 
 
+#hunch-show section.contributors { }
 
+  #hunch-show section.contributors {
+    overflow: hidden;
+  }
 
-    #hunch-show section.invite {
-      border-top: 1px dotted #ccc;
-      padding: 2em;
+    #hunch-show section.contributors > section {
+      padding-top: 2em;
+      width: 50%;
+      float: left;
     }
 
-      #hunch-show section.invite > h2 {
+      #hunch-show section.contributors > section > h2 {
         text-align: center;
         font-size: 160%;
+        margin-bottom: 1.25em;
         color: #999;
       }
+
+        #hunch-show section.contributors > section > h2 > span {
+          font-weight: bold;
+          color: #000;
+        }
 
 
 
