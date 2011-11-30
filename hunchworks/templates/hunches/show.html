@@ -27,6 +27,17 @@
       </ul>-->
     </header>
 
+
+    <nav class="tabs">
+      <ul>
+        <li class="active"><a href="">Overview</a></li>
+        <li><a href="">Evidence <span>2</span></a></li>
+        <li><a href="">Comments <span>15</span></a></li>
+        <li><a href="">Contributors <span>2</span></a></li>
+      </ul>
+    </nav>
+
+
     {% if hunch.description %}
       <section class="desc">
         <p>{{ hunch.description }}</p>
@@ -125,6 +136,7 @@
       </form>
     </section>
 
+
     <div class="links">
       <ul>
         <li><a href="{% url add_hunch_evidence hunch.pk %}">Add Evidence to This Hunch</a></li>
@@ -132,6 +144,7 @@
         <li><a href="{% url edit_hunch hunch.pk %}">Edit This Hunch</a></li>
       </ul>
     </div>
+
 
     {% bookmarks hunch %}
   </article>
