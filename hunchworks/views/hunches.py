@@ -3,6 +3,7 @@
 from django.db import transaction
 from django.template import RequestContext
 from django.core.exceptions import PermissionDenied
+from django.core.files.storage import get_storage_class
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -83,18 +84,26 @@ def show(req, hunch_id):
   # usual validate -> save -> redirect process. If this fails (i.e. the form was
   # not valid), we'll need it later on to display again.
 
-  comment_form = None
+  hunch_comment_form = forms.CommentForm(initial={"hunch":hunch})
+  evidence_comment_form = None
   vote_form = None
   hunch_evidence_form = None
 
   if req.method == "POST":
     action = req.POST.get("action")
 
-    if action == "comment":
-      comment_form = forms.CommentForm(req.POST, auto_id=_auto_id())
+    if action == "hunch_comment":
+      hunch_comment_form = forms.CommentForm(req.POST)
 
-      if comment_form.is_valid():
-        comment = comment_form.save(creator=req.user.get_profile())
+      if hunch_comment_form.is_valid():
+        comment = hunch_comment_form.save(creator=req.user.get_profile())
+        return redirect(comment)
+
+    if action == "comment":
+      evidence_comment_form = forms.CommentForm(req.POST, auto_id=_auto_id())
+
+      if evidence_comment_form.is_valid():
+        comment = evidence_comment_form.save(creator=req.user.get_profile())
         return redirect(comment)
 
     elif action == "vote":
@@ -136,8 +145,8 @@ def show(req, hunch_id):
           return True
 
     # If a comment form was just submitted for this HE, use it.
-    if _submitted(comment_form):
-      cf = comment_form
+    if _submitted(evidence_comment_form):
+      cf = evidence_comment_form
 
     else:
       cf = forms.CommentForm(initial={
@@ -173,6 +182,7 @@ def show(req, hunch_id):
 
   return _render(req, "show", {
     "hunch": hunch,
+    "hunch_comment_form": hunch_comment_form,
     "evidences_for": map(_wrap, hunch.evidences_for()),
     "evidences_against": map(_wrap, hunch.evidences_against()),
     "add_hunch_evidence_form": hunch_evidence_form,
@@ -216,6 +226,7 @@ def permissions(req, hunch_id):
 
 
 class HunchWizard(SessionWizardView):
+  file_storage = get_storage_class()
   def get_template_names(self):
     return "hunches/create/%s.html" %\
       self.steps.step1

@@ -21,7 +21,7 @@ class EvidenceForm(forms.ModelForm):
   class Meta:
     model = models.Evidence
     fields = (
-      "title", "description", "link", "tags", "location"
+      "title", "description", "link", "tags", "location", "upload"
     )
 
   def save(self, creator=None):

@@ -7,9 +7,10 @@ from hunchworks import models
 class CommentForm(forms.ModelForm):
   class Meta:
     model = models.Comment
-    fields = ("text", "hunch_evidence")
+    fields = ("text", "hunch_evidence", "hunch")
     widgets = {
-      "hunch_evidence": forms.HiddenInput()
+      "hunch_evidence": forms.HiddenInput(),
+      "hunch": forms.HiddenInput()
     }
 
   def save(self, creator=None):
