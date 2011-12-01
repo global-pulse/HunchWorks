@@ -68,23 +68,6 @@ def show(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
 
 
-  # This is kind of nuts. It's a work-around to Python's lexical scope rules.
-  # The _id_counter var can't be a simple int, since those are immutable, and
-  # rebinding it within _auto_id (as in: _id_counter +=1) would prevent us from
-  # accessing the var in the outer scope.
-
-  _id_counter = [0]
-  def _auto_id():
-    _id_counter[0] += 1
-    return ("form_%s_id_" % _id_counter[0]) + "%s"
-
-
-  # If one of the HunchEvidence comment forms was just submitted, attempt the
-  # usual validate -> save -> redirect process. If this fails (i.e. the form was
-  # not valid), we'll need it later on to display again.
-
-  comment_form = None
-  vote_form = None
   hunch_evidence_form = None
   invite_form = None
   invited = None
@@ -92,21 +75,7 @@ def show(req, hunch_id):
   if req.method == "POST":
     action = req.POST.get("action")
 
-    if action == "comment":
-      comment_form = forms.CommentForm(req.POST, auto_id=_auto_id())
-
-      if comment_form.is_valid():
-        comment = comment_form.save(creator=req.user.get_profile())
-        return redirect(comment)
-
-    elif action == "vote":
-      vote_form = forms.VoteForm(req.POST, auto_id=_auto_id())
-
-      if vote_form.is_valid():
-        vote = vote_form.save(user_profile=req.user.get_profile())
-        return redirect(hunch)
-
-    elif action == "add_evidence":
+    if action == "add_evidence":
       hunch_evidence_form = forms.HunchEvidenceForm(req.POST)
 
       if hunch_evidence_form.is_valid():
@@ -132,6 +101,61 @@ def show(req, hunch_id):
       "hunch": hunch
     })
 
+
+  if len(hunch.user_profiles.filter(pk=req.user.get_profile().pk)) > 0:
+    following = True
+  else:
+    following = False
+
+
+  return _render(req, "show/summary", {
+    "hunch": hunch,
+    "add_hunch_evidence_form": hunch_evidence_form,
+    "invite_form": invite_form,
+    "invited": invited,
+    "following": following
+  })
+
+
+@login_required
+def evidence(req, hunch_id):
+  hunch = get_object_or_404(
+    models.Hunch,
+    pk=hunch_id)
+
+  # This is kind of nuts. It's a work-around to Python's lexical scope rules.
+  # The _id_counter var can't be a simple int, since those are immutable, and
+  # rebinding it within _auto_id (as in: _id_counter +=1) would prevent us from
+  # accessing the var in the outer scope.
+
+  _id_counter = [0]
+  def _auto_id():
+    _id_counter[0] += 1
+    return ("form_%s_id_" % _id_counter[0]) + "%s"
+
+  # If one of the HunchEvidence comment forms was just submitted, attempt the
+  # usual validate -> save -> redirect process. If this fails (i.e. the form was
+  # not valid), we'll need it later on to display again.
+
+  comment_form = None
+  vote_form = None
+
+  if req.method == "POST":
+    action = req.POST.get("action")
+
+    if action == "comment":
+      comment_form = forms.CommentForm(req.POST, auto_id=_auto_id())
+
+      if comment_form.is_valid():
+        comment = comment_form.save(creator=req.user.get_profile())
+        return redirect(comment)
+
+    elif action == "vote":
+      vote_form = forms.VoteForm(req.POST, auto_id=_auto_id())
+
+      if vote_form.is_valid():
+        vote = vote_form.save(user_profile=req.user.get_profile())
+        return redirect(hunch)
 
   def _wrap(hunch_evidence):
     """
@@ -180,31 +204,11 @@ def show(req, hunch_id):
     return (hunch_evidence, hunch_evidence.comment_set.all(), cf, vf)
 
 
-  if len(hunch.user_profiles.filter(pk=req.user.get_profile().pk)) > 0:
-    following = True
-  else:
-    following = False
 
-
-  return _render(req, "show/summary", {
+  return _render(req, "show/evidence", {
     "hunch": hunch,
     "evidences_for": map(_wrap, hunch.evidences_for()),
     "evidences_against": map(_wrap, hunch.evidences_against()),
-    "add_hunch_evidence_form": hunch_evidence_form,
-    "invite_form": invite_form,
-    "invited": invited,
-    "following": following
-  })
-
-
-@login_required
-def evidence(req, hunch_id):
-  hunch = get_object_or_404(
-    models.Hunch,
-    pk=hunch_id)
-
-  return _render(req, "show/evidence", {
-    "hunch": hunch
   })
 
 
