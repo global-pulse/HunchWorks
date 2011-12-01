@@ -1,7 +1,6 @@
 {% load bookmark_tags %}
 
 <article class="evidence short" data-id="{{ object.id }}">
-  <!--<a href="{{ object.link }}" class="embed">{{ object.link }}</a>-->
   <h2><a href="{{ object.get_absolute_url }}">{{ object }}</a></h2>
 
   {% if object.description %}
@@ -11,7 +10,7 @@
   {% endif %}
 
   <ul class="stats">
-    <li>Used in {{ evidence.hunch_set.all.count }} hunches</li>
+    <li>Used in {{ object.hunch_set.all.count }} hunches</li>
   </ul>
 
   {% bookmarks object %}

@@ -5,7 +5,11 @@ from hunchworks.models import UserProfile, Connection, TranslationLanguage, Invi
 from django.contrib.auth.models import User
 from hunchworks import hunchworks_enums as enums
 
-class AlbumFactory(BaseFactory, DjangoMixin):
+class Base(BaseFactory, DjangoMixin):
+    """Base settings for all factories"""
+    pass
+
+class AlbumFactory(Base):
     model = Album
 
     def getparams(self):
@@ -22,7 +26,7 @@ class AlbumFactory(BaseFactory, DjangoMixin):
         for x in range(15):
             a.evidences.add(self.getRandInst(Evidence))
 
-class EvidenceFactory(BaseFactory, DjangoMixin):
+class EvidenceFactory(Base):
     model = Evidence
 
     def getparams(self):
@@ -36,7 +40,7 @@ class EvidenceFactory(BaseFactory, DjangoMixin):
         link = 'http://www.google.com'
         return locals()
 
-class HunchFactory(BaseFactory, DjangoMixin):
+class HunchFactory(Base):
     model = Hunch
 
     def getparams(self):
@@ -64,7 +68,7 @@ class GroupFactory(BaseFactory, DjangoMixin):
         location = self.getRandInst(Location)
         return locals()
 
-class LocationFactory(BaseFactory, DjangoMixin):
+class LocationFactory(Base):
     model = Location
 
     def getparams(self):
@@ -78,7 +82,7 @@ class LocationFactory(BaseFactory, DjangoMixin):
         return '%0.2f' % (random.randint(-360,360) + random.random())
 
 
-class ConnectionFactory(BaseFactory, DjangoMixin):
+class ConnectionFactory(Base):
     model = Connection
 
     def getparams(self):
@@ -87,7 +91,7 @@ class ConnectionFactory(BaseFactory, DjangoMixin):
         status = random.choice(enums.ConnectionStatus.GetChoices())[0]
         return locals()
 
-class UserFactory(BaseFactory, DjangoMixin):
+class UserFactory(Base):
     model = User
 
     def getparams(self):
@@ -103,7 +107,7 @@ class UserFactory(BaseFactory, DjangoMixin):
         a.set_password(self.username)
         a.save()
 
-class UserProfileGroupFactory(BaseFactory, DjangoMixin):
+class UserProfileGroupFactory(Base):
     model = UserProfileGroup
 
     def getparams(self):
@@ -111,7 +115,7 @@ class UserProfileGroupFactory(BaseFactory, DjangoMixin):
         group = self.getRandInst(Group)
         return locals()
 
-class UserProfileFactory(BaseFactory, DjangoMixin):
+class UserProfileFactory(Base):
     model = UserProfile
 
     def getparams(self):

@@ -333,6 +333,7 @@ class Evidence(models.Model):
   location = models.ForeignKey('Location', null=True, blank=True)
   creator = models.ForeignKey('UserProfile')
   link = models.CharField(max_length=255)
+  upload = models.FileField(upload_to='evidence', blank=True, null=True)
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
@@ -426,7 +427,7 @@ class Album(models.Model):
 
   def __unicode__(self):
     return self.name
-    
+
   @models.permalink
   def get_absolute_url(self):
     return ("album", [self.pk])
@@ -473,7 +474,7 @@ class Location(models.Model):
 
   def __unicode__(self):
     return self.name or "<Location:%d>" % self.pk
-  
+
   @classmethod
   def search(cls, term, user_profile=None):
     return cls.objects.filter(name__icontains=term)
@@ -532,6 +533,9 @@ class Comment(models.Model):
   def get_absolute_base_url(self):
     if self.hunch_evidence:
       return ("hunch_evidence", [self.hunch_evidence.hunch.pk])
+
+    elif self.hunch:
+      return ("hunch_comments", [self.hunch.pk])
 
   def get_absolute_url(self):
     return self.get_absolute_base_url() + ("#c%d" % self.pk)
@@ -610,7 +614,7 @@ post_save.connect(
 
 class Bookmark(models.Model):
   user_profile = models.ForeignKey('UserProfile')
-  
+
   #Generic foreign key
   content_type = models.ForeignKey(ContentType)
   object_id = models.PositiveIntegerField()

@@ -4,6 +4,7 @@
 import json
 from hunchworks import forms, models
 from hunchworks.utils.pagination import paginated
+from hunchworks.utils.uploads import handle_uploaded_file
 from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.shortcuts import render_to_response, get_object_or_404, redirect
@@ -40,15 +41,19 @@ def show(req, evidence_id):
 
 @login_required
 def edit(req, evidence_id):
+
   evidence = get_object_or_404(
     models.Evidence,
     pk=evidence_id)
 
   form = forms.EvidenceForm(
     req.POST or None,
+    req.FILES or None,
     instance=evidence)
 
   if form.is_valid():
+    for file in req.FILES:
+      handle_uploaded_file(req.FILES[file], '/evidence/')
     evidence = form.save()
     return redirect(evidence)
 
@@ -60,11 +65,15 @@ def edit(req, evidence_id):
 
 @login_required
 def create(req):
-  form = forms.EvidenceForm(req.POST or None, initial={
+  form = forms.EvidenceForm(req.POST or None,
+          req.FILES or None,
+          initial={
     "link": req.GET.get("link", None)
   })
 
   if form.is_valid():
+    for file in req.FILES:
+      handle_uploaded_file(req.FILES[file], '/evidence/')
     evidence = form.save(creator=req.user.get_profile())
     return redirect(evidence)
 
