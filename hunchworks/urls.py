@@ -51,6 +51,7 @@ urlpatterns = patterns(
   url(r"^hunches/finished$",                       hunches.finished,     name="finished_hunches"),
   url(r"^hunches/open$",                           hunches.open,         name="open_hunches"),
   url(r"^hunches/(?P<hunch_id>\d+)$",              hunches.show,         name="hunch"),
+  url(r"^hunches/(?P<hunch_id>\d+)/activity$",     hunches.activity,     name="hunch_activity"),
   url(r"^hunches/(?P<hunch_id>\d+)/evidence$",     hunches.evidence,     name="hunch_evidence"),
   url(r"^hunches/(?P<hunch_id>\d+)/comments$",     hunches.comments,     name="hunch_comments"),
   url(r"^hunches/(?P<hunch_id>\d+)/contributors$", hunches.contributors, name="hunch_contributors"),

@@ -118,6 +118,17 @@ def show(req, hunch_id):
 
 
 @login_required
+def activity(req, hunch_id):
+  hunch = get_object_or_404(
+    models.Hunch,
+    pk=hunch_id)
+
+  return _render(req, "show/activity", {
+    "hunch": hunch
+  })
+
+
+@login_required
 def evidence(req, hunch_id):
   hunch = get_object_or_404(
     models.Hunch,
