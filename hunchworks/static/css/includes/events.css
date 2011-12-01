@@ -4,7 +4,7 @@ section.event-list {
 }
 
   section.event-list > article.event {
-    padding: 1em 0;
+    padding: 1em 0 1em 1em;
     background: #f8f8f8;
     background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f8f8f8));
     border-left: 1px solid #ccc;
@@ -34,10 +34,7 @@ section.event-list {
   }
 
     section.event-list > article.event > article.user {
-      position: absolute;
-      top: 50%;
-      left: 1em;
-      margin-top: -27px;
+      float: left;
     }
 
       section.event-list > article.event > article.user img {
@@ -50,8 +47,10 @@ section.event-list {
       }
 
     section.event-list > article.event > div {
-      padding: 0 1em 0 2em;
+      border-right: 0.5em solid #eee;
+      padding: 0 0.5em 0 1em;
       margin-left: 54px;
+      min-height: 54px;
     }
 
       section.event-list > article.event > div > p {
@@ -70,13 +69,9 @@ section.event-list {
         }
 
       section.event-list > article.event > div > h2 {
-        font-size: 125%;
-        font-weight: bold;
+        font: 110% serif;
+        padding-top: 0.5em;
         line-height: 1.2;
-        max-height: 2.4em;
-        margin: 0.4em 0;
-        overflow: hidden;
-        color: #999;
       }
 
         section.event-list > article.event > div > h2 > a {
@@ -95,19 +90,7 @@ section.event-list {
 
 
 
-  section.event-list article.event.hunch-created { }
-
-    section.event-list article.event.hunch-created > div > h2 {
-      background: url("/static/icons/bulb.png") no-repeat 0 50%;
-      padding-left: 21px;
-    }
-
-
-
-
-  section.event-list article.event.evidence-attached { }
-
-    section.event-list article.event.evidence-attached > div > h2 {
-      background: url("/static/icons/puzzle.png") no-repeat 0 50%;
-      padding-left: 21px;
-    }
+  section.event-list article.event.hunch-created                > div { border-right-color: #ffc; }
+  section.event-list article.event.evidence-attached            > div { border-right-color: #cfc; }
+  section.event-list article.event.user-invited-to-hunch        > div { border-right-color: #fcc; }
+  section.event-list article.event.comment-posted-hunchevidence > div { border-right-color: #cff; }
