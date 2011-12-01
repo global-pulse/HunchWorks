@@ -33,6 +33,9 @@ def deploy():
       run("git clean -dfx")
       run("git pull")
 
+      # trash the mongo database.
+      run('mongo --eval "db.dropDatabase()" hunchworks')
+
       # install any new requirements.
       run("pip install -r requirements.txt")
 
