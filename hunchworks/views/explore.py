@@ -20,10 +20,12 @@ def _render(req, template, more_context):
 def worldbank_indicators(indicator_id, country_ids):
   data = worldbank.indicator(indicator_id, country_ids)
 
-  def _extract(key):
+  # transform worldbank-style structure into tokeninput style structure
+  # { "id": 1, "value": "US" }   =>   { "id": 1, "name": "US" }
+  def _format_for_tokeninput(key):
     things = []
 
-    for item in data:
+    for item in data.copy():
       thing = item[key]
       thing["name"] = thing["value"]
       del thing["value"]
@@ -33,47 +35,12 @@ def worldbank_indicators(indicator_id, country_ids):
 
     return things
 
-  countries = _extract("country")
-  indicators = _extract("indicator")
-
-  def _value(value):
-    if value is not None:
-      return float(value)
-
-  # all_country_data will output a dictionary that looks like this:
-  # { Brazil: { 2003: 10000, 2004: 11000, 2005: 12000 },
-  #   China: { 2003: 12000, 2004: 14000, 2006: 16000 }
-  # }
-  all_country_data = {}
-  country = ""
+  countries_prepop = _format_for_tokeninput("country")
+  indicators_prepop = _format_for_tokeninput("indicator")
   
-  for item in reversed(data):
-
-    if country != item["country"]["name"]:
-      country = item["country"]["name"]
-      all_country_data[country] = {}
-
-    all_country_data[country][item["date"]] = _value(item["value"])
-
-  # This will be a unique set of years across all countries in all_country_data
-  final_year_set = set()
-
-  for country in sorted(all_country_data.keys()):
-  	final_year_set.update(all_country_data[country].keys())
+  country_keys, final_country_data = worldbank.chart( data )
   
-  # country_keys are the unique country names for all countries in the data.
-  country_keys = all_country_data.keys()
-  
-  # final_country_data will be an array of arrays looking like this:
-  # [ ["1998", 13000, 14000], ["1999", 15000, 16000], ["2000", 17000, 20000] ]
-  final_country_data = []
-  for year in sorted(final_year_set):
-    temp_data = [year]
-    for country in country_keys:
-      temp_data.append( all_country_data[country][year] )
-    final_country_data.append(temp_data)
-  
-  return (indicators, countries, country_keys, final_country_data)
+  return (indicators_prepop, countries_prepop, country_keys, final_country_data)
 
 
 @login_required
