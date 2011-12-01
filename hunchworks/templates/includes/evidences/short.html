@@ -1,6 +1,8 @@
 {% load bookmark_tags %}
+{% load embed_tags %}
 
 <article class="evidence short" data-id="{{ object.id }}">
+  {% embed object.link %}
   <h2><a href="{{ object.get_absolute_url }}">{{ object }}</a></h2>
 
   {% if object.description %}
