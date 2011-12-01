@@ -253,9 +253,21 @@ def contributors(req, hunch_id):
     models.Hunch,
     pk=hunch_id)
 
-  form = forms.InviteForm(initial={
-    "hunch": hunch
-  })
+  form = None
+
+  if req.method == "POST":
+    form = forms.InviteForm(req.POST)
+    if form.is_valid():
+    
+      # Send the invitations and clear the form. If the form wasn't valid,
+      # the form with errors will be shown again for correcting.
+      form.send_invites(inviter=req.user.get_profile())
+      form = None
+
+  if form is None:
+    form = forms.InviteForm(initial={
+      "hunch": hunch
+    })
 
   return _render(req, "show/contributors", {
     "contributors": hunch.contributors,
