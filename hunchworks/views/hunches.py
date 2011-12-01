@@ -69,6 +69,75 @@ def show(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
 
 
+  hunch_evidence_form = None
+  invite_form = None
+  invited = None
+
+  if req.method == "POST":
+    action = req.POST.get("action")
+
+    if action == "add_evidence":
+      hunch_evidence_form = forms.HunchEvidenceForm(req.POST)
+
+      if hunch_evidence_form.is_valid():
+        hunch_evidence = hunch_evidence_form.save(creator=req.user.get_profile())
+        return redirect(hunch_evidence)
+
+    elif action == "invite":
+      invite_form = forms.InviteForm(req.POST)
+
+      if invite_form.is_valid():
+
+        # send the intivtes and clear the form, so it's reinstantiated later.
+        invited = invite_form.send_invites(inviter=req.user.get_profile())
+        invite_form = None
+
+  if hunch_evidence_form is None:
+    hunch_evidence_form = forms.HunchEvidenceForm(initial={
+      "hunch": hunch
+    })
+
+  if invite_form is None:
+    invite_form = forms.InviteForm(initial={
+      "hunch": hunch
+    })
+
+
+  if len(hunch.user_profiles.filter(pk=req.user.get_profile().pk)) > 0:
+    following = True
+  else:
+    following = False
+
+
+  return _render(req, "show/summary", {
+    "hunch": hunch,
+    "add_hunch_evidence_form": hunch_evidence_form,
+    "invite_form": invite_form,
+    "invited": invited,
+    "following": following
+  })
+
+
+@login_required
+def activity(req, hunch_id):
+  hunch = get_object_or_404(
+    models.Hunch,
+    pk=hunch_id)
+
+  events = paginated(req, hunch.events(), 20)
+
+  return _render(req, "show/activity", {
+    "hunch": hunch,
+    "events": events
+  })
+
+
+@login_required
+def evidence(req, hunch_id):
+  hunch = get_object_or_404(
+    models.Hunch,
+    pk=hunch_id)
+
   # This is kind of nuts. It's a work-around to Python's lexical scope rules.
   # The _id_counter var can't be a simple int, since those are immutable, and
   # rebinding it within _auto_id (as in: _id_counter +=1) would prevent us from
@@ -79,7 +148,6 @@ def show(req, hunch_id):
     _id_counter[0] += 1
     return ("form_%s_id_" % _id_counter[0]) + "%s"
 
-
   # If one of the HunchEvidence comment forms was just submitted, attempt the
   # usual validate -> save -> redirect process. If this fails (i.e. the form was
   # not valid), we'll need it later on to display again.
@@ -87,7 +155,6 @@ def show(req, hunch_id):
   hunch_comment_form = forms.CommentForm(initial={"hunch":hunch})
   evidence_comment_form = None
   vote_form = None
-  hunch_evidence_form = None
 
   if req.method == "POST":
     action = req.POST.get("action")
@@ -111,21 +178,7 @@ def show(req, hunch_id):
 
       if vote_form.is_valid():
         vote = vote_form.save(user_profile=req.user.get_profile())
-        return redirect(hunch)
-
-    elif action == "add_evidence":
-      hunch_evidence_form = forms.HunchEvidenceForm(req.POST)
-
-      if hunch_evidence_form.is_valid():
-        hunch_evidence = hunch_evidence_form.save(user_profile=req.user.get_profile())
-        return redirect(hunch)
-
-
-  if hunch_evidence_form is None:
-    hunch_evidence_form = forms.HunchEvidenceForm(initial={
-      "hunch": hunch
-    })
-
+        return redirect(vote_form.cleaned_data["hunch_evidence"])
 
   def _wrap(hunch_evidence):
     """
@@ -174,19 +227,52 @@ def show(req, hunch_id):
     return (hunch_evidence, hunch_evidence.comment_set.all(), cf, vf)
 
 
-  if len(hunch.user_profiles.filter(pk=req.user.get_profile().pk)) > 0:
-    following = True
-  else:
-    following = False
 
-
-  return _render(req, "show", {
+  return _render(req, "show/evidence", {
     "hunch": hunch,
     "hunch_comment_form": hunch_comment_form,
     "evidences_for": map(_wrap, hunch.evidences_for()),
     "evidences_against": map(_wrap, hunch.evidences_against()),
-    "add_hunch_evidence_form": hunch_evidence_form,
-    "following": following
+  })
+
+
+@login_required
+def comments(req, hunch_id):
+  hunch = get_object_or_404(
+    models.Hunch,
+    pk=hunch_id)
+
+  return _render(req, "show/comments", {
+    "hunch": hunch
+  })
+
+
+@login_required
+def contributors(req, hunch_id):
+  hunch = get_object_or_404(
+    models.Hunch,
+    pk=hunch_id)
+
+  form = None
+
+  if req.method == "POST":
+    form = forms.InviteForm(req.POST)
+    if form.is_valid():
+    
+      # Send the invitations and clear the form. If the form wasn't valid,
+      # the form with errors will be shown again for correcting.
+      form.send_invites(inviter=req.user.get_profile())
+      form = None
+
+  if form is None:
+    form = forms.InviteForm(initial={
+      "hunch": hunch
+    })
+
+  return _render(req, "show/contributors", {
+    "contributors": hunch.contributors,
+    "hunch": hunch,
+    "form": form
   })
 
 
@@ -288,7 +374,7 @@ def add_evidence(req, hunch_id):
       "hunch": hunch
     })
 
-  return _render(req, "add_evidence", {
+  return _render(req, "show/add_evidence", {
     "hunch": hunch,
     "form": form
   })

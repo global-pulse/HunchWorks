@@ -1,0 +1,21 @@
+{% extends "hunches/show/base.html" %}
+
+{% block title %}
+  Activity &mdash;
+  {{ block.super }}
+{% endblock %}
+
+{% block secondary_content %}
+  <section class="activity">
+    <h2>Latest <span>Activity</span></h2>
+
+    {% if events.object_list.count %}
+      {% include "includes/events/list.html" with event_list=events.object_list %}
+    {% else %}
+      <div class="empty-list">
+        Nothing has happened yet.<br>
+        This is highly unusual.
+      </div>
+    {% endif %}
+  </section>
+{% endblock %}

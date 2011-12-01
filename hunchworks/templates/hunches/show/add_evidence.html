@@ -1,4 +1,4 @@
-{% extends "hunches/base.html" %}
+{% extends "hunches/show/base.html" %}
 
 {% block title %}
   Add Evidence to a Hunch &mdash;
@@ -10,7 +10,9 @@
   <h1>Add Evidence to a Hunch</h1>
 {% endblock %}
 
-{% block content %}
+{% block evidence_tab_class %}active{% endblock %}
+
+{% block secondary_content %}
   <form action="" method="post" class="add hunch_evidence">
     <section class="help_text">
       <p>

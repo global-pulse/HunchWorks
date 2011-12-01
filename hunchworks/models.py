@@ -10,6 +10,7 @@ from django.template import Template, Context
 from django.db.models.signals import pre_save, post_save
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from hunchworks.signals import user_invited
 from hunchworks import hunchworks_enums
 from hunchworks import events
 
@@ -129,7 +130,7 @@ class Connection(models.Model):
     return cls.objects.filter(user_profile=user_profile, other_user_profile__user__username__icontains=term)
 
 
-class Hunch(models.Model):
+class Hunch(models.Model, events.HasEvents):
   creator = models.ForeignKey('UserProfile', related_name="created_hunches")
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
@@ -151,6 +152,20 @@ class Hunch(models.Model):
   def __unicode__(self):
     return self.title
 
+  def invite(self, invite_proxy, inviter, message):
+    obj = invite_proxy.content_object
+
+    if isinstance(obj, UserProfile):
+      self.user_profiles.add(obj)
+
+      user_invited.send(
+        sender=Hunch, instance=self,
+        inviter=inviter, invitee=obj,
+        message=message)
+
+    else:
+      raise NotImplementedError
+
   @models.permalink
   def get_absolute_url(self):
     return ("hunch", [self.pk])
@@ -165,6 +180,27 @@ class Hunch(models.Model):
 
     return super(Hunch, self).save(
       *args, **kwargs)
+
+
+  def contributors(self):
+    """
+    Return a QuerySet containing the UserProfiles which have contributed to
+    this hunch (i.e. they have added evidence or commented on it).
+    """
+
+    user_profile_ids = set()
+
+    query_sets = [
+      Evidence.objects.filter(hunch=self),
+      Comment.objects.filter(Q(hunch_evidence=self) | Q(hunch=self))
+    ]
+
+    for query_set in query_sets:
+      ids = query_set.values_list("creator_id", flat=True)
+      user_profile_ids.update(ids)
+
+    return UserProfile.objects.filter(id__in=user_profile_ids)
+
 
   def get_support(self):
     supports = map(HunchEvidence.get_support, self.hunchevidence_set.all())
@@ -283,6 +319,10 @@ post_save.connect(
   events.hunch_created,
   sender=Hunch)
 
+user_invited.connect(
+  events.user_invited_to_hunch,
+  sender=Hunch)
+
 
 class Evidence(models.Model):
   title = models.CharField(verbose_name="Short description", max_length=100, blank=True,
@@ -342,6 +382,9 @@ class Group(models.Model):
   @models.permalink
   def get_absolute_url(self):
     return ("group", [self.pk])
+
+  def invite_to_hunch(self, sent_by, hunch):
+    hunch.groups.add(self)
 
   def logo_url(self):
     if self.logo:
@@ -472,7 +515,7 @@ class Language(models.Model):
 
 class Invitation(models.Model):
   email = models.CharField(max_length=100)
-  invited_by = models.ForeignKey('UserProfile', related_name="invitations")
+  sent_by = models.ForeignKey('UserProfile', related_name="invitations")
   hunch = models.ForeignKey('Hunch', null=True, blank=True)
 
   def __unicode__(self):
@@ -489,9 +532,10 @@ class Comment(models.Model):
   @models.permalink
   def get_absolute_base_url(self):
     if self.hunch_evidence:
-      return ("hunch", [self.hunch_evidence.hunch.pk])
+      return ("hunch_evidence", [self.hunch_evidence.hunch.pk])
+
     elif self.hunch:
-      return ("hunch", [self.hunch.pk])
+      return ("hunch_comments", [self.hunch.pk])
 
   def get_absolute_url(self):
     return self.get_absolute_base_url() + ("#c%d" % self.pk)
@@ -509,11 +553,22 @@ post_save.connect(
 class HunchEvidence(models.Model):
   hunch = models.ForeignKey('Hunch')
   evidence = models.ForeignKey('Evidence')
+  creator = models.ForeignKey('UserProfile')
   support_cache = models.IntegerField(choices=SUPPORT_CHOICES, null=True)
   confidence_cache = models.FloatField(null=True)
 
   class Meta:
     unique_together = ("hunch", "evidence")
+
+  @models.permalink
+  def get_absolute_base_url(self):
+    return ("hunch_evidence", [self.hunch.pk])
+
+  def get_absolute_url(self):
+    return self.get_absolute_base_url() + "#" + self.anchor()
+
+  def anchor(self):
+    return "he%d" % self.pk
 
   def save(self, *args, **kwargs):
     self.support_cache = self.get_support()
@@ -574,3 +629,55 @@ class Bookmark(models.Model):
     except cls.DoesNotExist:
       bookmark = cls.objects.create(content_object=object, user_profile=user_profile)
       return bookmark
+
+
+class InviteProxy(models.Model):
+  """
+  This model exists solely to provide a generic foreign key to objects which
+  can be "invited" to things (e.g. to a hunch, to a group).
+
+  This is a hack, to allow us to use TokenField for invites. It would probably
+  be better to store this sort of thing in MongoDB, but we'd lose the implicit
+  integration, which is kind of the whole point.
+  """
+
+  MODELS = [UserProfile, Group]
+
+  content_type   = models.ForeignKey(ContentType)
+  object_id      = models.PositiveIntegerField()
+  content_object = generic.GenericForeignKey("content_type", "object_id")
+
+  # This field should be named "name_cache" (or something similar), but
+  # djTokeninput fetches the results using values_list("id", "name").
+  name = models.CharField(max_length=255)
+
+  def __unicode__(self):
+    return self.name
+
+  @classmethod
+  def search(cls, query):
+    return cls.objects.filter(
+      name__icontains=query)
+
+  @classmethod
+  def connect_signals(cls):
+
+    # Call _post_save every time one of cls.MODELS is saved.
+    for model in cls.MODELS:
+      post_save.connect(
+        cls._post_save,
+        sender=model)
+
+  @classmethod
+  def _post_save(cls, sender, instance, created, **kwargs):
+
+    # Ensure that we have an InviteProxy to instance.
+    obj, created = cls.objects.get_or_create(
+      content_type=ContentType.objects.get_for_model(instance),
+      object_id=instance.pk)
+
+    # Update our cached name.
+    obj.name = unicode(instance)
+    obj.save()
+
+InviteProxy.connect_signals()

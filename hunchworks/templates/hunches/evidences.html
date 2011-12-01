@@ -1,17 +1,13 @@
 {% load embed_tags %}
 
 {% for hunch_evidence, comments, comment_form, vote_form in evidences %}
-  <article class="evidence">
+  <article class="evidence" id="{{ hunch_evidence.anchor }}">
     <div>
       {% embed hunch_evidence.evidence.link %}
 
       <header>
-        <h3>{{ hunch_evidence.evidence.description }}</h3>
+        <h3>{{ hunch_evidence.evidence }}</h3>
       </header>
-
-      <!--<section class="desc">
-        <p>{{ hunch_evidence.evidence.description }}</p>
-      </section>-->
 
       <ul class="meta">
         <li class="source"><span>Source:</span> <a href="{{ hunch_evidence.evidence.link }}">{{ hunch_evidence.evidence.short_link }}</a></li>

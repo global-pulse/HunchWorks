@@ -1,0 +1,57 @@
+{% extends "hunches/show/base.html" %}
+
+{% block title %}
+  Contributors &mdash;
+  {{ block.super }}
+{% endblock %}
+
+{% block secondary_content %}
+  <section class="contributors">
+    <section class="">
+      <h2>Contributors</h2>
+  
+      {% if contributors %}
+        {% include "includes/users/list.html" with object_list=contributors %}
+      {% else %}
+        <div class="empty-list">
+          Nobody has contributed to this hunch yet.
+        </div>    
+      {% endif %}
+    </section>
+  
+    <section class="invite">
+      <h2>Invite Other Users and Groups</h2>
+  
+      {% if invited %}
+        <div class="invited">
+          <p>Invitations were sent to:</p>
+          <ul>
+            {% for invite_proxy in invited %}
+              <li>{{ invite_proxy.content_object }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+  
+      <form method="post">
+        {{ form.non_field_errors }}
+        {% csrf_token %}
+    
+        {% for field in form.hidden_fields %}
+          {{ field }}
+        {% endfor %}
+  
+        <div class="fields">
+          {% for field in form.visible_fields %}
+            {% include "includes/fields/base.html" %}
+          {% endfor %}
+        </div>
+  
+        <div class="actions">
+          <input type="hidden" name="action" value="invite">
+          <input type="submit" value="Send Invitations">
+        </div>
+      </form>
+    </section>
+  </section>
+{% endblock %}
