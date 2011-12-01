@@ -1,7 +1,7 @@
 {% load embed_tags %}
 
 {% for hunch_evidence, comments, comment_form, vote_form in evidences %}
-  <article class="evidence">
+  <article class="evidence" id="{{ hunch_evidence.anchor }}">
     <div>
       {% embed hunch_evidence.evidence.link %}
 

@@ -531,7 +531,7 @@ class Comment(models.Model):
   @models.permalink
   def get_absolute_base_url(self):
     if self.hunch_evidence:
-      return ("hunch", [self.hunch_evidence.hunch.pk])
+      return ("hunch_evidence", [self.hunch_evidence.hunch.pk])
 
   def get_absolute_url(self):
     return self.get_absolute_base_url() + ("#c%d" % self.pk)
@@ -554,6 +554,16 @@ class HunchEvidence(models.Model):
 
   class Meta:
     unique_together = ("hunch", "evidence")
+
+  @models.permalink
+  def get_absolute_base_url(self):
+    return ("hunch_evidence", [self.hunch.pk])
+
+  def get_absolute_url(self):
+    return self.get_absolute_base_url() + "#" + self.anchor()
+
+  def anchor(self):
+    return "he%d" % self.pk
 
   def save(self, *args, **kwargs):
     self.support_cache = self.get_support()

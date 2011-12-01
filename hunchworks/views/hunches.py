@@ -166,7 +166,7 @@ def evidence(req, hunch_id):
 
       if vote_form.is_valid():
         vote = vote_form.save(user_profile=req.user.get_profile())
-        return redirect(hunch)
+        return redirect(vote_form.cleaned_data["hunch_evidence"])
 
   def _wrap(hunch_evidence):
     """
@@ -348,7 +348,7 @@ def add_evidence(req, hunch_id):
       "hunch": hunch
     })
 
-  return _render(req, "add_evidence", {
+  return _render(req, "show/add_evidence", {
     "hunch": hunch,
     "form": form
   })
