@@ -79,8 +79,8 @@ def show(req, hunch_id):
       hunch_evidence_form = forms.HunchEvidenceForm(req.POST)
 
       if hunch_evidence_form.is_valid():
-        hunch_evidence = hunch_evidence_form.save(user_profile=req.user.get_profile())
-        return redirect(hunch)
+        hunch_evidence = hunch_evidence_form.save(creator=req.user.get_profile())
+        return redirect(hunch_evidence)
 
     elif action == "invite":
       invite_form = forms.InviteForm(req.POST)
@@ -123,8 +123,11 @@ def activity(req, hunch_id):
     models.Hunch,
     pk=hunch_id)
 
+  events = paginated(req, hunch.events(), 20)
+
   return _render(req, "show/activity", {
-    "hunch": hunch
+    "hunch": hunch,
+    "events": events
   })
 
 

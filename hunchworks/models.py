@@ -130,7 +130,7 @@ class Connection(models.Model):
     return cls.objects.filter(user_profile=user_profile, other_user_profile__user__username__icontains=term)
 
 
-class Hunch(models.Model):
+class Hunch(models.Model, events.HasEvents):
   creator = models.ForeignKey('UserProfile', related_name="created_hunches")
   time_created = models.DateTimeField()
   time_modified = models.DateTimeField()
@@ -549,6 +549,7 @@ post_save.connect(
 class HunchEvidence(models.Model):
   hunch = models.ForeignKey('Hunch')
   evidence = models.ForeignKey('Evidence')
+  creator = models.ForeignKey('UserProfile')
   support_cache = models.IntegerField(choices=SUPPORT_CHOICES, null=True)
   confidence_cache = models.FloatField(null=True)
 

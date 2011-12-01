@@ -559,7 +559,7 @@
         "model": "hunchworks.tag",
         "fields":
         {
-            "name": "Global Warming"
+            "name": "Disease"
         }
     },
     {
@@ -567,7 +567,7 @@
         "model": "hunchworks.tag",
         "fields":
         {
-            "name": "Drought"
+            "name": "Cholera"
         }
     },
     {
@@ -575,7 +575,7 @@
         "model": "hunchworks.tag",
         "fields":
         {
-            "name": "Flood"
+            "name": "IDPs"
         }
     },
     {
@@ -583,7 +583,15 @@
         "model": "hunchworks.tag",
         "fields":
         {
-            "name": "Tsunami"
+            "name": "Uganda"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "hunchworks.tag",
+        "fields":
+        {
+            "name": "Gulu"
         }
     },
 
@@ -599,11 +607,10 @@
             "title": "There will be a serious cholera outbreak in the IDP camp in Gulu within a year",
             "description": "There is a scarcity of basic sanitary facilities, shortage of water, poor drainage, poor sanitation habits, and contaminated boreholes. It is only a matter of time before disease breaks out.",
             "location": 2,
-            "user_profiles": [1, 2, 3, 4]
+            "user_profiles": [1, 2, 3, 4],
+            "tags": [1, 2, 3, 4, 5]
         }
     },
-
-
     {
         "pk": 1,
         "model": "hunchworks.evidence",
@@ -617,51 +624,16 @@
         }
     },
     {
-        "pk": 2,
-        "model": "hunchworks.evidence",
-        "fields":
-        {
-            "creator": 1,
-            "time_created": "2011-10-28 00:00:00",
-            "time_modified":  "2011-10-28 00:00:00",
-            "description": "Displaced people line up for cholera vaccinations in the Gulu IDP camp",
-            "link" : "http://www.doctorswithoutborders.org/images/news/2008/40407.jpg"
-        }
-    },
-
-
-    {
-        "pk": 1,
-        "model": "hunchworks.album",
-        "fields":
-        {
-            "name": "Photos from the Gulu IDP camp in 2011",
-            "evidences": [1, 2, 3]
-        }
-    },
-
-
-    {
         "pk": 1,
         "model": "hunchworks.hunchevidence",
         "fields":
         {
             "hunch": 1,
             "evidence": 1,
+            "creator": 1,
             "support_cache": 1
         }
     },
-    {
-        "pk": 2,
-        "model": "hunchworks.hunchevidence",
-        "fields":
-        {
-            "hunch": 1,
-            "evidence": 2,
-            "support_cache": -2
-        }
-    },
-
     {
         "pk": 1,
         "model": "hunchworks.vote",
@@ -673,19 +645,6 @@
             "choice": 1
         }
     },
-    {
-        "pk": 2,
-        "model": "hunchworks.vote",
-        "fields":
-        {
-            "hunch_evidence": 2,
-            "user_profile": 1,
-            "time_updated": "2011-10-28 00:00:00",
-            "choice": -2
-        }
-    },
-
-
     {
         "pk": 1,
         "model": "hunchworks.comment",
@@ -719,6 +678,44 @@
             "hunch_evidence": 1
         }
     },
+
+
+
+
+    {
+        "pk": 2,
+        "model": "hunchworks.evidence",
+        "fields":
+        {
+            "creator": 1,
+            "time_created": "2011-10-28 00:00:00",
+            "time_modified":  "2011-10-28 00:00:00",
+            "description": "Displaced people line up for cholera vaccinations in the Gulu IDP camp",
+            "link" : "http://www.doctorswithoutborders.org/images/news/2008/40407.jpg"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.hunchevidence",
+        "fields":
+        {
+            "hunch": 1,
+            "evidence": 2,
+            "creator": 2,
+            "support_cache": -2
+        }
+    },
+    {
+        "pk": 2,
+        "model": "hunchworks.vote",
+        "fields":
+        {
+            "hunch_evidence": 2,
+            "user_profile": 1,
+            "time_updated": "2011-10-28 00:00:00",
+            "choice": -2
+        }
+    },
     {
         "pk": 4,
         "model": "hunchworks.comment",
@@ -728,6 +725,19 @@
             "time_posted": "2011-10-28 00:00:00",
             "creator": 2,
             "hunch_evidence": 2
+        }
+    },
+
+
+
+
+    {
+        "pk": 1,
+        "model": "hunchworks.album",
+        "fields":
+        {
+            "name": "Photos from the Gulu IDP camp in 2011",
+            "evidences": [1, 2, 3]
         }
     }
 ]

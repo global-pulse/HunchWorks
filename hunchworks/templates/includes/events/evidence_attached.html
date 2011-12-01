@@ -1,12 +1,12 @@
 <article class="event evidence-attached">
-  {% include "includes/users/short.html" with object=hunch_evidence.evidence.creator %}
+  {% include "includes/users/short.html" with object=hunch_evidence.creator %}
 
   <div>
     <p class="summary">
-      <a href="{% url profile hunch_evidence.evidence.creator.pk }}">{{ hunch_evidence.evidence.creator }}</a>
+      <a href="{% url profile hunch_evidence.creator.pk }}">{{ hunch_evidence.creator }}</a>
       attached <span>evidence</span> to
       <a href="{% url hunch hunch_evidence.hunch.pk %}" title="{{ hunch_evidence.hunch }}">a hunch</a>
-      <time class="timeago" datetime="{{ hunch_evidence.evidence.time_created|date:"c" }}">{{ hunch_evidence.evidence.time_created }}</time>
+      <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>
     </p>
 
     <h2><a href="{% url hunch hunch_evidence.hunch.pk %}">{{ hunch_evidence.evidence }}</a></h2>

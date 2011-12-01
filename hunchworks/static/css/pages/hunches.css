@@ -82,6 +82,23 @@
 
 
 
+    #hunch-show section.activity { }
+
+      #hunch-show section.activity > h2 {
+        text-align: center;
+        font-size: 160%;
+        color: #999;
+        margin-bottom: 0.625em;
+      }
+
+        #hunch-show section.activity > h2 > span {
+          font-weight: bold;
+          color: #000;
+        }
+
+
+
+
     #hunch-show section.evidence {
       clear: both;
       padding-left: 1em;
