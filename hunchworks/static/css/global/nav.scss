@@ -1,15 +1,13 @@
 @import "../hunchworks.scss";
 
-nav.user, nav.site { }
+nav.user,
+nav.site {
 
-  nav.user > ul,
-  nav.site > ul {
+  > ul {
     overflow: hidden;
     padding: 2px;
-  }
 
-    nav.user > ul > li,
-    nav.site > ul > li {
+    > li {
       display: block;
       float: left;
       padding: 1px;
@@ -17,29 +15,28 @@ nav.user, nav.site { }
       -moz-border-radius: 3px;
       margin-right: 1px;
       color: #666;
-    }
 
-      nav.user > ul > li > a,
-      nav.site > ul > li > a {
+      > a {
         display: block;
         padding: 0.5em;
         text-decoration: none;
       }
+      
+      &.active {
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 0;
+        color: #000;
+      }
 
-    nav.user > ul > li.active,
-    nav.site > ul > li.active {
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 0;
-      color: #000;
+      &:not(.active):hover {
+        background: #eee;
+        border: 1px solid #ccc;
+        padding: 0;
+      }
     }
-
-    nav.user > ul > li:not(.active):hover,
-    nav.site > ul > li:not(.active):hover {
-      background: #eee;
-      border: 1px solid #ccc;
-      padding: 0;
-    }
+  }
+}
 
 nav.user {
   position: absolute;
@@ -65,53 +62,54 @@ nav.site {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc');
   background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
   background: -moz-linear-gradient(top,  #eee,  #ccc);
+
+  > ul {
+    padding: 2px 0.5em;
+
+    &.secondary {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
 }
 
-  nav.site > ul {
-    padding: 2px 0.5em;
-  }
+nav.tabs {
 
-  nav.site > ul.secondary {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
-nav.tabs { }
-
-  nav.tabs > ul {
+  > ul {
     border-bottom: 1px solid #bbb;
     background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));
     padding: 0 2em;
     height: 2em;
-  }
 
-    nav.tabs > ul > li {
+    > li {
       display: block;
       float: left;
       margin-right: 0.5em;
       border: 1px solid #bbb;
       border-radius: 3px 3px 0 0;
       background: #fff;
-    }
 
-      nav.tabs > ul > li > a {
+      > a {
         display: block;
         padding: 0.5em;
         text-decoration: none;
         color: #999;
+
+        > span {
+          background: #eee;
+          padding: 0 0.25em;
+          color: #a8a8a8;
+        }
       }
 
-      nav.tabs > ul > li > a > span {
-        background: #eee;
-        padding: 0 0.25em;
-        color: #a8a8a8;
-      }
+      &.active {
+        border-bottom-color: #fff;
 
-    nav.tabs > ul > li.active {
-      border-bottom-color: #fff;
+        > a {
+          color: inherit;
+        }
+      }
     }
-
-      nav.tabs > ul > li.active > a {
-        color: inherit;
-      }
+  }
+}

@@ -1,7 +1,8 @@
 @import "../hunchworks.scss";
 
 body {
-  font: $font_size $font_family;
+  font-size: $font_size;
+  font-family: $font_family;
   background: #eee url("../../img/bg.png");
   padding: 0 1em;
   color: #333;
@@ -22,9 +23,8 @@ a {
   border: 1px solid #ccc;
   border-top: none;
   position: relative;
-}
 
-  #wrapper > header {
+  > header {
     overflow: hidden;
     padding: 1em;
 
@@ -32,9 +32,8 @@ a {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
     background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
     background: -moz-linear-gradient(top,  #eee,  #fff);
-  }
 
-    #wrapper > header > h1 {
+    > h1 {
       float: left;
       font-size: 200%;
       margin-right: 0.5em;
@@ -42,65 +41,67 @@ a {
       border-right: 1px dotted #ccc;
       font-weight: bold;
       color: #000;
-    }
 
-      #wrapper > header > h1 > a {
-        text-decoration: none;
+      &:last-child {
+        border-right: none;
+        margin-right: 0;
+        padding-right: 0;
       }
 
-    #wrapper > header > h1:last-child {
-      border-right: none;
-      margin-right: 0;
-      padding-right: 0;
+      > a {
+        text-decoration: none;
+      }
     }
-
-  #page {
-    background: #fff;
-    position: relative;
   }
 
-    #page div.links {
+  > #page {
+    background: #fff;
+    position: relative;
+
+    > div.links {
       overflow: hidden;
 
       background: #eee;
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
       background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
       background: -moz-linear-gradient(top,  #eee,  #fff);
-    }
 
-      #page div.links ul {
+      > ul {
         float: right;
         overflow: hidden;
-      }
 
-        #page div.links li {
+        > li {
           display: block;
           float: left;
           border-right: 2px solid #fff;
-        }
 
-          #page div.links ul a {
+          &:last-child {
+            border-right: none;
+          }
+
+          > a {
             display: block;
             padding: 1em;
           }
-
-        #page div.links li:last-child {
-          border-right: none;
         }
+      }
+    }
+  }
+}
 
 footer {
   padding: 2em 0;
   color: #aaa;
-}
 
-  footer > p {
+  > p {
     padding-left: 2em;
     line-height: 1.4;
   }
 
-  footer > p.opensource {
+  > p.opensource {
     text-align: right;
     float: right;
     padding-right: 2em;
     padding-left: 0;
   }
+}
