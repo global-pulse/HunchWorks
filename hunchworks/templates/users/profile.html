@@ -21,41 +21,30 @@
 {% block content %}
   <div id='contents'>
 	<div id='column1'>
-	  Welcome {{ user.first_name }} to HunchWorks!
 	  <div id='profile'>
-		<h3>Your Profile:</h3>
 		<div class='field'>
-		  <b>Profile Picture:</b> 
 		  {% if user_profile.profile_picture %}
             <br />
-            <img src="{{ user_profile.profile_picture.url }}" width="100"/>
+            <img src="{{ user_profile.profile_picture.url }}" width="200"/>
           {% else %}
             No profile picture selected
 		  {% endif %}
 		</div>
 		<div class='field'>
-		  <b>First Name:</b> 
-		  {{ user.first_name }}
-		</div>
-		<div class='field'>
-		  <b>Last Name:</b> 
-		  {{ user.last_name }}
+		  <b>Name:</b> 
+		  {{ user_profile.name }}
 		</div>
 		<div class='field'>
 		  <b>Email:</b> 
-		  {% if user.email %}
-            {{ user.email }}
-		  {% endif %}
+            {{ user_profile.email }}
 		</div>
-		<div class='field'>
-		  <b>Occupation:</b> 
-		  {% if occupation %}
-			{{ user.occupation }}
-		  {% else %}
-			Occupation not entered
-		  {% endif %}
-		</div>
-		<div class='field'>  
+		{% if user_profile.occupation %}
+		  <div class='field'>
+		    <b>Occupation:</b> 
+            {{ user_profile.occupation }}
+		  </div>
+		{% endif %}
+<!--		<div class='field'>  
 		  <b>Hometown:</b> 
 		  {% if hometown %}
 			{{ user.hometown }}
@@ -71,15 +60,14 @@
 			Education not entered
 		  {% endif %}
 		</div>
-		<div class='field'>
-		  <b>Phone Number:</b>
-		  {% if phone_number %}
-			{{ user.phone_number }}
-		  {% else %}
-			Phone Number not entered
-		  {% endif %}
-		</div>
-		<div class='field'>
+-->
+	    {% if user_profile.phone_number %}
+		  <div class='field'>
+		    <b>Phone Number:</b>
+			{{ user_profile.phone_number }}
+		  </div>
+		{% endif %}
+<!--		<div class='field'>
 		  <b>Organization:</b>
 		  {% if organization %}
 			{{ user.organization }}
@@ -143,29 +131,29 @@
 			Location Interests not entered
 		  {% endif %}  
 		</div>
+-->
         <a href="/profile/edit">Edit your profile...</a>
 	  </div> <!-- end profile div -->
-	  <div id='invite'>
+<!--	  
+      <div id='invite'>
 	    <form method='post' action='../invitePeople'>{% csrf_token %}
 		<h3>Invite People to HunchWorks</h3>
 		  {{ invite_form }}
-		  <!--<textarea rows='10' cols='30'>type each email here separated by a comma
-		  </textarea>-->
 		  <input type='submit' value='Invite your friends!'/>
-		  <!-- 1. Check data to make sure it is inputed correctly. If not throw error. 
-			  Should be name@blah.com, name@yahoo.com, etc...
-			2. String parse the string on the value ', ' to get each value.
-			3. Send invites to each email.
-			4. Append original string into variable hasInvited of user's DB, required a
-			  select and insert.
-		  -->
 		</form>
 	  </div> <!-- end invite div -->
 	</div> <!-- end column1 div -->
+
 	<div id='column2'>
+	  {% if user_profile.hunch_set.all %}
+        {% include "includes/hunches/list.html" with object_list=user_profile.hunch_set.all %}
+      {% else %}
+        {% block empty %}{% endblock %}
+      {% endif %}
+      
+<!--	
 	  <button id='createHunchButton' type='button'
 		onclick="location.href='/hunches/create'"> Create a Hunch! </button>
-	  <!-- Link to the createHunch page -->
 
 	  <div id='matchingHunches'>
 		<h3>Hunches matching your expertise</h3>
@@ -177,6 +165,7 @@
 		</ol>
 	  </div> <!-- end matchingHunches div -->
 	</div> <!-- end column2 div -->
+
   </div> <!-- end contents div -->
 
 {% endblock %}
