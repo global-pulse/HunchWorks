@@ -36,6 +36,10 @@ Installation
     # Install development dependencies with Pip.
     $ pip install -r requirements.txt
 
+    # Install Sass with Brew (for now).
+    $ brew install brew-gem
+    $ brew gem install sass
+
     # Start the development server.
     $ ./manage.py syncdb
     $ ./manage.py runserver
