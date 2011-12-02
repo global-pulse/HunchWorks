@@ -1,0 +1,24 @@
+@import "../hunchworks.scss";
+
+form.evidence { }
+
+  form.evidence #id_title {
+    font-size: 125%;
+    padding: 0.8em;
+  }
+
+  form.evidence div.field.link { }
+
+    form.evidence div.field.link > div.preview {
+      border: 2px solid #999;
+      background: #eee;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      margin-top: 1em;
+    }
+
+      form.evidence div.field.link > div.preview embed,
+      form.evidence div.field.link > div.preview img {
+        display: block;
+        margin: 0 auto;
+      }

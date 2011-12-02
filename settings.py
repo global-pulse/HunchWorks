@@ -187,4 +187,9 @@ AUTH_PROFILE_MODULE = 'hunchworks.UserProfile'
 
 COMPRESS_CSS_FILTERS = (
   "compressor.filters.css_default.CssAbsoluteFilter",
-  "compressor.filters.cssmin.CSSMinFilter")
+  "compressor.filters.cssmin.CSSMinFilter"
+)
+
+COMPRESS_PRECOMPILERS = (
+  ("text/x-scss", "scss {infile} {outfile}"),
+)

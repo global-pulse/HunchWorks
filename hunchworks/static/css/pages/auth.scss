@@ -1,0 +1,11 @@
+@import "../hunchworks.scss";
+
+form.auth > div.fields {
+  padding: 8em 30%;
+}
+
+  form.auth > div.actions > p {
+    padding: 0.5em 0;
+    margin: 1px 0;
+    color: #666;
+  }

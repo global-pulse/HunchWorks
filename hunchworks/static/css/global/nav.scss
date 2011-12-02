@@ -1,0 +1,117 @@
+@import "../hunchworks.scss";
+
+nav.user, nav.site { }
+
+  nav.user > ul,
+  nav.site > ul {
+    overflow: hidden;
+    padding: 2px;
+  }
+
+    nav.user > ul > li,
+    nav.site > ul > li {
+      display: block;
+      float: left;
+      padding: 1px;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      margin-right: 1px;
+      color: #666;
+    }
+
+      nav.user > ul > li > a,
+      nav.site > ul > li > a {
+        display: block;
+        padding: 0.5em;
+        text-decoration: none;
+      }
+
+    nav.user > ul > li.active,
+    nav.site > ul > li.active {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 0;
+      color: #000;
+    }
+
+    nav.user > ul > li:not(.active):hover,
+    nav.site > ul > li:not(.active):hover {
+      background: #eee;
+      border: 1px solid #ccc;
+      padding: 0;
+    }
+
+nav.user {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 80%;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-bottom-left-radius: 5px;
+
+  background: #eee;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
+  background: -moz-linear-gradient(top,  #fff,  #ddd);
+}
+
+nav.site {
+  position: relative;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #aaa;
+
+  background: #ddd;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc');
+  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+  background: -moz-linear-gradient(top,  #eee,  #ccc);
+}
+
+  nav.site > ul {
+    padding: 2px 0.5em;
+  }
+
+  nav.site > ul.secondary {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+nav.tabs { }
+
+  nav.tabs > ul {
+    border-bottom: 1px solid #bbb;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));
+    padding: 0 2em;
+    height: 2em;
+  }
+
+    nav.tabs > ul > li {
+      display: block;
+      float: left;
+      margin-right: 0.5em;
+      border: 1px solid #bbb;
+      border-radius: 3px 3px 0 0;
+      background: #fff;
+    }
+
+      nav.tabs > ul > li > a {
+        display: block;
+        padding: 0.5em;
+        text-decoration: none;
+        color: #999;
+      }
+
+      nav.tabs > ul > li > a > span {
+        background: #eee;
+        padding: 0 0.25em;
+        color: #a8a8a8;
+      }
+
+    nav.tabs > ul > li.active {
+      border-bottom-color: #fff;
+    }
+
+      nav.tabs > ul > li.active > a {
+        color: inherit;
+      }

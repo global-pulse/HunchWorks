@@ -1,9 +1,0 @@
-section.object-list { }
-
-  section.object-list > article {
-    margin-bottom: 1em;
-  }
-
-  section.object-list > article:last-child {
-    margin-bottom: 0;
-  }

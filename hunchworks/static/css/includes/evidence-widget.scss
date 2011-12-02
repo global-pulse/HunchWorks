@@ -1,0 +1,65 @@
+@import "../hunchworks.scss";
+
+.evidence-widget {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  clear: both;
+}
+
+    .evidence-widget > section.object-list { }
+
+      .evidence-widget > section.object-list > article {
+        position: relative;
+        padding-right: 2em;
+      }
+
+      .evidence-widget > section.object-list > article {
+        margin-bottom: 0.5em !important;
+      }
+
+        .evidence-widget > section.object-list > article > div.delete {
+          position: absolute;
+          top: 1em;
+          bottom: 1em;
+          width: 1em;
+          right: -2px;
+          padding: 0.25em;
+          text-align: center;
+          background: #eee;
+          cursor: pointer;
+          color: #999;
+        }
+
+  .evidence-widget > div.search-results {
+    background: rgba(255, 255, 255, 0.95);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 5px #aaa;
+    -moz-box-shadow: 0 0 5px #aaa;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-top: 1px;
+  }
+
+    .evidence-widget > div.search-results > h3 {
+      background: #eee;
+      color: #999;
+      font-size: 80%;
+      text-align: center;
+      padding: 0.625em;
+    }
+
+    .evidence-widget > div.search-results > section.object-list {
+      padding: 1em;
+    }
+
+      .evidence-widget > div.search-results > section.object-list > article.evidence {
+        cursor: pointer;
+      }
+
+      .evidence-widget > div.search-results > section.object-list > article.evidence:hover {
+        background: #eef;
+      }
+
+  .evidence-widget > div.widget { }
