@@ -3,13 +3,13 @@
 .connections-widget {
   clear: both;
   margin-bottom: -0.5em;
-}
 
-  .connections-widget article.user {
+  article.user {
     opacity: 0.25;
-  }
 
-  .connections-widget article.user:hover,
-  .connections-widget article.user.selected {
-    opacity: 1;
+    &:hover,
+    &.selected {
+      opacity: 1;
+    }
   }
+}

@@ -5,34 +5,35 @@
   border-radius: 3px;
   -moz-border-radius: 3px;
   clear: both;
-}
 
-  .embed-widget > input {
+  > input {
+    border: none !important;
     margin-right: 1em;
-    border: none;
   }
 
-    .embed-widget.loading > input {
-      background-image: url("../img/ajax-loader.gif");
-      background-repeat: no-repeat;
-      background-position: 100% 50%;
-    }
+  &.loading > input {
+    background-image: url("../img/ajax-loader.gif");
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+  }
 
-  .embed-widget > div.preview {
+  div.preview {
     border-top: 1px solid #999;
     background: #eee;
+
+    div.embed {
+
+      object, iframe, a > img {
+        margin: 0 auto;
+        display: block;
+      }
+    }
   }
 
-    .embed-widget > div.preview > div.embed > object,
-    .embed-widget > div.preview > div.embed > iframe,
-    .embed-widget > div.preview > div.embed > a > img {
-      margin: 0 auto;
-      display: block;
-    }
-
-  .embed-widget > div.loading {
+  div.loading {
     text-align: center;
     font-style: italic;
     padding: 1em 0.5em;
     color: #999;
   }
+}
