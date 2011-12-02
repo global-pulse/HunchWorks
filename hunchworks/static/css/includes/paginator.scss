@@ -1,0 +1,44 @@
+@import "../hunchworks.scss";
+
+.paginator {
+  overflow: hidden;
+  padding-left: 0.5em;
+
+  a, span {
+    text-decoration: none;
+    display: block;
+    float: left;
+    padding: 1em 0.5em;
+    color: #666;
+
+    &.active {
+      background: #fff;
+      color: #000;
+    }
+  }
+
+  .first, .prev, .next, .last {
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    text-indent: -9999px;
+    overflow: hidden;
+    padding-right: 0;
+    padding-left: 0;
+    width: 16px;
+  }
+
+  /* links look something like:
+   *  <<  <  1 2 3 4  >  >> */
+  .first { background-image: url("../../icons/silk/resultset_first.png");    }
+  .prev  { background-image: url("../../icons/silk/resultset_previous.png"); }
+  .next  { background-image: url("../../icons/silk/resultset_next.png");     }
+  .last  { background-image: url("../../icons/silk/resultset_last.png");     }
+
+  span.na {
+    background-position: -16px 50%; }
+
+  span.elipsis {
+    letter-spacing: 1px;
+    color: #ccc;
+   }
+}

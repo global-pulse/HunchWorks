@@ -1,0 +1,156 @@
+@import "../hunchworks.scss";
+
+#group-list {
+  section.object-list {
+    overflow: hidden;
+    padding: 1.5em;
+
+    > article.group {
+      float: left;
+      width: 50%;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      padding: 0.5em;
+
+      > div {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+/* What the fuck is going on after this? */
+
+#group-show { }
+
+  #group-show > div.group {
+    padding: 15px;
+  }
+
+    #group-show > div.group > div.info { }
+
+      #group-show > div.group > div.info > img {
+        display: block;
+        margin-left: 1em;
+        float: right;
+      }
+
+      #group-show > div.group > div.info > h1 {
+        margin-bottom: 0.25em;
+        font-size: 150%
+      }
+
+      #group-show > div.group > div.info > div.desc { }
+
+        #group-show > div.group > div.info > div.desc > p {
+          line-height: 1.4;
+          margin-top: 1em;
+        }
+        
+    #group-show > div.group > div.left {
+      width: 70%;
+      float: left;
+    }
+    
+	  #group-show > div.group > div.left > h2 {
+		font-size: 160%;
+		margin: 0.625em 0;
+		border-top: 1px solid #eee;
+		padding-top: 0.625em;
+	  }
+  
+	  #group-show > div.group > div.left > div.members {
+		padding-left: 4em;
+		margin-top: 1em;
+	  }
+  
+		#group-show > div.group > div.left > div.members > div.member {
+		  float: left;
+		  width: 19%;
+		  margin-right: 1em;
+		}
+  
+		  #group-show > div.group > div.left > div.members > div.member:first-child {
+			  margin-left: -4em;
+		  }
+        
+	#group-show > div.group > div.right {
+	  width: 30%;
+	  float: left;
+	}
+	
+	  #group-show > div.group > div.right > h2 {
+		  font-size: 160%;
+		  margin: 0.625em 0;
+		  border-top: 1px solid #eee;
+		  padding-top: 0.625em;
+		}
+
+	  #group-show > div.group > div.right > div.viewMore {
+		float: right;
+	  }
+
+	  #group-show > div.group > div.right > div.hunches {
+		margin: 0.5em;
+	  }
+	  
+		#group-show > div.group > div.right > div.hunches > div.hunch {
+		  float: none;
+		  width: auto;
+		}
+	  
+		  #group-show > div.group > div.right > div.hunches > div.hunch> div {
+			background: #f8f8f8;
+			border: 1px solid #ddd;
+			margin-top: 1em;
+			padding: 0.5em;
+			margin: 0.5em;
+		  }
+	  
+			#group-show > div.group > div.right > div.hunches > div.hunchimg.logo {
+			  border: 1px solid #ddd;
+			  margin-right: 0.5em;
+			  float: left;
+			}
+	  
+			#group-show > div.group > div.right > div.hunches > div.hunchh3 {
+			  font-size: 160%;
+			  margin-bottom: 0.3125em;
+			}
+	  
+			  #group-show > div.group > div.right > div.hunches > div.hunchh3 a {
+				text-decoration: none;
+			  }
+	  
+			#group-show > div.group > div.right > div.hunches > div.hunchdiv.desc {
+			  line-height: 1.25;
+			  font-size: 80%;
+			  height: 3.75em;
+			  overflow: hidden;
+			}
+	  
+			#group-show > div.group > div.right > div.hunches > div.hunchul.stats {
+			  margin-top: 0.625em;
+			  font-size: 80%;
+			}
+	  
+			  #group-show > div.group > div.right > div.hunches > div.hunchul.stats li {
+				display: block;
+				float: left;
+				border-right: 1px solid #ccc;
+				padding-right: 0.5em;
+				margin-right: 0.5em;
+				color: #666;
+			  }
+	  
+				#group-show > div.group > div.right > div.hunches > div.hunchul.stats li:last-child {
+				  border-right: none;
+				  padding-right: 0;
+				  margin-right: 0;
+				}
+	  
+			  #group-show > div.group > div.right > div.hunches > div.hunchul.stats li:last-child {
+				border-right: none;
+				padding-right: 0;
+				margin-right: 0;
+			  }

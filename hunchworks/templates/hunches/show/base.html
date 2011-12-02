@@ -63,15 +63,14 @@
     </div>
 
 
-    <div class="links">
-      <ul>
-        <li><a href="{% url add_hunch_evidence hunch.pk %}">Add Evidence to This Hunch</a></li>
-        <li><a href="{% url hunch_permissions hunch.pk %}">Edit Permissions</a></li>
-        <li><a href="{% url edit_hunch hunch.pk %}">Edit This Hunch</a></li>
-      </ul>
-    </div>
-
-
     {% bookmarks hunch %}
   </article>
+
+  <div class="links">
+    <ul>
+      <li><a href="{% url add_hunch_evidence hunch.pk %}">Add Evidence to This Hunch</a></li>
+      <li><a href="{% url hunch_permissions hunch.pk %}">Edit Permissions</a></li>
+      <li><a href="{% url edit_hunch hunch.pk %}">Edit This Hunch</a></li>
+    </ul>
+  </div>
 {% endblock %}

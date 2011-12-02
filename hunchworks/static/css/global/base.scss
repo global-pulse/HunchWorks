@@ -1,0 +1,105 @@
+@import "../hunchworks.scss";
+
+body {
+  font-size: $font_size;
+  font-family: $font_family;
+  background: #eee url("../../img/bg.png");
+  padding: 0 $spacing;
+  color: #333;
+}
+
+a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+#wrapper, footer {
+  max-width: $max_width;
+  min-width: $min_width;
+  margin: 0 auto;
+}
+
+#wrapper {
+  border: 1px solid #ccc;
+  border-top: none;
+  position: relative;
+
+  > header {
+    overflow: hidden;
+    padding: $spacing;
+
+    background: #fff;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
+    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
+    background: -moz-linear-gradient(top,  #eee,  #fff);
+
+    > h1 {
+      float: left;
+      font-size: 200%;
+      margin-right: $spacing;
+      padding-right: $spacing;
+      border-right: 1px dotted #ccc;
+      font-weight: bold;
+      color: #000;
+
+      &:last-child {
+        border-right: none;
+        margin-right: 0;
+        padding-right: 0;
+      }
+
+      > a {
+        text-decoration: none;
+      }
+    }
+  }
+
+  > #page {
+    background: #fff;
+    position: relative;
+
+    > div.links {
+      overflow: hidden;
+
+      background: #eee;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
+      background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
+      background: -moz-linear-gradient(top,  #eee,  #fff);
+
+      > ul {
+        float: right;
+        overflow: hidden;
+
+        > li {
+          display: block;
+          float: left;
+          border-right: 2px solid #fff;
+
+          &:last-child {
+            border-right: none;
+          }
+
+          > a {
+            display: block;
+            padding: $spacing;
+          }
+        }
+      }
+    }
+  }
+}
+
+footer {
+  box-sizing: border-box;
+  padding: $spacing*2;
+  color: #aaa;
+
+  > p {
+    line-height: $line_height;
+  }
+
+  > p.opensource {
+    text-align: right;
+    float: right;
+  }
+}

@@ -1,0 +1,39 @@
+@import "../hunchworks.scss";
+
+.embed-widget {
+  border: 2px solid #999;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  clear: both;
+
+  > input {
+    border: none !important;
+    margin-right: 1em;
+  }
+
+  &.loading > input {
+    background-image: url("../img/ajax-loader.gif");
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+  }
+
+  div.preview {
+    border-top: 1px solid #999;
+    background: #eee;
+
+    div.embed {
+
+      object, iframe, a > img {
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
+
+  div.loading {
+    text-align: center;
+    font-style: italic;
+    padding: 1em 0.5em;
+    color: #999;
+  }
+}

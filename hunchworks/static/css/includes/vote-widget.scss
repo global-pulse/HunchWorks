@@ -1,0 +1,54 @@
+@import "../hunchworks.scss";
+
+div.vote-widget {
+
+  > ul {
+    clear: both;
+    overflow: hidden;
+    margin: 0 auto;
+    
+    /* Reserve spacing for four ($spacing/2) gutters. */
+    padding-left: $spacing*2;
+
+    > li {
+      display: block;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      margin-left: $spacing/4;
+      width: 20%;
+      float: left;
+
+      &:first-child {
+        margin-left: -$spacing*2;
+      }
+
+      > label {
+        line-height: 1.2;
+        cursor: pointer;
+        display: block;
+        padding: $spacing/4;
+        text-align: center;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        background: #eee;
+        color: #ccc;
+  
+        &:hover {
+          border-color: #999;
+          color: #999;
+        }
+        
+        > input {
+          display: none;
+        }
+      }
+
+      &.selected > label {
+        border-color: #333;
+        background: #fff;
+        color: #333;
+      }
+    }
+  }
+}

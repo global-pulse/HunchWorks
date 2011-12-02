@@ -1,0 +1,161 @@
+@import "../hunchworks.scss";
+
+form {
+
+  /* Errors not related to any particular field. */
+  > ul.errorlist {
+    margin-bottom: 1em;
+    background-color: #fee;
+    color: #f44;
+
+    > li {
+      list-style: none;
+      padding: 1em;
+    }
+  }
+
+  > section.help_text {
+    padding: 2em;
+    background-color: #efe;
+    border-bottom: 1px dotted #6c6;
+    color: #090;
+
+    > p {
+      line-height: $line_height;
+    }
+  }
+
+  input, textarea, select, button, ul.token-input-list {
+    display: block;
+    font: inherit;
+    clear: both;
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 2px solid #999;
+    background: #fffff8;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    padding: 1em;
+    color: #666;
+
+    &:focus {
+      outline: none;
+      background-color: #ffe;
+      border-color: #666;
+      color: #333;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  button, input[type=submit], input[type=button] {
+    display: inline-block;
+    width: auto;
+
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    padding: 0.5em 1em;
+
+    color: #666;
+    text-shadow: 0 0 3px #fff;
+
+    background: #ddd;
+    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+    background: -moz-linear-gradient(top, #eee, #ccc);
+
+    border: solid 1px #bbb;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+  }
+
+  div.fields {
+    padding: 2em;
+    overflow: hidden;
+
+    div.left {
+      float: left;
+      width: 60%;
+    }
+
+    div.right {
+      float: left;
+      width: 40%;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      padding-left: 2em;
+    }
+  }
+
+  div.field {
+    margin-bottom: 2em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    div.label {
+      margin-bottom: 0.5em;
+      float: left;
+
+      label {
+        font-weight: bold;
+      }
+
+      span {
+        font-size: 80%;
+        color: #999;
+      }
+    }
+
+    p.help {
+      font-size: 80%;
+      max-width: 40em;
+      line-height: 1.2;
+      margin-top: 0.625em;
+      border-left: 0.625em solid #eee;
+      padding-left: 0.625em;
+      color: #999;
+    }
+  }
+
+  div.field.errors {
+
+    ul.errorlist {
+      float: right;
+      margin: 0 0 0.5em 0;
+      color: #f44;
+
+      li {
+        font-weight: normal;
+        list-style: none;
+      }
+    }
+
+    input, textarea, select, ul.token-input-list, div.embed-widget {
+      background-color: #fee;
+      border-color: #c66;
+      color: #000;
+    }
+  }
+
+  div.actions {
+    overflow: hidden;
+    clear: both;
+    padding: 1em 2em;
+    background: #eee;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
+    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
+    background: -moz-linear-gradient(top, #eee, #fff);
+
+    > input,
+    > button {
+      margin-left: 1em;
+      float: right;
+      clear: none;
+    }
+  }
+}

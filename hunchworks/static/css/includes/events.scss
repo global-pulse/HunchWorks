@@ -1,0 +1,96 @@
+@import "../hunchworks.scss";
+
+section.event-list {
+  box-shadow: 0 0 5px #ccc;
+  border-radius: 5px;
+
+  > article.event {
+    padding: $spacing;
+    padding-right: 0;
+    background: #f8f8f8;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f8f8f8));
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px dotted #ccc;
+    overflow: hidden;
+    position: relative;
+
+    /* Each event must be at least avatar height (50px) + vertical borders (4px). */
+    min-height: 54px;
+
+    &:first-child {
+      border-top: 1px solid #ccc;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    &:last-child {
+      border-bottom: 1px solid #ccc;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    &:hover {
+      background: #ffe;
+      background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ffe));
+    }
+
+    &.invalid {
+      font-family: monospace;
+      border-color: #fbb;
+      background: #fee;
+    }
+
+    > article.user {
+      float: left;
+
+      img {
+        margin-bottom: 0;
+        border-radius: 3px;
+      }
+
+      span {
+        display: none;
+      }
+    }
+
+    > div {
+      border-right: $spacing/2 solid #eee;
+      padding: 0 $spacing/2 0 $spacing;
+      margin-left: 54px;
+      min-height: 54px;
+
+      > p {
+        max-height: 1em;
+        white-space: nowrap;
+        color: #999;
+
+        &.summary {
+          font-size: 80%;
+
+          > span {
+            background: #ffd;
+            color: #666;
+          }
+        }
+      }
+
+      > h2 {
+        @include serif-font;
+        padding-top: $spacing/2;
+        line-height: 1.2;
+
+        > a {
+          text-decoration: none;
+          color: #333;
+        }
+      }
+    }
+  }
+
+
+  article.event.hunch-created                > div { border-right-color: #ffc; }
+  article.event.evidence-attached            > div { border-right-color: #cfc; }
+  article.event.user-invited-to-hunch        > div { border-right-color: #fcc; }
+  article.event.comment-posted-hunchevidence > div { border-right-color: #cff; }
+}

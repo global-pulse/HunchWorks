@@ -1,0 +1,61 @@
+@import "../hunchworks.scss";
+
+.evidence-widget {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  clear: both;
+
+  > section.object-list {
+
+    > section.object-list > article {
+      position: relative;
+      padding-right: 2em;
+      margin-bottom: 0.5em !important;
+
+      > div.delete {
+        position: absolute;
+        top: 1em;
+        bottom: 1em;
+        width: 1em;
+        right: -2px;
+        padding: 0.25em;
+        text-align: center;
+        background: #eee;
+        cursor: pointer;
+        color: #999;
+      }
+    }
+  }
+
+  > div.search-results {
+    background: rgba(255, 255, 255, 0.95);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 5px #aaa;
+    -moz-box-shadow: 0 0 5px #aaa;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-top: 1px;
+
+    > h3 {
+      background: #eee;
+      color: #999;
+      font-size: 80%;
+      text-align: center;
+      padding: 0.625em;
+    }
+
+    > section.object-list {
+      padding: 1em;
+
+      > article.evidence {
+        cursor: pointer;
+        
+        &:hover {
+          background: #eef;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+@import "../hunchworks.scss";
+
+#evidence-list {
+
+  section.object-list {
+    padding: 2em;
+  }
+}
+
+
+#evidence-show {
+
+  article.evidence {
+
+    > header {
+      text-align: center;
+      padding: 4em;
+
+      > div.embed {
+        img, object, embed {
+          display: block;
+          margin: 0 auto;
+          border-radius: 4px;
+          -moz-border-radius: 4px;
+        }
+      }
+
+      > h1 {
+        margin-top: 0.4em;
+        font-size: 250%;
+
+        > a {
+          text-decoration: none;
+          color: #000;
+        }
+      }
+
+      > section.desc {
+        margin-top: 1em;
+        color: #999;
+      }
+    }
+  }
+}

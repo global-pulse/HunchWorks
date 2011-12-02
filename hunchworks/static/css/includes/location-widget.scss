@@ -1,0 +1,85 @@
+@import "../hunchworks.scss";
+
+.loc-widget {
+
+  ul.type {
+    float: right;
+
+    li {
+      display: block;
+      float: left;
+      color: #999;
+      font-weight: bold;
+      border-left: 1px dotted #ccc;
+      margin-left: 0.5em;
+      padding-left: 0.5em;
+      cursor: pointer;
+
+      &.active {
+        color: #000;
+      }
+
+      &:first-child {
+        border-left: none;
+        margin-left: 0;
+        padding-left: 0;
+      }
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .latlng, .map {
+    border: 2px solid #eee;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    clear: both;
+  }
+
+  .latlng {
+    padding: 1em;
+
+    .widgets {
+      padding-left: 1em;
+    }
+
+    input,
+    label {
+      display: block;
+      float: left;
+      clear: none;
+      width: 50%;
+    }
+
+    label {
+      text-align: center;
+      padding-top: 0.5em;
+      color: #999;
+    }
+
+    /* yank the first widget and label (latitude) to the left (over the
+    |* padding-left of the parent div) to allow the lat+lng columns to be
+    |* of equal width, with a 1em gap separating them. */
+    .lat {
+      margin-left: -1em;
+      margin-right: 1em;
+    }
+  }
+
+  .map {
+    height: 300px;
+
+    &.error {
+      text-align: center;
+      background: #f8f8f8;
+      color: #999;
+
+      > div {
+        padding-top: 150px;
+        margin-top: -0.5em;
+      }
+    }
+  }
+}

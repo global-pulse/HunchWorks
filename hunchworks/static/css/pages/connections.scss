@@ -1,0 +1,43 @@
+@import "../hunchworks.scss";
+
+/* I have no idea what's going on here. */
+
+#contents > div.connections {
+  padding-left: 4em;
+  margin-top: 1em;
+}
+
+  #contents > div.connections > div.connection {
+	float: left;
+	width: 19%;
+	margin-right: 1em;
+	text-align: center;
+  }
+
+	#contents > div.connections > div.connection:first-child {
+	  margin-left: -4em;
+	}
+
+  #contents > div.connections > div.connection > a {
+	display: block;
+	background: #333;
+	box-shadow: 0 0 5px #999;
+	-moz-box-shadow: 0 0 5px #999;
+	text-decoration: none;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	padding: 2px;
+  }
+
+	#contents > div.connections > div.connection > a > img {
+	  display: block;
+	  margin-bottom: 2px;
+	  border-radius: 3px 3px 0 0;
+	  -moz-border-radius: 3px 3px 0 0;
+	}
+
+	#contents > div.connections > div.connection > a > span {
+	  display: block;
+	  padding: 0.5em;
+	  color: #fff;
+	}

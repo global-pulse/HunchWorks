@@ -2,6 +2,7 @@ db/*.sqlite3
 *.pyc
 *.mwb.bak
 .coverage
+.sass-cache
 static/CACHE
 hunchworks/static/media
 cache

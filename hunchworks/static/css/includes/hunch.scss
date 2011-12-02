@@ -1,0 +1,47 @@
+@import "../hunchworks.scss";
+
+article.hunch.short {
+  position: relative;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 5px #ccc;
+  -moz-box-shadow: 1px 1px 5px #ccc;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  padding: 1em;
+  color: #999;
+
+  > div.left {
+
+    > h2 {
+      font-size: 125%;
+      font-weight: bold;
+      margin-bottom: 0.4em;
+      color: #333;
+  
+      > a {
+        text-decoration: none;
+      }
+    }
+  
+    > section.desc {
+      @include serif-font;
+      margin-bottom: 0.5em;
+    }
+  
+    > ul.stats {
+      margin-left: 1.5em;
+      line-height: 1.3;
+    }
+  }
+}
+
+section.object-list.hunch {
+
+  > article {
+    margin-bottom: 1em;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,92 @@
+@import "../hunchworks.scss";
+
+ul.token-input-list {
+  padding: 0.5em !important;
+  cursor: text;
+}
+
+  /* Hidden input */
+  ul.token-input-list li input {
+    border: none !important;
+    padding: 0 !important;
+  }
+
+li.token-input-input-token {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  overflow: hidden;
+}
+
+li.token-input-token {
+  display: inline-block;
+  margin-right: 0.5em;
+  padding: 0.25em 0 0.25em 0.5em;
+  background-color: #fff;
+  cursor: default;
+  border: 1px solid #bbb;
+  white-space: nowrap;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+  li.token-input-token p {
+    display: inline-block;
+  }
+  
+  /* Added to .token-input-token when selected */
+  li.token-input-selected-token {
+    background-color: highlight;
+    border-color: highlight;
+    color: highlighttext;
+  }
+
+  /* The cross to remove a token */
+  li.token-input-token > span {
+    display: inline-block;
+    padding: 0 0.5em;
+    cursor: pointer;
+    color: #999;
+  }
+
+/* The dropdown containing search results. */
+div.token-input-dropdown {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  box-shadow: 2px 2px 5px #333;
+  -moz-box-shadow: 2px 2px 5px #333;
+  border-radius: 5px;
+  padding: 0.5em;
+  margin-top: 1px;
+}
+
+  div.token-input-dropdown ul {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 100px;
+  }
+
+  /* Individual search results */
+  div.token-input-dropdown li {
+    list-style-type: none;
+    padding: 0.5em;
+    cursor: pointer;
+  }
+
+    /* Highlighed search terms within a result */
+    div.token-input-dropdown li b {
+      font-weight: normal;
+    }
+
+  /* Selected search results */
+  div.token-input-dropdown li.token-input-selected-dropdown-item {
+    background-color: highlight;
+    color: highlighttext;
+  }
+
+  /* Non-result messages within the dropdown */
+  div.token-input-dropdown p {
+    text-align: center;
+    font-style: italic;
+    padding: 0.5em;
+    color: #999;
+  }

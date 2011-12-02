@@ -1,0 +1,463 @@
+@import "../hunchworks.scss";
+
+#hunch-list {
+
+  section.object-list {
+    padding: $spacing*2;
+  }
+}
+
+#hunch-show {
+
+  article.hunch {
+
+    > header {
+      color: #999;
+      padding: $spacing*4;
+      overflow: hidden;
+
+      > div {
+        display: inline-block;
+        float: left;
+        width: 75%;
+
+        > h1 {
+          font-size: 250%;
+          line-height: 1.2;
+          text-indent: -0.5em;
+          margin-right: 1.6em;
+
+          > a {
+            text-decoration: none;
+            color: #000;
+          }
+        }
+
+        > div.cite {
+          margin-top: $spacing/2;
+          padding-right: $spacing;
+        }
+      }
+    }
+  }
+
+
+  div.inner {
+    overflow: hidden;
+    padding: $spacing*2;
+  }
+
+
+  section.desc {
+
+    > p {
+      @include serif-font(125%);
+      clear: left;
+      line-height: 1.4;
+    }
+
+    > ul.tags {
+      margin-top: $spacing;
+    }
+  }
+
+
+  section.map {
+    float: right;
+    width: 20em;
+    margin-left: $spacing*2;
+    padding: 1px;
+    border: 1px solid #ccc;
+    background: #eee;
+
+    > div {
+      height: 15em;
+    }
+  }
+
+
+  section.activity {
+
+    > h2 {
+      text-align: center;
+      font-size: 160%;
+      color: #999;
+      margin-bottom: $spacing;
+
+      > span {
+        font-weight: bold;
+        color: #000;
+      }
+    }
+  }
+
+
+  section.evidence {
+    clear: both;
+    padding-left: $spacing;
+    overflow: hidden;
+
+    > div {
+      width: 50%;
+      float: left;
+      box-sizing: border-box;
+
+      &.for {
+        margin-left: -$spacing;
+        margin-right: $spacing;
+      }
+
+      > h2 {
+        text-align: center;
+        font-size: 160%;
+        color: #999;
+
+        > span {
+          font-weight: bold;
+          color: #000;
+        }
+      }
+
+      > div.add {
+        text-align: center;
+        margin-top: $spacing/2;
+        color: #999;
+      }
+    }
+
+    &.empty-list {
+      margin-top: 1em;
+    }
+  }
+
+
+  article.evidence {
+    background: #eee url("../../img/bg.png");
+    box-shadow: 0 0 5px #ccc;
+    -moz-box-shadow: 0 0 5px #ccc;
+    margin-top: 1em;
+
+    > div {
+      position: relative;
+
+      &:hover {
+        > header, > ul.meta {
+          display: block;
+        }
+      }
+
+      > .embed {
+        display: block;
+        background: #000;
+        text-align: center;
+        overflow: hidden;
+
+        img, object, embed {
+          display: block;
+          margin: 0 auto;
+        }
+      }
+
+      > section.desc {
+        line-height: 1.4;
+        margin: 0.5em;
+        color: #999;
+      }
+
+      > header,
+      > ul.meta {
+        display: none;
+        position: absolute;
+        text-align: center;
+        left: 0;
+        width: 100%;
+        background: #000;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+      }
+
+      > header {
+        top: 0;
+        font-size: 125%;
+        padding: 0.8em 0;
+      }
+
+      > ul.meta {
+        bottom: 0;
+        font-size: 80%;
+        padding: 0.625em 0;
+
+        > li {
+          display: inline-block;
+          margin-right: 1em;
+
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+
+    > a.show-comment-form {
+      clear: both;
+      display: block;
+      border: 1px solid #ccc;
+      background: rgba(0, 0, 0, 0.05);
+      border-top: none;
+      text-align: center;
+      padding: 0.5em;
+    }
+  }
+
+
+  section.vote {
+    border: 1px solid #ccc;
+    border-bottom-style: dashed;
+    border-top: none;
+    padding: 1em;
+
+    > h3 {
+      text-align: center;
+      margin-bottom: 1em;
+      font-weight: bold;
+      color: #999;
+    }
+
+    > form {
+
+      > div.field.choice {
+        margin-bottom: 0;
+
+        > div.label,
+        > ul.errorlist {
+          display: none;
+        }
+      }
+
+      div.actions {
+        display: none;
+      }
+    }
+  }
+
+
+  section.comments {
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 1em;
+    overflow: hidden;
+
+    > ul > li {
+      margin-bottom: $spacing/2;
+      display: block;
+    }
+
+    li {
+
+      .comment {
+
+        > .bubble {
+          @include serif-font;
+          position: relative;
+          margin: 0 62px;
+          line-height: $line_height;
+          min-height: $line_height*2;
+          border: 2px solid #ccc;
+          background: #fff;
+          border-radius: 5px;
+          -moz-border-radius: 5px;
+          padding: $spacing;
+
+          > .arrow {
+            background-repeat: no-repeat;
+            background-position: 0 50%;
+            position: absolute;
+            top: 0;
+            width: 8px;
+            height: 54px;
+          }
+        }
+      }
+
+      &:nth-child(even) .comment {
+        .user {
+          float: right;
+        }
+
+        .arrow {
+          background-image: url("../../img/bubble-arrow-right.png");
+          right: -8px;
+        }
+      }
+
+      &:nth-child(odd) .comment {
+        .user {
+          float: left;
+        }
+
+        .arrow {
+          background-image: url("../../img/bubble-arrow-left.png");
+          left: -8px;
+        }
+      }
+    }
+  }
+
+
+  form.comment {
+
+    /* If the comment submitted was invalid, make the bubble borders look like
+    |* the invalid field border. They're deliberately styled the same. */
+    &.errors > div.bubble {
+      border-color: #c66;
+      background-color: #fee;
+      color: #000;
+    }
+
+    > div.bubble {
+      padding: 0 !important;
+
+      > div.field {
+        margin-bottom: 0;
+        padding-right: 27px;
+
+        > div.label,
+        > ul.errorlist {
+          display: none;
+        }
+
+        > textarea {
+          clear: none;
+          padding: $spacing/2;
+          line-height: 1.3;
+          height: 71px;
+          background: none;
+          border: none;
+        }
+      }
+
+      > div.actions {
+        border: none;
+        padding: 0;
+        margin: 0;
+
+        > input {
+          position: absolute;
+          background: #eee;
+          color: #ccc;
+          border: none;
+          border-radius: 0 3px 3px 0;
+          -moz-border-radius: 0 3px 3px 0;
+          font-family: $font_family;
+          font-size: 200%;
+          font-weight: normal;
+          padding: 0;
+          top: 1px;
+          right: 1px;
+          bottom: 1px;
+          width: 25px;
+        }
+
+        > input:focus,
+        > input:hover {
+          background: #ccc;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+
+  section.contributors {
+    overflow: hidden;
+
+    > section {
+      padding-top: 2em;
+      width: 50%;
+      float: left;
+
+      > h2 {
+        text-align: center;
+        font-size: 160%;
+        margin-bottom: 1.25em;
+        color: #999;
+
+        > span {
+          font-weight: bold;
+          color: #000;
+        }
+      }
+    }
+  }
+}
+
+
+#hunch-create {
+
+  form {
+    background: #eee;
+    background: -webkit-gradient(linear, left top, 25% top, from(#fff), to(#eee));
+    background: -moz-linear-gradient(left top, #fff, #eee, #eee, #eee, #eee);
+
+    form > section.help {
+      float: left;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      width: 25%;
+      padding: 2em;
+
+      > h3 {
+        font-size: 200%;
+      }
+
+      > p {
+        margin-top: 1em;
+        line-height: 1.4;
+      }
+    }
+
+    > div.fields {
+      border-left: 1px solid #ddd;
+      background: #fff;
+
+      > h2 {
+        text-align: center;
+        font-size: 160%;
+        margin-bottom: 1.25em;
+        color: #999;
+
+        > span {
+          font-weight: bold;
+          color: #000;
+        }
+      }
+
+      > div.wrap {
+        overflow: hidden;
+
+        > div {
+          padding-bottom: 2em;
+        }
+      }
+
+      > div.show {
+        text-align: center;
+        color: #999;
+        clear: both;
+      }
+    }
+
+    > div.new-evidence {
+      border-top: 1px solid #ddd;
+    }
+
+    > div.actions {
+      border-top: 1px solid #ccc;
+  
+      > button.prev {
+        float: left;
+        margin-left: 0;
+      }
+    }
+  }
+}

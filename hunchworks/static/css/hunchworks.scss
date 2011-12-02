@@ -1,0 +1,24 @@
+/* Layout */
+$max_width: 960px;
+$min_width: 650px;
+$spacing: 12px;
+
+/* Typography */
+$font_family: "helvetica neue", "helvetica", arial, sans-serif;
+$font_size: 10pt;
+$line_height: 1.4;
+
+@mixin serif-font($size: 110%) {
+  font-family: serif;
+  font-size: $size;
+}
+
+/* Columns */
+$major_column_width: 60%;
+$minor_column_width: 40%;
+
+/*@mixin centered-block {
+  max-width: $max_width;
+  min-width: $min_width;
+  margin: 0 auto;
+}*/

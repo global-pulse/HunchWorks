@@ -1,0 +1,43 @@
+@import "../hunchworks.scss";
+
+#dashboard {
+
+  #page {
+    overflow: hidden;
+
+    > div {
+      &.left, &.right {
+        box-sizing: border-box;
+        padding: $spacing*2;
+        float: left;
+      }
+
+      &.left {
+        padding-right: $spacing;
+        width: $major_column_width;
+      }
+
+      &.right {
+        padding-left: $spacing;
+        width: $minor_column_width;
+      }
+
+      > h2 {
+        text-align: center;
+        font-size: 160%;
+        color: #999;
+        margin-top: $spacing*2;
+        margin-bottom: $spacing;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        > span {
+          font-weight: bold;
+          color: #000;
+        }
+      }
+    }
+  }
+}

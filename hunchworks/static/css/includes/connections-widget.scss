@@ -1,0 +1,15 @@
+@import "../hunchworks.scss";
+
+.connections-widget {
+  clear: both;
+  margin-bottom: -0.5em;
+
+  article.user {
+    opacity: 0.25;
+
+    &:hover,
+    &.selected {
+      opacity: 1;
+    }
+  }
+}
