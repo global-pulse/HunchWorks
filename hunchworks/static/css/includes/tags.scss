@@ -1,8 +1,8 @@
 @import "../hunchworks.scss";
 
-ul.tags { }
+ul.tags {
 
-  ul.tags > li {
+  > li {
     display: inline-block;
     border: 1px solid #ddd;
     border-radius: 1px 0.8125em 0.8125em 1px;
@@ -13,9 +13,10 @@ ul.tags { }
     padding-left: 19px;
     padding-right: 0.625em;
     margin-right: 0.625em;
-  }
 
-    ul.tags > li > a {
+    > a {
       text-decoration: none;
       padding-left: 0.3125em;
     }
+  }
+}

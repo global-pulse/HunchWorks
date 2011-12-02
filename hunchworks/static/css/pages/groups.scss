@@ -1,24 +1,25 @@
 @import "../hunchworks.scss";
 
-#group-list section.object-list {
-  overflow: hidden;
-  padding: 1.5em;
+#group-list {
+  section.object-list {
+    overflow: hidden;
+    padding: 1.5em;
+
+    > article.group {
+      float: left;
+      width: 50%;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      padding: 0.5em;
+
+      > div {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
-  #group-list section.object-list > article.group {
-    float: left;
-    width: 50%;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    padding: 0.5em;
-  }
-
-    #group-list section.object-list > article.group > div {
-      margin-bottom: 0;
-    }
-
-
-
+/* What the fuck is going on after this? */
 
 #group-show { }
 

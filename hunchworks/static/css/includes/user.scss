@@ -2,9 +2,12 @@
 
 article.user {
   width: 54px;
-}
 
-  article.user > a {
+  &:hover > a {
+    background: #000;
+  }
+
+  > a {
     display: block;
     background: #333;
     box-shadow: 0 0 5px #999;
@@ -13,13 +16,8 @@ article.user {
     border-radius: 5px;
     -moz-border-radius: 5px;
     padding: 2px;
-  }
 
-  article.user:hover > a {
-    background: #000;
-  }
-
-    article.user > a > img {
+    > img {
       display: block;
       margin-bottom: 2px;
       background: #666;
@@ -27,7 +25,7 @@ article.user {
       -moz-border-radius: 3px 3px 0 0;
     }
 
-    article.user > a > span {
+    > span {
       display: block;
       text-align: center;
       color: #fff;
@@ -39,16 +37,16 @@ article.user {
       max-height: 1.5em;
       overflow: hidden;
     }
+  }
+}
 
 
 section.object-list.user {
   overflow: hidden;
-}
 
-  section.object-list.user > article {
+  > article {
     margin-right: 0.5em;
     margin-bottom: 0.5em;
     float: left;
   }
-
-  section.object-list.user > article:last-child { }
+}

@@ -1,51 +1,54 @@
 @import "../hunchworks.scss";
 
-div.vote-widget { }
+div.vote-widget {
 
-  div.vote-widget > ul {
+  > ul {
     clear: both;
     overflow: hidden;
-    padding-left: 2em;
     margin: 0 auto;
-  }
+    
+    /* Reserve spacing for four ($spacing/2) gutters. */
+    padding-left: $spacing*2;
 
-    div.vote-widget > ul > li {
+    > li {
       display: block;
       box-sizing: border-box;
       -moz-box-sizing: border-box;
-      margin-left: 0.5em;
+      margin-left: $spacing/4;
       width: 20%;
       float: left;
-    }
 
-    div.vote-widget > ul > li:first-child {
-      margin-left: -2em;
-    }
+      &:first-child {
+        margin-left: -$spacing*2;
+      }
 
-      div.vote-widget > ul > li > label {
-        line-height: 1.3;
+      > label {
+        line-height: 1.2;
         cursor: pointer;
         display: block;
-        padding: 0.25em;
+        padding: $spacing/4;
         text-align: center;
         border: 2px solid #ccc;
         border-radius: 5px;
         -moz-border-radius: 5px;
         background: #eee;
         color: #ccc;
-      }
-
-      div.vote-widget > ul > li > label:hover {
-        border-color: #999;
-        color: #999;
-      }
-
-        div.vote-widget > ul > li > label > input {
+  
+        &:hover {
+          border-color: #999;
+          color: #999;
+        }
+        
+        > input {
           display: none;
         }
+      }
 
-    div.vote-widget > ul > li.selected > label {
-      border-color: #333;
-      background: #fff;
-      color: #333;
+      &.selected > label {
+        border-color: #333;
+        background: #fff;
+        color: #333;
+      }
     }
+  }
+}

@@ -1,14 +1,15 @@
 @import "../hunchworks.scss";
 
-#explore { }
+#explore {
 
-  #explore section.graph {
+  section.graph {
     padding: 2em;
     border-bottom: 1px dashed #ccc;
-  }
 
-    #explore section.graph p.create-evidence {
+    p.create-evidence {
       text-align: center;
       margin-top: 1em;
       color: #999;
     }
+  }
+}

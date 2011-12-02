@@ -1,7 +1,7 @@
 @import "../hunchworks.scss";
 
 div.empty-list {
-  padding: 2em 0;
+  padding: $spacing*2 0;
   background: #f8f8f8;
   border: 1px solid #eee;
   text-align: center;
@@ -12,7 +12,7 @@ div.empty-list {
 /* If a page consists solely of an empty list (e.g. the My Hunches page when a
 |* user does not have any hunches). */
 #page > div.empty-list {
-  padding: 8em 0;
+  padding: $spacing*10 0;
   background: none;
   border: none;
 }

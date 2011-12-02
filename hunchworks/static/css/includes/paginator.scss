@@ -3,46 +3,42 @@
 .paginator {
   overflow: hidden;
   padding-left: 0.5em;
-}
 
-  .paginator a,
-  .paginator span {
+  a, span {
     text-decoration: none;
     display: block;
     float: left;
     padding: 1em 0.5em;
     color: #666;
-  }
 
-    .paginator a.active {
+    &.active {
       background: #fff;
       color: #000;
     }
+  }
 
-    .paginator .first,
-    .paginator .prev,
-    .paginator .next,
-    .paginator .last {
-      background-repeat: no-repeat;
-      background-position: 0 50%;
-      text-indent: -9999px;
-      overflow: hidden;
-      padding-right: 0;
-      padding-left: 0;
-      width: 16px;
-    }
+  .first, .prev, .next, .last {
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    text-indent: -9999px;
+    overflow: hidden;
+    padding-right: 0;
+    padding-left: 0;
+    width: 16px;
+  }
 
-    /* links look something like:
-     *  <<  <  1 2 3 4  >  >> */
-    .paginator .first { background-image: url("../../icons/silk/resultset_first.png");    }
-    .paginator .prev  { background-image: url("../../icons/silk/resultset_previous.png"); }
-    .paginator .next  { background-image: url("../../icons/silk/resultset_next.png");     }
-    .paginator .last  { background-image: url("../../icons/silk/resultset_last.png");     }
+  /* links look something like:
+   *  <<  <  1 2 3 4  >  >> */
+  .first { background-image: url("../../icons/silk/resultset_first.png");    }
+  .prev  { background-image: url("../../icons/silk/resultset_previous.png"); }
+  .next  { background-image: url("../../icons/silk/resultset_next.png");     }
+  .last  { background-image: url("../../icons/silk/resultset_last.png");     }
 
-    .paginator span.na {
-      background-position: -16px 50%; }
+  span.na {
+    background-position: -16px 50%; }
 
-    .paginator span.elipsis {
-      letter-spacing: 1px;
-      color: #ccc;
-     }
+  span.elipsis {
+    letter-spacing: 1px;
+    color: #ccc;
+   }
+}

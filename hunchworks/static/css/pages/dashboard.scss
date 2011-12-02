@@ -1,41 +1,43 @@
 @import "../hunchworks.scss";
 
-#dashboard { }
+#dashboard {
 
-  #dashboard #page {
+  #page {
     overflow: hidden;
-  }
 
-    #dashboard #page > div.left,
-    #dashboard #page > div.right {
-      box-sizing: border-box;
-      padding: 2em;
-      float: left;
-    }
+    > div {
+      &.left, &.right {
+        box-sizing: border-box;
+        padding: $spacing*2;
+        float: left;
+      }
 
-    #dashboard #page > div.left {
-      padding-right: 1em;
-      width: 60%;
-    }
+      &.left {
+        padding-right: $spacing;
+        width: $major_column_width;
+      }
 
-    #dashboard #page > div.right {
-      padding-left: 1em;
-      width: 40%;
-    }
+      &.right {
+        padding-left: $spacing;
+        width: $minor_column_width;
+      }
 
-      #dashboard #page > div > h2 {
+      > h2 {
         text-align: center;
         font-size: 160%;
         color: #999;
-        margin-top: 1.25em;
-        margin-bottom: 0.625em;
-      }
+        margin-top: $spacing*2;
+        margin-bottom: $spacing;
 
-        #dashboard #page > div > h2 > span {
+        &:first-child {
+          margin-top: 0;
+        }
+
+        > span {
           font-weight: bold;
           color: #000;
         }
-
-      #dashboard #page > div > h2:first-child {
-        margin-top: 0;
       }
+    }
+  }
+}

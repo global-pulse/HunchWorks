@@ -4,7 +4,7 @@ body {
   font-size: $font_size;
   font-family: $font_family;
   background: #eee url("../../img/bg.png");
-  padding: 0 1em;
+  padding: 0 $spacing;
   color: #333;
 }
 
@@ -14,8 +14,8 @@ a {
 }
 
 #wrapper, footer {
-  max-width: 960px;
-  min-width: 650px;
+  max-width: $max_width;
+  min-width: $min_width;
   margin: 0 auto;
 }
 
@@ -26,7 +26,7 @@ a {
 
   > header {
     overflow: hidden;
-    padding: 1em;
+    padding: $spacing;
 
     background: #fff;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
@@ -36,8 +36,8 @@ a {
     > h1 {
       float: left;
       font-size: 200%;
-      margin-right: 0.5em;
-      padding-right: 0.5em;
+      margin-right: $spacing;
+      padding-right: $spacing;
       border-right: 1px dotted #ccc;
       font-weight: bold;
       color: #000;
@@ -81,7 +81,7 @@ a {
 
           > a {
             display: block;
-            padding: 1em;
+            padding: $spacing;
           }
         }
       }
@@ -90,18 +90,16 @@ a {
 }
 
 footer {
-  padding: 2em 0;
+  box-sizing: border-box;
+  padding: $spacing*2;
   color: #aaa;
 
   > p {
-    padding-left: 2em;
-    line-height: 1.4;
+    line-height: $line_height;
   }
 
   > p.opensource {
     text-align: right;
     float: right;
-    padding-right: 2em;
-    padding-left: 0;
   }
 }

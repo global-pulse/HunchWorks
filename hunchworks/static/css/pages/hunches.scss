@@ -1,179 +1,171 @@
 @import "../hunchworks.scss";
 
-#hunch-list { }
+#hunch-list {
 
-  #hunch-list section.object-list {
-    padding: 2em;
+  section.object-list {
+    padding: $spacing*2;
   }
+}
 
+#hunch-show {
 
+  article.hunch {
 
-
-#hunch-show { }
-
-  #hunch-show article.hunch { }
-
-    #hunch-show article.hunch > header {
+    > header {
       color: #999;
-      padding: 4em;
+      padding: $spacing*4;
       overflow: hidden;
-    }
 
-      #hunch-show article.hunch > header > div {
+      > div {
         display: inline-block;
         float: left;
         width: 75%;
-      }
 
-        #hunch-show article.hunch > header > div > h1 {
+        > h1 {
           font-size: 250%;
           line-height: 1.2;
           text-indent: -0.5em;
           margin-right: 1.6em;
-        }
 
-          #hunch-show article.hunch > header > div > h1 > a {
+          > a {
             text-decoration: none;
             color: #000;
           }
-
-        #hunch-show article.hunch > header > div > div.cite {
-          margin-top: 0.5em;
-          padding-right: 1em;
         }
 
-
-
-
-  #hunch-show div.inner {
-    overflow: hidden;
-    padding: 2em;
+        > div.cite {
+          margin-top: $spacing/2;
+          padding-right: $spacing;
+        }
+      }
+    }
   }
 
 
+  div.inner {
+    overflow: hidden;
+    padding: $spacing*2;
+  }
 
 
-    #hunch-show section.desc { }
+  section.desc {
 
-      #hunch-show section.desc > p {
-        clear: left;
-        font-size: 125%;
-        line-height: 1.4;
-      }
-
-      #hunch-show section.desc > ul.tags {
-        margin-top: 1em;
-      }
-
-
-
-
-    #hunch-show section.map {
-      float: right;
-      width: 20em;
-      margin-left: 2em;
-      padding: 1px;
-      border: 1px solid #ccc;
-      background: eee;
+    > p {
+      @include serif-font(125%);
+      clear: left;
+      line-height: 1.4;
     }
 
-      #hunch-show section.map > div {
-        height: 15em;
+    > ul.tags {
+      margin-top: $spacing;
+    }
+  }
+
+
+  section.map {
+    float: right;
+    width: 20em;
+    margin-left: $spacing*2;
+    padding: 1px;
+    border: 1px solid #ccc;
+    background: #eee;
+
+    > div {
+      height: 15em;
+    }
+  }
+
+
+  section.activity {
+
+    > h2 {
+      text-align: center;
+      font-size: 160%;
+      color: #999;
+      margin-bottom: $spacing;
+
+      > span {
+        font-weight: bold;
+        color: #000;
+      }
+    }
+  }
+
+
+  section.evidence {
+    clear: both;
+    padding-left: $spacing;
+    overflow: hidden;
+
+    > div {
+      width: 50%;
+      float: left;
+      box-sizing: border-box;
+
+      &.for {
+        margin-left: -$spacing;
+        margin-right: $spacing;
       }
 
-
-
-
-    #hunch-show section.activity { }
-
-      #hunch-show section.activity > h2 {
+      > h2 {
         text-align: center;
         font-size: 160%;
         color: #999;
-        margin-bottom: 0.625em;
-      }
 
-        #hunch-show section.activity > h2 > span {
+        > span {
           font-weight: bold;
           color: #000;
         }
+      }
 
-
-
-
-    #hunch-show section.evidence {
-      clear: both;
-      padding-left: 1em;
-      overflow: hidden;
+      > div.add {
+        text-align: center;
+        margin-top: $spacing/2;
+        color: #999;
+      }
     }
 
-      #hunch-show section.evidence > div {
-        width: 50%;
-        float: left;
-      }
-
-      #hunch-show section.evidence > div.for {
-        margin-left: -1em;
-        padding-right: 1em;
-      }
-
-        #hunch-show section.evidence > div > h2 {
-          text-align: center;
-          font-size: 160%;
-          color: #999;
-        }
-
-          #hunch-show section.evidence > div > h2 > span {
-            font-weight: bold;
-            color: #000;
-          }
-
-        #hunch-show section.evidence > div > div.add {
-          text-align: center;
-          margin-top: 0.5em;
-          color: #999;
-        }
-
-      #hunch-show section.evidence div.empty-list {
-        margin-top: 1em;
-      }
+    &.empty-list {
+      margin-top: 1em;
+    }
+  }
 
 
-
-
-  #hunch-show article.evidence {
+  article.evidence {
     background: #eee url("../../img/bg.png");
     box-shadow: 0 0 5px #ccc;
     -moz-box-shadow: 0 0 5px #ccc;
     margin-top: 1em;
-  }
 
-    #hunch-show article.evidence > div {
+    > div {
       position: relative;
-    }
 
-      #hunch-show article.evidence > div > .embed {
+      &:hover {
+        > header, > ul.meta {
+          display: block;
+        }
+      }
+
+      > .embed {
         display: block;
         background: #000;
         text-align: center;
         overflow: hidden;
-      }
 
-        #hunch-show article.evidence > div > div.embed img,
-        #hunch-show article.evidence > div > div.embed object,
-        #hunch-show article.evidence > div > div.embed embed {
+        img, object, embed {
           display: block;
           margin: 0 auto;
         }
+      }
 
-      #hunch-show article.evidence > div > section.desc {
+      > section.desc {
         line-height: 1.4;
         margin: 0.5em;
         color: #999;
       }
 
-      #hunch-show article.evidence > div > header,
-      #hunch-show article.evidence > div > ul.meta {
+      > header,
+      > ul.meta {
         display: none;
         position: absolute;
         text-align: center;
@@ -184,82 +176,29 @@
         color: #fff;
       }
 
-      #hunch-show article.evidence > div > header {
+      > header {
         top: 0;
         font-size: 125%;
         padding: 0.8em 0;
       }
 
-      #hunch-show article.evidence > div > ul.meta {
+      > ul.meta {
         bottom: 0;
         font-size: 80%;
         padding: 0.625em 0;
-      }
 
-        #hunch-show article.evidence > div > ul.meta > li {
+        > li {
           display: inline-block;
           margin-right: 1em;
-        }
 
-        #hunch-show article.evidence > div > ul.meta > li:last-child {
-          margin-right: 0;
+          &:last-child {
+            margin-right: 0;
+          }
         }
-
-      #hunch-show article.evidence > div:hover > header,
-      #hunch-show article.evidence > div:hover > ul.meta {
-        display: block;
       }
-
-
-
-
-  #hunch-show section.vote {
-    border: 1px solid #ccc;
-    border-bottom-style: dashed;
-    border-top: none;
-    padding: 1em;
-  }
-
-    #hunch-show section.vote > h3 {
-      text-align: center;
-      margin-bottom: 1em;
-      font-weight: bold;
-      color: #999;
     }
 
-    #hunch-show section.vote > form { }
-
-      #hunch-show section.vote > form > div.field.choice {
-        margin-bottom: 0;
-      }
-
-        #hunch-show section.vote > form > div.field.choice > div.label,
-        #hunch-show section.vote > form > div.field.choice > ul.errorlist {
-          display: none;
-        }
-
-      #hunch-show section.vote > form div.actions {
-        display: none;
-      }
-
-
-
-
-    #hunch-show section.comments {
-      border: 1px solid #ccc;
-      border-top: none;
-      padding: 1em;
-      overflow: hidden;
-    }
-
-    #hunch-show section.comments > ul { }
-
-      #hunch-show section.comments > ul > li {
-        margin-bottom: 0.5em;
-        display: block;
-      }
-
-    #hunch-show article.evidence > a.show-comment-form {
+    > a.show-comment-form {
       clear: both;
       display: block;
       border: 1px solid #ccc;
@@ -268,208 +207,257 @@
       text-align: center;
       padding: 0.5em;
     }
+  }
 
 
+  section.vote {
+    border: 1px solid #ccc;
+    border-bottom-style: dashed;
+    border-top: none;
+    padding: 1em;
 
-
-  #hunch-show .comment { }
-
-    #hunch-show .comment > .user { }
-
-      #hunch-show li:nth-child(even) .comment > .user { float: right; }
-      #hunch-show li:nth-child(odd)  .comment > .user { float: left; }
-
-    #hunch-show .comment > .bubble {
-      position: relative;
-      margin: 0 62px;
-      line-height: 1.3;
-      min-height: 2.6em;
-      border: 2px solid #ccc;
-      background: #fff;
-      border-radius: 5px;
-      -moz-border-radius: 5px;
-      padding: 0.5em;
+    > h3 {
+      text-align: center;
+      margin-bottom: 1em;
+      font-weight: bold;
+      color: #999;
     }
 
-      /*#hunch-show li.odd .comment > .bubble { text-align: left; }
-      #hunch-show li.even .comment > .bubble { text-align: right; }*/
+    > form {
 
-      #hunch-show .comment > .bubble > .arrow {
-        background-repeat: no-repeat;
-        background-position: 0 50%;
-        position: absolute;
-        top: 0;
-        width: 8px;
-        height: 100%;
+      > div.field.choice {
+        margin-bottom: 0;
+
+        > div.label,
+        > ul.errorlist {
+          display: none;
+        }
       }
 
-      #hunch-show li:nth-child(even) .comment > .bubble > .arrow {
-        background-image: url("../../img/bubble-arrow-right.png");
-        right: -8px;
+      div.actions {
+        display: none;
       }
-
-      #hunch-show li:nth-child(odd) .comment > .bubble > .arrow {
-        background-image: url("../../img/bubble-arrow-left.png");
-        left: -8px;
-      }
-
-
-
-
-  #hunch-show form.comment { }
-
-    #hunch-show form.comment > div.bubble {
-      padding: 0;
     }
+  }
+
+
+  section.comments {
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 1em;
+    overflow: hidden;
+
+    > ul > li {
+      margin-bottom: $spacing/2;
+      display: block;
+    }
+
+    li {
+
+      .comment {
+
+        > .bubble {
+          @include serif-font;
+          position: relative;
+          margin: 0 62px;
+          line-height: $line_height;
+          min-height: $line_height*2;
+          border: 2px solid #ccc;
+          background: #fff;
+          border-radius: 5px;
+          -moz-border-radius: 5px;
+          padding: $spacing;
+
+          > .arrow {
+            background-repeat: no-repeat;
+            background-position: 0 50%;
+            position: absolute;
+            top: 0;
+            width: 8px;
+            height: 54px;
+          }
+        }
+      }
+
+      &:nth-child(even) .comment {
+        .user {
+          float: right;
+        }
+
+        .arrow {
+          background-image: url("../../img/bubble-arrow-right.png");
+          right: -8px;
+        }
+      }
+
+      &:nth-child(odd) .comment {
+        .user {
+          float: left;
+        }
+
+        .arrow {
+          background-image: url("../../img/bubble-arrow-left.png");
+          left: -8px;
+        }
+      }
+    }
+  }
+
+
+  form.comment {
 
     /* If the comment submitted was invalid, make the bubble borders look like
     |* the invalid field border. They're deliberately styled the same. */
-    #hunch-show form.comment.errors > div.bubble {
+    &.errors > div.bubble {
       border-color: #c66;
       background-color: #fee;
       color: #000;
     }
 
-      #hunch-show form.comment > div.bubble > div.field {
+    > div.bubble {
+      padding: 0 !important;
+
+      > div.field {
         margin-bottom: 0;
         padding-right: 27px;
-      }
 
-        #hunch-show form.comment > div.bubble > div.field > div.label,
-        #hunch-show form.comment > div.bubble > div.field > ul.errorlist {
+        > div.label,
+        > ul.errorlist {
           display: none;
         }
 
-        #hunch-show form.comment > div.bubble > div.field > textarea {
+        > textarea {
           clear: none;
-          padding: 0.5em;
+          padding: $spacing/2;
           line-height: 1.3;
           height: 71px;
           background: none;
           border: none;
         }
-
-      #hunch-show form.comment > div.bubble > div.actions > input {
-        position: absolute;
-        background: #eee;
-        color: #ccc;
-        border: none;
-        border-radius: 0 3px 3px 0;
-        -moz-border-radius: 0 3px 3px 0;
-        font-size: 200%;
-        font-weight: normal;
-        padding: 0;
-        top: 1px;
-        right: 1px;
-        bottom: 1px;
-        width: 25px;
       }
 
-        #hunch-show form.comment > div.bubble > div.actions > input:focus,
-        #hunch-show form.comment > div.bubble > div.actions > input:hover {
-          background: #ccc;
-          color: #fff;
-        }
-
-      #hunch-show form.comment > div.bubble > div.actions {
+      > div.actions {
         border: none;
         padding: 0;
         margin: 0;
+
+        > input {
+          position: absolute;
+          background: #eee;
+          color: #ccc;
+          border: none;
+          border-radius: 0 3px 3px 0;
+          -moz-border-radius: 0 3px 3px 0;
+          font-family: $font_family;
+          font-size: 200%;
+          font-weight: normal;
+          padding: 0;
+          top: 1px;
+          right: 1px;
+          bottom: 1px;
+          width: 25px;
+        }
+
+        > input:focus,
+        > input:hover {
+          background: #ccc;
+          color: #fff;
+        }
       }
-
-
-#hunch-show section.contributors { }
-
-  #hunch-show section.contributors {
-    overflow: hidden;
+    }
   }
 
-    #hunch-show section.contributors > section {
+
+  section.contributors {
+    overflow: hidden;
+
+    > section {
       padding-top: 2em;
       width: 50%;
       float: left;
-    }
 
-      #hunch-show section.contributors > section > h2 {
+      > h2 {
         text-align: center;
         font-size: 160%;
         margin-bottom: 1.25em;
         color: #999;
-      }
 
-        #hunch-show section.contributors > section > h2 > span {
+        > span {
           font-weight: bold;
           color: #000;
         }
+      }
+    }
+  }
+}
 
 
+#hunch-create {
 
-
-#hunch-create { }
-
-  #hunch-create form {
+  form {
     background: #eee;
     background: -webkit-gradient(linear, left top, 25% top, from(#fff), to(#eee));
     background: -moz-linear-gradient(left top, #fff, #eee, #eee, #eee, #eee);
-  }
 
-    #hunch-create form > section.help {
+    form > section.help {
       float: left;
       box-sizing: border-box;
       -moz-box-sizing: border-box;
       width: 25%;
       padding: 2em;
-    }
 
-      #hunch-create form > section.help > h3 {
+      > h3 {
         font-size: 200%;
       }
 
-      #hunch-create form > section.help > p {
+      > p {
         margin-top: 1em;
         line-height: 1.4;
       }
-
-    #hunch-create form > div.fields {
-      border-left: 1px solid #ddd;
-      background: #fff;
     }
 
-      #hunch-create form > div.fields > h2 {
+    > div.fields {
+      border-left: 1px solid #ddd;
+      background: #fff;
+
+      > h2 {
         text-align: center;
         font-size: 160%;
         margin-bottom: 1.25em;
         color: #999;
-      }
 
-        #hunch-create form > div.fields > h2 > span {
+        > span {
           font-weight: bold;
           color: #000;
         }
-
-    #hunch-create form > div.new-evidence {
-      border-top: 1px solid #ddd;
-    }
-
-      #hunch-create form > div.fields > div.wrap {
-        overflow: hidden;
       }
 
-        #hunch-create form > div.fields > div.wrap > div {
+      > div.wrap {
+        overflow: hidden;
+
+        > div {
           padding-bottom: 2em;
         }
+      }
 
-      #hunch-create form > div.fields > div.show {
+      > div.show {
         text-align: center;
         color: #999;
         clear: both;
       }
-
-  #hunch-create form > div.actions {
-    border-top: 1px solid #ccc;
-  }
-
-    #hunch-create form > div.actions > button.prev {
-      float: left;
-      margin-left: 0;
     }
+
+    > div.new-evidence {
+      border-top: 1px solid #ddd;
+    }
+
+    > div.actions {
+      border-top: 1px solid #ccc;
+  
+      > button.prev {
+        float: left;
+        margin-left: 0;
+      }
+    }
+  }
+}
