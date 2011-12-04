@@ -1,5 +1,52 @@
 @import "../hunchworks.scss";
 
+input, textarea, select, button, ul.token-input-list, a.button {
+  display: block;
+  font: inherit;
+  clear: both;
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: 2px solid #999;
+  background: #fffff8;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  padding: 1em;
+  color: #666;
+
+  &:focus {
+    outline: none;
+    background-color: #ffe;
+    border-color: #666;
+    color: #333;
+  }
+}
+
+textarea {
+  resize: vertical;
+}
+
+button, input[type=submit], input[type=button], a.button {
+  display: inline-block;
+  width: auto;
+
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 0.5em 1em;
+
+  color: #666;
+  text-shadow: 0 0 3px #fff;
+
+  background: #ddd;
+  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+  background: -moz-linear-gradient(top, #eee, #ccc);
+
+  border: solid 1px #bbb;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
 form {
 
   /* Errors not related to any particular field. */
@@ -23,53 +70,6 @@ form {
     > p {
       line-height: $line_height;
     }
-  }
-
-  input, textarea, select, button, ul.token-input-list {
-    display: block;
-    font: inherit;
-    clear: both;
-    width: 100%;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    border: 2px solid #999;
-    background: #fffff8;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    padding: 1em;
-    color: #666;
-
-    &:focus {
-      outline: none;
-      background-color: #ffe;
-      border-color: #666;
-      color: #333;
-    }
-  }
-
-  textarea {
-    resize: vertical;
-  }
-
-  button, input[type=submit], input[type=button] {
-    display: inline-block;
-    width: auto;
-
-    outline: none;
-    cursor: pointer;
-    text-align: center;
-    padding: 0.5em 1em;
-
-    color: #666;
-    text-shadow: 0 0 3px #fff;
-
-    background: #ddd;
-    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
-    background: -moz-linear-gradient(top, #eee, #ccc);
-
-    border: solid 1px #bbb;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
   }
 
   div.fields {

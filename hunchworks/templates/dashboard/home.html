@@ -22,6 +22,14 @@
   </div>
 
   <div class="right">
+    <h2><span>Contribute</span></h2>
+    <div class="contribute">
+      <ul>
+        <li><a href="{% url create_hunch %}" class="button">Create a <span>Hunch</span></a></li>
+        <li><a href="{% url create_evidence %}" class="button">Create <span>Evidence</span></a></li>
+      </ul>
+    </div>
+
     <h2>Your <span>Hunches</span></h2>
 
     {% if hunches.object_list %}
