@@ -613,6 +613,17 @@
     },
     {
         "pk": 1,
+        "model": "hunchworks.comment",
+        "fields":
+        {
+            "text": "I've been concerned about this, too. My uncle told me that he met a guy at a bar that knew a woman whose dog got cholera from a guy that visited Gulu recently. I also read on Wikipedia that IDP camps are very dirty.",
+            "time_posted": "2011-10-28 00:00:00",
+            "creator": 4,
+            "hunch": 1
+        }
+    },
+    {
+        "pk": 1,
         "model": "hunchworks.evidence",
         "fields":
         {
@@ -646,7 +657,7 @@
         }
     },
     {
-        "pk": 1,
+        "pk": 2,
         "model": "hunchworks.comment",
         "fields":
         {
@@ -657,7 +668,7 @@
         }
     },
     {
-        "pk": 2,
+        "pk": 3,
         "model": "hunchworks.comment",
         "fields":
         {
@@ -668,7 +679,7 @@
         }
     },
     {
-        "pk": 3,
+        "pk": 4,
         "model": "hunchworks.comment",
         "fields":
         {
