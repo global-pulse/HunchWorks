@@ -64,8 +64,15 @@ def chart(data):
   final_country_data = []
   for year in sorted(final_year_set):
     temp_data = [year]
+
     for country in country_keys:
-      temp_data.append( all_country_data[country][year] )
+      temp_value = None
+      
+      if country in all_country_data:
+        if year in all_country_data[country]:
+          temp_value = all_country_data[country][year]
+
+      temp_data.append( temp_value )
     final_country_data.append(temp_data)
 
   return (country_keys, final_country_data)
