@@ -3,6 +3,7 @@
 
 from hunchworks import models, forms
 from hunchworks.utils.uploads import handle_uploaded_file
+from hunchworks.utils.pagination import paginated
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404, redirect
@@ -62,16 +63,14 @@ def edit(req, user_id=None):
     context.update({ "user": user, "form": form })
     return _render(req, "edit", context)
 
+
 @login_required
-def connections(req, user_id=None):
-  if not user_id:
-    user_id = req.user.pk
-  user_profile = get_object_or_404(models.UserProfile, pk=user_id)
-  connected_profiles = user_profile.connections.all()
-  context = RequestContext(req)
-  context.update({ "connected_profiles":connected_profiles})
-  return _render(req, "connections", context)
-  
+def connections(req):
+  return _render(req, "connections", {
+    "connection_list": paginated(req, req.user.get_profile().connections.all(), 20)
+  })
+
+
 @login_required
 def connect(req, user_id):
   user = get_object_or_404(models.UserProfile, pk=user_id)

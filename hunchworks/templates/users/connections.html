@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% load paginator_tags %}
+
+{% block body_id %}connection-list{% endblock %}
 
 {% block title %}
   Your Connections &mdash;
@@ -11,20 +14,15 @@
 {% endblock %}
 
 {% block content %}
-  <div class="connections">
-    {% if connected_profiles %}
-      {% for connection in connected_profiles %}
-        <div class="connection">
-          <a href="{{ connection.get_absolute_url }}">
-            <img src="{{ connection.profile_picture_url }}" width="163">
-            <span>{{ connection }}</span>
-          </a>
-        </div>
-      {% endfor %}
-    {% else %}
-      <div class="empty-list">
-        You don't have any connections.
-      </div>
-    {% endif %}
+  {% if connection_list.object_list %}
+    {% include "includes/users/list.html" with object_list=connection_list.object_list %}
+  {% else %}
+    <div class="empty-list">
+      You don't have any connections.
+    </div>
+  {% endif %}
+
+  <div class="links">
+    {% paginator connection_list %}
   </div>
 {% endblock %}
