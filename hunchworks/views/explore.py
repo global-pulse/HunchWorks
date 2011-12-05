@@ -25,8 +25,8 @@ def worldbank_indicators(indicator_id, country_ids):
   def _format_for_tokeninput(key):
     things = []
 
-    for item in data.copy():
-      thing = item[key]
+    for item in data:
+      thing = item[key].copy()
       thing["name"] = thing["value"]
       del thing["value"]
 

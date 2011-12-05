@@ -1,0 +1,23 @@
+@import "../hunchworks.scss";
+
+/* I have no idea what's going on here. */
+
+#profile-show {
+
+  div #column1 {
+    padding: $spacing*2;
+    width:50%;
+    float: left;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    
+  }
+  div #column2 {
+    padding: $spacing*2;
+    width:50%;
+    float: right;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
+}
+

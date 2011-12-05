@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% block body_id %}profile-show{% endblock %}
 {% block title %}Profile{% endblock %}
 
 {% block css %}
@@ -132,7 +133,7 @@
 		  {% endif %}  
 		</div>
 -->
-        <a href="/profile/edit">Edit your profile...</a>
+
 	  </div> <!-- end profile div -->
 <!--	  
       <div id='invite'>
@@ -165,7 +166,12 @@
 		</ol>
 	  </div> <!-- end matchingHunches div -->
 	</div> <!-- end column2 div -->
-
+	<div class="clear-hack"></div>
   </div> <!-- end contents div -->
-
+  <div class="links">
+    <ul>
+      <li><a href="/profile/edit">Edit your profile...</a></li>
+    </ul>
+  </div>
+  <div class="clear-hack"></div>
 {% endblock %}
