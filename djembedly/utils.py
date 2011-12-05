@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+from django.core.cache import cache
 from django.conf import settings
 
 
@@ -19,7 +20,7 @@ def _get_func(name):
   return getattr(module, func_name)
 
 
-def url_to_html(url):
+def _embed(url):
   for name in settings.EMBED_PROCESSORS:
     func = _get_func(name)
     html = func(url)
@@ -28,4 +29,13 @@ def url_to_html(url):
       return '<div class="embed %s">%s</div>' %\
         (func.__name__, html)
 
-  return url
+
+def url_to_html(url, timeout=86400):
+  key = "djembedly:%s" % url
+  data = cache.get(key)
+
+  if data is None:
+    data = _embed(url)
+    cache.set(key, data, timeout)
+
+  return data
