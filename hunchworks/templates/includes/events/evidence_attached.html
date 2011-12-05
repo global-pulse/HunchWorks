@@ -3,7 +3,7 @@
 
   <div>
     <p class="summary">
-      <a href="{% url profile hunch_evidence.creator.pk }}">{{ hunch_evidence.creator }}</a>
+      <a href="{% url profile hunch_evidence.creator.pk %}">{{ hunch_evidence.creator }}</a>
       attached <span>evidence</span> to
       <a href="{% url hunch hunch_evidence.hunch.pk %}" title="{{ hunch_evidence.hunch }}">a hunch</a>
       <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>

@@ -3,7 +3,7 @@
 
   <div>
     <p class="summary">
-      <a href="{% url profile comment.creator.pk }}">{{ comment.creator }}</a>
+      <a href="{% url profile comment.creator.pk %}">{{ comment.creator }}</a>
       <span>commented</span> on
       <a href="{% url hunch comment.hunch.pk %}" title="{{ comment.hunch }}">a hunch</a>
       <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>
