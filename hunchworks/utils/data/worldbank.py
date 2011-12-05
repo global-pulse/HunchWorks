@@ -40,13 +40,15 @@ def _value(value):
 
 def chart(data):
   all_country_data = {}
-  country = ""
+  country = None
   
   for item in reversed(data):
 
     if country != item["country"]["value"]:
-      country = item["country"]["value"]
-      all_country_data[country] = {}
+      if item["country"].get("id", "") != "":
+        print item["country"].get("id", "")
+        country = item["country"]["value"]
+        all_country_data[country] = {}
 
     all_country_data[country][item["date"]] = _value(item["value"])
 
@@ -58,6 +60,7 @@ def chart(data):
   
   # country_keys are the unique country names for all countries in the data.
   country_keys = all_country_data.keys()
+  print country_keys
   
   # final_country_data will be an array of arrays looking like this:
   # [ ["1998", 13000, 14000], ["1999", 15000, 16000], ["2000", 17000, 20000] ]

@@ -48,7 +48,6 @@
         });
         $("#id_country").tokenInput( {{ countries|safe }}, {
           prePopulate: {{ countries_prepop|safe }},
-          tokenLimit: 4,
           minChars: 2
         });
       });

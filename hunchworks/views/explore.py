@@ -27,11 +27,12 @@ def worldbank_indicators(indicator_id, country_ids):
 
     for item in data:
       thing = item[key].copy()
-      thing["name"] = thing["value"]
-      del thing["value"]
+      if thing.get("id", "") != "":
+        thing["name"] = thing["value"]
+        del thing["value"]
 
-      if not thing in things:
-        things.append(thing)
+        if not thing in things:
+          things.append(thing)
 
     return things
 
