@@ -82,6 +82,22 @@ def comment_posted(sender, instance, created, **kwargs):
 
       _attach(event, targets)
 
+    elif comment.hunch:
+
+      event = utils.create_event(
+        "comment_posted_to_hunch",
+        comment=comment
+      )
+
+      targets = _set(
+        comment.hunch,
+        comment.hunch.creator,
+        comment.hunch.user_profiles.all()
+      )
+
+      _attach(event, targets)
+
+
 
 # user_invited(sender=Hunch)
 def user_invited_to_hunch(sender, instance, inviter, invitee, message, **kwargs):
