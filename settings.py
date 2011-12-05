@@ -190,6 +190,10 @@ COMPRESS_CSS_FILTERS = (
   "compressor.filters.cssmin.CSSMinFilter"
 )
 
+# Allow the scss command to be overriden by the environment. (On the staging
+# server, we are running SCSS via an RVM gemset wrapper in /usr/local/bin.)
+SCSS_CMD = os.environ.get("HUNCHWORKS_SCSS", "scss")
+
 COMPRESS_PRECOMPILERS = (
-  ("text/x-scss", "scss {infile} {outfile}"),
+  ("text/x-scss", "%s {infile} {outfile}" % SCSS_CMD),
 )
