@@ -314,6 +314,12 @@ class Hunch(models.Model, events.HasEvents):
   def evidence_count(self):
     return self.evidences.all().count()
 
+  def comment_count(self):
+    return self.comment_set.count()
+
+  def contributor_count(self):
+    return self.contributors().count()
+
 
 post_save.connect(
   events.hunch_created,
