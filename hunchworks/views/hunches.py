@@ -152,19 +152,11 @@ def evidence(req, hunch_id):
   # usual validate -> save -> redirect process. If this fails (i.e. the form was
   # not valid), we'll need it later on to display again.
 
-  hunch_comment_form = forms.CommentForm(initial={"hunch":hunch})
   evidence_comment_form = None
   vote_form = None
 
   if req.method == "POST":
     action = req.POST.get("action")
-
-    if action == "hunch_comment":
-      hunch_comment_form = forms.CommentForm(req.POST)
-
-      if hunch_comment_form.is_valid():
-        comment = hunch_comment_form.save(creator=req.user.get_profile())
-        return redirect(comment)
 
     if action == "comment":
       evidence_comment_form = forms.CommentForm(req.POST, auto_id=_auto_id())
@@ -226,11 +218,8 @@ def evidence(req, hunch_id):
 
     return (hunch_evidence, hunch_evidence.comment_set.all(), cf, vf)
 
-
-
   return _render(req, "show/evidence", {
     "hunch": hunch,
-    "hunch_comment_form": hunch_comment_form,
     "evidences_for": map(_wrap, hunch.evidences_for()),
     "evidences_against": map(_wrap, hunch.evidences_against()),
   })
@@ -242,8 +231,18 @@ def comments(req, hunch_id):
     models.Hunch,
     pk=hunch_id)
 
-  return _render(req, "show/comments", {
+  form = forms.CommentForm(req.POST or None, initial={
     "hunch": hunch
+  })
+
+  if form.is_valid():
+    comment = form.save(creator=req.user.get_profile())
+    return redirect(comment)
+
+  return _render(req, "show/comments", {
+    "hunch": hunch,
+    "comments": hunch.comment_set.all(),
+    "form": form
   })
 
 

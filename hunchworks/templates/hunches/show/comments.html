@@ -6,35 +6,34 @@
 {% endblock %}
 
 {% block secondary_content %}
-  <section class="hunch-comments">
+  <section class="comments on-hunch">
     <ul>
-      {% for comment in hunch.comment_set.all %}
+      {% for comment in comments %}
         <li>
           {% include "comments/comment.html" %}
         </li>
       {% endfor %}
-  
+
       <li>
-        <form action="" method="post" class="comment{% if comment_form.errors %} errors{% endif %}">
+        <form action="" method="post" class="comment{% if form.errors %} errors{% endif %}">
           {% include "includes/users/short.html" with object=request.user.get_profile %}
-  
+
           <div class="bubble">
             <div class="arrow"></div>
-            {{ hunch_comment_form.non_field_errors }}
+            {{ form.non_field_errors }}
             {% csrf_token %}
-  
-            {% for field in hunch_comment_form.hidden_fields %}
+
+            {% for field in form.hidden_fields %}
               {{ field }}
             {% endfor %}
-  
-            {% for field in hunch_comment_form.visible_fields %}
+
+            {% for field in form.visible_fields %}
               {% include "includes/fields/base.html" %}
             {% endfor %}
-  
+
             <div class="submit-trigger"></div>
-  
+
             <div class="actions">
-              <input type="hidden" name="action" value="hunch_comment">
               <input type="submit" value="&raquo;">
             </div>
           </div>
