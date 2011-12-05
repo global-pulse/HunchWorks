@@ -46,7 +46,7 @@ def show(req, group_id):
   members = paginated(req, group.members.all(), 10)
 
   group_members = group.members.values_list("id", flat=True)
-  hunches = models.Hunch.objects.filter(user_profile__in=group_members).order_by("-time_modified")[:3]
+  hunches = models.Hunch.objects.filter(user_profiles__in=group_members).order_by("-time_modified")[:3]
 
   if len(group.members.filter(pk=req.user.get_profile().pk)) > 0:
     is_member = True
