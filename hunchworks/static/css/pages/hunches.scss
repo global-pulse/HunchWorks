@@ -38,6 +38,41 @@
           padding-right: $spacing;
         }
       }
+
+      > section.status {
+        float: right;
+        width: 25%;
+        padding: 0.25em 0;
+
+        > div {
+          border: 2px solid #ccc;
+          border-radius: 5px;
+          -moz-border-radius: 5px;
+          padding: 0.5em;
+          text-align: center;
+          color: #999;
+          box-shadow: 5px 5px 20px #eee;
+
+          > h2 {
+            font-size: 125%;
+            font-weight: bold;
+            margin-bottom: 0.4em;
+            border-bottom: 1px dotted #ccc;
+            padding-bottom: 0.4em;
+            color: #333;
+          }
+
+          > p {
+            font-size: 80%;
+            line-height: $line_height;
+
+            > span {
+              background: #ffd;
+              color: #666;
+            }
+          }
+        }
+      }
     }
   }
 

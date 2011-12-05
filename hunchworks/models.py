@@ -51,10 +51,10 @@ NEG_INF = float("-inf")
 
 SUPPORT_RANGES = (
   (0, 0,          "Neutral",            "This hunch is not conclusively supported nor refuted by evidence."),
-  (1.1, POS_INF,  "Strongly Supported", "This hunch is strongly supported by evidence, with {{ confidence }} confidence."),
-  (NEG_INF, -1.1, "Strongly Refuted",   "This hunch is strongly refuted by evidence, with {{ confidence }} confidence."),
-  (0, 1.1,        "Mildly Supported",   "This hunch is supported by evidence, but only with {{ confidence }} confidence."),
-  (-1.1, 0,       "Mildly Refuted",     "This hunch is refuted by evidence, but only with {{ confidence }} confidence."))
+  (1.1, POS_INF,  "Strongly Supported", "This hunch is strongly supported by evidence, with <span>{{ confidence }} confidence.</span>"),
+  (NEG_INF, -1.1, "Strongly Refuted",   "This hunch is strongly refuted by evidence, with <span>{{ confidence }} confidence.</span>"),
+  (0, 1.1,        "Mildly Supported",   "This hunch is supported by evidence, but only with <span>{{ confidence }} confidence.</span>"),
+  (-1.1, 0,       "Mildly Refuted",     "This hunch is refuted by evidence, but only with <span>{{ confidence }} confidence.</span>"))
 
 CONTROVERSY_RANGES = (
   (0, 0.2,        "Uncontroversial",        "This hunch is not controversial within the HunchWorks community."),

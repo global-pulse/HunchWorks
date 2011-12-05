@@ -22,6 +22,25 @@
         <div class="cite">&mdash; {{ hunch.creator }}, {{ hunch.time_created|date:"j F Y" }}</div>
       </div>
 
+      <section class="status">
+        <div>
+          <h2>{{ hunch.get_support_text }}</h2>
+          <p>{{ hunch.get_verbose_support_text }}</p>
+        </div>
+      </section>
+
+      <script>
+        /* Vertically center the status box within the hunch title. */
+        (function() {
+          var $header = $("article.hunch > header");
+          var $status = $header.find("section.status");
+          var $title  = $header.find("h1");
+
+          var diff = $title.height() - $status.height();
+          $status.css({ "margin-top": diff/2 });
+        })();
+      </script>
+
       <!--
       <section class="meta">
         <div>
