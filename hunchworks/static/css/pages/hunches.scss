@@ -399,7 +399,7 @@
     background: -webkit-gradient(linear, left top, 25% top, from(#fff), to(#eee));
     background: -moz-linear-gradient(left top, #fff, #eee, #eee, #eee, #eee);
 
-    form > section.help {
+    > section.help {
       float: left;
       box-sizing: border-box;
       -moz-box-sizing: border-box;
