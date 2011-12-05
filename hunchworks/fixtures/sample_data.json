@@ -24,9 +24,9 @@
         "model": "hunchworks.location",
         "fields":
         {
-            "name": "Miami, FL",
-            "latitude": "25.787778",
-            "longitude": "-80.224167"
+            "name": "Gulu, UG",
+            "latitude": "2.78",
+            "longitude": "32.3"
         }
     },
     {
@@ -34,9 +34,9 @@
         "model": "hunchworks.location",
         "fields":
         {
-            "name": "San Antonio, TX",
-            "latitude": "29.416667",
-            "longitude": "-98.5"
+            "name": "Kitgum, UG",
+            "latitude": "3.288889",
+            "longitude": "32.877778"
         }
     },
 
@@ -606,7 +606,7 @@
             "time_modified": "2011-10-28 00:00:00",
             "title": "There will be a serious cholera outbreak in the IDP camp in Gulu within a year",
             "description": "There is a scarcity of basic sanitary facilities, shortage of water, poor drainage, poor sanitation habits, and contaminated boreholes. It is only a matter of time before disease breaks out.",
-            "location": 2,
+            "location": 3,
             "user_profiles": [1, 2, 3, 4],
             "tags": [1, 2, 3, 4, 5]
         }
