@@ -9,6 +9,6 @@
       <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>
     </p>
 
-    <h2><a href="{% url hunch hunch_evidence.hunch.pk %}">{{ hunch_evidence.evidence }}</a></h2>
+    <h2><a href="{{ hunch_evidence.get_absolute_url }}">{{ hunch_evidence.evidence }}</a></h2>
   </div>
 </article>
