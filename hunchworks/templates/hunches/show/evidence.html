@@ -31,10 +31,35 @@
     </div>
   </section>
   <script>
-    $(function() {
+    /* Submit the vote forms as soon as a choice is selected. */
+    (function() {
       $("article.evidence div.vote-widget input").click(function() {
         $(this).closest("form").submit();
       });
-    });
+    })(jQuery);
+
+    /* Hide comment forms until their trigger link is clicked. */
+    (function() {
+      $("article.evidence section.comments form").each(function() {
+        var $form = $(this);
+
+        var $wrapper = $("<div>", { "class": "show" });
+        var $trigger = $("<a>", { "href": "", "html" :"Post a comment" });
+
+        var show = function () {
+          $wrapper.slideUp("fast", function() {
+            $form.slideDown("slow");
+          });
+        };
+
+        $trigger.click(function(event) {
+          event.preventDefault();
+          show();
+        });
+
+        $trigger.appendTo($wrapper);
+        $form.hide().before($wrapper);
+      });
+    })(jQuery);
   </script>
 {% endblock %}

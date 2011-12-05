@@ -250,6 +250,10 @@
     > ul > li {
       margin-bottom: $spacing/2;
       display: block;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     li {
@@ -261,7 +265,7 @@
           position: relative;
           margin: 0 62px;
           line-height: $line_height;
-          min-height: $line_height*2;
+          min-height: 48px;
           border: 2px solid #ccc;
           background: #fff;
           border-radius: 5px;
@@ -299,6 +303,12 @@
           background-image: url("../../img/bubble-arrow-left.png");
           left: -8px;
         }
+      }
+
+      > div.show {
+        text-align: center;
+        margin-top: $spacing;
+        color: #999;
       }
     }
   }
