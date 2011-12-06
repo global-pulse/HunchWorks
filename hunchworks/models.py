@@ -392,12 +392,6 @@ class Group(models.Model):
   def invite_to_hunch(self, sent_by, hunch):
     hunch.groups.add(self)
 
-  def logo_url(self):
-    if self.logo:
-      return self.logo.url
-    else:
-      return "http://i.imgur.com/BYf54.jpg"
-
   def member_count(self):
     return self.members.all().count()
 

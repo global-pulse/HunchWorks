@@ -1,7 +1,10 @@
 {% load bookmark_tags %}
 
 <article class="short group"><div>
-  <div class="img"><img src="{{ object.logo_url }}" height="100" class="logo"></div>
+  {% if object.logo %}
+    <div class="img"><img src="{{ object.logo.url }}" height="98" class="logo"></div>
+  {% endif %}
+
   <h2><a href="{{ object.get_absolute_url }}">{{ object }}</a></h2>
 
   <ul class="stats">
