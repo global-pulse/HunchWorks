@@ -82,6 +82,9 @@ server {
   server_name hw.adammck.com;
   listen 80;
 
+  error_page 500 /static/error/500.html;
+  error_page 502 /static/error/502.html;
+
   location /static/ {
     root /home/adammck/hunchworks/src;
   }
