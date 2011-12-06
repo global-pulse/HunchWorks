@@ -34,4 +34,5 @@ class EvidenceForm(forms.ModelForm):
         evidence.creator = creator
 
       evidence.save()
+      self.save_m2m()
       return evidence
