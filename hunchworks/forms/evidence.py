@@ -2,14 +2,15 @@
 
 from django import forms
 from django.db import transaction
-from djtokeninput.fields import TokenField
+from djtokeninput import TokenField, TokenWidget
 from hunchworks.fields import EmbedField, LocationField
 from hunchworks import models
 
 
 class EvidenceForm(forms.ModelForm):
   tags = TokenField(models.Tag, required=False,
-    help_text="Tags that you think would help others search for or find this Evidence")
+    help_text="Tags that you think would help others search for or find this Evidence",
+    widget=TokenWidget(prevent_duplicates=True, allow_creation=True))
 
   link = EmbedField(
     help_text='Enter an URL to be embedded. You can find a list of supported ' +
@@ -33,4 +34,5 @@ class EvidenceForm(forms.ModelForm):
         evidence.creator = creator
 
       evidence.save()
+      self.save_m2m()
       return evidence

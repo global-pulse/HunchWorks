@@ -2,7 +2,7 @@
 
 from django import forms
 from django.db import transaction
-from djtokeninput.fields import TokenField
+from djtokeninput import TokenField, TokenWidget
 from hunchworks.fields import EmbedField, LocationField, EvidencesField, ConnectionsField
 from hunchworks.forms.evidence import EvidenceForm
 from hunchworks import models
@@ -30,7 +30,8 @@ class HunchFormTwo(EvidenceForm):
 
 class HunchFormThree(forms.Form):
   tags = TokenField(models.Tag, required=False,
-    help_text="Tags should include keywords related to this hunch, to help other users find it.")
+    help_text="Tags should include keywords related to this hunch, to help other users find it.",
+    widget=TokenWidget(prevent_duplicates=True, allow_creation=True))
 
   location = LocationField(required=False,
     help_text="If the hunch is relative to a specific location, you can mark it here.")
@@ -52,7 +53,8 @@ class HunchFormFour(forms.Form):
 
 class HunchEditForm(forms.ModelForm):
   tags = TokenField(models.Tag, required=False,
-    help_text="Tags should include keywords related to this hunch, to help other users find it.")
+    help_text="Tags should include keywords related to this hunch, to help other users find it.",
+    widget=TokenWidget(prevent_duplicates=True, allow_creation=True))
 
   location = LocationField(required=False,
     help_text="If the hunch is relative to a specific location, you can mark it here.")

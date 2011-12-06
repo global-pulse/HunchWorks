@@ -496,6 +496,10 @@ class Tag(models.Model):
   def search(cls, term, user_profile=None):
     return cls.objects.filter(name__icontains=term)
 
+  @classmethod
+  def create_via_tokeninput(cls, value):
+    return cls.objects.create(name=value.strip())
+
 
 class Role(models.Model):
   group = models.ForeignKey('Group')
