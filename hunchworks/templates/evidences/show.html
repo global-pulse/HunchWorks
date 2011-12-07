@@ -1,6 +1,7 @@
 {% extends "evidences/base.html" %}
 {% load bookmark_tags %}
 {% load embed_tags %}
+{% load markup %}
 
 {% block body_id %}evidence-show{% endblock %}
 
@@ -12,14 +13,15 @@
 {% block content %}
   <article class="evidence">
     <header>
-      {% embed evidence.link %}
-
-      <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
-
-      {% if evidence.description %}
+      {% if evidence.link %}
+        {% embed evidence.link %}
+        <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
+      {% else %}
         <section class="desc">
-          {{ evidence.description|truncatewords:60|safe }}
+          {{ evidence.description|markdown }}
         </section>
+
+        <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
       {% endif %}
     </header>
 
