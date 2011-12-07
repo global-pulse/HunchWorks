@@ -358,6 +358,7 @@ def unfollow(req, hunch_id):
   return redirect(index)
 
 
+@login_required
 def add_evidence(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
 
