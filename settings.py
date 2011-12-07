@@ -178,10 +178,13 @@ CACHES = {
 
 EMBED_PROCESSORS = [
   "hunchworks.embeds.worldbank",
-  "djembedly.embeds.embedly"
+  "djembedly.embeds.embedly",
+  "djembedly.embeds.url2png"
 ]
 
 EMBEDLY_KEY = "b0383ffaf0ff11e0a68e4040d3dc5c07"
+URL2PNG_KEY = os.environ.get("HUNCHWORKS_URL2PNG_KEY", "")
+URL2PNG_SECRET = os.environ.get("HUNCHWORKS_URL2PNG_SECRET", "")
 
 AUTH_PROFILE_MODULE = 'hunchworks.UserProfile'
 
