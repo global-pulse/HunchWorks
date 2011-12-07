@@ -11,9 +11,8 @@ div.vote-widget {
     padding-left: $spacing*2;
 
     > li {
+      @include border-box;
       display: block;
-      box-sizing: border-box;
-      -moz-box-sizing: border-box;
       margin-left: $spacing/4;
       width: 20%;
       float: left;

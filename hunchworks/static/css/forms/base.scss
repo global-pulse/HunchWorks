@@ -1,12 +1,11 @@
 @import "../hunchworks.scss";
 
 input, textarea, select, button, ul.token-input-list, a.button {
+  @include border-box;
   display: block;
   font: inherit;
   clear: both;
   width: 100%;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
   border: 2px solid #999;
   background: #fffff8;
   border-radius: 3px;
@@ -82,10 +81,9 @@ form {
     }
 
     div.right {
+      @include border-box;
       float: left;
       width: 40%;
-      box-sizing: border-box;
-      -moz-box-sizing: border-box;
       padding-left: 2em;
     }
   }

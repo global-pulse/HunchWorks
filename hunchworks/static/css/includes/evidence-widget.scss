@@ -28,9 +28,8 @@
   }
 
   > div.search-results {
+    @include border-box;
     background: rgba(255, 255, 255, 0.95);
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
     border: 2px solid #ccc;
     box-shadow: 0 0 5px #aaa;
     -moz-box-shadow: 0 0 5px #aaa;

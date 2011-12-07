@@ -6,10 +6,9 @@
     padding: 1.5em;
 
     > article.group {
+      @include border-box;
       float: left;
       width: 50%;
-      box-sizing: border-box;
-      -moz-box-sizing: border-box;
       padding: 0.5em;
 
       > div {

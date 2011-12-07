@@ -7,7 +7,7 @@
 
     > div {
       &.left, &.right {
-        box-sizing: border-box;
+        @include border-box;
         padding: $spacing*2;
         float: left;
       }
