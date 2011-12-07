@@ -1,9 +1,16 @@
 {% load embed_tags %}
+{% load markup %}
 
 {% for hunch_evidence, comments, comment_form, vote_form in evidences %}
   <article class="evidence" id="{{ hunch_evidence.anchor }}">
     <div>
-      {% embed hunch_evidence.evidence.link %}
+      {% if hunch_evidence.evidence.link %}
+        {% embed hunch_evidence.evidence.link %}
+      {% else %}
+        <section class="desc">
+          {{ hunch_evidence.evidence.description|markdown }}
+        </section>
+      {% endif %}
 
       <header>
         <h3>{{ hunch_evidence.evidence }}</h3>
