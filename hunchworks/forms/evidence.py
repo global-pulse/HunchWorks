@@ -12,7 +12,7 @@ class EvidenceForm(forms.ModelForm):
     help_text="Tags that you think would help others search for or find this Evidence",
     widget=TokenWidget(prevent_duplicates=True, allow_creation=True))
 
-  link = EmbedField(
+  link = EmbedField(required=False,
     help_text='Enter an URL to be embedded. You can find a list of supported ' +
               'providers at <a href="http://embed.ly/providers">Embedly</a>.')
 

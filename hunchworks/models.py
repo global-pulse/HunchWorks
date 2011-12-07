@@ -338,7 +338,7 @@ class Evidence(models.Model):
   description = models.TextField(verbose_name="Further explanation", blank=True)
   location = models.ForeignKey('Location', null=True, blank=True)
   creator = models.ForeignKey('UserProfile')
-  link = models.CharField(max_length=255)
+  link = models.CharField(max_length=255, blank=True)
   upload = models.FileField(upload_to='evidence', blank=True, null=True)
   tags = models.ManyToManyField('Tag', blank=True)
 
