@@ -366,7 +366,7 @@ def add_evidence(req, hunch_id):
     form = forms.HunchEvidenceForm(req.POST)
 
     if form.is_valid():
-      hunch_evidence = form.save(user_profile=req.user.get_profile())
+      hunch_evidence = form.save(creator=req.user.get_profile())
       return redirect(hunch)
 
   else:

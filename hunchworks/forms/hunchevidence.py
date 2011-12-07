@@ -33,12 +33,12 @@ class HunchEvidenceForm(forms.ModelForm):
       if self.cleaned_data["comment"]:
         comment = models.Comment.objects.create(
           hunch_evidence=hunch_evidence,
-          creator=user_profile,
+          creator=creator,
           text=self.cleaned_data["comment"])
 
       vote = models.Vote.objects.create(
         hunch_evidence=hunch_evidence,
-        user_profile=user_profile,
+        user_profile=creator,
         choice=self.cleaned_data["vote"])
 
       return hunch_evidence
