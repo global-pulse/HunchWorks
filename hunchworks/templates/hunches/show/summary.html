@@ -9,8 +9,8 @@
       $(function() {
         $("article.hunch section.map > div").each(function() {
           if(window.google) {
-            var lat = {{ hunch.location.latitude|escapejs }};
-            var lng = {{ hunch.location.longitude|escapejs }};
+            var lat = parseFloat("{{ hunch.location.latitude|escapejs }}");
+            var lng = parseFloat("{{ hunch.location.longitude|escapejs }}");
             var latlng = new google.maps.LatLng(lat, lng);
 
             var map = new google.maps.Map(this, {
