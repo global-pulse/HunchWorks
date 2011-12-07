@@ -14,10 +14,17 @@ def bookmarks(context, obj):
   if "request" not in context:
     return { }
 
+  # Silently abort if the user isn't logged in, since anonymous users can't
+  # bookmark things. (They shouldn't even be *seeing* bookmarkable objects
+  # right now, but that will probably change.)
+  user = context["request"].user
+  if not user.is_authenticated():
+    return { }
+
   content_type = ContentType.objects.get_for_model(obj)
 
   bookmark_count = models.Bookmark.objects.filter(
-    user_profile=context['request'].user.get_profile(),
+    user_profile=user.get_profile(),
     content_type=content_type,
     object_id=obj.id
   ).count()
