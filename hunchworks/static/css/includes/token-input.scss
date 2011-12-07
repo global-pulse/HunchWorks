@@ -1,7 +1,7 @@
 @import "../hunchworks.scss";
 
 ul.token-input-list {
-  padding: 0.75em 0.5em !important;
+  padding: 0.75em 0.25em 0.25em 0.75em !important;
   cursor: text;
 }
 
@@ -9,6 +9,7 @@ ul.token-input-list {
   ul.token-input-list li input {
     border: none !important;
     padding: 0 !important;
+    margin-bottom: 0.5em;
   }
 
 li.token-input-input-token {
@@ -20,6 +21,7 @@ li.token-input-input-token {
 li.token-input-token {
   display: inline-block;
   margin-right: 0.5em;
+  margin-bottom: 0.5em;
   padding: 0.25em 0 0.25em 0.5em;
   background-color: #fff;
   cursor: default;
@@ -32,7 +34,7 @@ li.token-input-token {
   li.token-input-token p {
     display: inline-block;
   }
-  
+
   /* Added to .token-input-token when selected */
   li.token-input-selected-token {
     background-color: highlight;
