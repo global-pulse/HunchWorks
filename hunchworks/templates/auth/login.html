@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block body_id %}login{% endblock %}
+
 {% block title %}
   Log In &mdash;
   {{ block.super }}
@@ -11,23 +13,44 @@
 {% endblock %}
 
 {% block content %}
-  <form action="" method="post" class="auth login">
-    {{ form.non_field_errors }}
-    {% csrf_token %}
+  <div class="left">
+    <h2>Log in <span>Socially</span></h2>
+    <p class="help">
+      It's quick and easy to log into HunchWorks via your existing social
+      accounts. You can log out and revoke access at any time.
+    </p>
 
-    <div class="fields">
-      {% for field in form %}
-        {% include "includes/fields/base.html" %}
-      {% endfor %}
-    </div>
+    <ul class="providers">
+      <li class="linkedin"><a href="">Log in with LinkedIn</a></li>
+      <li class="twitter"><a href="">Log in with Twitter</a></li>
+      <li class="facebook"><a href="">Log in with Facebook</a></li>
+    </ul>
+  </div>
+  <div class="right">
+    <h2>Log in <span>Locally</span></h2>
+    <p class="help">
+      Some people prefer to keep their online identities separate, and that's
+      fine with HunchWorks. You can create an account and log in here.
+    </p>
 
-    <div class="actions">
-      <input type="submit" value="Log in"/>
+    <form action="" method="post" class="auth login">
+      {{ form.non_field_errors }}
+      {% csrf_token %}
 
-      <p>
-        Don't have a user account?
-        <a href="{% url signup %}">Sign up!</a>
-      </p>
-    </div>
-  </form>
+      <div class="fields">
+        {% for field in form %}
+          {% include "includes/fields/base.html" %}
+        {% endfor %}
+      </div>
+
+      <div class="actions">
+        <input type="submit" value="Log in"/>
+
+        <p>
+          Don't have a user account?
+          <a href="{% url signup %}">Sign up!</a>
+        </p>
+      </div>
+    </form>
+  </div>
 {% endblock %}
