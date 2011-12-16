@@ -55,7 +55,9 @@ USE_I18N = True
 USE_L10N = True
 
 # By default redirect to login page if user not authenticated
-LOGIN_URL="/login"
+LOGIN_URL          = "/login"
+LOGIN_ERROR_URL    = "/login/error/"
+LOGIN_REDIRECT_URL = "/"
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -115,8 +117,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
   "django.core.context_processors.i18n",
   "django.core.context_processors.media",
   "django.core.context_processors.static",
+  "django.contrib.messages.context_processors.messages",
+
+  # for pagination(?):
   "django.core.context_processors.request",
-  "django.contrib.messages.context_processors.messages")
+
+  # for social_auth:
+  "social_auth.context_processors.social_auth_by_type_backends"
+)
 
 MIDDLEWARE_CLASSES = (
   'django.middleware.common.CommonMiddleware',
@@ -141,6 +149,7 @@ INSTALLED_APPS = (
   'compressor',
   'djembedly',
   'djtokeninput',
+  "social_auth",
   'hunchworks')
 
 # In DEBUG mode, enable the Django admin.
@@ -201,3 +210,29 @@ SCSS_CMD = os.environ.get("HUNCHWORKS_SCSS", "scss")
 COMPRESS_PRECOMPILERS = (
   ("text/x-scss", "%s {infile} {outfile}" % SCSS_CMD),
 )
+
+AUTHENTICATION_BACKENDS = (
+  "social_auth.backends.twitter.TwitterBackend",
+  "social_auth.backends.facebook.FacebookBackend",
+  "social_auth.backends.google.GoogleOAuthBackend",
+  "social_auth.backends.google.GoogleOAuth2Backend",
+  "social_auth.backends.google.GoogleBackend",
+  "social_auth.backends.yahoo.YahooBackend",
+  "social_auth.backends.contrib.linkedin.LinkedinBackend",
+  "social_auth.backends.contrib.livejournal.LiveJournalBackend",
+  "social_auth.backends.contrib.orkut.OrkutBackend",
+  "social_auth.backends.contrib.foursquare.FoursquareBackend",
+  "social_auth.backends.contrib.github.GithubBackend",
+  "social_auth.backends.contrib.dropbox.DropboxBackend",
+  "social_auth.backends.contrib.flickr.FlickrBackend",
+  "social_auth.backends.OpenIDBackend",
+  "django.contrib.auth.backends.ModelBackend",
+)
+
+SOCIAL_AUTH_ENABLED_BACKENDS = ("twitter", "google", "linkedin")
+SOCIAL_AUTH_ERROR_KEY = "social_errors"
+
+GOOGLE_DISPLAY_NAME = "HunchWorks"
+
+try: from keys import *
+except ImportError: pass

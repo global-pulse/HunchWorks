@@ -29,6 +29,11 @@ def login(req):
   })
 
 
+def error(req):
+  return _render(req, "error", {
+})
+
+
 def signup(req):
   form = auth.forms.UserCreationForm(
     data=(req.POST or None))

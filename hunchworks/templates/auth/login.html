@@ -21,9 +21,9 @@
     </p>
 
     <ul class="providers">
-      <li class="linkedin"><a href="">Log in with LinkedIn</a></li>
-      <li class="twitter"><a href="">Log in with Twitter</a></li>
-      <li class="facebook"><a href="">Log in with Facebook</a></li>
+      <li class="linkedin"><a href="{% url socialauth_begin "linkedin" %}">Log in with LinkedIn</a></li>
+      <li class="twitter"><a href="{% url socialauth_begin "twitter" %}">Log in with Twitter</a></li>
+      <li class="facebook"><a href="{% url socialauth_begin "facebook" %}">Log in with Facebook</a></li>
     </ul>
   </div>
   <div class="right">
