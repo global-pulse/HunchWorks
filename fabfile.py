@@ -3,7 +3,7 @@
 from fabric.api import cd, env, prefix, local, run
 
 env.hosts = ["zoidberg.adammck.com"]
-code_dir = "/home/adammck/hunchworks/src"
+code_dir = "/home/adammck/hunchworks/repo"
 
 
 def delete_pyc_files():
