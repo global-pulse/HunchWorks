@@ -117,9 +117,13 @@
         {% block user_nav %}
           {% if user.is_authenticated %}
             <ul class="user">
+              <li class="avatar">
+                <img src="{{ user.get_profile.profile_picture_url }}" width="23" height="23">
+              </li>
+
+              <li class="{% ifactive "profile" %}active{% endifactive %}"><a href="{% url profile %}"><span>{{ user }}</span></a></li>
               <li class="{% ifactive "bookmarks" %}active{% endifactive %}"><a href="{% url bookmarked_all %}">My Starred Items</a></li>
               <li class="{% ifactive "connections" %}active{% endifactive %}"><a href="{% url connections %}">My Connections</a></li>
-              <li class="{% ifactive "profile" %}active{% endifactive %}"><a href="{% url profile %}">My Profile</a></li>
               <li class="{% ifactive "logout" %}active{% endifactive %}"><a href="{% url logout %}">Log out</a></li>
             </ul>
           {% endif %}

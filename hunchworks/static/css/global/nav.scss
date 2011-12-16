@@ -55,6 +55,20 @@ nav.user {
   > ul {
     padding: 1px;
   }
+
+  li.avatar {
+    img {
+      display: block;
+      border-radius: $spacing/4;
+    }
+
+    /* Disable hover effect. */
+    &:hover {
+      background: none !important;
+      border: none !important;
+      padding: 1px !important;
+    }
+  }
 }
 
 nav.site {
