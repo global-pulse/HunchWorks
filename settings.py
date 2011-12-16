@@ -229,7 +229,7 @@ AUTHENTICATION_BACKENDS = (
   "django.contrib.auth.backends.ModelBackend",
 )
 
-SOCIAL_AUTH_ENABLED_BACKENDS = ("twitter", "google", "linkedin")
+SOCIAL_AUTH_ENABLED_BACKENDS = ("twitter", "google", "linkedin", "facebook")
 SOCIAL_AUTH_ERROR_KEY = "social_errors"
 
 GOOGLE_DISPLAY_NAME = "HunchWorks"
