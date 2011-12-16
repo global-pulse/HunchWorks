@@ -101,9 +101,6 @@ STATICFILES_FINDERS = (
   'compressor.finders.CompressorFinder'
 )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '(3qv6!1g-ul*(pc@-g8*84eup7fmm74o^qap@^wpjv4sie5ckk'
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
   'django.template.loaders.filesystem.Loader',
@@ -191,10 +188,6 @@ EMBED_PROCESSORS = [
   "djembedly.embeds.embedly",
   "djembedly.embeds.url2png"
 ]
-
-EMBEDLY_KEY = "b0383ffaf0ff11e0a68e4040d3dc5c07"
-URL2PNG_KEY = os.environ.get("HUNCHWORKS_URL2PNG_KEY", "")
-URL2PNG_SECRET = os.environ.get("HUNCHWORKS_URL2PNG_SECRET", "")
 
 AUTH_PROFILE_MODULE = 'hunchworks.UserProfile'
 

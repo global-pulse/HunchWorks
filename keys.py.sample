@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+SECRET_KEY                   = ""
 TWITTER_CONSUMER_KEY         = ""
 TWITTER_CONSUMER_SECRET      = ""
 FACEBOOK_APP_ID              = ""
@@ -20,3 +21,6 @@ DROPBOX_APP_ID               = ""
 DROPBOX_API_SECRET           = ""
 FLICKR_APP_ID                = ""
 FLICKR_API_SECRET            = ""
+EMBEDLY_KEY                  = ""
+URL2PNG_KEY                  = ""
+URL2PNG_SECRET               = ""
