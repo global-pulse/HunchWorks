@@ -51,6 +51,14 @@ Running Tests
     $ fab test
 
 
+Acknowledgements
+----------------
+
+HunchWorks would not be possible without the following contributors:
+
+  * [Social Login Buttons] (http://www.komodomedia.com/blog/2009/06/sign-in-with-twitter-facebook-and-openid) by [Komodo Media] (http://www.komodomedia.com)
+
+
 License
 -------
 

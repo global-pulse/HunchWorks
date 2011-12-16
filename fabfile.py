@@ -3,7 +3,7 @@
 from fabric.api import cd, env, prefix, local, run
 
 env.hosts = ["zoidberg.adammck.com"]
-code_dir = "/home/adammck/hunchworks/src"
+code_dir = "/home/adammck/hunchworks/repo"
 
 
 def delete_pyc_files():
@@ -43,5 +43,8 @@ def deploy():
       run("./manage.py syncdb --noinput")
       run("./manage.py collectstatic --noinput")
       run("./manage.py loaddata sample_data")
+
+      # copy the API keys into the code dir.
+      run("cp ../keys.py .")
 
   start()

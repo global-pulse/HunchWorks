@@ -19,10 +19,12 @@ urlpatterns = patterns(
   url(r"^$", dashboard.dashboard, name="dashboard"),
 
   # auth
-  url(r"^login$",       auth.login,        name="login"),
-  url(r"^logout$",      auth.logout,       name="logout"),
-  url(r"^signup$",      auth.signup,       name="signup"),
-  url(r"^invitePeople", auth.invitePeople, name="invitePeople"),
+  url(r"^login$",        auth.login,        name="login"),
+  url(r"^login/error/$", auth.error,        name="login_error"),
+  url(r"^logout$",       auth.logout,       name="logout"),
+  url(r"^signup$",       auth.signup,       name="signup"),
+  url(r"^invitePeople",  auth.invitePeople, name="invitePeople"),
+  url(r"", include("social_auth.urls")),
 
   # users
   url(r"^profile/(?P<user_id>\d+)$",         users.profile,     name="profile"),

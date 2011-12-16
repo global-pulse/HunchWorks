@@ -20,8 +20,8 @@ $ source bin/activate
 
 # Grab the latest source from GitHub.
 $ sudo yum install git
-$ git clone git://github.com/global-pulse/HunchWorks.git src
-$ cd src
+$ git clone git://github.com/global-pulse/HunchWorks.git repo
+$ cd repo
 
 # Install PIL build dependencies.
 $ sudo yum install gcc libxml2-devel libxslt-devel libjpeg-devel
@@ -60,7 +60,7 @@ $ sudo lokkit -p http:tcp
 
 ```
 [program:hunchworks]
-directory=/home/adammck/hunchworks/src
+directory=/home/adammck/hunchworks/repo
 command=/home/adammck/hunchworks/bin/gunicorn_django -b 0.0.0.0:8001
 environment=HUNCHWORKS_DEBUG=False
 user=adammck
@@ -86,7 +86,7 @@ server {
   error_page 502 /static/error/502.html;
 
   location /static/ {
-    root /home/adammck/hunchworks/src;
+    root /home/adammck/hunchworks/repo;
   }
 
   location / {

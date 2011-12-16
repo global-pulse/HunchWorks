@@ -1,14 +1,70 @@
 @import "../hunchworks.scss";
 
-form.auth {
+body#login {
+  #page {
+    div.left, div.right {
+      @include border-box;
+      padding: $spacing*2;
+      float: left;
+      width: 50%;
 
-  > div.fields {
-    padding: 8em 30%;
-  }
+      h2 {
+        color: #999;
+        font-size: 160%;
+        text-align: center;
+        margin-bottom: $spacing*2;
 
-  > div.actions > p {
-    padding: 0.5em 0;
-    margin: 1px 0;
-    color: #666;
+        span {
+          font-weight: bold;
+          color: #000;
+        }
+      }
+
+      p.help {
+        color: #666;
+        border: 1px solid #ddd;
+        background: #eee;
+        padding: $spacing;
+        line-height: $line-height;
+      }
+    }
+
+    div.left  { padding-right: $spacing; }
+    div.right { padding-left: $spacing; }
+
+    ul.providers {
+      margin-top: $spacing;
+
+      li {
+        display: block;
+        margin: 0 auto;
+        width: 150px;
+
+        a {
+          display: block;
+          height: 22px;
+          text-indent: -9999px;
+          margin-bottom: $spacing/2;
+        }
+
+        &:hover {
+          background-position: 0 -24px;
+        }
+
+        &:active {
+          background-position: 0 -48px;
+        }
+
+        &.twitter  { background-image: url(../../img/auth/twitter_signin.png); }
+        &.linkedin { background-image: url(../../img/auth/linkedin_signin.png); }
+        &.facebook { background-image: url(../../img/auth/facebook_signin.png); }
+      }
+    }
+
+    form div.actions p {
+      padding: 0.5em 0;
+      margin: 1px 0;
+      color: #666;
+    }
   }
 }
