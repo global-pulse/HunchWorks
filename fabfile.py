@@ -44,4 +44,7 @@ def deploy():
       run("./manage.py collectstatic --noinput")
       run("./manage.py loaddata sample_data")
 
+      # copy the API keys into the code dir.
+      run("cp ../keys.py .")
+
   start()
