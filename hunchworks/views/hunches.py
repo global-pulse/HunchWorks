@@ -133,13 +133,26 @@ def activity(req, hunch_id):
 
 
 @login_required
-def evidence(req, hunch_id):
+def hunch_evidences(req, hunch_id):
   hunch = get_object_or_404(models.Hunch, pk=hunch_id)
   hunch_evidences = paginated(req, models.HunchEvidence.objects.filter(hunch=hunch), 20)
 
-  return _render(req, "show/evidence", {
+  return _render(req, "show/evidences", {
     "hunch": hunch,
     "hunch_evidences": hunch_evidences,
+  })
+
+
+@login_required
+def hunch_evidence(req, hunch_id, evidence_id):
+  hunch = get_object_or_404(models.Hunch, pk=hunch_id)
+  evidence = get_object_or_404(models.Evidence, pk=evidence_id)
+  hunch_evidence = models.HunchEvidence.objects.get(hunch=hunch_id, evidence=evidence_id)
+
+  return _render(req, "show/evidence", {
+    "hunch": hunch,
+    "evidence": evidence,
+    "hunch_evidence": hunch_evidence,
   })
 
 

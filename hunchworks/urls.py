@@ -54,7 +54,6 @@ urlpatterns = patterns(
   url(r"^hunches/open$",                           hunches.open,         name="open_hunches"),
   url(r"^hunches/(?P<hunch_id>\d+)$",              hunches.show,         name="hunch"),
   url(r"^hunches/(?P<hunch_id>\d+)/activity$",     hunches.activity,     name="hunch_activity"),
-  url(r"^hunches/(?P<hunch_id>\d+)/evidence$",     hunches.evidence,     name="hunch_evidence"),
   url(r"^hunches/(?P<hunch_id>\d+)/comments$",     hunches.comments,     name="hunch_comments"),
   url(r"^hunches/(?P<hunch_id>\d+)/contributors$", hunches.contributors, name="hunch_contributors"),
   url(r"^hunches/(?P<hunch_id>\d+)/permissions$",  hunches.permissions,  name="hunch_permissions"),
@@ -62,6 +61,9 @@ urlpatterns = patterns(
   url(r"^hunches/(?P<hunch_id>\d+)/edit$",         hunches.edit,         name="edit_hunch"),
   url(r"^hunches/(?P<hunch_id>\d+)/follow$",       hunches.follow,       name="follow_hunch"),
   url(r"^hunches/(?P<hunch_id>\d+)/unfollow$",     hunches.unfollow,     name="unfollow_hunch"),
+
+  url(r"^hunches/(?P<hunch_id>\d+)/evidence$",                      hunches.hunch_evidences, name="hunch_evidences"),
+  url(r"^hunches/(?P<hunch_id>\d+)/evidence/(?P<evidence_id>\d+)$", hunches.hunch_evidence,  name="hunch_evidence"),
 
   # create hunch wizard
   url(r'^hunches/create$', hunches.HunchWizard.as_view([

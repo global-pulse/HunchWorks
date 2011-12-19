@@ -70,7 +70,7 @@
       <ul>
         <li class="{% ifactive "hunch"              hunch.pk %}active {% endifactive %}{% block overview_tab_class     %}{% endblock %}"><a href="{% url hunch              hunch.pk %}">Overview</a></li>
         <li class="{% ifactive "hunch_activity"     hunch.pk %}active {% endifactive %}{% block activity_tab_class     %}{% endblock %}"><a href="{% url hunch_activity     hunch.pk %}">Activity</a></li>
-        <li class="{% ifactive "hunch_evidence"     hunch.pk %}active {% endifactive %}{% block evidence_tab_class     %}{% endblock %}"><a href="{% url hunch_evidence     hunch.pk %}">Evidence <span>{{ hunch.evidence_count }}</span></a></li>
+        <li class="{% ifactive "hunch_evidences"    hunch.pk %}active {% endifactive %}{% block evidence_tab_class     %}{% endblock %}"><a href="{% url hunch_evidences    hunch.pk %}">Evidence <span>{{ hunch.evidence_count }}</span></a></li>
         <li class="{% ifactive "hunch_comments"     hunch.pk %}active {% endifactive %}{% block comments_tab_class     %}{% endblock %}"><a href="{% url hunch_comments     hunch.pk %}">Comments <span>{{ hunch.comment_count }}</span></a></li>
         <li class="{% ifactive "hunch_contributors" hunch.pk %}active {% endifactive %}{% block contributors_tab_class %}{% endblock %}"><a href="{% url hunch_contributors hunch.pk %}">Contributors <span>{{ hunch.contributor_count }}</span></a></li>
       </ul>

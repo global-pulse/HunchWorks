@@ -1,40 +1,36 @@
 {% extends "hunches/show/base.html" %}
-{% load paginator_tags %}
+{% load bookmark_tags %}
 {% load embed_tags %}
+{% load markup %}
 
 {% block title %}
   Evidence &mdash;
   {{ block.super }}
 {% endblock %}
 
+{% block evidence_tab_class %}active{% endblock %}
+
 {% block secondary_content %}
-  {% if hunch_evidences.object_list %}
+  <article class="evidence full">
+    <header>
+      {% if evidence.link %}
+        {% embed evidence.link %}
+        <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
+      {% else %}
+        <section class="desc">
+          {{ evidence.description|markdown }}
+        </section>
 
-    <section class="object-list evidence">
-      {% for object in hunch_evidences.object_list %}
+        <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
+      {% endif %}
+    </header>
 
-        <article class="evidence short" data-id="{{ object.evidence.id }}">
-          {% embed object.evidence.link %}
-          <h2><a href="">{{ object.evidence }}</a></h2>
+    <!--<ul class="meta">
+      <li class="source"><span>Source:</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
+      <li class="date"><span>Posted:</span> {{ evidence.time_created|date:"j F Y" }}</li>
+      <li class="creator"><span>By:</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
+    </ul>-->
 
-          <ul class="stats">
-            <li>Added by: {{ object.creator }}</li>
-            <li>Comments: {{ object.comment_set.count }}</li>
-            <li>Votes: {{ object.vote_set.count }}</li>
-          </ul>
-        </article>
-
-      {% endfor %}
-    </section>
-
-    {% include "includes/evidences/list.html" with object_list=evidences.object_list %}
-  {% else %}
-    <div class="empty-list">
-      <p>No evidence has been added to this hunch yet.</p>
-    </div>
-  {% endif %}
-{% endblock %}
-
-{% block paginator %}
-  {% paginator hunch_evidences %}
+    {% bookmarks evidence %}
+  </article>
 {% endblock %}
