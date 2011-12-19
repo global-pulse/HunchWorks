@@ -91,5 +91,7 @@
       <li><a href="{% url hunch_permissions hunch.pk %}">Edit Permissions</a></li>
       <li><a href="{% url edit_hunch hunch.pk %}">Edit This Hunch</a></li>
     </ul>
+
+    {% block paginator %}{% endblock %}
   </div>
 {% endblock %}

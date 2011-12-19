@@ -1,4 +1,6 @@
 {% extends "hunches/show/base.html" %}
+{% load paginator_tags %}
+{% load embed_tags %}
 
 {% block title %}
   Evidence &mdash;
@@ -6,60 +8,33 @@
 {% endblock %}
 
 {% block secondary_content %}
-  <section class="evidence">
-    <div class="for">
-      <h2>Evidence <span>for</span> this hunch</h2>
-      <div class="add"><a href="{% url add_hunch_evidence hunch.pk %}">Add more supporting evidence</a></div>
-      {% if evidences_for %}
-        {% include "hunches/evidences.html" with evidences=evidences_for %}
-      {% else %}
-        <div class="empty-list">
-          <p>No supporting evidence has been added yet.</p>
-        </div>
-      {% endif %}
+  {% if hunch_evidences.object_list %}
+
+    <section class="object-list evidence">
+      {% for object in hunch_evidences.object_list %}
+
+        <article class="evidence short" data-id="{{ object.evidence.id }}">
+          {% embed object.evidence.link %}
+          <h2><a href="">{{ object.evidence }}</a></h2>
+
+          <ul class="stats">
+            <li>Added by: {{ object.creator }}</li>
+            <li>Comments: {{ object.comment_set.count }}</li>
+            <li>Votes: {{ object.vote_set.count }}</li>
+          </ul>
+        </article>
+
+      {% endfor %}
+    </section>
+
+    {% include "includes/evidences/list.html" with object_list=evidences.object_list %}
+  {% else %}
+    <div class="empty-list">
+      <p>No evidence has been added to this hunch yet.</p>
     </div>
-    <div class="against">
-      <h2>Evidence <span>against</span> this hunch</h2>
-      <div class="add"><a href="{% url add_hunch_evidence hunch.pk %}">Add more refuting evidence</a></div>
-      {% if evidences_against %}
-        {% include "hunches/evidences.html" with evidences=evidences_against %}
-      {% else %}
-        <div class="empty-list">
-          <p>No refuting evidence has been added yet.</p>
-        </div>
-      {% endif %}
-    </div>
-  </section>
-  <script>
-    /* Submit the vote forms as soon as a choice is selected. */
-    (function() {
-      $("article.evidence div.vote-widget input").click(function() {
-        $(this).closest("form").submit();
-      });
-    })(jQuery);
+  {% endif %}
+{% endblock %}
 
-    /* Hide comment forms until their trigger link is clicked. */
-    (function() {
-      $("article.evidence section.comments form").each(function() {
-        var $form = $(this);
-
-        var $wrapper = $("<div>", { "class": "show" });
-        var $trigger = $("<a>", { "href": "", "html" :"Post a comment" });
-
-        var show = function () {
-          $wrapper.slideUp("fast", function() {
-            $form.slideDown("slow");
-          });
-        };
-
-        $trigger.click(function(event) {
-          event.preventDefault();
-          show();
-        });
-
-        $trigger.appendTo($wrapper);
-        $form.hide().before($wrapper);
-      });
-    })(jQuery);
-  </script>
+{% block paginator %}
+  {% paginator hunch_evidences %}
 {% endblock %}
