@@ -76,10 +76,22 @@
       </ul>
     </nav>
 
+    <aside class="sidebar">
+      {% if hunch.get_related_hunches %}
+        <h2>Related <span>Hunches</span></h2>
+        {% include "includes/hunches/list.html" with object_list=hunch.get_related_hunches %}
+      {% endif %}
+    </aside>
+
 
     <div class="inner">
       {% block secondary_content %}{% endblock %}
     </div>
+
+
+    <script>
+      $("div.inner, aside.sidebar").equalHeight();
+    </script>
 
 
     {% bookmarks hunch %}

@@ -10,6 +10,8 @@
 #hunch-show {
 
   article.hunch {
+    background: #f8f8f8 url("../../img/bg2.png");
+    overflow: hidden;
 
     > header {
       color: #999;
@@ -45,6 +47,7 @@
         padding: 0.25em 0;
 
         > div {
+          background: #fff;
           border: 2px solid #ccc;
           border-radius: 5px;
           -moz-border-radius: 5px;
@@ -78,8 +81,45 @@
 
 
   div.inner {
+    background: #fff;
     overflow: hidden;
     padding: $spacing*2;
+    border-right: 1px solid #ccc;
+    box-shadow: 0 0 20px #ccc;
+  }
+
+
+  nav.tabs {
+    width: 70%;
+  }
+
+
+  aside {
+    @include border-box;
+    float: right;
+    width: 30%;
+    padding: $spacing*2;
+
+    > h2 {
+      text-align: center;
+      font-size: 160%;
+      color: #999;
+      margin-bottom: $spacing;
+
+      > span {
+        font-weight: bold;
+        color: #000;
+      }
+    }
+    
+    article.hunch {
+      background: #fff;
+    }
+  }
+
+
+  div.links {
+    border-top: 1px solid #ddd;
   }
 
 
