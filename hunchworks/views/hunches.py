@@ -149,10 +149,20 @@ def hunch_evidence(req, hunch_id, evidence_id):
   evidence = get_object_or_404(models.Evidence, pk=evidence_id)
   hunch_evidence = models.HunchEvidence.objects.get(hunch=hunch_id, evidence=evidence_id)
 
+  form = forms.CommentForm(req.POST or None, initial={
+    "hunch_evidence": hunch_evidence
+  })
+
+  if form.is_valid():
+    comment = form.save(creator=req.user.get_profile())
+    return redirect(comment)
+
   return _render(req, "show/evidence", {
     "hunch": hunch,
     "evidence": evidence,
     "hunch_evidence": hunch_evidence,
+    "comments": hunch_evidence.comment_set.all(),
+    "form": form
   })
 
 

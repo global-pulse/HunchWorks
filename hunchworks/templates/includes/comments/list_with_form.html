@@ -1,0 +1,13 @@
+<section class="object-list comments">
+  <ul>
+    {% for object in object_list %}
+      <li>
+        {% include "includes/comments/short.html" %}
+      </li>
+    {% endfor %}
+
+    <li>
+      {% include "includes/comments/form.html" with form=form %}
+    </li>
+  </ul>
+</section>

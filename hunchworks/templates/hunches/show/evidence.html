@@ -33,4 +33,6 @@
 
     {% bookmarks evidence %}
   </article>
+
+  {% include "includes/comments/list_with_form.html" with object_list=comments form=form %}
 {% endblock %}
