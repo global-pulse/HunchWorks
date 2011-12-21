@@ -94,8 +94,7 @@ nav.site {
 nav.tabs {
 
   > ul {
-    border-bottom: 1px solid #bbb;
-    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));
+    border-bottom: 1px solid #ccc;
     padding-left: $spacing*2;
 
     /* To force the last pixel of the nested <li>s to overlap the bottom

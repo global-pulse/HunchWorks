@@ -70,16 +70,28 @@
       <ul>
         <li class="{% ifactive "hunch"              hunch.pk %}active {% endifactive %}{% block overview_tab_class     %}{% endblock %}"><a href="{% url hunch              hunch.pk %}">Overview</a></li>
         <li class="{% ifactive "hunch_activity"     hunch.pk %}active {% endifactive %}{% block activity_tab_class     %}{% endblock %}"><a href="{% url hunch_activity     hunch.pk %}">Activity</a></li>
-        <li class="{% ifactive "hunch_evidence"     hunch.pk %}active {% endifactive %}{% block evidence_tab_class     %}{% endblock %}"><a href="{% url hunch_evidence     hunch.pk %}">Evidence <span>{{ hunch.evidence_count }}</span></a></li>
+        <li class="{% ifactive "hunch_evidences"    hunch.pk %}active {% endifactive %}{% block evidence_tab_class     %}{% endblock %}"><a href="{% url hunch_evidences    hunch.pk %}">Evidence <span>{{ hunch.evidence_count }}</span></a></li>
         <li class="{% ifactive "hunch_comments"     hunch.pk %}active {% endifactive %}{% block comments_tab_class     %}{% endblock %}"><a href="{% url hunch_comments     hunch.pk %}">Comments <span>{{ hunch.comment_count }}</span></a></li>
         <li class="{% ifactive "hunch_contributors" hunch.pk %}active {% endifactive %}{% block contributors_tab_class %}{% endblock %}"><a href="{% url hunch_contributors hunch.pk %}">Contributors <span>{{ hunch.contributor_count }}</span></a></li>
       </ul>
     </nav>
 
+    <aside class="sidebar">
+      {% if hunch.get_related_hunches %}
+        <h2>Related <span>Hunches</span></h2>
+        {% include "includes/hunches/list.html" with object_list=hunch.get_related_hunches %}
+      {% endif %}
+    </aside>
+
 
     <div class="inner">
       {% block secondary_content %}{% endblock %}
     </div>
+
+
+    <script>
+      $("div.inner, aside.sidebar").equalHeight();
+    </script>
 
 
     {% bookmarks hunch %}
@@ -91,5 +103,7 @@
       <li><a href="{% url hunch_permissions hunch.pk %}">Edit Permissions</a></li>
       <li><a href="{% url edit_hunch hunch.pk %}">Edit This Hunch</a></li>
     </ul>
+
+    {% block paginator %}{% endblock %}
   </div>
 {% endblock %}

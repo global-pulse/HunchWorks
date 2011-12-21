@@ -319,6 +319,9 @@ class Hunch(models.Model, events.HasEvents):
 
   def contributor_count(self):
     return self.contributors().count()
+  
+  def get_related_hunches(self, limit=4):
+    return Hunch.objects.all()[:limit]
 
 
 post_save.connect(
@@ -536,7 +539,7 @@ class Comment(models.Model):
   @models.permalink
   def get_absolute_base_url(self):
     if self.hunch_evidence:
-      return ("hunch_evidence", [self.hunch_evidence.hunch.pk])
+      return ("hunch_evidence", [self.hunch_evidence.hunch.pk, self.hunch_evidence.evidence.pk])
 
     elif self.hunch:
       return ("hunch_comments", [self.hunch.pk])
@@ -565,14 +568,8 @@ class HunchEvidence(models.Model):
     unique_together = ("hunch", "evidence")
 
   @models.permalink
-  def get_absolute_base_url(self):
-    return ("hunch_evidence", [self.hunch.pk])
-
   def get_absolute_url(self):
-    return self.get_absolute_base_url() + "#" + self.anchor()
-
-  def anchor(self):
-    return "he%d" % self.pk
+    return ("hunch_evidence", [self.hunch.pk, self.evidence.pk])
 
   def save(self, *args, **kwargs):
     self.support_cache = self.get_support()

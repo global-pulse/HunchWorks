@@ -10,6 +10,8 @@
 #hunch-show {
 
   article.hunch {
+    background: #f8f8f8 url("../../img/bg2.png");
+    overflow: hidden;
 
     > header {
       color: #999;
@@ -45,6 +47,7 @@
         padding: 0.25em 0;
 
         > div {
+          background: #fff;
           border: 2px solid #ccc;
           border-radius: 5px;
           -moz-border-radius: 5px;
@@ -78,8 +81,45 @@
 
 
   div.inner {
+    background: #fff;
     overflow: hidden;
     padding: $spacing*2;
+    border-right: 1px solid #ccc;
+    box-shadow: 0 0 20px #ccc;
+  }
+
+
+  nav.tabs {
+    width: 70%;
+  }
+
+
+  aside {
+    @include border-box;
+    float: right;
+    width: 30%;
+    padding: $spacing*2;
+
+    > h2 {
+      text-align: center;
+      font-size: 160%;
+      color: #999;
+      margin-bottom: $spacing;
+
+      > span {
+        font-weight: bold;
+        color: #000;
+      }
+    }
+    
+    article.hunch {
+      background: #fff;
+    }
+  }
+
+
+  div.links {
+    border-top: 1px solid #ddd;
   }
 
 
@@ -92,7 +132,7 @@
     }
 
     > ul.tags {
-      margin-top: $spacing;
+      margin-top: $spacing/2;
     }
   }
 
@@ -127,179 +167,8 @@
   }
 
 
-  section.evidence {
-    clear: both;
-    padding-left: $spacing;
-    overflow: hidden;
-
-    > div {
-      @include border-box;
-      width: 50%;
-      float: left;
-
-      &.for {
-        margin-left: -$spacing;
-        margin-right: $spacing;
-      }
-
-      > h2 {
-        text-align: center;
-        font-size: 160%;
-        color: #999;
-
-        > span {
-          font-weight: bold;
-          color: #000;
-        }
-      }
-
-      > div.add {
-        text-align: center;
-        margin-top: $spacing/2;
-        color: #999;
-      }
-    }
-
-    &.empty-list {
-      margin-top: 1em;
-    }
-  }
-
-
-  article.evidence {
-    background: #eee url("../../img/bg.png");
-    box-shadow: 0 0 5px #ccc;
-    -moz-box-shadow: 0 0 5px #ccc;
-    margin-top: 1em;
-
-    > div {
-      position: relative;
-      border: 1px solid #ccc;
-
-      &:hover {
-        > header, > ul.meta {
-          display: block;
-        }
-      }
-
-      > .embed {
-        display: block;
-        background: #fff;
-        text-align: center;
-        overflow: hidden;
-
-        img, object, embed {
-          display: block;
-          margin: 0 auto;
-          max-width: 448px;
-          max-height: 448px;
-        }
-      }
-
-      > section.desc {
-        @include border-box;
-        background: #ffe;
-        line-height: 1.4;
-        padding: 2em;
-        max-height: 450px;
-        overflow-x: hidden;
-        overflow-y: scroll;
-
-        p {
-          font-size: 125%;
-          margin-top: 0.4em;
-          line-height: 1.4;
-        }
-      }
-
-      > header,
-      > ul.meta {
-        display: none;
-        position: absolute;
-        text-align: center;
-        left: 0;
-        width: 100%;
-        background: #000;
-        background: rgba(0, 0, 0, 0.5);
-        color: #fff;
-      }
-
-      > header {
-        top: 0;
-        font-size: 125%;
-        padding: 0.8em 0;
-      }
-
-      > ul.meta {
-        bottom: 0;
-        font-size: 80%;
-        padding: 0.625em 0;
-
-        > li {
-          display: inline-block;
-          margin-right: 1em;
-
-          &:last-child {
-            margin-right: 0;
-          }
-        }
-      }
-    }
-
-    > a.show-comment-form {
-      clear: both;
-      display: block;
-      border: 1px solid #ccc;
-      background: rgba(0, 0, 0, 0.05);
-      border-top: none;
-      text-align: center;
-      padding: 0.5em;
-    }
-  }
-
-
-  section.vote {
-    border: 1px solid #ccc;
-    border-bottom-style: dashed;
-    border-top: none;
-    padding: 1em;
-
-    > h3 {
-      text-align: center;
-      margin-bottom: 1em;
-      font-weight: bold;
-      color: #999;
-    }
-
-    > form {
-
-      > div.field.choice {
-        margin-bottom: 0;
-
-        > div.label,
-        > ul.errorlist {
-          display: none;
-        }
-      }
-
-      div.actions {
-        display: none;
-      }
-    }
-  }
-
-
   section.comments {
     overflow: hidden;
-
-    &.on-hunch {
-    }
-
-    &.on-evidence {
-      border: 1px solid #ccc;
-      border-top: none;
-      padding: 1em;
-    }
 
     > ul > li {
       margin-bottom: $spacing/2;

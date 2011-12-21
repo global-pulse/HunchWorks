@@ -1,0 +1,8 @@
+<div class="comment{% ifequal request.user.get_profile object.creator %} mine{% endifequal %}" id="c{{ object.pk }}">
+  {% include "includes/users/short.html" with object=object.creator %}
+  
+  <div class="bubble">
+    <div class="arrow"></div>
+    {{ object.text }}
+  </div>
+</div>

@@ -1,65 +1,38 @@
 {% extends "hunches/show/base.html" %}
+{% load bookmark_tags %}
+{% load embed_tags %}
+{% load markup %}
 
 {% block title %}
   Evidence &mdash;
   {{ block.super }}
 {% endblock %}
 
+{% block evidence_tab_class %}active{% endblock %}
+
 {% block secondary_content %}
-  <section class="evidence">
-    <div class="for">
-      <h2>Evidence <span>for</span> this hunch</h2>
-      <div class="add"><a href="{% url add_hunch_evidence hunch.pk %}">Add more supporting evidence</a></div>
-      {% if evidences_for %}
-        {% include "hunches/evidences.html" with evidences=evidences_for %}
+  <article class="evidence full">
+    <header>
+      {% if evidence.link %}
+        {% embed evidence.link %}
+        <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
       {% else %}
-        <div class="empty-list">
-          <p>No supporting evidence has been added yet.</p>
-        </div>
+        <section class="desc">
+          {{ evidence.description|markdown }}
+        </section>
+
+        <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
       {% endif %}
-    </div>
-    <div class="against">
-      <h2>Evidence <span>against</span> this hunch</h2>
-      <div class="add"><a href="{% url add_hunch_evidence hunch.pk %}">Add more refuting evidence</a></div>
-      {% if evidences_against %}
-        {% include "hunches/evidences.html" with evidences=evidences_against %}
-      {% else %}
-        <div class="empty-list">
-          <p>No refuting evidence has been added yet.</p>
-        </div>
-      {% endif %}
-    </div>
-  </section>
-  <script>
-    /* Submit the vote forms as soon as a choice is selected. */
-    (function() {
-      $("article.evidence div.vote-widget input").click(function() {
-        $(this).closest("form").submit();
-      });
-    })(jQuery);
+    </header>
 
-    /* Hide comment forms until their trigger link is clicked. */
-    (function() {
-      $("article.evidence section.comments form").each(function() {
-        var $form = $(this);
+    <!--<ul class="meta">
+      <li class="source"><span>Source:</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
+      <li class="date"><span>Posted:</span> {{ evidence.time_created|date:"j F Y" }}</li>
+      <li class="creator"><span>By:</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
+    </ul>-->
 
-        var $wrapper = $("<div>", { "class": "show" });
-        var $trigger = $("<a>", { "href": "", "html" :"Post a comment" });
+    {% bookmarks evidence %}
+  </article>
 
-        var show = function () {
-          $wrapper.slideUp("fast", function() {
-            $form.slideDown("slow");
-          });
-        };
-
-        $trigger.click(function(event) {
-          event.preventDefault();
-          show();
-        });
-
-        $trigger.appendTo($wrapper);
-        $form.hide().before($wrapper);
-      });
-    })(jQuery);
-  </script>
+  {% include "includes/comments/list_with_form.html" with object_list=comments form=form %}
 {% endblock %}
