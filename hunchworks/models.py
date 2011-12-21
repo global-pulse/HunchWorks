@@ -320,8 +320,8 @@ class Hunch(models.Model, events.HasEvents):
   def contributor_count(self):
     return self.contributors().count()
   
-  def get_related_hunches(self):
-    return Hunch.objects.all()
+  def get_related_hunches(self, limit=4):
+    return Hunch.objects.all()[:limit]
 
 
 post_save.connect(
