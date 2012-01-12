@@ -4,17 +4,22 @@
 {% load bookmark_tags %}
 
 {% block content %}
+  {% block header %}
+  {% endblock %}
+
   {% if groups.object_list %}
     {% include "includes/groups/list.html" with object_list=groups.object_list %}
   {% else %}
     {% block empty %}{% endblock %}
   {% endif %}
+{% endblock %}
 
-  <div class="links">
+{% block links %}
+  <nav class="links">
     <ul>
       <li><a href="{% url create_group %}">Create a Group</a></li>
     </ul>
 
     {% paginator groups %}
-  </div>
+  </nav>
 {% endblock %}

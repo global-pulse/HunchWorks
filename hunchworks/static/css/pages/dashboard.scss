@@ -1,55 +1,26 @@
-@import "../hunchworks.scss";
+/*= pages/dashboard.scss */
 
-#dashboard {
-
-  #page {
-    overflow: hidden;
-
-    > div {
-      &.left, &.right {
-        @include border-box;
-        padding: $spacing*2;
-        float: left;
-      }
-
-      &.left {
-        padding-right: $spacing;
-        width: $major_column_width;
-      }
-
-      &.right {
-        padding-left: $spacing;
-        width: $minor_column_width;
-
-        div.contribute {
-          li {
-            display: block;
-            text-align: center;
-            margin-bottom: $spacing/2;
-
-            a {
-              text-decoration: none;
-              font-size: 125%;
-            }
-          }
-        }
-      }
-
-      > h2 {
-        text-align: center;
-        font-size: 160%;
-        color: #999;
-        margin-top: $spacing*2;
-        margin-bottom: $spacing;
-
-        &:first-child {
-          margin-top: 0;
-        }
-
-        > span {
-          font-weight: bold;
-          color: #000;
-        }
+body#dashboard {
+  div.right h2 {
+    margin-top: $line-height * 2;
+    
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  
+  div.contribute {
+    li {
+      display: block;
+      text-align: center;
+      margin-bottom: $line-height;
+      margin-left: 0;
+  
+      a {
+        padding: 0 $spacing;
+        text-decoration: none;
+        font-size: $font-size * 1.2;
+        line-height: $line-height * 2;
       }
     }
   }

@@ -1,11 +1,15 @@
 {% load bookmark_tags %}
 
-<article class="short group"><div>
+<article class="group short" data-id="{{ object.id }}">
+  <h3><a href="{{ object.get_absolute_url }}">{{ object }}</a></h3>
+
   {% if object.logo %}
-    <div class="img"><img src="{{ object.logo.url }}" height="98" class="logo"></div>
+    <div class="image">
+      <img src="{{ object.logo.url }}">
+    </div>
   {% endif %}
 
-  <h2><a href="{{ object.get_absolute_url }}">{{ object }}</a></h2>
+  {% include "includes/users/list.html" with object_list=object.members.all %}
 
   <ul class="stats">
     <li>{{ object.member_count }} members</li>
@@ -19,4 +23,4 @@
   {% endif %}
 
   {% bookmarks object %}
-</div></article>
+</article>

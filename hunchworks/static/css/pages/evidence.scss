@@ -1,51 +1,7 @@
-@import "../hunchworks.scss";
+/*= pages/evidence.scss */
 
-#evidence-list {
-
-  section.object-list {
-    padding: 2em;
-  }
-}
-
-article.evidence.full {
-
-  > header {
-    text-align: center;
-    padding: 4em;
-
-    > div.embed {
-      img, object, embed {
-        display: block;
-        margin: 0 auto;
-        border-radius: 4px;
-        -moz-border-radius: 4px;
-      }
-    }
-
-    > h1 {
-      margin-top: 0.4em;
-      font-size: 250%;
-
-      > a {
-        text-decoration: none;
-        color: #000;
-      }
-    }
-
-    > section.desc {
-      border: 1px solid #ccc;
-      background: #ffe;
-      box-shadow: 5px 5px 10px #eee;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      text-align: left;
-      padding: 2em;
-
-      p {
-        font-size: 125%;
-        margin-top: 0.4em;
-        line-height: 1.4;
-      }
-    }
+body#evidence-show {
+  #page {
+    padding: ($line-height * 2) ($spacing * 2) (($line-height * 2) - $pinstripe-width);
   }
 }

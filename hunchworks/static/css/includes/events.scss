@@ -1,72 +1,89 @@
-@import "../hunchworks.scss";
+/*= includes/events.scss */
+
+/* Another completely arbitrary constant. */
+$event-list-radius: 5px;
+
 
 section.event-list {
   box-shadow: 0 0 5px #ccc;
   border-radius: 5px;
 
   > article.event {
-    padding: $spacing;
+    margin: 0;
+    padding: ($line-height / 2) (($spacing / 2) - $pinstripe-width) (($line-height / 2) - $pinstripe-width);
     padding-right: 0;
-    background: #f8f8f8;
-    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f8f8f8));
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px dotted #ccc;
-    overflow: hidden;
-    position: relative;
 
-    /* Each event must be at least avatar height (50px) + vertical borders (4px). */
-    min-height: 54px;
+    @include vertical-gradient(#fff, #f8f8f8);
+    border-bottom: 1px dotted #ccc;
+
+    /* Each event must be at least avatar height (48px) + vertical borders (4px). */
+    min-height: 52px;
+
+    border-left: $pinstripe;
+    border-right: $pinstripe;
 
     &:first-child {
-      border-top: 1px solid #ccc;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
+      @include border-radius($event-list-radius $event-list-radius 0 0);
+
+      /* The border-top must be attached here (to the first event in the list),
+      |* rather than on the parent, to avoid being overlapped by the background.
+      |* Yank the section upwards to maintain the vertical rhythm. */
+      margin-top: - $pinstripe-width;
+      border-top: $pinstripe;
     }
 
     &:last-child {
-      border-bottom: 1px solid #ccc;
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
+      @include border-radius(0 0 $event-list-radius $event-list-radius);
+      border-bottom: $pinstripe;
     }
 
     &:hover {
-      background: #ffe;
-      background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ffe));
+      @include vertical-gradient(#fff, #ffe);
     }
 
-    &.invalid {
+    /*&.invalid {
       font-family: monospace;
       border-color: #fbb;
       background: #fee;
-    }
+    }*/
 
     > article.user {
       float: left;
 
-      img {
-        margin-bottom: 0;
-        border-radius: 3px;
-      }
-
       span {
         display: none;
+      }
+
+      img {
+        @include border-radius($avatar-inner-radius);
+      }
+    }
+
+    p, blockquote {
+      margin: 0;
+    }
+
+    blockquote {
+      font-family: $font-family-serif;
+      
+      a {
+        text-decoration: none;
       }
     }
 
     > div {
-      border-right: $spacing/2 solid #eee;
-      padding: 0 $spacing/2 0 $spacing;
-      margin-left: 54px;
-      min-height: 54px;
+      border-right: 4px solid #eee;
+      padding: 0 ($spacing / 2) 0 ($spacing / 2);
+      min-height: $line-height * 3;
+      margin-left: 52px;
 
       > p {
-        max-height: 1em;
         white-space: nowrap;
         color: #999;
 
         &.summary {
-          font-size: 80%;
+          font-size: $font-size * 0.8;
+          max-height: $line-height;
 
           > span {
             background: #ffd;
@@ -74,20 +91,8 @@ section.event-list {
           }
         }
       }
-
-      > h2 {
-        @include serif-font;
-        padding-top: $spacing/2;
-        line-height: 1.2;
-
-        > a {
-          text-decoration: none;
-          color: #333;
-        }
-      }
     }
   }
-
 
   article.event.hunch-created                > div { border-right-color: #ffc; }
   article.event.evidence-attached            > div { border-right-color: #cfc; }

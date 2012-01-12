@@ -1,7 +1,22 @@
-@import "../hunchworks.scss";
+/*= includes/group.scss */
+
+section.short-list.group {
+  @extend section.bubble-list;
+
+  article.group {
+    section.short-list.user {
+      padding: 0 ($spacing / 2);
+    }
+  }
+}
 
 article.group.short {
 
+  section.object-list.user {
+    padding: 0 ($spacing * 0.5);
+  }
+
+/*
   > div {
     position: relative;
     border: 1px solid #ccc;
@@ -49,12 +64,12 @@ article.group.short {
         margin-right: 1em;
       }
     }
-  }
+  }*/
 }
 
 section.object-list.group {
-
-  > article {
-    margin-bottom: 0;
+  > div {
+    width: 50%;
+    float: left;
   }
 }

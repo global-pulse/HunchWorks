@@ -1,38 +1,43 @@
-@import "../hunchworks.scss";
+/*= includes/token-input.scss */
 
 ul.token-input-list {
-  padding: 0.75em 0.25em 0.25em 0.75em !important;
+  @extend .form-widget;
+  /*padding: 0.75em 0.25em 0.25em 0.75em !important;*/
+  padding: (($line-height / 2) - ($pinstripe-width * 2)) ($spacing / 4) 0;
   cursor: text;
 }
 
   /* Hidden input */
   ul.token-input-list li input {
+    @include box-shadow(none);
     border: none !important;
     padding: 0 !important;
-    margin-bottom: 0.5em;
+    /*margin-bottom: 0.5em;*/
+    margin: 0;
   }
 
 li.token-input-input-token {
+  font-size: $font-size * 0.75;
   display: inline-block;
-  padding: 0.25em 0.5em;
   overflow: hidden;
+  margin: 0;
 }
 
 li.token-input-token {
+  @include border-radius(3px);
   display: inline-block;
-  margin-right: 0.5em;
-  margin-bottom: 0.5em;
-  padding: 0.25em 0 0.25em 0.5em;
+  border: 1px solid #bbb;
+  font-size: $font-size * 0.75;
+  margin: 0 ($spacing / 4) (($line-height / 2) - $pinstripe-width);
+  padding-left: $spacing / 4;
   background-color: #fff;
   cursor: default;
-  border: 1px solid #bbb;
   white-space: nowrap;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
 }
 
   li.token-input-token p {
     display: inline-block;
+    margin: 0;
   }
 
   /* Added to .token-input-token when selected */
@@ -45,19 +50,18 @@ li.token-input-token {
   /* The cross to remove a token */
   li.token-input-token > span {
     display: inline-block;
-    padding: 0 0.5em;
+    padding: 0 ($spacing / 4);
     cursor: pointer;
     color: #999;
   }
 
 /* The dropdown containing search results. */
 div.token-input-dropdown {
+  @include box-shadow(px 2px 5px #333);
+  @include border-radius(5px);
   background-color: #fff;
-  border: 2px solid #ccc;
-  box-shadow: 2px 2px 5px #333;
-  -moz-box-shadow: 2px 2px 5px #333;
-  border-radius: 5px;
-  padding: 0.5em;
+  border: 1px solid #ccc;
+  padding: ($line-height / 4) ($spacing / 4);
   margin-top: 1px;
 }
 
@@ -68,7 +72,8 @@ div.token-input-dropdown {
   /* Individual search results */
   div.token-input-dropdown li {
     list-style-type: none;
-    padding: 0.5em;
+    padding: ($line-height / 4) ($spacing / 4);
+    margin: 0;
     cursor: pointer;
   }
 
@@ -87,6 +92,5 @@ div.token-input-dropdown {
   div.token-input-dropdown p {
     text-align: center;
     font-style: italic;
-    padding: 0.5em;
     color: #999;
   }

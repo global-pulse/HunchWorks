@@ -1,31 +1,15 @@
-@import "../hunchworks.scss";
+/*= pages/auth.scss */
 
 body#login {
   #page {
     div.left, div.right {
-      @include border-box;
-      padding: $spacing*2;
       float: left;
       width: 50%;
 
-      h2 {
-        color: #999;
-        font-size: 160%;
-        text-align: center;
-        margin-bottom: $spacing*2;
-
-        span {
-          font-weight: bold;
-          color: #000;
-        }
-      }
-
       p.help {
         color: #666;
-        border: 1px solid #ddd;
-        background: #eee;
-        padding: $spacing;
-        line-height: $line-height;
+        background: #f8f8f8 url("../../img/bg2.png");
+        padding: $line-height $spacing;
       }
     }
 
@@ -33,7 +17,7 @@ body#login {
     div.right { padding-left: $spacing; }
 
     ul.providers {
-      margin-top: $spacing;
+      margin-top: $line-height;
 
       li {
         display: block;
@@ -41,10 +25,10 @@ body#login {
         width: 150px;
 
         a {
+          @include hide-text;
           display: block;
           height: 22px;
-          text-indent: -9999px;
-          margin-bottom: $spacing/2;
+          margin-bottom: ($line-height * 2) - 22px;
         }
 
         &:hover {
@@ -62,8 +46,8 @@ body#login {
     }
 
     form div.actions p {
-      padding: 0.5em 0;
-      margin: 1px 0;
+      padding: ($line-height / 2) 0;
+      margin: 0;
       color: #666;
     }
   }

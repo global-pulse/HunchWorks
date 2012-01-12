@@ -630,7 +630,8 @@
             "creator": 1,
             "time_created": "2011-10-28 00:00:00",
             "time_modified":  "2011-10-28 00:00:00",
-            "description": "Mountains of garbage piling up in the Gulu IDP camp",
+            "title": "Mountains of garbage piling up in the Gulu IDP camp",
+            "description": "This is a photo which I took while in Gulu in August 2011. Just look at all the garbage!",
             "link" : "http://images.huffingtonpost.com/2011-06-12-new_campscene.jpg"
         }
     },
@@ -701,7 +702,7 @@
             "creator": 1,
             "time_created": "2011-10-28 00:00:00",
             "time_modified":  "2011-10-28 00:00:00",
-            "description": "Displaced people line up for cholera vaccinations in the Gulu IDP camp",
+            "title": "Displaced people line up for cholera vaccinations in the Gulu IDP camp",
             "link" : "http://www.doctorswithoutborders.org/images/news/2008/40407.jpg"
         }
     },

@@ -3,17 +3,23 @@
 {% load paginator_tags %}
 
 {% block content %}
+  {% block header %}
+  {% endblock %}
+
   {% if hunches.object_list %}
     {% include "includes/hunches/list.html" with object_list=hunches.object_list %}
   {% else %}
-    {% block empty %}{% endblock %}
+    {% block empty %}
+    {% endblock %}
   {% endif %}
+{% endblock %}
 
-  <div class="links">
+{% block links %}
+  <nav class="links">
     <ul>
       <li><a href="{% url create_hunch %}">Create a Hunch</a></li>
     </ul>
-
+  
     {% paginator hunches %}
-  </div>
+  </nav>
 {% endblock %}

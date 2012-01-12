@@ -4,9 +4,11 @@
   <div>
     <p class="summary">
       <a href="{% url profile hunch.creator.pk %}">{{ hunch.creator }}</a> created a <span>hunch</span>
-      <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>
+      <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>:
     </p>
 
-    <h2><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h2>
+    <blockquote>
+      <p><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></p>
+    </blockquote>
   </div>
 </article>

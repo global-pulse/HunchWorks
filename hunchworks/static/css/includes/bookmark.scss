@@ -1,15 +1,14 @@
-@import "../hunchworks.scss";
+/*= includes/bookmark.scss */
 
 a.bookmark,
 a.unbookmark {
+  @include hide-text;
   position: absolute;
-  top: 0.5em;
-  right: 0.5em;
+  top: $line-height / 2;
+  right: $spacing / 2;
   width: 16px;
   height: 16px;
-  overflow: hidden;
-  text-indent: -999px;
-  background: url("../../icons/star.png") no-repeat;
+  background: url(../../icons/star.png) no-repeat;
 }
 
 a.bookmark   { background-position: 0 -16px; }

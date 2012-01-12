@@ -1,16 +1,16 @@
-<div class="paginator" id="{{ dom_id }}">{% if prev_page_link %}
-  <a href="{{ first_page_link }}" class="first" title="First page">First Page</a>
-  <a href="{{ prev_page_link }}" class="prev" title="Previous page">Previous Page</a>{% else %}
-  <span class="first na" title="You are already on the first page">First Page</span>
-  <span class="prev na" title="There are no previous pages">Previous Page</span>{% endif %}
+<ul class="paginator" id="{{ dom_id }}">{% if prev_page_link %}
+  <li><a href="{{ first_page_link }}" class="first" title="First page">First Page</a></li>
+  <li><a href="{{ prev_page_link }}" class="prev" title="Previous page">Previous Page</a></li>{% else %}
+  <li><span class="first" title="You are already on the first page">First Page</span></li>
+  <li><span class="prev" title="There are no previous pages">Previous Page</span></li>{% endif %}
 
   {% for page in page_links %}{% if page %}
-  <a href="{{ page.link }}"{% if page.active %} class="active"{% endif %} title="Page {{ page.number }}">{{ page.number }}</a>{% else %}
-  <span class="elipsis">...</span>{% endif %}{% endfor %}{% if next_page_link %}
+  <li><a href="{{ page.link }}"{% if page.active %} class="active"{% endif %} title="Page {{ page.number }}">{{ page.number }}</a></li>{% else %}
+  <li><span class="elipsis">...</span></li>{% endif %}{% endfor %}{% if next_page_link %}
 
-  <a href="{{ next_page_link }}" class="next" title="Next page">Next Page</a>
-  <a href="{{ last_page_link }}" class="last" title="Last page">Last Page</a>{% else %}
+  <li><a href="{{ next_page_link }}" class="next" title="Next page">Next Page</a></li>
+  <li><a href="{{ last_page_link }}" class="last" title="Last page">Last Page</a></li>{% else %}
 
-  <span class="next na" title="There are no more pages">Next Page</span>
-  <span class="last na" title="You are already on the last page">Last Page</span>{% endif %}
-</div>
+  <li><span class="next" title="There are no more pages">Next Page</span></li>
+  <li><span class="last" title="You are already on the last page">Last Page</span></li>{% endif %}
+</ul>

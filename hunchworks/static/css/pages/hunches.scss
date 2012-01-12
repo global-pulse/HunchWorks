@@ -1,47 +1,59 @@
-@import "../hunchworks.scss";
+/*= pages/hunches.scss */
 
-#hunch-list {
+body#hunch-list {
 
   section.object-list {
     padding: $spacing*2;
   }
 }
 
-#hunch-show {
+body#hunch-show {
+  #page {
+    background: #f8f8f8 url("../../img/bg2.png");
+    border-bottom: $pinstripe;
+
+    /* Remove the default padding from the page, to allow the borders of the
+    |* (rather complex) hunch UI to join the edges. */
+    padding: 0;
+  }
 
   article.hunch {
-    background: #f8f8f8 url("../../img/bg2.png");
-    overflow: hidden;
 
-    > header {
+    header {
+      @include clear-floats;
       color: #999;
-      padding: $spacing*4;
-      overflow: hidden;
+
+      /* Leave a large gap around the header. Slightly smaller at the bottom,
+      |* to account for the slightly-too-large tab bar. */
+      padding: ($line-height * 2) ($spacing * 2) ($line-height * 1.5);
 
       > div {
         display: inline-block;
         float: left;
         width: 75%;
 
-        > h1 {
-          font-size: 250%;
-          line-height: 1.2;
+        h1 {
+          font-size: $font-size * 2;
+          line-height: $line-height * 2;
+          margin-right: $spacing * 2;
           text-indent: -0.5em;
-          margin-right: 1.6em;
 
-          > a {
+          a {
             text-decoration: none;
             color: #000;
           }
         }
 
-        > div.cite {
-          margin-top: $spacing/2;
-          padding-right: $spacing;
+        div.cite {
+          line-height: $line-height * 2;
         }
       }
 
       > section.status {
+        display: none;
+      }
+
+      /*> section.status {
         float: right;
         width: 25%;
         padding: 0.25em 0;
@@ -75,7 +87,7 @@
             }
           }
         }
-      }
+      }*/
     }
   }
 
@@ -86,16 +98,28 @@
     padding: $spacing*2;
     border-right: 1px solid #ccc;
     box-shadow: 0 0 20px #ccc;
+
+    section.desc {
+      p {
+        font-family: $font-family-serif;
+        clear: left;
+      }
+  
+      ul.tags {
+        margin-top: $spacing/2;
+      }
+    }
   }
 
 
+  /* Align the first tab with the edge of the hunch title (above). */
   nav.tabs {
+    padding-left: $spacing*2;
     width: 70%;
   }
 
 
   aside {
-    @include border-box;
     float: right;
     width: 30%;
     padding: $spacing*2;
@@ -118,26 +142,13 @@
   }
 
 
-  div.links {
-    border-top: 1px solid #ddd;
+  /* Compensate for the border-bottom on #page. */
+  nav.links {
+    margin-top: 0 - $pinstripe-width;
   }
 
 
-  section.desc {
-
-    > p {
-      @include serif-font(125%);
-      clear: left;
-      line-height: 1.4;
-    }
-
-    > ul.tags {
-      margin-top: $spacing/2;
-    }
-  }
-
-
-  section.map {
+  /*section.map {
     float: right;
     width: 20em;
     margin-left: $spacing*2;
@@ -148,7 +159,7 @@
     > div {
       height: 15em;
     }
-  }
+  }*/
 
 
   section.activity {
@@ -168,32 +179,24 @@
 
 
   section.comments {
-    overflow: hidden;
-
-    > ul > li {
-      margin-bottom: $spacing/2;
-      display: block;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
+    @include clear-floats;
 
     li {
+      margin: 0 0 $line-height 0;
+      display: block;
 
       .comment {
 
         > .bubble {
-          @include serif-font;
+          @include border-radius(5px);
+          border: 2px solid #ccc;
+          padding: ($line-height - 2px) $spacing;
+          min-height: $line-height * 3;
+
+          font-family: $font-family-serif;
           position: relative;
           margin: 0 62px;
-          line-height: $line_height;
-          min-height: 48px;
-          border: 2px solid #ccc;
           background: #fff;
-          border-radius: 5px;
-          -moz-border-radius: 5px;
-          padding: $spacing;
 
           > .arrow {
             background-repeat: no-repeat;
@@ -204,6 +207,10 @@
             height: 54px;
           }
         }
+      }
+
+      &:last-child {
+        margin-bottom: 0;
       }
 
       &:nth-child(even) .comment {
@@ -238,6 +245,7 @@
 
 
   form.comment {
+    display: none;
 
     /* If the comment submitted was invalid, make the bubble borders look like
     |* the invalid field border. They're deliberately styled the same. */
@@ -281,7 +289,7 @@
           border: none;
           border-radius: 0 3px 3px 0;
           -moz-border-radius: 0 3px 3px 0;
-          font-family: $font_family;
+          font-family: $font-family-sans;
           font-size: 200%;
           font-weight: normal;
           padding: 0;
@@ -299,94 +307,71 @@
       }
     }
   }
-
-
-  section.contributors {
-    overflow: hidden;
-
-    > section {
-      padding-top: 2em;
-      width: 50%;
-      float: left;
-
-      > h2 {
-        text-align: center;
-        font-size: 160%;
-        margin-bottom: 1.25em;
-        color: #999;
-
-        > span {
-          font-weight: bold;
-          color: #000;
-        }
-      }
-    }
-  }
 }
 
 
-#hunch-create {
+body#hunch-create {
+  #page {
+    padding: 0;
+  }
 
   form {
+    /* We can't use the @vertical-gradient mixin here, because the syntax is
+    |* different for the different vendor prefixes. This should probably be
+    |* simplified. */
     background: #eee;
     background: -webkit-gradient(linear, left top, 25% top, from(#fff), to(#eee));
     background: -moz-linear-gradient(left top, #fff, #eee, #eee, #eee, #eee);
 
-    > section.help {
-      @include border-box;
+    html.debug & {
+      background: rgba(255, 255, 0, 0.1);
+    }
+
+    section.help {
       float: left;
       width: 25%;
-      padding: 2em;
 
-      > h3 {
-        font-size: 200%;
-      }
-
-      > p {
-        margin-top: 1em;
-        line-height: 1.4;
+      h2 {
+        color: #666;
+        text-align: left;
       }
     }
 
-    > div.fields {
-      border-left: 1px solid #ddd;
+    section.help,
+    div.fields {
+      padding: $line-height $spacing ($line-height - $pinstripe-width);
+    }
+ 
+    div.fields {
+      border-left: $pinstripe-width $pinstripe-style #ddd;
       background: #fff;
 
-      > h2 {
-        text-align: center;
-        font-size: 160%;
-        margin-bottom: 1.25em;
-        color: #999;
+      html.debug & {
+        background: rgba(255, 255, 255, 0.5);
+      }
 
-        > span {
-          font-weight: bold;
-          color: #000;
+      /* Step 2 (evidence) has two separate "wrapped" sections. */
+      div.wrap {
+        @include clear-floats;
+
+        div.left, div.right {
+          padding-bottom: $line-height * 2;
         }
       }
 
-      > div.wrap {
-        overflow: hidden;
-
-        > div {
-          padding-bottom: 2em;
-        }
-      }
-
-      > div.show {
+      /* The "(show|hide) the create evidence form" link. */
+      div.show {
         text-align: center;
         color: #999;
         clear: both;
       }
     }
 
-    > div.new-evidence {
-      border-top: 1px solid #ddd;
-    }
-
-    > div.actions {
-      border-top: 1px solid #ccc;
+    div.actions {
+      border-top: $pinstripe;
+      padding-bottom: $line-height - $pinstripe-width;
   
-      > button.prev {
+      button.prev {
         float: left;
         margin-left: 0;
       }

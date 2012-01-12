@@ -5,9 +5,11 @@
     <p class="summary">
       <a href="{% url profile inviter %}">{{ inviter }}</a> <span>invited you</span> to 
       <a href="{% url hunch hunch.pk %}" title="{{ hunch }}">a hunch</a>
-      <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>
+      <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>:
     </p>
 
-    <h2><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></h2>
+    <blockquote>
+      <p><a href="{{ hunch.get_absolute_url }}">{{ hunch }}</a></p>
+    </blockquote>
   </div>
 </article>

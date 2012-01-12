@@ -346,7 +346,7 @@ class Evidence(models.Model):
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
-    return self.title or self.description or self.link or self.pk
+    return self.title or self.link or self.pk
 
   def type(self):
     return "Link"

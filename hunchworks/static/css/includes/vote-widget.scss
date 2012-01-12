@@ -1,4 +1,4 @@
-@import "../hunchworks.scss";
+/*= includes/vote-widget.scss */
 
 div.vote-widget {
 
@@ -11,7 +11,6 @@ div.vote-widget {
     padding-left: $spacing*2;
 
     > li {
-      @include border-box;
       display: block;
       margin-left: $spacing/4;
       width: 20%;

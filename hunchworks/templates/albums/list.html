@@ -3,19 +3,26 @@
 {% load bookmark_tags %}
 
 {% block content %}
-  {% if albums.object_list %}
-    <section class="album-list">
-      {% for album in albums.object_list %}
-        <article class="album">
-          <h2><a href="{{ album.get_absolute_url }}">{{ album }}</a></h2>
+  <h2>All <span>Albums</span></h2>
 
-          {% if album.description %}
-            <div class="desc">
-              {{ album.description|truncatewords:60|safe }}
-            </div>
-          {% endif %}
-      
-          {% bookmarks album %}
+  {% if albums.object_list %}
+    <section class="object-list album">
+      {% for object in albums.object_list %}
+        <article class="album short" data-id="{{ object.id }}">
+          <h3><a href="{{ object.get_absolute_url }}">{{ object }}</a></h3>
+
+          <section class="desc">
+            <p>{{ object.description|truncatewords:100 }}</p>
+          </section>
+
+          <ul class="stats">
+            <li>
+              Created by <a href="{{ object.creator.get_absolute_url }}">X</a>
+              <time class="timeago" datetime="{{ object.time_created|date:"c" }}">Y days ago</time>
+            </li>
+          </ul>
+
+          {% bookmarks object %}
         </article>
       {% endfor %}
     </section>
@@ -24,12 +31,14 @@
       No albums have been created yet.
     </div>
   {% endif %}
+{% endblock %}
 
-  <div class="links">
+{% block links %}
+  <nav class="links">
     <ul>
       <li><a href="{% url create_album %}">Add an Album</a></li>
     </ul>
+
     {% paginator albums %}
-    <div class="clear-hack"></div>
-  </div>
+  </nav>
 {% endblock %}

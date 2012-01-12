@@ -1,11 +1,10 @@
-@import "../hunchworks.scss";
+/*= pages/profile.scss */
 
 /* I have no idea what's going on here. */
 
 #profile-show {
 
   #column1, #column2 {
-    @include border-box;
     padding: $spacing*2;
     width:50%;
     float: left;

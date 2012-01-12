@@ -1,135 +1,134 @@
-@import "../hunchworks.scss";
+/*= global/nav.scss */
 
-nav.user,
-nav.site {
+/* This constant is completely arbitrary. It looks good, but probably won't if
+|* the base $font-size or $line-height is changed. */
+$nav-spacing: 3px;
 
-  > ul {
-    overflow: hidden;
-    padding: $spacing/4;
 
-    > li {
-      display: block;
-      float: left;
-      border-radius: $spacing/4;
-      -moz-border-radius: $spacing/4;
-      margin-right: 1px;
-      color: #666;
+nav.site,
+nav.user {
+  ul {
+    @include clear-floats;
+    padding: $nav-spacing;
+  }
 
-      /* Reserve space for the active/hover border. */
-      padding: 1px;
+  li {
+    float: left;
+    margin-right: $nav-spacing;
+    @include border-radius($nav-spacing);
 
-      > a {
-        display: block;
-        padding: $spacing/2;
-        text-decoration: none;
-      }
+    /* Reserve space for the active/hover border, to avoid jittering. */
+    padding: $pinstripe-width;
+    
+    &:last-child {
+      margin-right: 0;
+    }
 
-      &.active, &:not(.active):hover {
-        background: #eee;
-        border: 1px solid #ccc;
-        padding: 0;
-      }
+    &.active, &:not(.active):hover {
+      border: $pinstripe;
+      padding: 0;
+    }
 
-      &.active {
-        background: #fff;
-        color: #000;
-      }
+    &:not(.active):hover {
+      background: #f8f8f8;
+    }
+
+    &.active {
+      background: #fff;
+      color: #000;
     }
   }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: #666;
+  }
 }
+
+
+nav.site {
+  line-height: ($line-height * 2) - (($pinstripe-width * 3) + ($nav-spacing * 2));
+  font-size: $font-size * 0.95;
+  position: relative;
+
+  ul {
+    @include vertical-gradient(#eee, #ccc);
+    border-bottom: $pinstripe-width $pinstripe-style #aaa;
+  }
+
+  ul.secondary {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  a {
+    padding: 0 ($nav-spacing * 2);
+  }
+}
+
 
 nav.user {
+  line-height: ($line-height * 1.5) - (($pinstripe-width * 3) + ($nav-spacing * 2));
+  font-size: $font-size * 0.75;
+
+  /* Align the right edge of the user nav with the right edge of the #wrapper.
+  |* This is a bit hokey, but avoids having to pos:rel the parent elements. */
   position: absolute;
   top: 0;
-  right: 0;
-  font-size: 80%;
-  border-left: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  border-bottom-left-radius: $spacing/2;
+  right: 50%;
+  margin-right: -(($max-width/2) - ($pinstripe-width * 2));
 
-  background: #eee;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');
-  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
-  background: -moz-linear-gradient(top,  #fff,  #ddd);
-
-  > ul {
-    padding: 1px;
+  ul {
+    @include vertical-gradient(#fff, #ddd);
+    border-left: $pinstripe-width $pinstripe-style #ccc;
+    border-bottom: $pinstripe-width $pinstripe-style #ccc;
+    
+    /* Set the center of the rounded corner to the same point as the first list
+    |* item. Subtracting a single pixel looks better. I'm not sure why, but it's
+    |* probably because $nav-spacing is odd, while ($nav-spacing*2) is even. */
+    border-bottom-left-radius: ($nav-spacing * 2) - 1px;
   }
 
-  li.avatar {
-    img {
-      display: block;
-      border-radius: $spacing/4;
-    }
-
-    /* Disable hover effect. */
-    &:hover {
-      background: none !important;
-      border: none !important;
-      padding: 1px !important;
-    }
+  a {
+    padding: 0 $nav-spacing;
   }
 }
 
-nav.site {
-  position: relative;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #aaa;
-
-  background: #ddd;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc');
-  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
-  background: -moz-linear-gradient(top,  #eee,  #ccc);
-
-  > ul {
-
-    &.secondary {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-  }
-}
 
 nav.tabs {
+  height: ($line-height * 1.5) + ($pinstripe-width);
+  margin-top: 0 - $pinstripe-width;
+  border-bottom: 1px solid #ccc;
 
-  > ul {
-    border-bottom: 1px solid #ccc;
-    padding-left: $spacing*2;
+  li {
+    @include border-radius($nav-spacing $nav-spacing 0 0);
+    display: block;
+    float: left;
+    background: #fff;
+    border: $pinstripe-width solid #bbb;
+    margin-right: $spacing/2;
 
-    /* To force the last pixel of the nested <li>s to overlap the bottom
-    |* border, the TOTAL height is 1em (line height of > li > a) + $spacing
-    |* (vertial padding of > li > a) + 1px (border top of > li). */
-    padding-bottom: $spacing + 1px;
-    height: 1em;
-
-    > li {
+    a {
       display: block;
-      float: left;
-      margin-right: $spacing/2;
-      border: 1px solid #bbb;
-      border-radius: $spacing/4 $spacing/4 0 0;
-      background: #fff;
+      line-height: ($line-height * 1.5) - $pinstripe-width;
+      padding: 0 ($spacing/2);
+      text-decoration: none;
+      color: #999;
 
-      > a {
-        display: block;
-        padding: $spacing/2;
-        text-decoration: none;
-        color: #999;
-
-        > span {
-          background: #eee;
-          padding: 0 $spacing/4;
-          color: #a8a8a8;
-        }
+      span {
+        background: #eee;
+        padding: 0 0.25em;
+        color: #a8a8a8;
       }
+    }
 
-      &.active {
-        border-bottom-color: #fff;
+    &.active {
+      border-bottom-color: #fff;
 
-        > a {
-          color: inherit;
-        }
+      a {
+        color: inherit;
       }
     }
   }

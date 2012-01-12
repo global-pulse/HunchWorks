@@ -6,9 +6,11 @@
       <a href="{% url profile hunch_evidence.creator.pk %}">{{ hunch_evidence.creator }}</a>
       attached <span>evidence</span> to
       <a href="{% url hunch hunch_evidence.hunch.pk %}" title="{{ hunch_evidence.hunch }}">a hunch</a>
-      <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>
+      <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>:
     </p>
 
-    <h2><a href="{{ hunch_evidence.get_absolute_url }}">{{ hunch_evidence.evidence }}</a></h2>
+    <blockquote>
+      <p><a href="{{ hunch_evidence.get_absolute_url }}">{{ hunch_evidence.evidence }}</a></p>
+    </blockquote>
   </div>
 </article>

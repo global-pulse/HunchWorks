@@ -1,0 +1,62 @@
+/*= global/links.scss */
+
+nav.links {
+  @include vertical-gradient(#eee, #fff);
+  @include clear-floats;
+
+  ul {
+    float: right;
+  }
+
+  li {
+    float: left;
+    border-left: 2px solid #fff;
+  }
+
+  li:first-child {
+    border-left: none;
+  }
+
+  a, span {
+    display: block;
+    padding: $line-height/2 $spacing/2;
+  }
+
+  span {
+    color: $disabled;
+    cursor: pointer;
+  }
+
+  ul.paginator {
+    float: left;
+
+    a, span {
+      padding-left: $spacing/4;
+      padding-right: $spacing/4;
+    }
+
+    /* These might be links (active) or spans (disabled). */
+    .first, .prev, .next, .last {
+      @include hide-text;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      width: 10px;
+    }
+
+    /* links look something like:
+     *  <<  <  1 2 3 4  >  >> */
+    .first { background-image: url("../../img/paginator/first.png");    }
+    .prev  { background-image: url("../../img/paginator/previous.png"); }
+    .next  { background-image: url("../../img/paginator/next.png");     }
+    .last  { background-image: url("../../img/paginator/last.png");     }
+
+    span {
+      opacity: 0.4;
+    }
+
+    span.elipsis {
+      letter-spacing: 1px;
+      color: #ccc;
+    }
+  }
+}

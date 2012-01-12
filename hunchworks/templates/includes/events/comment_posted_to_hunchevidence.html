@@ -6,9 +6,11 @@
       <a href="{% url profile comment.creator.pk %}">{{ comment.creator }}</a>
       <span>commented</span> on
       <a href="{% url hunch comment.hunch_evidence.hunch.pk %}" title="{{ comment.hunch_evidence }} on {{ comment.hunch_evidence.hunch }}">hunch evidence</a>
-      <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>
+      <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>:
     </p>
 
-    <h2><a href="{{ comment.get_absolute_url }}">{{ comment.text }}</a></h2>
+    <blockquote>
+      <p><a href="{{ comment.get_absolute_url }}">{{ comment.text }}</a></p>
+    </blockquote>
   </div>
 </article>

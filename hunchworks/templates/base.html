@@ -9,46 +9,7 @@
     <title>{% block title %}HunchWorks{% endblock %}</title>
 
     {% compress css %}
-      <!-- global look and feel -->
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/global/reset.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/global/hacks.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/global/base.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/global/lists.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/global/nav.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/global/object-list.scss">
-
-      <!-- includes -->
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/paginator.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/tags.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/user.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/token-input.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/location-widget.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/evidence-widget.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/connections-widget.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/embed-widget.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/vote-widget.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/bookmark.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/hunch.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/group.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/evidence.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/includes/events.scss">
-
-      <!-- forms -->
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/forms/base.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/forms/profile.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/forms/evidence.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/forms/hunch.scss">
-
-      <!-- specific pages -->
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/pages/dashboard.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/pages/auth.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/pages/album.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/pages/groups.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/pages/hunches.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/pages/connections.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/pages/evidence.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/pages/explore.scss">
-      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/pages/profile.scss">
+      <link rel="stylesheet" type="text/x-scss" href="{% get_static_prefix %}css/hunchworks.scss">
     {% endcompress %}
 
     <!--[if lt IE 9]>
@@ -80,7 +41,7 @@
       <!-- all widget media -->
       <script src="{% get_static_prefix %}js/location-widget.js"></script>
       <script src="{% get_static_prefix %}js/evidence-widget.js"></script>
-      <script src="{% get_static_prefix %}js/embed-widget.js"></script>
+      <!--<script src="{% get_static_prefix %}js/embed-widget.js"></script>-->
       <script src="{% get_static_prefix %}js/vote-widget.js"></script>
       <script src="{% get_static_prefix %}js/connections-widget.js"></script>
       <script src="{% get_static_prefix %}js/charts/worldbank.js"></script>
@@ -88,17 +49,17 @@
       <!-- misc -->
       <script src="{% get_static_prefix %}js/comment-forms.js"></script>
       <script src="{% get_static_prefix %}js/jquery-equal-height.js"></script>
+      <script src="{% get_static_prefix %}js/toggle-debug-mode.js"></script>
     {% endcompress %}
 
-    {% block js %}{% endblock %}
+    {% block js %}
+    {% endblock %}
   </head>
   <body id="{% block body_id %}{% endblock %}">
     <div id="wrapper">
 
       <header>
-        {% block header %}
-          <h1><a href="{% url dashboard %}" title="Return to Dashboard">HunchWorks</a></h1>
-        {% endblock %}
+        <h1><a href="{% url dashboard %}" title="Return to Dashboard">HunchWorks</a></h1>
       </header>
 
       <nav class="site">
@@ -111,17 +72,15 @@
           </ul>
         {% endblock %}
 
-        {% block secondary_nav %}{% endblock %}
+        {% block secondary_nav %}
+        {% endblock %}
       </nav>
 
       <nav class="user">
         {% block user_nav %}
           {% if user.is_authenticated %}
             <ul class="user">
-              <li class="avatar">
-                <img src="{{ user.get_profile.profile_picture_url }}" width="23" height="23">
-              </li>
-
+              <!--<li class="avatar"><img src="{{ user.get_profile.profile_picture_url }}" width="24" height="24"></li>-->
               <li class="{% ifactive "profile" %}active{% endifactive %}"><a href="{% url profile %}"><span>{{ user }}</span></a></li>
               <li class="{% ifactive "bookmarks" %}active{% endifactive %}"><a href="{% url bookmarked_all %}">My Starred Items</a></li>
               <li class="{% ifactive "connections" %}active{% endifactive %}"><a href="{% url connections %}">My Connections</a></li>
@@ -132,9 +91,12 @@
       </nav>
 
       <div id="page">
-        {% block content %}{% endblock %}
-        <div class="clear-hack"></div>
+        {% block content %}
+        {% endblock %}
       </div>
+
+      {% block links %}
+      {% endblock %}
     </div>
 
     <footer>

@@ -13,8 +13,8 @@ class EvidenceForm(forms.ModelForm):
     widget=TokenWidget(prevent_duplicates=True, allow_creation=True))
 
   link = EmbedField(required=False,
-    help_text='Enter an URL to be embedded. You can find a list of supported ' +
-              'providers at <a href="http://embed.ly/providers">Embedly</a>.')
+    help_text='You can find a list of supported URLS at ' +
+              '<a href="http://embed.ly/providers">Embedly</a>.')
 
   location = LocationField(required=False,
     help_text="If the evidence is relative to a specific location, you can mark it here.")

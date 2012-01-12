@@ -1,4 +1,4 @@
-@import "../hunchworks.scss";
+/*= includes/evidence-widget.scss */
 
 .evidence-widget {
   border-radius: 3px;
@@ -28,7 +28,6 @@
   }
 
   > div.search-results {
-    @include border-box;
     background: rgba(255, 255, 255, 0.95);
     border: 2px solid #ccc;
     box-shadow: 0 0 5px #aaa;

@@ -2,17 +2,22 @@
 {% load embed_tags %}
 
 <article class="evidence short" data-id="{{ object.id }}">
-  {% embed object.link %}
-  <h2><a href="{{ object.get_absolute_url }}">{{ object }}</a></h2>
+  <h3><a href="{{ object.get_absolute_url }}">{{ object }}</a></h3>
+  
+  <div class="image">
+    {% embed object.link %}
+  </div>
 
-  {% if object.description %}
-    <section class="desc">
-      {{ object.description|truncatewords:60|safe }}
-    </section>
-  {% endif %}
+  <section class="desc">
+    <p>{{ object.description|truncatewords:100 }}</p>
+  </section>
 
   <ul class="stats">
-    <li>Used in {{ object.hunch_set.all.count }} hunches</li>
+    <li>
+      Added by <a href="{{ object.creator.get_absolute_url }}">{{ object.creator }}</a>
+      <time class="timeago" datetime="{{ object.time_created|date:"c" }}">{{ object.time_created }}</time>
+    </li>
+    <li>Used in {{ object.hunch_set.all.count }} hunche(s)</li>
   </ul>
 
   {% bookmarks object %}
