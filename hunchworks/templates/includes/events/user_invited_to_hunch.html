@@ -3,7 +3,7 @@
 
   <div>
     <p class="summary">
-      <a href="{% url profile inviter %}">{{ inviter }}</a> <span>invited you</span> to 
+      <a href="{% url profile inviter.pk %}">{{ inviter }}</a> <span>invited you</span> to 
       <a href="{% url hunch hunch.pk %}" title="{{ hunch }}">a hunch</a>
       <time class="timeago" datetime="{{ now|date:"c" }}">{{ now }}</time>
     </p>
