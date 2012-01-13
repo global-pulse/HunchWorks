@@ -35,6 +35,11 @@ li.token-input-token {
     display: inline-block;
   }
 
+    /* Supplimental information within a token */
+    li.token-input-token p span {
+      color: #999;
+    }
+
   /* Added to .token-input-token when selected */
   li.token-input-selected-token {
     background-color: highlight;
@@ -75,6 +80,11 @@ div.token-input-dropdown {
     /* Highlighed search terms within a result */
     div.token-input-dropdown li b {
       font-weight: normal;
+    }
+
+    /* Supplimental information within a result */
+    div.token-input-dropdown li span {
+      color: #999;
     }
 
   /* Selected search results */

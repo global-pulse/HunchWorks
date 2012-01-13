@@ -725,6 +725,13 @@ class InviteProxy(models.Model):
   def __unicode__(self):
     return self.name
 
+  def djtokeninput_caption(self):
+    if hasattr(self.content_object, "djtokeninput_caption"):
+      return self.content_object.djtokeninput_caption()
+
+    else:
+      return unicode(self)
+
   @classmethod
   def search(cls, query):
     return cls.objects.filter(
