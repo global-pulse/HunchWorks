@@ -10,7 +10,9 @@ from django.template import Template, Context
 from django.db.models.signals import pre_save, post_save
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from social_auth.models import UserSocialAuth
 from hunchworks.signals import user_invited
+from hunchworks.utils import social
 from hunchworks import hunchworks_enums
 from hunchworks import events
 
@@ -68,6 +70,12 @@ ACTIVITY_RANGES = (
   (7, 1,    "Active",      "This hunch is has been discussed by the HunchWorks community within a week."),
   (None, 0, "Inactive",    "This hunch is not being discussed or evaluated by the HunchWorks community."))
 
+SOCIAL_PROVIDER_CAPTIONS = {
+  "linkedin": "LinkedIn",
+  "twitter":  "Twitter",
+  "facebook": "Facebook"
+}
+
 
 class UserProfile(models.Model, events.HasEvents):
   user = models.ForeignKey(User, unique=True)
@@ -95,9 +103,51 @@ class UserProfile(models.Model, events.HasEvents):
   def __unicode__(self):
     return self.name or self.user.username
 
+  def djtokeninput_caption(self):
+    return '%s <span class="via-%s">via %s</span>' % (
+      unicode(self), self.via().lower(), self.via())
+
+  def via(self):
+    if self.user.is_active:
+      return "HunchWorks"
+
+    else:
+      return SOCIAL_PROVIDER_CAPTIONS.get(
+        self.user.social_auth.all()[0].provider,
+        "Unknown")
+
   @models.permalink
   def get_absolute_url(self):
     return ("profile", [self.pk])
+
+  @classmethod
+  def get_or_create_unregistered(cls, provider, uid, **kwargs):
+    """
+    Get or create a UserProfile for a user who has not (yet) registered with
+    HunchWorks. This is just to keep track of all of the invitations (etc) a
+    user receives before signing up. Nothing nefarious.
+    """
+
+    try:
+      user_social_auth = UserSocialAuth.objects.get(
+        provider=provider,
+        uid=uid)
+
+      return user_social_auth.user.get_profile()
+
+    except UserSocialAuth.DoesNotExist:
+      user_social_auth = UserSocialAuth.objects.create(
+        user=User.objects.create(username="%s:%s" % (provider, uid), is_active=False),
+        provider=provider,
+        uid=uid)
+
+      user_profile = user_social_auth.user.get_profile()
+
+      for key, val in kwargs.items():
+        setattr(user_profile, key, val)
+
+      user_profile.save()
+      return user_profile
 
   def profile_picture_url(self):
     if self.profile_picture:
@@ -109,6 +159,26 @@ class UserProfile(models.Model, events.HasEvents):
   def search(cls, query):
     return cls.objects.filter(
       Q(user__username__icontains=query) | Q(name__icontains=query))
+
+  def update_linkedin_connections(self):
+    api = self._linkedin_api()
+
+    if api is not None:
+      return map(self._linkedin_profile, api.get_connections())
+
+    else:
+      return []
+
+  def _linkedin_api(self):
+    return social.linkedin_api_from_user_profile(self)
+
+  def _linkedin_profile(self, profile):
+    """
+    Convert a LinkedIn user profile to a HunchWorks user profile.
+    """
+
+    return self.get_or_create_unregistered("linkedin", profile.id,
+      name="%s %s" % (profile.first_name, profile.last_name))
 
 
 def create_user(sender, instance, created, **kwargs):
