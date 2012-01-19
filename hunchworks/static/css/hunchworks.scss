@@ -70,7 +70,7 @@ $golden-ratio: 1.618;
 }
 
 
-// Audited
+// Refactored
 @import "global/base.scss";
 @import "global/hacks.scss";
 @import "global/layout.scss";
@@ -84,15 +84,16 @@ $golden-ratio: 1.618;
 @import "includes/evidence.scss";
 @import "includes/events.scss";
 @import "includes/tags.scss";
+@import "includes/token-input.scss";
+@import "includes/location-widget.scss";
+@import "includes/connections-widget.scss";
+@import "forms/base.scss";
 @import "pages/auth.scss";
 @import "pages/dashboard.scss";
 @import "pages/hunches.scss";
 @import "pages/evidence.scss";
 @import "pages/connections.scss";
-@import "forms/base.scss";
-@import "includes/token-input.scss";
-@import "includes/location-widget.scss";
-@import "includes/connections-widget.scss";
+@import "pages/profile.scss";
 
 // Pending
 //@import "includes/evidence-widget.scss";
@@ -101,7 +102,5 @@ $golden-ratio: 1.618;
 //@import "forms/profile.scss";
 //@import "forms/evidence.scss";
 //@import "forms/hunch.scss";
-//
 //@import "pages/groups.scss";
 //@import "pages/explore.scss";
-//@import "pages/profile.scss";

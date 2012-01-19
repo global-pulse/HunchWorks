@@ -1,13 +1,30 @@
 /*= pages/profile.scss */
 
-/* I have no idea what's going on here. */
+body#profile-show {
+  article.profile {
+    img {
+      @include border-radius(5px);
+      @include box-shadow(1px 1px 5px #ccc);
+    }
 
-#profile-show {
+    div.no-img {
+      @extend div.empty-list;
+      line-height: 544px;
+      text-align: center;
+      padding: 0;
+    }
 
-  #column1, #column2 {
-    padding: $spacing*2;
-    width:50%;
-    float: left;
+    h3 {
+      font-size: $font-size * 2;
+      line-height: $line-height * 2;
+      margin-top: $line-height;
+      text-align: center;
+    }
+
+    section.bio {
+      font-family: $font-family-serif;
+      margin-top: $line-height;
+      color: #999;
+    }
   }
 }
-
