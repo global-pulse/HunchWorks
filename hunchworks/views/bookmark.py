@@ -60,15 +60,6 @@ def hunches(req):
   })
 
 @login_required
-def albums(req):
-  object_type = ContentType.objects.get_for_model(models.Album)
-  bookmarked_albums = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type)
-
-  return _render(req, "bookmarks", {
-    "bookmark_list": paginated(req, bookmarked_albums, 10)
-  })
-
-@login_required
 def evidence(req):
   object_type = ContentType.objects.get_for_model(models.Evidence)
   bookmarked_evidence = models.Bookmark.objects.filter(user_profile=req.user.get_profile(), content_type=object_type)
