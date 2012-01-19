@@ -70,37 +70,34 @@ $golden-ratio: 1.618;
 }
 
 
-// Refactored
 @import "global/base.scss";
 @import "global/hacks.scss";
 @import "global/layout.scss";
 @import "global/links.scss";
 @import "global/lists.scss";
 @import "global/nav.scss";
+
 @import "includes/bookmark.scss";
-@import "includes/user.scss";
+@import "includes/connections-widget.scss";
+//@import "includes/embed-widget.scss";
+@import "includes/events.scss";
+//@import "includes/evidence-widget.scss";
+@import "includes/evidence.scss";
 @import "includes/group.scss";
 @import "includes/hunch.scss";
-@import "includes/evidence.scss";
-@import "includes/events.scss";
+@import "includes/location-widget.scss";
 @import "includes/tags.scss";
 @import "includes/token-input.scss";
-@import "includes/location-widget.scss";
-@import "includes/connections-widget.scss";
-@import "forms/base.scss";
-@import "pages/auth.scss";
-@import "pages/dashboard.scss";
-@import "pages/hunches.scss";
-@import "pages/evidence.scss";
-@import "pages/connections.scss";
-@import "pages/profile.scss";
-
-// Pending
-//@import "includes/evidence-widget.scss";
-//@import "includes/embed-widget.scss";
+@import "includes/user.scss";
 //@import "includes/vote-widget.scss";
-//@import "forms/profile.scss";
-//@import "forms/evidence.scss";
-//@import "forms/hunch.scss";
+
+@import "forms/base.scss";
+@import "forms/hunch.scss";
+
+@import "pages/auth.scss";
+@import "pages/connections.scss";
+@import "pages/dashboard.scss";
+@import "pages/evidence.scss";
 //@import "pages/groups.scss";
-//@import "pages/explore.scss";
+@import "pages/hunches.scss";
+@import "pages/profile.scss";
