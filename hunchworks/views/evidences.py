@@ -52,8 +52,8 @@ def edit(req, evidence_id):
     instance=evidence)
 
   if form.is_valid():
-    for file in req.FILES:
-      handle_uploaded_file(req.FILES[file], '/evidence/')
+    for f in req.FILES:
+      handle_uploaded_file(req.FILES[f], "evidence")
     evidence = form.save()
     return redirect(evidence)
 
@@ -72,8 +72,8 @@ def create(req):
   })
 
   if form.is_valid():
-    for file in req.FILES:
-      handle_uploaded_file(req.FILES[file], '/evidence/')
+    for f in req.FILES:
+      handle_uploaded_file(req.FILES[f], "evidence")
     evidence = form.save(creator=req.user.get_profile())
     return redirect(evidence)
 

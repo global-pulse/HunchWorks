@@ -4,12 +4,13 @@ import os
 from django.conf import settings
 
 
-def handle_uploaded_file(f, dest):
-  dest_path = settings.MEDIA_ROOT + dest
-  #dest_path = settings.MEDIA_ROOT + '/profile_images/'
+def handle_uploaded_file(uploaded_file, dirname):
+  dest_file = os.path.join(settings.MEDIA_ROOT, dirname, str(uploaded_file))
+  dest_dir = os.path.dirname(dest_file)
+
   if not os.path.exists(dest_path):
     os.makedirs(dest_path)
-  destination = open(dest_path + str(f) , 'wb+')
-  for chunk in f.chunks():
-      destination.write(chunk)
-  destination.close()
+
+  with open(dest_file, "wb+") as f:
+    for chunk in uploaded_file.chunks():
+      f.write(chunk)

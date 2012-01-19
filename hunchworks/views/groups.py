@@ -63,8 +63,8 @@ def edit(req, group_id):
   form = forms.GroupForm(req.POST or None, req.FILES or None, instance=group)
 
   if form.is_valid():
-    for file in req.FILES:
-      handle_uploaded_file(req.FILES[file], '/group_images/')
+    for f in req.FILES:
+      handle_uploaded_file(req.FILES[f], "group_images")
     group = form.save()
     return redirect(group)
 

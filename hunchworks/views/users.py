@@ -16,52 +16,42 @@ def _render(req, template, more_context):
     RequestContext(req, more_context))
 
 @login_required
-def profile(req, user_id=None):
-  if not user_id:
-    user_id = req.user.get_profile().pk
+def profile(req, user_id):
   user_profile = get_object_or_404(models.UserProfile, pk=user_id)
-  
-  connected = None
-  not_me = True
-  if req.user.get_profile() == user_profile:
-    not_me = False
-  elif user_profile in req.user.get_profile().connections.all():
-    connected = True
-  else:
-    connected = False
+  is_me = (req.user.get_profile() == user_profile)
 
-  invite_form = forms.InviteForm()
-  context = RequestContext(req)
-  context.update({ "user_profile": user_profile,
-                   "invite_form": invite_form,
-                   "hunches": [],
-                   "connected": connected,
-                   "not_me": not_me})
-  return _render(req, "profile", context)
+  return _render(req, "profile", {
+    "user_profile": user_profile,
+    "hunches": user_profile.hunch_set.all(),
+    "is_me": is_me
+  })
 
 @login_required
-def edit(req, user_id=None):
-  if not user_id:
-    user_id = req.user.pk
-  user = get_object_or_404(models.User, pk=user_id)
-  context = RequestContext(req)
-  if req.method == 'POST': #If the form has been submitted
-    form = forms.UserForm(req.POST, req.FILES, instance=user.get_profile())
-    if form.is_valid():
-      for file in req.FILES:
-        handle_uploaded_file(req.FILES[file], '/profile_images/')
-      update = form.save(commit=False)
-      update.user = req.user
-      update.save()
-      context.update({ "user": user })
-      return _render(req, "profile", context)
-    else:
-      context.update({ "user": user, "form": form })
-      return _render(req, "edit", context) # Redirect after POST
-  else:
-    form = forms.UserForm(instance=user.get_profile())
-    context.update({ "user": user, "form": form })
-    return _render(req, "edit", context)
+def edit(req, user_id):
+  user_profile = get_object_or_404(models.UserProfile, pk=user_id)
+
+  # Users can only edit their own profile.
+  if req.user.get_profile() != user_profile:
+    return HttpResponse(status=403)
+
+  form = forms.UserForm(
+    req.POST or None,
+    req.FILES or None,
+    instance=user_profile)
+
+  if form.is_valid():
+    for f in req.FILES:
+      handle_uploaded_file(req.FILES[f], "profile_images")
+
+    user_profile = form.save(commit=False)
+    user_profile.user = req.user
+    user_profile.save()
+
+    return redirect(user_profile)
+
+  return _render(req, "edit", {
+    "form": form
+  })
 
 
 @login_required

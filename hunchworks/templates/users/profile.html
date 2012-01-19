@@ -41,6 +41,22 @@
   </div>
   <div class="right">
     <h2>{{ user_profile }}'s <span>Hunches</span></h2>
-    {% include "includes/hunches/list.html" with object_list=user_profile.hunch_set.all %}
+    {% if hunches %}
+      {% include "includes/hunches/list.html" with object_list=hunches %}
+    {% else %}
+      <div class="empty-list">
+        This user hasn't contributed to any hunches yet.
+      </div>
+    {% endif %}
   </div>
+{% endblock %}
+
+{% block links %}
+  {% if is_me %}
+    <nav class="links">
+      <ul>
+        <li><a href="{% url edit_profile user_profile.pk %}">Edit This Profile</a></li>
+      </ul>
+    </div>
+  {% endif %}
 {% endblock %}
