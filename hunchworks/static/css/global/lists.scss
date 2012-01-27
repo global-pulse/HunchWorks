@@ -6,6 +6,7 @@ section.bubble-list {
     @include box-shadow(1px 1px 5px #ccc);
     @include border-radius(5px);
 
+    background: #fff;
     border: $pinstripe;
     margin-top: 0 - ($pinstripe-width);
     margin-bottom: $line-height;
