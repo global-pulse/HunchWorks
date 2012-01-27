@@ -738,18 +738,5 @@
             "creator": 2,
             "hunch_evidence": 2
         }
-    },
-
-
-
-
-    {
-        "pk": 1,
-        "model": "hunchworks.album",
-        "fields":
-        {
-            "name": "Photos from the Gulu IDP camp in 2011",
-            "evidences": [1, 2, 3]
-        }
     }
 ]
