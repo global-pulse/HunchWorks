@@ -10,7 +10,7 @@ From http://www.unglobalpulse.org/blog/why-hunchworks:
 Status
 ------
 
-HunchWorks is currently under heavy development. Nothing works.
+HunchWorks is currently under development.
 
 
 Requirements
@@ -25,6 +25,7 @@ Installation
 ------------
 
     # Create an isolated development environment.
+    # Need to download virtualenv first: see http://www.arthurkoziel.com/2008/10/22/working-virtualenv/
     $ virtualenv --no-site-packages --python=python2.6 hunchworks
     $ cd hunchworks
     $ source bin/activate
