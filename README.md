@@ -25,7 +25,7 @@ Installation
 ------------
 
     # Create an isolated development environment.
-    # Need to download virtualenv first: see http://www.arthurkoziel.com/2008/10/22/working-virtualenv/
+    # Need to download virtualenv first: see http://pypi.python.org/pypi/virtualenv
     $ virtualenv --no-site-packages --python=python2.6 hunchworks
     $ cd hunchworks
     $ source bin/activate
