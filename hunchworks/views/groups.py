@@ -106,7 +106,7 @@ def hunches(req, group_id):
   group = get_object_or_404(models.Group, pk=group_id)
 
   group_members = group.members.values_list("id", flat=True)
-  all_hunches = models.Hunch.objects.filter(user_profile__in=group_members).order_by("-time_modified")[:3]
+  all_hunches = (models.Hunch.objects.filter(user_profiles__in=group_members) | models.Hunch.objects.filter(creator__in=group_members)).order_by("-time_modified")[:3]
 
   hunches = paginated(req, all_hunches, 10)
 

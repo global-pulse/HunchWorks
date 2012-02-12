@@ -27,7 +27,9 @@ def index(req):
 
 @login_required
 def my(req):
-  hunches = paginated(req, req.user.get_profile().hunch_set.all(), 10)
+  profile = req.user.get_profile()
+  hunches_ = models.Hunch.objects.filter(creator=profile) | profile.hunch_set.all()
+  hunches = paginated(req, hunches_, 10)
 
   return _render(req, "my", {
     "hunches": hunches
