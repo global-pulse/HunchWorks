@@ -54,7 +54,7 @@ def edit(req, user_id=None):
       update.user = req.user
       update.save()
       context.update({ "user": user })
-      return _render(req, "profile", context)
+      return redirect( "profile" )
     else:
       context.update({ "user": user, "form": form })
       return _render(req, "edit", context) # Redirect after POST
