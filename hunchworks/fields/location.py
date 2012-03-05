@@ -38,20 +38,18 @@ class LocationWidget(forms.MultiWidget):
     return """
       <div class="loc-widget">
         <ul class="type">
-          <li class="active" data-type="latlng">GIS Coordinates</li>
-          <li data-type="map">Pin on Map</li>
-          <li data-type="name" style="display: none;">Location Name</li>
+          <li class="active" data-type="latlng">Lat/Lng</li>
+          <li data-type="map">Map</li>
+          <li data-type="name" style="display: none;">Name</li>
         </ul>
         <div class="latlng">
           <div class="widgets">
             %s
             %s
-            <div class="clear-hack"></div>
           </div>
           <div class="labels">
             <label class="lat" for="%s">Latitude</label>
             <label class="lng" for="%s">Longitude</label>
-            <div class="clear-hack"></div>
           </div>
         </div>
         <div class="map hidden"></div>

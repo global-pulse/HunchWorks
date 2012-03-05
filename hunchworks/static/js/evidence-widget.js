@@ -1,19 +1,19 @@
 $(function() {
   var SEARCH_HELP = "Search for existing evidences, and click to attach them to this hunch.";
+  var INPUT_WITH_RESULTS_CLASS = "with-evidence-search-results";
 
   $("div.evidence-widget.many").each(function() {
     var $widget = $(this);
 
-    var $results_outer = $("<div />", { "class": "search-results" }).hide().appendTo($widget);
-    var $results_inner = $("<section />", { "class": "object-list evidence" }).appendTo($results_outer);
-    var $results_title = $("<h3 />").prependTo($results_outer);
+    var $results_outer = $("<div />", { "class": "evidence-search-results" }).hide().appendTo(document.body);
+    var $results_inner = $("<section />", { "class": "short-list evidence" }).appendTo($results_outer);
 
     var $search_container = $("<div />", { "class": "widget search" }).appendTo($widget);
     var $search           = $('<input />', {  "type": "text", "class": "search" }).appendTo($search_container);
     var $search_help      = $("<p>", { "class": "help" }).html(SEARCH_HELP).appendTo($search_container);
 
+    var $previews = $("> .short-list.evidence", $widget);
     var $value    = $("> .widget > input", $widget);
-    var $previews = $("> .object-list", $widget);
 
 
     var to_int = function(x) {
@@ -42,8 +42,8 @@ $(function() {
     var update_results_position = function() {
       $results_outer.css({
         "position": "absolute",
-        "left": $search.position().left,
-        "top": $search.position().top + $search.outerHeight(),
+        "left": $search.offset().left,
+        "top": $search.offset().top + $search.outerHeight(),
         "width": $search.outerWidth()
       });
     };
@@ -67,7 +67,6 @@ $(function() {
       if(str == "")
         return false;
 
-      $results_title.html("Search results for: " + str);
       $results_inner.empty();
 
       $.ajax({
@@ -77,6 +76,7 @@ $(function() {
             $results_inner.append(object.preview);
           });
 
+          $search.addClass(INPUT_WITH_RESULTS_CLASS);
           update_results_position();
           $results_outer.show();
         }
@@ -109,6 +109,7 @@ $(function() {
     });
 
     $(document.body).click(function(event) {
+      $search.removeClass(INPUT_WITH_RESULTS_CLASS);
       $results_outer.hide();
       $results_inner.empty();
     });

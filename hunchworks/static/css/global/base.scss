@@ -1,105 +1,136 @@
-@import "../hunchworks.scss";
+/*= global/base.scss */
 
 body {
-  font-size: $font_size;
-  font-family: $font_family;
-  background: #eee url("../../img/bg.png");
-  padding: 0 $spacing;
-  color: #333;
+  font-family: $font-family-sans;
+  font-size: $font-size;
+  line-height: $line-height;
+  background: url(../../img/bg.png);
+
+  html.debug & {
+    background: url(../../img/dev/baseline-#{$line-height}.png);
+  }
 }
 
+html, body, div, p,
+h1, h2, h3, h4, h5, h6,
+ul, ol, li,
+blockquote,
+form, legend, label, input, textarea, select, button,
+section, article, aside, nav, header, footer,
+table, tr, th, td {
+
+  /* Reset spacing. */
+  margin: 0;
+  padding: 0;
+
+  /* Use border-box everywhere! This might be a horrible idea (it's the first
+  |* time I've tried it) because of unforseen consequences, but so far, it's
+  |* just reducing complexity. Long live the Internet Explorer box model. */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+h2, p, blockquote {
+  margin: $line-height 0;
+  
+  &:first-child { margin-top: 0; }
+  &:last-child  { margin-bottom: 0; }
+}
+
+p {
+  html.debug & {
+    background: rgba(255, 255, 0, 0.1);
+  }
+}
+
+li {
+  margin-left: 1.5em;
+}
+
+/* Disable bullets when list items are being used as nav lists (which they almost
+|* exclusively are, in HunchWorks). */
+nav li {
+  display: block;
+  margin-left: 0;
+}
+
+h1, h2, h3, h4 {
+  font-size: 100%;
+  
+  a {
+    text-decoration: none;
+  }
+}
+
+h1 {
+  font-size: $font-size * 3;
+  line-height: $line-height * 3;
+  font-weight: normal;
+
+  html.debug & {
+    background: rgba(255, 0, 0, 0.1);
+  }
+}
+
+h2 {
+  font-size: $font-size * 1.5;
+  line-height: $line-height * 2;
+  font-weight: normal;
+
+  /* Hack: WebKit sets the element height to (line-height + 1px). O_o */
+  height: $line-height * 2;
+  overflow: hidden;
+
+  text-align: center;
+  color: #999;
+
+  html.debug & {
+    background: rgba(0, 255, 0, 0.1);
+  }
+
+  span {
+    font-weight: bold;
+    color: #000;
+  }
+}
+
+h3 {
+  font-size: $font-size * 1.2;
+  line-height: $line-height * 2;
+  font-weight: normal;
+
+  html.debug & {
+    background: rgba(0, 0, 255, 0.1);
+  }
+}
+
+h4 {
+  position: absolute;
+  @include hide-text;
+}
+
+blockquote {
+  margin-left: $spacing;
+  margin-right: $spacing;
+}
+
+/* Since the HunchWorks UI is mainly data, not prose, I find myself setting
+|* images to block pretty much everywhere. */
+img {
+  display: block;
+  border: none;
+}
+
+/* Link are *everywhere* in HunchWorks, so I'm making them invisible until
+|* hover by default. In prose, they should be highlighted as usual. */
 a {
-  text-decoration: underline;
+  /*text-decoration: none;*/
   color: inherit;
-}
 
-#wrapper, footer {
-  max-width: $max_width;
-  min-width: $min_width;
-  margin: 0 auto;
-}
-
-#wrapper {
-  border: 1px solid #ccc;
-  border-top: none;
-  position: relative;
-
-  > header {
-    overflow: hidden;
-    padding: $spacing;
-
-    background: #fff;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
-    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
-    background: -moz-linear-gradient(top,  #eee,  #fff);
-
-    > h1 {
-      float: left;
-      font-size: 200%;
-      margin-right: $spacing;
-      padding-right: $spacing;
-      border-right: 1px dotted #ccc;
-      font-weight: bold;
-      color: #000;
-
-      &:last-child {
-        border-right: none;
-        margin-right: 0;
-        padding-right: 0;
-      }
-
-      > a {
-        text-decoration: none;
-      }
-    }
-  }
-
-  > #page {
-    background: #fff;
-    position: relative;
-
-    > div.links {
-      overflow: hidden;
-
-      background: #eee;
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
-      background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
-      background: -moz-linear-gradient(top,  #eee,  #fff);
-
-      > ul {
-        float: right;
-        overflow: hidden;
-
-        > li {
-          display: block;
-          float: left;
-          border-right: 2px solid #fff;
-
-          &:last-child {
-            border-right: none;
-          }
-
-          > a {
-            display: block;
-            padding: $spacing;
-          }
-        }
-      }
-    }
-  }
-}
-
-footer {
-  @include border-box;
-  padding: $spacing*2;
-  color: #aaa;
-
-  > p {
-    line-height: $line_height;
-  }
-
-  > p.opensource {
-    text-align: right;
-    float: right;
+  &:hover {
+    text-decoration: underline;
   }
 }

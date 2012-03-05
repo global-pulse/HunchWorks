@@ -1,7 +1,14 @@
-@import "../hunchworks.scss";
+/*= global/hacks.scss */
 
+/* This can be as an alternative to CSS float hacks (e.g. the overflow:hidden
+|* hack). Obviously, this sort of cruft should be avoided where possible. */
 div.clear-hack {
   clear: both;
 	overflow: hidden;
 	height: 0;
+}
+
+/* Older versions of Firefox seem to style HTML5 elements as inline. */
+section, article, nav, header, footer {
+  display: block;
 }

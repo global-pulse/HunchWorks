@@ -1,21 +1,21 @@
 {% load bookmark_tags %}
 
-<article class="short hunch">
-  <div class="left">
-    <h2><a href="{{ object.get_absolute_url }}">{{ object }}</a></h2>
+<article class="short hunch" data-id="{{ object.id }}">
+  <h3><a href="{{ object.get_absolute_url }}">{{ object }}</a></h3>
 
-    {% if object.description %}
-      <section class="desc">
-        {{ object.description|truncatewords:60|safe }}
-      </section>
-    {% endif %}
+  <section class="desc">
+    <p>{{ object.description|truncatewords:60 }}</p>
+  </section>
 
-    <ul class="stats">
-      <li>{{ object.member_count }} members</li>
-      <li>{{ object.evidence_count }} evidence</li>
-    </ul>
-  </div>
-  <div class="right">
-    {% bookmarks object %}
-  </div>
+  <ul class="stats">
+    <li>
+      Created by <a href="{{ object.creator.get_absolute_url }}">{{ object.creator }}</a>
+      <time class="timeago" datetime="{{ object.time_created|date:"c" }}">{{ object.time_created }}</time>
+    </li>
+
+    <li>{{ object.contributors.count }} contributors</li>
+    <li>{{ object.evidence_count }} evidences</li>
+  </ul>
+
+  {% bookmarks object %}
 </article>

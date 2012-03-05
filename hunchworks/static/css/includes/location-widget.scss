@@ -1,9 +1,12 @@
-@import "../hunchworks.scss";
+/*= includes/location-widget.scss */
 
 .loc-widget {
 
   ul.type {
     float: right;
+    
+    /* Yank the type selector up one line, to line up with the field label. */
+    margin-top: 0 - $line-height;
 
     li {
       display: block;
@@ -11,8 +14,8 @@
       color: #999;
       font-weight: bold;
       border-left: 1px dotted #ccc;
-      margin-left: 0.5em;
-      padding-left: 0.5em;
+      margin-left: $spacing / 2;
+      padding-left: $spacing / 2;
       cursor: pointer;
 
       &.active {
@@ -32,17 +35,16 @@
   }
 
   .latlng, .map {
-    border: 2px solid #eee;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
+    background: #f8f8f8 url("../../img/bg2.png");
     clear: both;
   }
 
   .latlng {
-    padding: 1em;
+    padding: 0 ($spacing / 2);
+    @include clear-floats;
 
     .widgets {
-      padding-left: 1em;
+      padding-left: ($spacing / 2);
     }
 
     input,
@@ -55,21 +57,20 @@
 
     label {
       text-align: center;
-      padding-top: 0.5em;
       color: #999;
     }
 
     /* yank the first widget and label (latitude) to the left (over the
-    |* padding-left of the parent div) to allow the lat+lng columns to be
-    |* of equal width, with a 1em gap separating them. */
+    |* padding-left of the parent div) to allow the lat+lng columns to be of
+    |* equal width, with a 1em gap separating them. */
     .lat {
-      margin-left: -1em;
-      margin-right: 1em;
+      margin-left: 0 - ($spacing / 2);
+      margin-right: ($spacing / 2);
     }
   }
 
   .map {
-    height: 300px;
+    height: $line-height * 15;
 
     &.error {
       text-align: center;
@@ -77,8 +78,7 @@
       color: #999;
 
       > div {
-        padding-top: 150px;
-        margin-top: -0.5em;
+        padding-top: $line-height * 7;
       }
     }
   }

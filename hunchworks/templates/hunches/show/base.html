@@ -24,22 +24,12 @@
 
       <section class="status">
         <div>
-          <h2>{{ hunch.get_support_text }}</h2>
+          <h3>{{ hunch.get_support_text }}</h3>
           <p>{{ hunch.get_verbose_support_text }}</p>
         </div>
+
+        <p class="how"><a href="{% url about_scoring %}">How is this calculated?</a></p>
       </section>
-
-      <script>
-        /* Vertically center the status box within the hunch title. */
-        (function() {
-          var $header = $("article.hunch > header");
-          var $status = $header.find("section.status");
-          var $title  = $header.find("h1");
-
-          var diff = $title.height() - $status.height();
-          $status.css({ "margin-top": diff/2 });
-        })();
-      </script>
 
       <!--
       <section class="meta">
@@ -90,14 +80,18 @@
 
 
     <script>
-      $("div.inner, aside.sidebar").equalHeight();
+      setInterval(function() {
+        $("div.inner, aside.sidebar").equalHeight();
+      }, 1000);
     </script>
 
 
     {% bookmarks hunch %}
   </article>
+{% endblock %}
 
-  <div class="links">
+{% block links %}
+  <nav class="links">
     <ul>
       <li><a href="{% url add_hunch_evidence hunch.pk %}">Add Evidence to This Hunch</a></li>
       <li><a href="{% url hunch_permissions hunch.pk %}">Edit Permissions</a></li>

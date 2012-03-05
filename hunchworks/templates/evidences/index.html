@@ -5,12 +5,14 @@
 
 {% block body_id %}evidence-list{% endblock %}
 
-{% block header %}
+{% block headerx %}
   {{ block.super }}
   <h1>All Evidences</h1>
 {% endblock %}
 
 {% block content %}
+  <h2>All <span>Evidences</span></h2>
+
   {% if evidences.object_list %}
     {% include "includes/evidences/list.html" with object_list=evidences.object_list %}
 
@@ -38,13 +40,14 @@
       No evidence has been created yet.
     </div>
   {% endif %}
+{% endblock %}
 
-  <div class="links">
+{% block links %}
+  <nav class="links">
     <ul>
       <li><a href="{% url create_evidence %}">Create an Evidence</a></li>
     </ul>
 
     {% paginator evidences %}
-  </div>
-</div>
+  </nav>
 {% endblock %}

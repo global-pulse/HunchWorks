@@ -1,7 +1,4 @@
 {% extends "evidences/base.html" %}
-{% load bookmark_tags %}
-{% load embed_tags %}
-{% load markup %}
 
 {% block body_id %}evidence-show{% endblock %}
 
@@ -11,30 +8,11 @@
 {% endblock %}
 
 {% block content %}
-  <article class="evidence full">
-    <header>
-      {% if evidence.link %}
-        {% embed evidence.link %}
-        <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
-      {% else %}
-        <section class="desc">
-          {{ evidence.description|markdown }}
-        </section>
+  {% include "includes/evidences/full.html" with object=evidence %}
+{% endblock %}
 
-        <h1><a href="{{ evidence.get_absolute_url }}">{{ evidence }}</a></h1>
-      {% endif %}
-    </header>
-
-    <!--<ul class="meta">
-      <li class="source"><span>Source:</span> <a href="{{ evidence.link }}">{{ evidence.short_link }}</a></li>
-      <li class="date"><span>Posted:</span> {{ evidence.time_created|date:"j F Y" }}</li>
-      <li class="creator"><span>By:</span> <a href="{{ evidence.creator.get_absolute_url }}">{{ evidence.creator }}</a></li>
-    </ul>-->
-
-    {% bookmarks evidence %}
-  </article>
-
-  <div class="links">
+{% block links %}
+  <nav class="links">
     <ul>
       <li><a href="{% url edit_evidence evidence.pk %}">Edit this Evidence</a></li>
     </ul>

@@ -1,18 +1,92 @@
-@import "../hunchworks.scss";
+/*= global/lists.scss */
 
+section.bubble-list {
+
+  > article {
+    @include box-shadow(1px 1px 5px #ccc);
+    @include border-radius(5px);
+
+    background: #fff;
+    border: $pinstripe;
+    margin-top: 0 - ($pinstripe-width);
+    margin-bottom: $line-height;
+
+    &:last-child {
+      margin-bottom: 0; }
+
+    position: relative;
+
+    h3, section.desc, ul.stats li {
+      padding: 0 ($spacing / 2);
+    }
+
+    h3 {
+      height: $line-height * 2;
+      overflow: hidden;
+    }
+
+    div.image {
+      float: right;
+      padding: $pinstripe-width;
+      margin-top: 0 - ($line-height * 2);
+  
+      img, object, embed {
+        display: block;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        max-height: ($line-height * 7) - ($pinstripe-width * 3);
+        max-width: 300px;
+      }
+    }
+
+    section.desc {
+      font-family: $font-family-serif;
+      height: $line-height * 3;
+      overflow-y: hidden;
+      color: #999;
+    }
+
+    ul.stats {
+      @include clear-floats;
+      @include border-radius(0 0 4px 4px);
+      @include vertical-gradient(#fff, #f8f8f8);
+
+      /* Total height (including margin top) is two lines. */
+      border-top: $pinstripe-width dotted #eee;
+      margin-top: ($line-height * 0.5) - $pinstripe-width;
+      line-height: ($line-height * 1.5);
+      height: ($line-height * 1.5);
+      font-size: $font-size * 0.75;
+
+      overflow-y: hidden;
+      color: #ccc;
+
+      li {
+        display: block;
+        float: left;
+        margin-left: 0;
+        border-right: 2px solid #fff;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+}
+
+/* If an object list is empty, this element should be rendered instead, with
+|* a useful message on why it's blank (E.g. "Your inbox is empty!"). */
 div.empty-list {
-  padding: $spacing*2 0;
-  background: #f8f8f8;
-  border: 1px solid #eee;
+  padding: $line-height*2 0;
+  background: #f8f8f8 url("../../img/bg2.png");
   text-align: center;
-  font-style: italic;
-  color: #999;
+  text-shadow: 1px 1px 0 #fff;
+  color: $disabled;
 }
 
 /* If a page consists solely of an empty list (e.g. the My Hunches page when a
 |* user does not have any hunches). */
 #page > div.empty-list {
-  padding: $spacing*10 0;
-  background: none;
-  border: none;
+  padding: $line-height*4 0;
 }

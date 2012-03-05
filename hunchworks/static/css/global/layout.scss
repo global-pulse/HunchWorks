@@ -1,0 +1,86 @@
+/*= global/layout.scss */
+
+body {
+  color: #333;
+}
+
+#wrapper, footer {
+  max-width: $max-width;
+  min-width: $min-width;
+  margin: 0 auto;
+}
+
+#wrapper {
+  border: $pinstripe;
+  border-top: none;
+
+  > header {
+    @include clear-floats;
+    @include vertical-gradient(#f8f8f8, #fff);
+    padding: ($line-height / 2) ($spacing / 2) (($line-height / 2) - $pinstripe-width);
+    border-bottom: $pinstripe;
+
+    h1 {
+      line-height: $line-height*2;
+      font-size: $font-size*2;
+      font-weight: bold;
+      color: #000;
+      float: left;
+
+      margin-right: $spacing/2;
+      padding-right: $spacing/2;
+      border-right: $pinstripe;
+
+      &:last-child {
+        margin-right: 0;
+        padding-right: 0;
+        border-right: none;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+
+  #page {
+    @include clear-floats;
+    background: #fff;
+    position: relative;
+    
+    /* No border bottom, since there's already one on the parent. But still
+    |* leave space (i.e. reduce padding bottom by 1px), since the height of this
+    |* element determines the height of the parent. */
+    padding: $line-height $spacing ($line-height - $pinstripe-width);
+
+    html.debug & {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    > div.left {
+      float: left;
+      width: $major-column-width;
+      padding-right: ($spacing / 2);
+    }
+
+    > div.right {
+      float: left;
+      width: $minor-column-width;
+      padding-left: ($spacing / 2);
+    }
+  }
+}
+
+footer {
+  color: #aaa;
+  padding: $line-height $spacing;
+
+  > p {
+    margin: 0;
+  }
+
+  > p.opensource {
+    text-align: right;
+    float: right;
+  }
+}

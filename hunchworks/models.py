@@ -346,7 +346,7 @@ class Evidence(models.Model):
   tags = models.ManyToManyField('Tag', blank=True)
 
   def __unicode__(self):
-    return self.title or self.description or self.link or self.pk
+    return self.title or self.link or self.pk
 
   def type(self):
     return "Link"
@@ -422,18 +422,6 @@ class Attachment(models.Model):
 
   def __unicode__(self):
     return "<Attachment:%d>" % self.pk
-
-
-class Album(models.Model):
-  name = models.CharField(max_length=45)
-  evidences = models.ManyToManyField('Evidence')
-
-  def __unicode__(self):
-    return self.name
-
-  @models.permalink
-  def get_absolute_url(self):
-    return ("album", [self.pk])
 
 
 class Education(models.Model):
@@ -561,8 +549,9 @@ class HunchEvidence(models.Model):
   hunch = models.ForeignKey('Hunch')
   evidence = models.ForeignKey('Evidence')
   creator = models.ForeignKey('UserProfile')
-  support_cache = models.IntegerField(choices=SUPPORT_CHOICES, null=True)
+  support_cache = models.FloatField(null=True)
   confidence_cache = models.FloatField(null=True)
+  time_added = models.DateTimeField()
 
   class Meta:
     unique_together = ("hunch", "evidence")
@@ -572,12 +561,29 @@ class HunchEvidence(models.Model):
     return ("hunch_evidence", [self.hunch.pk, self.evidence.pk])
 
   def save(self, *args, **kwargs):
+    if not self.id:
+      self.time_added = datetime.datetime.now()
+
     self.support_cache = self.get_support()
     self.confidence_cache = self.get_controversy()
+
     super(HunchEvidence, self).save(*args, **kwargs)
 
   def get_support(self):
     return self.vote_set.aggregate(models.Avg("choice"))["choice__avg"] or 0
+
+  def get_support_text(self):
+    s = self.support_cache
+
+    for min_val, max_val, text, desc in SUPPORT_RANGES:
+      if (min_val <= s) and (max_val >= s):
+        return text
+
+    return "Unknown"
+
+  def get_support_percentage(self):
+    support = (self.support_cache - MIN_SUPPORT) / (MAX_SUPPORT - MIN_SUPPORT)
+    return "%s%%" % int(100 * support)
 
   def get_controversy(self):
     choices = self.vote_set.values_list("choice", flat=True)

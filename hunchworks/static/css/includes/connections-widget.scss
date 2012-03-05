@@ -1,8 +1,7 @@
-@import "../hunchworks.scss";
+/*= includes/connections-widget.scss */
 
 .connections-widget {
-  clear: both;
-  margin-bottom: -0.5em;
+  margin: ($line-height / 2) 0;
 
   article.user {
     opacity: 0.25;

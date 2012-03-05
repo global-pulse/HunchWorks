@@ -1,6 +1,10 @@
-@import "../hunchworks.scss";
+/*= includes/hunch.scss */
 
-article.hunch.short {
+section.short-list.hunch {
+  @extend section.bubble-list;
+}
+
+/*article.hunch.short {
   position: relative;
   border: 1px solid #ccc;
   box-shadow: 1px 1px 5px #ccc;
@@ -44,4 +48,4 @@ section.object-list.hunch {
       margin-bottom: 0;
     }
   }
-}
+}*/

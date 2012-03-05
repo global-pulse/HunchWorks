@@ -1,52 +1,47 @@
-@import "../hunchworks.scss";
+/*= includes/user.scss */
+
+section.short-list.user {
+  height: $line-height * 4;
+
+  article.user {
+    margin-right: 0.5em;
+    float: left;
+  }
+}
 
 article.user {
-  width: 54px;
+  width: $avatar-width + ($avatar-spacing * 2);
 
-  &:hover > a {
-    background: #000;
-  }
-
-  > a {
+  a {
     display: block;
+    @include border-radius($avatar-outer-radius);
+    @include box-shadow(0 0 5px #999);
     background: #333;
-    box-shadow: 0 0 5px #999;
-    -moz-box-shadow: 0 0 5px #999;
     text-decoration: none;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    padding: 2px;
+    padding: $avatar-spacing;
 
-    > img {
-      display: block;
-      margin-bottom: 2px;
+    img {
+      @include border-radius($avatar-inner-radius $avatar-inner-radius 0 0);
       background: #666;
-      border-radius: 3px 3px 0 0;
-      -moz-border-radius: 3px 3px 0 0;
     }
 
-    > span {
+    span {
       display: block;
       text-align: center;
       color: #fff;
 
       /* Show only the first line of the user's name. Usually, this will be
       |* their first name or username. */
-      padding: 0 0.25em;
-      line-height: 1.5;
-      max-height: 1.5em;
+      padding: 0 $avatar-spacing;
+      margin-top: $avatar-spacing;
+      font-size: $font-size * 0.75;
+      line-height: $line-height;
+      max-height: $line-height;
       overflow: hidden;
     }
   }
-}
 
-
-section.object-list.user {
-  overflow: hidden;
-
-  > article {
-    margin-right: 0.5em;
-    margin-bottom: 0.5em;
-    float: left;
+  &:hover > a {
+    background: #000;
   }
 }

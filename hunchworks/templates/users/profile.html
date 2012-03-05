@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load markup %}
 
 {% block body_id %}profile-show{% endblock %}
 {% block title %}Profile{% endblock %}
@@ -7,7 +8,7 @@
   <link rel="stylesheet" href="/static/profile.css" type="text/css"/>
 {% endblock %}
 
-{% block secondary_nav %}
+{% block secondary_navx %}
   <ul class="secondary">
     {% if not_me %}
       {% if connected %}
@@ -20,158 +21,42 @@
 {% endblock %}
 
 {% block content %}
-  <div id='contents'>
-	<div id='column1'>
-	  <div id='profile'>
-		<div class='field'>
-		  {% if user_profile.profile_picture %}
-            <br />
-            <img src="{{ user_profile.profile_picture.url }}" width="200"/>
-          {% else %}
-            No profile picture selected
-		  {% endif %}
-		</div>
-		<div class='field'>
-		  <b>Name:</b> 
-		  {{ user_profile.name }}
-		</div>
-		<div class='field'>
-		  <b>Email:</b> 
-            {{ user_profile.email }}
-		</div>
-		{% if user_profile.occupation %}
-		  <div class='field'>
-		    <b>Occupation:</b> 
-            {{ user_profile.occupation }}
-		  </div>
-		{% endif %}
-<!--		<div class='field'>  
-		  <b>Hometown:</b> 
-		  {% if hometown %}
-			{{ user.hometown }}
-		  {% else %}
-			Hometown not entered
-		  {% endif %}
-		</div>
-		<div class='field'>
-		  <b>Education:</b>
-		  {% if education %}
-			{{ user.education }}
-		  {% else %}
-			Education not entered
-		  {% endif %}
-		</div>
--->
-	    {% if user_profile.phone_number %}
-		  <div class='field'>
-		    <b>Phone Number:</b>
-			{{ user_profile.phone_number }}
-		  </div>
-		{% endif %}
-<!--		<div class='field'>
-		  <b>Organization:</b>
-		  {% if organization %}
-			{{ user.organization }}
-		  {% else %}
-			Organization not entered
-		  {% endif %}
-		</div>
-		<div class='field'>
-		  <b>About Yourself:</b>
-		  {% if bio_text %}
-			{{ user.bio_text }}
-		  {% else %}
-			Biography not entered
-		  {% endif %}
-		</div>
-		<div class='field'>
-		  <b>Work History:</b>
-		  {% if work_history %}
-			{{ user.work_history }}
-		  {% else %}
-			Work history not entered
-		  {% endif %}
-		</div>
-		<div class='field'>
-		  <b>Skype:</b>
-		  {% if skype_name %}
-			{{ user.skype_name }}
-		  {% else %}
-			Skype name not entered
-		  {% endif %}
-		</div>
-		<div class='field'>
-		  <b>Instant Messanger:</b>
-		  {% if instant_messanger %}
-			{{ user.instant_messanger }}
-		  {% else %}
-			Instant Messanger not entered
-		  {% endif %}
-		</div>
-		<div class='field'>
-		  <b>Website:</b>
-		  {% if website %}
-			{{ user.website }}
-		  {% else %}
-			Website not entered
-		  {% endif %}
-		</div>
-		<div class='field'>
-		  <b>Expertise:</b>
-		  {% if expertise %}
-			{{ user.expertise }}
-		  {% else %}
-			Expertise not entered
-		  {% endif %}
-		</div>
-		<div class='field'>
-		  <b>Location interests:</b>
-		  {% if location_interests %}
-			{{ user.location_interests }}
-		  {% else %}
-			Location Interests not entered
-		  {% endif %}  
-		</div>
--->
-
-	  </div> <!-- end profile div -->
-<!--	  
-      <div id='invite'>
-	    <form method='post' action='../invitePeople'>{% csrf_token %}
-		<h3>Invite People to HunchWorks</h3>
-		  {{ invite_form }}
-		  <input type='submit' value='Invite your friends!'/>
-		</form>
-	  </div> <!-- end invite div -->
-	</div> <!-- end column1 div -->
-
-	<div id='column2'>
-	  {% if user_profile.hunch_set.all %}
-        {% include "includes/hunches/list.html" with object_list=user_profile.hunch_set.all %}
+  <div class="left">
+    <article class="profile">
+      {% if user_profile.profile_picture %}
+        <img src="{{ user_profile.profile_picture.url }}" width="100%">
       {% else %}
-        {% block empty %}{% endblock %}
+        <div class="no-img">
+          This user doesn't have a profile picture.
+        </div>
       {% endif %}
-      
-<!--	
-	  <button id='createHunchButton' type='button'
-		onclick="location.href='/hunches/create'"> Create a Hunch! </button>
 
-	  <div id='matchingHunches'>
-		<h3>Hunches matching your expertise</h3>
-		<ol id='matchingHunchesList'>
-        {% for hunch in hunches %} 
-            <li><a id='linkToMatchingHunch{{forloop.counter}}' href='/hunches/{{hunch.id}}'>
-	       {{hunch.title}}</a></li>
-        {% endfor %}
-		</ol>
-	  </div> <!-- end matchingHunches div -->
-	</div> <!-- end column2 div -->
-	<div class="clear-hack"></div>
-  </div> <!-- end contents div -->
-  <div class="links">
-    <ul>
-      <li><a href="/profile/edit">Edit your profile...</a></li>
-    </ul>
+      <h3>{{ user_profile }}</h3>
+      {% if user_profile.bio_text %}
+        <section class="bio">
+          {{ user_profile.bio_text|markdown }}
+        </section>
+      {% endif %}
+    </article>
   </div>
-  <div class="clear-hack"></div>
+  <div class="right">
+    <h2>{{ user_profile }}'s <span>Hunches</span></h2>
+    {% if hunches %}
+      {% include "includes/hunches/list.html" with object_list=hunches %}
+    {% else %}
+      <div class="empty-list">
+        This user hasn't contributed to any hunches yet.
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block links %}
+  {% if is_me %}
+    <nav class="links">
+      <ul>
+        <li><a href="{% url edit_profile user_profile.pk %}">Edit This Profile</a></li>
+      </ul>
+    </div>
+  {% endif %}
 {% endblock %}

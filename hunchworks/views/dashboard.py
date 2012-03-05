@@ -17,6 +17,7 @@ def _render(req, template, more_context):
 @login_required
 def dashboard(req):
   p = req.user.get_profile()
+  
   return _render(req, "home", {
     "events":    paginated(req, p.events(),           20),
     "hunches":   paginated(req, p.hunch_set.all(),    10),

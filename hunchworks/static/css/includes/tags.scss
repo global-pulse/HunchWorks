@@ -1,24 +1,40 @@
-@import "../hunchworks.scss";
+/*= includes/tags.scss */
+
+$tag-bg-width: 15px;
+$tag-bg-height: 15px;
+$tag-bg-offset: (($line-height - $tag-bg-height) / 2);
+
 
 ul.tags {
-  margin-top: -0.5em;
+  @include clear-floats;
 
-  > li {
-    display: inline-block;
-    border: 1px solid #ddd;
-    border-radius: 1px 0.8125em 0.8125em 1px;
-    -moz-border-radius: 1px 0.8125em 0.8125em 1px;
-    font-size: 80%;
-    background: #eee url("../../icons/tag.png") no-repeat 2px 50%;
-    line-height: 19px;
-    padding-left: 19px;
-    padding-right: 0.625em;
-    margin-right: 0.625em;
-    margin-top: 0.625em;
+  /* Yank the element back onto the vertical rhythm, to compensate for the
+  |* pinstripe at the top of every tag. */
+  margin-top: 0 - $pinstripe-width;
 
-    > a {
+  li {
+    display: block;
+    margin-left: 0;
+    float: left;
+
+    font-size: $font-size * 0.75;
+    line-height: $line-height - $pinstripe-width;
+
+    border: $pinstripe-width $pinstripe-style #ddd;
+    background: #eee url("../../icons/tag.png") no-repeat $tag-bg-offset 50%;
+    
+    /* Reserve space for the tag image, with equal spacing on each side. */
+    padding-left: $tag-bg-width + ($tag-bg-offset * 2);
+    
+    /* Curve the right corners enough to meet exactly in the middle. */
+    @include border-radius(1px ($line-height / 2) ($line-height / 2) 1px);
+    padding-right: ($line-height / 4);
+
+    /* Space out tags arbitarily. */
+    margin-right: ($spacing / 2);
+
+    a {
       text-decoration: none;
-      padding-left: 0.3125em;
     }
   }
 }

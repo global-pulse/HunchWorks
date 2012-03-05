@@ -1,12 +1,33 @@
-{% extends "bookmarks/list.html" %}
+{% extends "bookmarks/base.html" %}
+{% load paginator_tags %}
+{% load bookmark_tags %}
+{% load partial_tags %}
+
+{% block body_id %}bookmarks-list{% endblock %}
 
 {% block header %}
   {{ block.super }}
   <h1>Starred Groups</h1>
 {% endblock %}
 
-{% block empty %}
-  <div class="empty-list">
-    You don't have any starred items
-  </div>
+{% block content %}
+  <h2>My <span>Starred Items</span></h2>
+
+  {% if bookmark_list.object_list %}
+    <section class="short-list hunch">
+      {% for bookmark in bookmark_list.object_list %}
+        {% partial bookmark.content_object %}
+      {% endfor %}
+    </section>
+  {% else %}
+    <div class="empty-list">
+      You don't have any starred items
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block links %}
+  <nav class="links">
+    {% paginator bookmark_list %}
+  </nav>
 {% endblock %}

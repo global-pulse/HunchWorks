@@ -14,6 +14,8 @@
 {% endblock %}
 
 {% block content %}
+  <h2>My <span>Connections</span></h2>
+
   {% if connection_list.object_list %}
     {% include "includes/users/list.html" with object_list=connection_list.object_list %}
   {% else %}
@@ -21,8 +23,10 @@
       You don't have any connections.
     </div>
   {% endif %}
+{% endblock %}
 
-  <div class="links">
+{% block links %}
+  <nav class="links">
     {% paginator connection_list %}
-  </div>
+  </nav>
 {% endblock %}

@@ -1,32 +1,105 @@
-/* Layout */
-$max_width: 960px;
-$min_width: 650px;
-$spacing: 12px;
+// Typography
+$font-family-sans: "helvetica neue", helvetica, arial, sans-serif;
+$font-family-serif: palatino, georgia, serif;
+$font-size: 14px;
+$line-height: 18px;
+$leading: ($line-height - $font-size) / 2;
 
-/* Typography */
-$font_family: "helvetica neue", "helvetica", arial, sans-serif;
-$font_size: 10pt;
-$line_height: 1.4;
+// Layout
+$max-width: 960px;
+$min-width: 650px;
+$spacing: $line-height;
 
-@mixin serif-font($size: 110%) {
-  font-family: serif;
-  font-size: $size;
+// Borders
+$pinstripe-width: 1px;
+$pinstripe-style: solid;
+$pinstripe-color: #ccc;
+$pinstripe: $pinstripe-width $pinstripe-style $pinstripe-color;
+
+// Colors
+$disabled: #ccc;
+
+// Avatars (See: templates/includes/users/short.html)
+$avatar-width: 48px;
+$avatar-height: 48px;
+$avatar-spacing: 2px;
+$avatar-outer-radius: 5px;
+$avatar-inner-radius: $avatar-outer-radius - $avatar-spacing;
+
+// Columns
+$major-column-width: 60%;
+$minor-column-width: 40%;
+
+// Misc
+$golden-ratio: 1.618;
+
+@mixin vertical-gradient($top, $bottom) {
+  background-color: $bottom;
+  background-image: -webkit-linear-gradient(top, $top, $bottom);
+  background-image: -moz-linear-gradient(top, $top, $bottom);
+  background-image: -ms-linear-gradient(top, $top, $bottom);
+  background-image: -o-linear-gradient(top, $top, $bottom);
+  background-image: linear-gradient(top, $top, $bottom);
 }
 
-@mixin border-box {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  box-sizing: border-box;
+@mixin border-radius($args) {
+  -webkit-border-radius: $args;
+  -moz-border-radius: $args;
+  border-radius: $args;
 }
 
-/* Columns */
-$major_column_width: 60%;
-$minor_column_width: 40%;
+@mixin box-shadow($args) {
+  -webkit-box-shadow: $args;
+  -moz-box-shadow: $args;
+  box-shadow: $args;
+};
 
-/*@mixin centered-block {
-  max-width: $max_width;
-  min-width: $min_width;
-  margin: 0 auto;
-}*/
+@mixin background-clip($args) {
+  -webkit-background-clip: $args;
+  -moz-background-clip: $args;
+  background-clip: $args;
+};
+
+@mixin clear-floats {
+  overflow: hidden;
+}
+
+@mixin hide-text {
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+
+@import "global/base.scss";
+@import "global/hacks.scss";
+@import "global/layout.scss";
+@import "global/links.scss";
+@import "global/lists.scss";
+@import "global/nav.scss";
+
+@import "includes/bookmark.scss";
+@import "includes/connections-widget.scss";
+//@import "includes/embed-widget.scss";
+@import "includes/events.scss";
+@import "includes/evidence-widget.scss";
+@import "includes/evidence.scss";
+@import "includes/group.scss";
+@import "includes/hunch.scss";
+@import "includes/hunchevidence.scss";
+@import "includes/location-widget.scss";
+@import "includes/tags.scss";
+@import "includes/token-input.scss";
+@import "includes/user.scss";
+//@import "includes/vote-widget.scss";
+
+@import "forms/base.scss";
+@import "forms/hunch.scss";
+
+@import "pages/auth.scss";
+@import "pages/connections.scss";
+@import "pages/dashboard.scss";
+@import "pages/evidence.scss";
+//@import "pages/groups.scss";
+@import "pages/hunches.scss";
+@import "pages/profile.scss";
+@import "pages/static.scss";

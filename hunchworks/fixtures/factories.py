@@ -1,30 +1,13 @@
 from fixturefactory import BaseFactory, DjangoMixin
 import random
 
-from hunchworks.models import UserProfile, Connection, TranslationLanguage, Invitation, Hunch, PRIVACY_CHOICES, Location, Album, Evidence, Group, UserProfileGroup
+from hunchworks.models import UserProfile, Connection, TranslationLanguage, Invitation, Hunch, PRIVACY_CHOICES, Location, Evidence, Group, UserProfileGroup
 from django.contrib.auth.models import User
 from hunchworks import hunchworks_enums as enums
 
 class Base(BaseFactory, DjangoMixin):
     """Base settings for all factories"""
     pass
-
-class AlbumFactory(Base):
-    model = Album
-
-    def getparams(self):
-        """Define default model parameters here. Return dict.
-        (params can be overridden at time of instantiation)"""
-        pk = self.getUnusedPk()
-        name = "album %s" % pk
-        return locals()
-
-    def lastly(self):
-        """Optional method to do things like
-        create m2m connections after instantiation"""
-        a = self.last_obj_created
-        for x in range(15):
-            a.evidences.add(self.getRandInst(Evidence))
 
 class EvidenceFactory(Base):
     model = Evidence

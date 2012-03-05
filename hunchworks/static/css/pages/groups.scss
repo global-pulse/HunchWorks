@@ -1,4 +1,4 @@
-@import "../hunchworks.scss";
+/*= pages/groups.scss */
 
 #group-list {
   section.object-list {
@@ -6,7 +6,6 @@
     padding: 1.5em;
 
     > article.group {
-      @include border-box;
       float: left;
       width: 50%;
       padding: 0.5em;
