@@ -1,0 +1,25 @@
+{% load bookmark_tags %}
+{% load embed_tags %}
+
+<article class="hunchevidence short" data-id="{{ object.id }}">
+  <h3><a href="{{ object.get_absolute_url }}">{{ object.evidence }}</a></h3>
+
+  <div class="support">
+    <div class="meter">
+      {{ object.support_cache }}
+      <div><span style="width: {{ object.get_support_percentage }}"> </span></div>
+      <div>{{ object.get_support_text }}</div>
+    </div>
+  </div>
+
+  <section class="desc">
+    <p>{{ object.evidence.description|truncatewords:100 }}</p>
+  </section>
+
+  <ul class="stats">
+    <li>
+      Added by <a href="{{ object.creator.get_absolute_url }}">{{ object.creator }}</a>
+      <time class="timeago" datetime="{{ object.time_added|date:"c" }}">{{ object.time_added }}</time>
+    </li>
+  </ul>
+</article>
