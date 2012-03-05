@@ -549,7 +549,7 @@ class HunchEvidence(models.Model):
   hunch = models.ForeignKey('Hunch')
   evidence = models.ForeignKey('Evidence')
   creator = models.ForeignKey('UserProfile')
-  support_cache = models.IntegerField(choices=SUPPORT_CHOICES, null=True)
+  support_cache = models.FloatField(null=True)
   confidence_cache = models.FloatField(null=True)
   time_added = models.DateTimeField()
 
@@ -571,6 +571,19 @@ class HunchEvidence(models.Model):
 
   def get_support(self):
     return self.vote_set.aggregate(models.Avg("choice"))["choice__avg"] or 0
+
+  def get_support_text(self):
+    s = self.support_cache
+
+    for min_val, max_val, text, desc in SUPPORT_RANGES:
+      if (min_val <= s) and (max_val >= s):
+        return text
+
+    return "Unknown"
+
+  def get_support_percentage(self):
+    support = (self.support_cache - MIN_SUPPORT) / (MAX_SUPPORT - MIN_SUPPORT)
+    return "%s%%" % int(100 * support)
 
   def get_controversy(self):
     choices = self.vote_set.values_list("choice", flat=True)
