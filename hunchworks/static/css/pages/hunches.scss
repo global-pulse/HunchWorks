@@ -49,45 +49,44 @@ body#hunch-show {
         }
       }
 
-      > section.status {
-        display: none;
-      }
-
-      /*> section.status {
+      section.status {
         float: right;
         width: 25%;
-        padding: 0.25em 0;
+        text-align: center;
 
         > div {
+          @include border-radius(5px);
           background: #fff;
-          border: 2px solid #ccc;
-          border-radius: 5px;
-          -moz-border-radius: 5px;
-          padding: 0.5em;
-          text-align: center;
-          color: #999;
-          box-shadow: 5px 5px 20px #eee;
+          border: 2px solid #eee;
+          margin-top: -2px;
 
-          > h2 {
-            font-size: 125%;
-            font-weight: bold;
-            margin-bottom: 0.4em;
-            border-bottom: 1px dotted #ccc;
-            padding-bottom: 0.4em;
+          h3 {
             color: #333;
+            margin: 0;
           }
 
-          > p {
-            font-size: 80%;
-            line-height: $line_height;
+          p {
+            padding: 0 $spacing / 2;
+            margin: 0 0 ($line-height / 2) 0;
+            font-size: $font-size * 0.9;
 
-            > span {
-              background: #ffd;
+            span {
+              background: #ffe;
               color: #666;
             }
           }
         }
-      }*/
+
+        p.how {
+          font-size: $font-size * 0.75;
+          margin: (($line-height / 2) - 2px) 0 0 0;
+
+          a {
+            color: #ccc;
+            cursor: help;
+          }
+        }
+      }
     }
   }
 
