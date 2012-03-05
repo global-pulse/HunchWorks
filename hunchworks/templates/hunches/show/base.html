@@ -80,7 +80,9 @@
 
 
     <script>
-      $("div.inner, aside.sidebar").equalHeight();
+      setInterval(function() {
+        $("div.inner, aside.sidebar").equalHeight();
+      }, 1000);
     </script>
 
 
