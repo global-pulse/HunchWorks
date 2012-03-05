@@ -551,6 +551,7 @@ class HunchEvidence(models.Model):
   creator = models.ForeignKey('UserProfile')
   support_cache = models.IntegerField(choices=SUPPORT_CHOICES, null=True)
   confidence_cache = models.FloatField(null=True)
+  time_added = models.DateTimeField()
 
   class Meta:
     unique_together = ("hunch", "evidence")
@@ -560,8 +561,12 @@ class HunchEvidence(models.Model):
     return ("hunch_evidence", [self.hunch.pk, self.evidence.pk])
 
   def save(self, *args, **kwargs):
+    if not self.id:
+      self.time_added = datetime.datetime.now()
+
     self.support_cache = self.get_support()
     self.confidence_cache = self.get_controversy()
+
     super(HunchEvidence, self).save(*args, **kwargs)
 
   def get_support(self):

@@ -643,7 +643,8 @@
             "hunch": 1,
             "evidence": 1,
             "creator": 1,
-            "support_cache": 1
+            "support_cache": 1,
+            "time_added": "2011-10-28 00:00:00"
         }
     },
     {
@@ -714,7 +715,8 @@
             "hunch": 1,
             "evidence": 2,
             "creator": 2,
-            "support_cache": -2
+            "support_cache": -2,
+            "time_added": "2011-10-28 00:00:00"
         }
     },
     {
