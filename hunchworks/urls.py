@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from django.conf.urls.defaults import *
-from hunchworks.views import dashboard, auth, users, groups, hunches, evidences, explore, feeds, bookmark
+from hunchworks.views import dashboard, auth, users, groups, hunches, evidences, explore, feeds, bookmark, static
 from hunchworks import forms
 
 
@@ -98,4 +98,8 @@ urlpatterns = patterns(
   url(r'^bookmarks/hunches$',                                        bookmark.hunches,  name="bookmarked_hunches"),
   url(r'^bookmarks/evidence$',                                       bookmark.evidence, name="bookmarked_evidence"),
   url(r'^bookmarks/all$',                                            bookmark.all,      name="bookmarked_all"),
+
+  # static pages
+  url(r"^about/privacy$", static.page, kwargs={ "template": "privacy" }, name="about_privacy"),
+  url(r"^about/scoring$", static.page, kwargs={ "template": "scoring" }, name="about_scoring"),
 )

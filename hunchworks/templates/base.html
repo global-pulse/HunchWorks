@@ -55,7 +55,7 @@
     {% block js %}
     {% endblock %}
   </head>
-  <body id="{% block body_id %}{% endblock %}">
+  <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
     <div id="wrapper">
 
       <header>
@@ -107,7 +107,7 @@
 
       <p class="links">
         <a href="http://www.unglobalpulse.org/technology/hunchworks">About HunchWorks</a>
-        | <a href="/">Privacy Policy</a>
+        | <a href="{% url about_privacy %}">Privacy Policy</a>
       </p>
 
       <p class="copyright">
